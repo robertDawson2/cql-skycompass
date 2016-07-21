@@ -1,0 +1,3747 @@
+2016-06-21 14:05:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-21 14:05:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-21 14:05:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-21 14:05:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-21 14:05:06 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-21 14:06:02 Error: Fatal Error (1): Call to undefined method CustomersController::allow() in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 18]
+2016-06-21 14:06:02 Error: [FatalErrorException] Call to undefined method CustomersController::allow()
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 18)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 18, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 18, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:08:37 Error: Fatal Error (1): Call to undefined method CustomersController::allow() in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 18]
+2016-06-21 14:08:37 Error: [FatalErrorException] Call to undefined method CustomersController::allow()
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 18)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 18, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 18, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:10:46 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear') in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 30]
+2016-06-21 14:10:46 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear')
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 30)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 30, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 30, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:12:01 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear') in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 30]
+2016-06-21 14:12:01 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear')
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 30)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 30, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 30, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:21:45 Error: Fatal Error (1): Class 'QuickBooks_WebConnector_Handlers' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 102]
+2016-06-21 14:21:45 Error: [FatalErrorException] Class 'QuickBooks_WebConnector_Handlers' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 102)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 102, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 102, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:24:42 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear') in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 10]
+2016-06-21 14:24:42 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear')
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 10)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:25:34 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear') in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 10]
+2016-06-21 14:25:34 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear')
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 10)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:25:37 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear') in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 10]
+2016-06-21 14:25:37 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required '/QuickBooks/QuickBooks.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php:/usr/share/pear')
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 10)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 10, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:26:39 Error: Fatal Error (1): Class 'QuickBooks_WebConnector_Handlers' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 103]
+2016-06-21 14:26:39 Error: [FatalErrorException] Class 'QuickBooks_WebConnector_Handlers' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:27:22 Error: Fatal Error (1): Class 'QuickBooks_Utilities' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 135]
+2016-06-21 14:27:22 Error: [FatalErrorException] Class 'QuickBooks_Utilities' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:27:22 Error: Fatal Error (1): Class 'QuickBooks_Utilities' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 135]
+2016-06-21 14:27:22 Error: [FatalErrorException] Class 'QuickBooks_Utilities' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 135, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:29:55 Error: Fatal Error (1): Class 'QuickBooks_WebConnector_Handlers' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 103]
+2016-06-21 14:29:55 Error: [FatalErrorException] Class 'QuickBooks_WebConnector_Handlers' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 14:30:21 Error: Fatal Error (1): Class 'QuickBooks_WebConnector_Handlers' not found in [/var/www/cql.local/public_html/app/Controller/CustomersController.php, line 103]
+2016-06-21 14:30:21 Error: [FatalErrorException] Class 'QuickBooks_WebConnector_Handlers' not found
+Request URL: /customers/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'QuickBoo...', '/var/www/cql.lo...', 103, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-06-21 17:11:38 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp',
+)
+Request URL: /quickbooks/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(QuickbooksController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2016-06-21 17:11:39 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp',
+)
+Request URL: /quickbooks/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(QuickbooksController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2016-06-21 17:12:10 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp',
+)
+Request URL: /quickbooks/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(QuickbooksController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2016-06-21 17:12:11 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/Quickbooks/import.ctp',
+)
+Request URL: /quickbooks/import/asdn
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(QuickbooksController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2016-07-14 12:57:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:22 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 12:57:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:40:16 Error: [MissingActionException] Action PagesController::admin_scheduler() could not be found.
+Exception Attributes: array (
+  'controller' => 'PagesController',
+  'action' => 'admin_scheduler',
+)
+Request URL: /admin/pages/scheduler
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-07-14 14:40:16 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /plugins/fullcallendar/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:40:16 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:40:16 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:06 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /plugins/fullcallendar/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:14 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /plugins/fullcallendar/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:14 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:14 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:41:28 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /plugins/fullcallendar/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:45:18 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /plugins/fullcallendar/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:45:19 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:45:19 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:49:53 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:49:53 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:50:39 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:50:39 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:51:55 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:51:56 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:49 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:50 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:50 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.print.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:50 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:50 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:52:50 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.print.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:05 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:17 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.print.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:53:18 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:30 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:30 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:30 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:32 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:33 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:42 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:42 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:42 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:42 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:43 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class Scheduler.min.cssController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.cssController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/moment.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.print.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/jquery.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class LibController could not be found.
+Exception Attributes: array (
+  'class' => 'LibController',
+  'plugin' => NULL,
+)
+Request URL: /admin/lib/fullcalendar.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:54:58 Error: [MissingControllerException] Controller class Scheduler.min.jsController could not be found.
+Exception Attributes: array (
+  'class' => 'Scheduler.min.jsController',
+  'plugin' => NULL,
+)
+Request URL: /admin/scheduler.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:56:20 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 14:56:20 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 15:00:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 15:00:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 15:17:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-14 15:17:41 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:08 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:08 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:08 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:08 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:08 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:00:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:02:00 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:09:24 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'web_user_type' in 'where clause'
+Request URL: /admin/users
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `User`.`...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `User`.`...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `User`.`...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/UsersController.php(25): Model->find('all', Array)
+#7 [internal function]: UsersController->admin_index()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:18 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:15:24 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:16:13 Error: [MissingActionException] Action UsersController::admin_admins() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'admin_admins',
+)
+Request URL: /admin/users/admins
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-07-21 15:16:29 Error: [MissingActionException] Action UsersController::admin_admins() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'admin_admins',
+)
+Request URL: /admin/users/admins
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-07-21 15:16:34 Error: [MissingActionException] Action UsersController::admin_admins() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'admin_admins',
+)
+Request URL: /admin/users/admins
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:48:49 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:49:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:50:14 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:51:54 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 15:53:40 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:02:00 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:41:03 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:41:04 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:41:36 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:42:06 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:44:00 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:44:16 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:45:23 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:45:35 Error: [SocketException] Invalid email: "Robert Dawson"
+Request URL: /admin/users/sendWelcomeEmail/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Robert Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(86): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail('800003F4-146904...')
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:51:58 Error: [SocketException] Invalid email: "Wayne Dawson"
+Request URL: /admin/users/sendWelcomeEmail
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(569): CakeEmail->_validateEmail('Wayne Dawson')
+#1 /var/www/cql.local/public_html/lib/Cake/Network/Email/CakeEmail.php(439): CakeEmail->_setEmail('_to', Array, NULL)
+#2 /var/www/cql.local/public_html/app/Controller/UsersController.php(113): CakeEmail->to(Array)
+#3 [internal function]: UsersController->admin_sendWelcomeEmail()
+#4 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#7 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-07-21 16:54:25 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'PRIMARY'
+Request URL: /users/firstLogin
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(User), Array, Array)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1669): Model->save(Array, Array)
+#5 /var/www/cql.local/public_html/app/Controller/UsersController.php(37): Model->saveField('password', 'password')
+#6 [internal function]: UsersController->firstLogin()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:35 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:36 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:44 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:44 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:55:51 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:56:31 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 16:58:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:11:46 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:12:21 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:13:36 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:14:13 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:14:44 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:15:05 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'PRIMARY'
+Request URL: /users/firstLogin
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(User), Array, Array)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1669): Model->save(Array, Array)
+#5 /var/www/cql.local/public_html/app/Controller/UsersController.php(171): Model->saveField('reset_hash', '761f22b2c1593d0...')
+#6 /var/www/cql.local/public_html/app/Controller/UsersController.php(39): UsersController->_generateResetHash(NULL)
+#7 [internal function]: UsersController->firstLogin()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-07-21 17:15:06 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:15:14 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:15:57 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:16:37 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:16:53 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:17:40 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:18:19 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:19:09 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:19:28 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:19:46 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:20:27 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:20:46 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'PRIMARY'
+Request URL: /users/firstLogin
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(User), Array, Array)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1669): Model->save(Array, Array)
+#5 /var/www/cql.local/public_html/app/Controller/UsersController.php(171): Model->saveField('reset_hash', 'd321d6f7ccf98b5...')
+#6 /var/www/cql.local/public_html/app/Controller/UsersController.php(39): UsersController->_generateResetHash(NULL)
+#7 [internal function]: UsersController->firstLogin()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-07-21 17:20:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:21:55 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:51 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:51 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:51 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:51 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:47:52 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 18:49:16 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'User.2' in 'field list'
+Request URL: /admin/users/timeEntries/8000030E-1459791312
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `User`.`...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `User`.`...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `User`.`...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#8 /var/www/cql.local/public_html/app/Controller/UsersController.php(20): Model->__call('findById', Array)
+#9 /var/www/cql.local/public_html/app/Controller/UsersController.php(20): User->findById('8000030E-145979...', Array)
+#10 [internal function]: UsersController->admin_timeEntries('8000030E-145979...')
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#12 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#13 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#14 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-07-21 18:50:15 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.time_entry_id' in 'field list'
+Request URL: /admin/users/timeEntries/8000030E-1459791312
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1421): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1259): DboSource->_fetchHasMany(Object(TimeEntry), 'SELECT `Custome...', Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1272): DboSource->queryAssociation(Object(TimeEntry), Object(Customer), 'hasMany', 'Customer', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(TimeEntry), 'hasMany', 'TimeEntry', Array, Array, true, Array, 1, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#9 /var/www/cql.local/public_html/app/Controller/UsersController.php(20): Model->find('all', Array)
+#10 [internal function]: UsersController->admin_timeEntries('8000030E-145979...')
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#12 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#13 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#14 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-07-21 18:51:06 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.time_entry_id' in 'where clause'
+Request URL: /admin/users/timeEntries/8000030E-1459791312
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1332): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1272): DboSource->queryAssociation(Object(TimeEntry), Object(Customer), 'hasOne', 'Customer', Array, Array, true, Array, 0, Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(TimeEntry), 'hasMany', 'TimeEntry', Array, Array, true, Array, 1, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#8 /var/www/cql.local/public_html/app/Controller/UsersController.php(20): Model->find('all', Array)
+#9 [internal function]: UsersController->admin_timeEntries('8000030E-145979...')
+#10 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#11 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#12 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#13 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2016-07-21 18:51:31 Error: Fatal Error (64): Cannot redeclare TimeEntry::$belongsTo in [/var/www/cql.local/public_html/app/Model/TimeEntry.php, line 11]
+2016-07-21 18:51:31 Error: [FatalErrorException] Cannot redeclare TimeEntry::$belongsTo
+Request URL: /admin/users/timeEntries/8000030E-1459791312
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/var/www/cql.lo...', 11)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/var/www/cql.lo...', 11, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/var/www/cql.lo...', 11, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-07-21 18:52:18 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Item.time_entry_id' in 'field list'
+Request URL: /admin/users/timeEntries/8000030E-1459791312
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Item`.`...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Item`.`...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1421): DboSource->fetchAll('SELECT `Item`.`...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1259): DboSource->_fetchHasMany(Object(TimeEntry), 'SELECT `Item`.`...', Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1272): DboSource->queryAssociation(Object(TimeEntry), Object(Item), 'hasMany', 'Item', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(TimeEntry), 'hasMany', 'TimeEntry', Array, Array, true, Array, 1, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#9 /var/www/cql.local/public_html/app/Controller/UsersController.php(20): Model->find('all', Array)
+#10 [internal function]: UsersController->admin_timeEntries('8000030E-145979...')
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#12 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#13 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#14 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-07-21 19:03:36 Error: [MissingActionException] Action UsersController::admin_viewEntries() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'admin_viewEntries',
+)
+Request URL: /admin/users/viewEntries/800002FD-1459623368
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

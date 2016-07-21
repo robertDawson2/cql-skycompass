@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 14.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:PUBLISH
+X-MS-OLK-FORCEINSPECTOROPEN:TRUE
+BEGIN:VEVENT
+CATEGORIES:CQL CONFERENCE
+CLASS:PUBLIC
+CREATED:20150218T164251Z
+DESCRIPTION:CQL’s 2015 Conference ‘Outcomes: The Gateway To Quality’ 
+	is on October 20th and 21st\, in St. Louis\, MO. Here’s some more inform
+	ation about how you can be a part of this exciting event!\n\nGeneral Infor
+	mation:\nhttp://www.c-q-l.org/Conference\n\nRegistration: \nhttp://www.c-q
+	-l.org/cql-2015-conference/registration\n\nSponsorship:\nhttp://www.c-q-l.
+	org/cql-2015-conference/sponsors\n\nExhibiting:\nhttp://www.c-q-l.org/cql-
+	2015-conference/exhibitors\n\n
+DTEND;VALUE=DATE:20151022
+DTSTAMP:20150204T200233Z
+DTSTART;VALUE=DATE:20151020
+LAST-MODIFIED:20150218T164251Z
+LOCATION:St. Louis City Center Hotel
+PRIORITY:5
+SEQUENCE:0
+SUMMARY;LANGUAGE=en-us:CQL Conference
+TRANSP:TRANSPARENT
+UID:040000008200E00074C5B7101A82E00800000000205A584C7E40D001000000000000000
+	010000000B5AD9F946872EC47B89A3BE23A2EA621
+X-ALT-DESC;FMTTYPE=text/html:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//E
+	N">\n<HTML>\n<HEAD>\n<META NAME="Generator" CONTENT="MS Exchange Server ve
+	rsion 14.02.5004.000">\n<TITLE></TITLE>\n</HEAD>\n<BODY>\n<!-- Converted f
+	rom text/rtf format -->\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="Calib
+	ri">CQL’s 2015 Conference</FONT></SPAN><SPAN LANG="en-us"><B><FONT FACE=
+	"Calibri"> ‘Outcomes: The Gateway To Quality’</FONT></B></SPAN><SPAN L
+	ANG="en-us"><B><FONT FACE="Calibri"></FONT></B></SPAN><SPAN LANG="en-us"> 
+	<FONT FACE="Calibri">is</FONT></SPAN><SPAN LANG="en-us"> <FONT FACE="Calib
+	ri">on October 20</FONT></SPAN><SPAN LANG="en-us"><SUP><FONT FACE="Calibri
+	">th</FONT></SUP></SPAN><SPAN LANG="en-us"><FONT FACE="Calibri"> and 21</F
+	ONT></SPAN><SPAN LANG="en-us"><SUP><FONT FACE="Calibri">st</FONT></SUP></S
+	PAN><SPAN LANG="en-us"><FONT FACE="Calibri">\, in St. Louis\, MO.</FONT></
+	SPAN><SPAN LANG="en-us"> <FONT FACE="Calibri">Here’s some more informati
+	on about how you can be a part of this exciting event!</FONT></SPAN></P>\n
+	\n<P DIR=LTR><SPAN LANG="en-us"><B><FONT COLOR="#005694" FACE="Calibri">Ge
+	neral Information:</FONT></B></SPAN><SPAN LANG="en-us"><B></B></SPAN></P>\
+	n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HREF="http://www.c-q-l.org/Conf
+	erence"><SPAN LANG="en-us"><U><FONT COLOR="#FF895A" FACE="Calibri">http://
+	www.c-q-l.org/Conference</FONT></U></SPAN><SPAN LANG="en-us"></SPAN></A><S
+	PAN LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><B></B></SPA
+	N></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><B><FONT COLOR="#005694" FACE="Cal
+	ibri">Registration:</FONT></B></SPAN><SPAN LANG="en-us"><B> </B></SPAN></P
+	>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HREF="http://www.c-q-l.org/cq
+	l-2015-conference/registration"><SPAN LANG="en-us"><U><FONT COLOR="#FF895A
+	" FACE="Calibri">http://www.c-q-l.org/cql-2015-conference/registration</FO
+	NT></U></SPAN><SPAN LANG="en-us"></SPAN></A><SPAN LANG="en-us"></SPAN></P>
+	\n\n<P DIR=LTR><SPAN LANG="en-us"><B></B></SPAN></P>\n\n<P DIR=LTR><SPAN L
+	ANG="en-us"><B><FONT COLOR="#005694" FACE="Calibri">Sponsorship:</FONT></B
+	></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HREF="http://www.c
+	-q-l.org/cql-2015-conference/sponsors"><SPAN LANG="en-us"><U><FONT COLOR="
+	#FF895A" FACE="Calibri">http://www.c-q-l.org/cql-2015-conference/sponsors<
+	/FONT></U></SPAN><SPAN LANG="en-us"></SPAN></A><SPAN LANG="en-us"></SPAN><
+	/P>\n\n<P DIR=LTR><SPAN LANG="en-us"><B></B></SPAN></P>\n\n<P DIR=LTR><SPA
+	N LANG="en-us"><B><FONT COLOR="#005694" FACE="Calibri">Exhibiting:</FONT><
+	/B></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HREF="http://www
+	.c-q-l.org/cql-2015-conference/exhibitors"><SPAN LANG="en-us"><U><FONT COL
+	OR="#FF895A" FACE="Calibri">http://www.c-q-l.org/cql-2015-conference/exhib
+	itors</FONT></U></SPAN><SPAN LANG="en-us"></SPAN></A><SPAN LANG="en-us"></
+	SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN></P>\n\n</BODY>\n</HTML>
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MS-OLK-AUTOFILLLOCATION:FALSE
+X-MS-OLK-CONFTYPE:0
+BEGIN:VALARM
+TRIGGER:-PT161280M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

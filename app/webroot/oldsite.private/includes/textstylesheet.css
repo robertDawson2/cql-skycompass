@@ -1,0 +1,121 @@
+hr { margin:0; border-bottom: 1px solid #AFAFAF; }
+.links {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	line-height: normal;
+	font-weight: bold;
+	color: #333366;
+	text-decoration: none;	
+}
+.greyhHeader {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #666;
+}
+
+.purplehHeader {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #453283;
+}
+.phone {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 16px;
+	font-style: italic;
+	font-weight: lighter;
+	color: #2D3053;
+}
+.smallText {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 10px;
+	font-weight: lighter;
+	color: #333;
+}
+.testimonialcopy {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 10px;
+	font-style: italic;
+	font-weight: normal;
+	color: #2E3454;
+}
+.header {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 30px;
+	font-weight: normal;
+	color: #B96D41;
+	text-align: center;
+}
+.headergrey {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 30px;
+	font-weight: normal;
+	color: #333333;
+}
+.headeraqua {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 30px;
+	font-weight: normal;
+	color: #339998;
+}
+.headerpurple {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 30px;
+	font-weight: normal;
+	color: #453283;
+}
+.subheader {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 18px;
+	color: #DAA72A;
+}
+.morelinks {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #F90;
+	a:link "color:#F90;text-decoration:none;"
+}
+.bodytext {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #666;
+	text-align: center;
+}
+.subheader {
+	text-align: center;
+}
+.subheader {
+	text-align: left;
+}
+.header .headeraqua {
+	text-align: left;
+}
+.header .subheader a {
+
+}
+.header .headeraqua {
+	text-align: left;
+	font-size: 25px;
+}
+.links {
+
+}
+.links .header .links {
+	text-align: center;
+}
+.header {
+	text-align: center;
+}
+.bodytext {
+	text-align: left;
+	font-weight: normal;
+}
+.header {
+	text-align: left;
+}
+.bodytext em {
+	text-align: center;
+}

@@ -1,0 +1,31 @@
+<link href="textstylesheet.css" rel="stylesheet" type="text/css">
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="900" border="0" cellpadding="0">
+      <tr>
+        <td width="204" rowspan="2" align="left" valign="top"><a href="/index.shtml"><img src="/images/framework/logo.jpg" alt="The Arena Club" width="177" height="103" border="0" /></a></td>
+        <td colspan="9" align="right" valign="top"><a href="http://thearenaclub.wufoo.com/forms/m7x3z9/" onclick="window.open(this.href,  null, 'height=443, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false"><img src="/images/framework/joinnow.png" alt="Join Now!" width="112" height="44" border="0" /></a><img src="/images/framework/social.jpg" alt="Social Media" width="188" height="44" border="0" usemap="#Map" /><a href="http://www.xpiron.com/schedule/thearenaclub"><img src="/images/framework/login.jpg" alt="Member Login" width="158" height="44" border="0" /></a>
+          <map name="Map" id="Map2">
+            <area shape="rect" coords="7,2,48,38" href="https://www.facebook.com/hcarenaclub" alt="Facebook" />
+            <area shape="rect" coords="51,1,94,40" href="http://www.youtube.com/user/thearenaclubbelair" alt="youTube" />
+            <area shape="rect" coords="94,2,137,40" href="https://maps.google.com/maps?q=&amp;layer=c&amp;sll=39.555428,-76.274699&amp;cid=8319838602649463329&amp;panoid=0dsFDQI7fo1Sj3k-nsEQPw&amp;cbp=13,4.29,,0,11.11&amp;gl=US&amp;hl=en-US&amp;ie=UTF8&amp;hq=&amp;hnear=&amp;ll=39.555428,-76.274699&amp;spn=0.006295,0.006295&amp;t=m&amp;cbll=39.557545,-76.277729&amp;sourc" alt="Google" />
+            <area shape="rect" coords="139,3,183,44" href="https://twitter.com/TheArenaClub" alt="Twitter" />
+          </map></td>
+      </tr>
+      <tr>
+        <td width="45" height="20" align="center" class="links"><span class="greyhHeader"><a href="/index.shtml">HOME</a></span></td>
+        <td width="98" align="center" class="links"><a href="../membership/index.shtml">MEMBERSHIP</a></td>
+        <td width="58" align="center" class="links"><a href="/fitness/index.shtml">FITNESS</a></td>
+        <td width="96" align="center" class="greyhHeader"><a href="../weightloss/index.shtml">WEIGHT LOSS</a></td>
+        <td width="75" align="center" class="links"><a href="../aquatics/index.shtml">AQUATICS</a></td>
+        <td width="64" align="center" class="greyhHeader">SPORTS</td>
+        <td width="44" align="center" class="links"><a href="/kids/index.shtml">KIDS</a><a href="/facility/index.shtml"></a></td>
+        <td width="70" align="center" class="links"><a href="/facility/index.shtml">FACILITY</a><a href="../memberrewards/index.shtml"></a></td>
+        <td width="129" align="center" class="links"><a href="../memberrewards/memberrewards.shtml">MEMBER REWARDS</a></td>
+        </tr>
+      <tr>
+        <td height="20" colspan="10" align="center" valign="top"><img src="/images/coverphotos/sports.jpg" width="900" height="268" alt="SPORTS @ The Arena Club" /></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>

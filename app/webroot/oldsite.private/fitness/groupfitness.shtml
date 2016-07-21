@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>The Arena Club: Fitness: Group Fitness</title>
+<link href="/includes/textstylesheet.css" rel="stylesheet" type="text/css">
+<meta name="keywords" content="fitness centers,fitness clubs, health clubs, fitness center, health club, local fitness centers, fitness club, Harford County, Health Club, Gym, Gyms, fitness,Fitness Center,group fitness classes, Yoga,Zumba,Les Mills,Body Pump,Hot Yoga, Pilates, Sports Performance, Speed, Conditioning, The Arena Club, Fitness, Gym, Maryland, Sports Programs, Pool, Family Recreation Center, Pre School, Summer Camp, Best of Harford County,workout,circuit workout,bel air athletic club, BAAC, Bel Air, advanced workout,ultimate workout,perfect workout,dance workout,new workout,workout guide,workout classes,workout weights,basic workout,golf workout,lower body workout,workout body, workout tips,pilates workout,workout trainer,cycling workout"
+>
+<meta name="description" content="The Arena Club is a comprehensive fitness center in Harford County offering the latest equipment, instruction, and education in exercise. Whether you are new to fitness or an elite athlete, at The Arena Club you will find the opportunities needed to enhance your physical fitness and mental well-being. The Arena Club offers a wide selection of fitness equipment, indoor and outdoor swimming pools, an indoor sports arena, qualified personal trainers, numerous kids programs, Pre School program and group fitness classes for all levels. ">
+<style type="text/css">
+body {
+	background-image: url(/images/framework/background.jpg);
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+a:link {
+	color: #CC9900;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #CC9900;
+}
+a:hover {
+	text-decoration: none;
+	color: #CC9900;
+}
+a:active {
+	text-decoration: none;
+	color: #CC9900;
+}
+</style>
+</head>
+
+<body>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="900" border="0" cellpadding="0">
+      <tr>
+        <td width="688" height="857" align="center" valign="top"><!--#include virtual="/includes/fitnesstopnav.shtml" -->
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="900" border="0" cellpadding="0">
+      <tr>
+        <td width="688" align="center" valign="top">
+
+          <table width="900" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="214" align="left" valign="top"><p>&nbsp;</p>
+                <!--#include virtual="/includes/fitnesssidenav.shtml" -->
+<p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p></td>
+              <td width="686" align="right" valign="top"><table width="686" border="0" cellspacing="0" cellpadding="20">
+                <tr>
+                  <td width="410" align="left" valign="top"><p class="header">Fitness: <span class="headergrey">Group Fitness</span></p>
+                    <p align="center" class="links"><a href="../schedules/gfSchedule.pdf">Group Fitness Schedule</a>| <a href="/schedules/gfDescriptions.pdf">Group Fitness Descriptions</a><a href="/fitness/groupfitnessInstructors.shtml"><br />
+                      Meet the Instructors</a></p>
+                    <p class="bodytext">The Arena Club offers 74 fitness classes per week designed to improve the health and fitness of every member. Cross Training is easily accomplished with BODYPUMP, BODYJAM, BODYVIVE, Zumba, Cycling, BOSU, Athletic Training, Classic Aerobics, Step and a full Aqua Aerobics schedule including aqua therapy classes. Our enthusiastic and devoted instructors make every effort in providing you the highest quality instruction and programming.</p>
+                    <blockquote>
+                      <p class="bodytext"><em>&quot;Welcome to the Arena Club's Group Fitness Program. I am confident that you will find our program to be very diverse with options for all fitness levels and experiences. From traditional &quot;aerobic&quot; classes to cutting edge programming, such as BOSU and Zumba, we take pride in our ability to service every body. Our knowledgeable, experienced instructors are held to the highest industry standards and are committed to delivering exceptional coaching and instruction, while making fitness fun. We are here to serve you and to help you achieve your fitness goals. We will make every effort to provide you with an experience that will keep you coming back for more. Enjoy, have fun, and &quot;just move!&quot;</em></p>
+                      <p align="right"><span class="greyhHeader">-Candace Ripken</span><br />
+                        <em class="bodytext">Group Fitness Manager, The Arena Club</em></p>
+                    </blockquote>
+                    <p class="bodytext">&nbsp;</p>
+<p class="bodytext">&nbsp;</p></td>
+                  <td width="196" align="left" valign="top"><p>&nbsp;</p>
+                    <p><img src="/images/sidephotos/fitness_studiopump.jpg" alt="Body Pump" width="200" height="133" border="0" /></p>
+                    <p><img src="/images/sidephotos/fitness_hotyoga.jpg" alt="Yoga" width="200" height="310" border="0" /></p></td>
+                </tr>
+              </table></td>
+            </tr>
+      </table>
+          <p><br />
+            <img src="/images/framework/footerv2.jpg" alt="Footer" width="900" height="111" />
+            </p></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

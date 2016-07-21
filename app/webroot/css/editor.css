@@ -1,0 +1,13 @@
+html { }
+body { font: 15px 'Arial', sans-serif; color: #2e2c2d; background: #fff; }
+td, p { font: 15px 'Arial'; }
+td { min-width: 20px; }
+
+h1 { text-transform: uppercase; color: #005594; margin-top: 0; font: 42px 'Roboto Condensed', 'Roboto', 'Arial', sans-serif; }
+h2 { text-transform: uppercase; color: #005594; margin-top: 0; font: 30px 'Roboto Condensed', 'Roboto', 'Arial', sans-serif; }
+p { margin: 20px 0; line-height: 150%; }
+
+img.right, img.mobile-hide-right, div.right { float: right; margin: 6px 0 22px 12px; }
+img.left, img.mobile-hide-left, div.left { float: left; margin: 6px 22px 12px 0; }
+
+table, td { border-style: solid; border-width: 0; }

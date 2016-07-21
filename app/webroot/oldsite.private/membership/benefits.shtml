@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>The Arena Club: Membership Programs: Benefits</title>
+<link href="/includes/textstylesheet.css" rel="stylesheet" type="text/css">
+<meta name="keywords" content="fitness centers,fitness clubs, health clubs, fitness center, health club, local fitness centers, fitness club, Harford County, Health Club, Gym, Gyms, fitness,Fitness Center,group fitness classes, Yoga,Zumba,Les Mills,Body Pump,Hot Yoga, Pilates, Sports Performance, Speed, Conditioning, The Arena Club, Fitness, Gym, Maryland, Sports Programs, Pool, Family Recreation Center, Pre School, Summer Camp, Best of Harford County,workout,circuit workout,bel air athletic club, BAAC, Bel Air, advanced workout,ultimate workout,perfect workout,dance workout,new workout,workout guide,workout classes,workout weights,basic workout,golf workout,lower body workout,workout body, workout tips,pilates workout,workout trainer,cycling workout"
+>
+<meta name="description" content="The Arena Club is a comprehensive fitness center in Harford County offering the latest equipment, instruction, and education in exercise. Whether you are new to fitness or an elite athlete, at The Arena Club you will find the opportunities needed to enhance your physical fitness and mental well-being. The Arena Club offers a wide selection of fitness equipment, indoor and outdoor swimming pools, an indoor sports arena, qualified personal trainers, numerous kids programs, Pre School program and group fitness classes for all levels. ">
+<style type="text/css">
+body {
+	background-image: url(/images/framework/background.jpg);
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+a:link {
+	color: #CC9900;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #CC9900;
+}
+a:hover {
+	text-decoration: none;
+	color: #CC9900;
+}
+a:active {
+	text-decoration: none;
+	color: #CC9900;
+}
+</style>
+</head>
+
+<body>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="900" border="0" cellpadding="0">
+      <tr>
+        <td width="688" height="857" align="center" valign="top"><!--#include virtual="/includes/membershiptopnav.shtml" -->
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="900" border="0" cellpadding="0">
+      <tr>
+        <td width="688" align="left" valign="top">
+
+          <table width="900" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="214" align="left" valign="top"><p>&nbsp;</p>
+                <!--#include virtual="/includes/membershipsidenav.shtml" -->
+<p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p></td>
+              <td width="686" align="right" valign="top"><table width="686" border="0" cellspacing="0" cellpadding="20">
+                <tr>
+                  <td width="410" align="left" valign="top"><p class="header">Membership: <span class="headergrey">Benefits</span>                    </p>
+                    <p class="bodytext">We realize that there are many choices for your fitness needs.  At The Arena Club, we strive daily to provide the most in service, fitness, health and wellness for your investment.  You can choose to join a &quot;gym&quot; or you can choose to be a member of a full-scale health and wellness center that serves our members from cradle to senior life.  We can meet all of your fitness needs no matter how big or how small.  You won't fly solo when you are a member at The Arena Club.  We will always have staff ready and willing to serve your fitness needs.</p>
+                    <p class="bodytext">Your membership to The Arena Club opens doors to personal training, mind/body activities, Harford counties' largest waterpark, year round indoor swimming, aqua therapy classes, over 74 group fitness and aqua classes, virtual fitness plan individualized for you, safe and secure childcare, one-of-a-kind indoor turf field, athletic leagues, member events and parties, and the friendliest staff in the industry. </p>
+                    <p class="subheader">Special Member Benefits that Save you $$$</p>
+                    <ul>
+                      <li class="bodytext"><span class="greyhHeader"><a href="/community/memberrewards.shtml">Member Rewards Program -</a> </span>we have joined teams with numerous local businesses where you shop to bring you discounts. Your membership to The Arena Club entitles you to discounts you woudn't otherwise receive.</li>
+                      <li class="bodytext"><span class="greyhHeader"><a href="http://esnclubs.com/about-elite-sportsclub.htm" target="_new">ESN Network-</a> </span>Not only does your membership get you access to our gym but you can also visit other fitness centers within our network for free three times a month.</li>
+                      <li class="bodytext"><span class="greyhHeader"><a href="http://www.healthclubs.com/passport/">IHRSA</a> </span>-The IHRSA Passport Program gives members of participating clubs access to a worldwide network of health clubs when traveling.</li>
+                    </ul>
+                    <p class="greyhHeader">Call us at 410-734-7300 and let us show you how The Arena Club can change your life! </p>
+                    <p align="center" class="subheader">&nbsp;</p>
+                    <p class="bodytext">&nbsp;</p></td>
+                  <td width="196" align="left" valign="top"><p>&nbsp;</p>
+                    <p>&nbsp;</p></td>
+                </tr>
+              </table></td>
+            </tr>
+      </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<p><br />
+  <img src="/images/framework/footerv2.jpg" alt="Footer" width="900" height="111" />
+  </p>        </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

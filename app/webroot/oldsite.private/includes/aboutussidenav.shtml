@@ -1,0 +1,11 @@
+<table width="200" border="1" bordercolor="#CCCCCC" cellspacing="0" cellpadding="10">
+  <tr>
+    <td align="left"><p class="links"><a href="/aquatics/swimteam.shtml">Swim Team</a></p>
+      <p class="links"><a href="/aquatics/poolschedule.shtml">Pool Schedule</a></p>
+      <p class="links"><a href="/aquatics/poolclasses.shtml">Pool Classes</a></p>
+      <p class="links"><a href="/aquatics/swimlessons.shtml">Swim Lessons</a></p>
+      <p class="links"><a href="/aquatics/aquatherapy.shtml">Aqua Therapy</a></p>
+      <p class="links"><a href="/aquatics/poolrentals.shtml">Pool Rentals</a></p>
+      <p class="links">&nbsp;</p></td>
+  </tr>
+</table>
