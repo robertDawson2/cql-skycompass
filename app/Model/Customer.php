@@ -6,7 +6,7 @@ class Customer extends AppModel {
     public $useTable = 'customers';
 	
 
-       // public $belongsTo = array('TimeEntry');
+        public $hasMany = array('Jobs');
 
 }
 

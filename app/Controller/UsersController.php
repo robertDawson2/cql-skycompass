@@ -12,10 +12,117 @@ class UsersController extends AppController {
 	
 	function beforeFilter() {
 		parent::beforeFilter();
-		$this->set('section', 'users');
+		$this->set('section', 'employees');
                 $this->Auth->allow('passwordReset', 'firstLogin');
 	}
-	
+        public function admin_viewPermissions($id) {
+            pr(unserialize($this->User->findById($id)['User']['permissions'])); exit();
+        }
+        public function admin_resetAllPermissions() {
+            $users = $this->User->find('all');
+            foreach($users as $u)
+            {
+                $this->User->id = $u['User']['id'];
+                $userPerm = $this->_setPermissions($u['User']['id'], $u['User']['web_user_type']);
+                $this->User->saveField('permissions',serialize($userPerm));
+                
+            }
+        }
+	private function _setPermissions($id = null, $level = 'employee')
+        {
+            if($level == 'admin') {
+            $permissionsArray = array('site' => array(
+                'content' => 1,
+                'home_page_features' => 1,
+                'events' => 1,
+                'news' => 1,
+                'galleries' => 1,
+                'users' => 1
+            ),
+                'customers' => array(
+                    'admin_index' => 1,
+                    'admin_edit' => 1,
+                    'admin_add' => 1,
+                    'admin_delete' => 1
+                ),
+                'jobs' => array(
+                    'admin_viewAll' => 1,
+                    'admin_index' => 1,
+                    'admin_edit' => 1,
+                    'admin_view' => 1,
+                    'admin_add' => 1,
+                    'admin_delete' => 1
+                ),
+                'users' => array(
+                    'admin_index' => 1,
+                    'admin_edit' => 1,
+                    'admin_timeEntries' => 1,
+                    'admin_add' => 1,
+                    'admin_delete' => 1,
+                    'resetPassword' => 1,
+                    'setPermissions' => 1
+                ),
+                'time_entries' => array(
+                    'admin_approve' => 1,
+                    'admin_index' => 1
+                ),
+                'bills' => array(
+                    'admin_approve' => 1,
+                    'admin_index' => 1
+                ),
+                'config' => array(
+                    'admin_index' => 1
+                ));
+            
+            }
+            else
+            {
+                $permissionsArray = array('site' => array(
+                'content' => 0,
+                'home_page_features' => 0,
+                'events' => 0,
+                'news' => 0,
+                'galleries' => 0,
+                'users' => 0
+            ),
+                'customers' => array(
+                    'admin_index' => 1,
+                    'admin_edit' => 0,
+                    'admin_add' => 0,
+                    'admin_delete' => 0
+                ),
+                'jobs' => array(
+                    'admin_viewAll' => 1,
+                    'admin_index' => 1,
+                    'admin_edit' => 0,
+                    'admin_view' => 1,
+                    'admin_add' => 0,
+                    'admin_delete' => 0
+                ),
+                'users' => array(
+                    'admin_index' => 0,
+                    'admin_edit' => 0,
+                    'admin_timeEntries' => 0,
+                    'admin_add' => 0,
+                    'admin_delete' => 0,
+                    'resetPassword' => 0,
+                    'setPermissions' => 0
+                ),
+                'time_entries' => array(
+                    'admin_approve' => 0,
+                    'admin_index' => 0
+                ),
+                'bills' => array(
+                    'admin_approve' => 0,
+                    'admin_index' => 0
+                ),
+                'config' => array(
+                    'admin_index' => 0
+                ));
+            }
+            
+            return $permissionsArray;
+        }
         function admin_timeEntries($id = null) {
             $user = $this->User->find('first', array('conditions' => array('User.id' => $id), 'recursive'=>2));
        //  pr($user); exit();
@@ -81,8 +188,8 @@ class UsersController extends AppController {
                 else
                 {
                     App::uses('CakeEmail', 'Network/Email');
-                            $to = array($user['User']['email'] => $user['User']['first_name'] . " " . $user['User']['last_name']);
-                            pr($to);
+                            $to = array($user['User']['email']);
+                            
                             $email = new CakeEmail('smtp');
                             $email->template('welcome', 'default')
                             ->emailFormat('both')
@@ -92,7 +199,10 @@ class UsersController extends AppController {
                             ->send();
                     $this->Session->setFlash('Welcome email has been sent to ' . $user['User']['first_name'] . " " . $user['User']['last_name'] . ".",
                             'flash_success');
+                           
+                    
                     $this->redirect('/admin/users');
+                    
                     return true;
                 }
             
@@ -107,7 +217,7 @@ class UsersController extends AppController {
                 )));
                 $count = sizeof($users);
                 foreach($users as $user):
-                            $to = array($user['User']['email'] => $user['User']['first_name'] . " " . $user['User']['last_name']);
+                            $to = array($user['User']['email']);
                             
                             $email = new CakeEmail('smtp');
                             $email->template('welcome', 'default')

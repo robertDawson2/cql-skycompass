@@ -32,9 +32,10 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	public $uses = array('Config', 'Content');
+	public $uses = array('Config', 'Content','Notification');
 	public $components = array('Auth', 'Session');
 	public $config = array();
+        public $user = array();
 
 	public function beforeFilter() {	
 		
@@ -150,18 +151,36 @@ class AppController extends Controller {
                 {
                     $user['pmArray'] = unserialize($user['permissions']);
                     $this->set('currentUser', $user);
-            
+                    $notifications = $this->Notification->find('all', array(
+                        'conditions' => array(
+                            'Notification.user_id'=> array($user['id'], $user['web_user_type'])
+                            
+                        ),
+                            'order' => 'Notification.seen ASC',
+                        'limit' => 10)
+                    );
+                    $this->user = $user;
+                    $this->set('notifications', $notifications);
+                    
                     $this->set('newEmployees', $this->_newEmployeesSinceLogin($this->Auth->user('last_login')));
+                   
                     
                 }
+                
+                if(isset($this->user['pmArray'][$this->request['controller']][$this->request['action']]) && !$this->user['pmArray'][$this->request['controller']][$this->request['action']])
+                {
+                    $this->Session->setFlash('You are not authorized to view this section', 'flash_warning');
+                    $this->redirect('/admin');
+                }
+                
                 
 	}
 
         private function _newEmployeesSinceLogin($lastLogin) {
             $this->loadModel('User');
             $count = $this->User->find('count', array('conditions' => array(
-                'web_user_type' => 'employee',
-                'created >=' => $lastLogin
+                'User.web_user_type' => 'employee',
+                'User.created >=' => $lastLogin
             )));
             return($count);
         }

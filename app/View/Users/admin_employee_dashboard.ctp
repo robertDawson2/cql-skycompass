@@ -13,7 +13,7 @@
             <div class="icon">
               <i class="ion ion-clock"></i>
             </div>
-            <a href="#" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#entryModal" data-toggle="modal" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -43,7 +43,7 @@
             <div class="icon">
               <i class="ion ion-android-create"></i>
             </div>
-            <a href="#" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/admin/timeEntry/viewMyTime" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

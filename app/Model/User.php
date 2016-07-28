@@ -3,7 +3,8 @@
 	class User extends AppModel {
 		
 		public $name = 'User';
-                public $hasMany = array('TimeEntry');
+                public $belongsTo = array('Vendor');
+                public $hasMany = array('TimeEntry', 'Notification');
 		public $validate = array(
 			'first_name' => array(
 				'rule' => 'notEmpty',

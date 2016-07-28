@@ -65,6 +65,9 @@ define('QB_QUICKBOOKS_CONFIG_LAST', 'last');
  */
 define('QB_QUICKBOOKS_CONFIG_CURR', 'curr');
 
+// must do way early to make sure that new records are then added when import is run later
+
+define('QB_PRIORITY_TIMETRACKING_ADD', 100);
 /**
  * Maximum number of customers/invoices returned at a time when doing the import
  */
@@ -111,6 +114,16 @@ define('QB_PRIORITY_INVOICE', 0);
 define('QB_PRIORITY_TIMETRACKING', 0);
 
 /**
+ * Request priorities, invoices last... 
+ */
+define('QB_PRIORITY_CLASS', 0);
+
+/**
+ * Request priorities, invoices last... 
+ */
+define('QB_PRIORITY_PAYROLLITEMWAGE', 0);
+
+/**
  * Send error notices to this e-mail address
  */
 define('QB_QUICKBOOKS_MAILTO', 'bobby@net2sky.com');
@@ -129,6 +142,9 @@ $map = array(
 	QUICKBOOKS_IMPORT_ITEM => array( '_quickbooks_item_import_request', '_quickbooks_item_import_response' ), 
     QUICKBOOKS_IMPORT_EMPLOYEE => array( '_quickbooks_employee_import_request', '_quickbooks_employee_import_response' ), 
     QUICKBOOKS_IMPORT_TIMETRACKING => array( '_quickbooks_time_tracking_import_request', '_quickbooks_time_tracking_import_response' ), 
+    QUICKBOOKS_IMPORT_CLASS => array( '_quickbooks_class_import_request', '_quickbooks_class_import_response' ), 
+    QUICKBOOKS_IMPORT_PAYROLLITEMWAGE => array( '_quickbooks_payrollitem_import_request', '_quickbooks_payrollitem_import_response' ), 
+    QUICKBOOKS_ADD_TIMETRACKING => array( '_quickbooks_time_add_request', '_quickbooks_time_add_response' ), 
 	);
 
 // Error handlers
@@ -291,7 +307,25 @@ function _quickbooks_hook_loginsuccess($requestID, $user, $hook, &$err, $hook_da
 		_quickbooks_set_last_run($user, QUICKBOOKS_IMPORT_TIMETRACKING, $date);
 	}
         
+           // ... and for vendors
+	if (!_quickbooks_get_last_run($user, QUICKBOOKS_IMPORT_CLASS))
+	{
+		_quickbooks_set_last_run($user, QUICKBOOKS_IMPORT_CLASS, $date);
+	}
+        
+          // ... and for vendors
+	if (!_quickbooks_get_last_run($user, QUICKBOOKS_IMPORT_PAYROLLITEMWAGE))
+	{
+		_quickbooks_set_last_run($user, QUICKBOOKS_IMPORT_PAYROLLITEMWAGE, $date);
+	}
+        
+        if (!_quickbooks_get_last_run($user, QUICKBOOKS_ADD_TIMETRACKING))
+	{
+		_quickbooks_set_last_run($user, QUICKBOOKS_ADD_TIMETRACKING, $date);
+	}
+        
 	// Make sure the requests get queued up
+        
 	$Queue->enqueue(QUICKBOOKS_IMPORT_SALESORDER, 1, QB_PRIORITY_SALESORDER);
 	$Queue->enqueue(QUICKBOOKS_IMPORT_INVOICE, 1, QB_PRIORITY_INVOICE);
 	$Queue->enqueue(QUICKBOOKS_IMPORT_PURCHASEORDER, 1, QB_PRIORITY_PURCHASEORDER);
@@ -300,6 +334,8 @@ function _quickbooks_hook_loginsuccess($requestID, $user, $hook, &$err, $hook_da
         $Queue->enqueue(QUICKBOOKS_IMPORT_VENDOR, 1, QB_PRIORITY_VENDOR);
          $Queue->enqueue(QUICKBOOKS_IMPORT_EMPLOYEE, 1, QB_PRIORITY_EMPLOYEE);
          $Queue->enqueue(QUICKBOOKS_IMPORT_TIMETRACKING, 1, QB_PRIORITY_TIMETRACKING);
+          $Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, 1, QB_PRIORITY_TIMETRACKING);
+          $Queue->enqueue(QUICKBOOKS_IMPORT_PAYROLLITEMWAGE, 1, QB_PRIORITY_PAYROLLITEMWAGE);
 }
 
 /**
@@ -358,6 +394,97 @@ function _quickbooks_set_current_run($user, $action, $force = null)
 	}
 	
 	return QuickBooks_Utilities::configWrite(QB_QUICKBOOKS_DSN, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_CURR . '-' . $action, $value);	
+}
+
+/**
+ * Add any time records and then remove the old from the database so a clean record with a correct ID is imported.
+ */
+function _quickbooks_time_add_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
+{
+    
+                $xml = '<?xml version="1.0" encoding="utf-8"?>
+		<?qbxml version="13.0"?>
+		<QBXML>
+			<QBXMLMsgsRq onError="stopOnError">
+				<TimeTrackingAddRq>';           
+	
+	 $queryString = "
+				SELECT `TimeEntry`.`txn_date`,`TimeEntry`.`user_id`,`User`.`full_name`,
+                                `TimeEntry`.`customer_id`, `Customer`.`full_name`, `TimeEntry`.`item_id`,
+                                `Item`.`full_name`, `TimeEntry`.`duration`, `TimeEntry`.`class_id`,
+                                `TimeEntry`.`class_name`, `TimeEntry`.`payroll_item_id`, `TimeEntry`.`payroll_item_name`,
+                                `TimeEntry`.`notes`, `TimeEntry`.`billable_status`,`TimeEntry`.`is_billable`,
+                                `TimeEntry`.`id` FROM 
+					`time_entries` as TimeEntry 
+                                        INNER JOIN `users` as User on (User.id = TimeEntry.user_id) 
+                                        INNER JOIN `customers` as Customer on (TimeEntry.customer_id = Customer.id) 
+                                        INNER JOIN `items` as Item on (TimeEntry.item_id = Item.id) 
+				WHERE 
+                                `TimeEntry`.`id` = '" . $ID . "';";
+                        
+         QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'REQUEST: ' . $requestID . " : ID : " . $ID . ' : Query String : ' . $queryString );
+                        $row = mysql_fetch_array(mysql_query($queryString), MYSQL_NUM) or die(trigger_error(mysql_error()));
+                        
+                        QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'ROW : '. print_r($row, true));
+                        
+                            $xml .= "<TimeTrackingAdd> <!-- required -->
+                            <TxnDate >".$row[0] ."</TxnDate> <!-- optional -->
+                            <EntityRef> <!-- required -->
+                            <ListID >".$row[1]."</ListID> <!-- optional -->
+                            <FullName >".$row[2]."</FullName> <!-- optional -->
+                            </EntityRef>
+                            <CustomerRef> <!-- optional -->
+                            <ListID >".$row[3]."</ListID> <!-- optional -->
+                            <FullName >".$row[4]."</FullName> <!-- optional -->
+                            </CustomerRef>
+                            <ItemServiceRef> <!-- optional -->
+                            <ListID >".$row[5]."</ListID> <!-- optional -->
+                            <FullName >".$row[6]."</FullName> <!-- optional -->
+                            </ItemServiceRef>
+                            <Duration >".$row[7]."</Duration> <!-- required -->
+                            <ClassRef> <!-- optional -->
+                            <ListID >".$row[8]."</ListID> <!-- optional -->
+                            <FullName >".$row[9]."</FullName> <!-- optional -->
+                            </ClassRef>
+                            <PayrollItemWageRef> <!-- optional -->
+                            <ListID >".$row[10]."</ListID> <!-- optional -->
+                            <FullName >".$row[11]."</FullName> <!-- optional -->
+                            </PayrollItemWageRef>
+                            <Notes >".$row[12]."</Notes> <!-- optional -->
+                            <!-- BillableStatus may have one of the following values: Billable, NotBillable, HasBeenBilled -->
+                            <BillableStatus >".$row[13]."</BillableStatus> <!-- optional -->
+                            
+                            </TimeTrackingAdd>";
+                            
+                          
+                        
+                       
+                        $xml .="</TimeTrackingAddRq>
+			</QBXMLMsgsRq>
+		</QBXML>";
+	QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'XML String : ' . $xml );
+        
+
+            return $xml;
+        
+       
+}
+/**
+ * Receive a response from QuickBooks 
+ */
+function _quickbooks_time_add_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
+{
+    $queryString = "
+		UPDATE 
+			time_entries 
+		SET 
+			time_entries.id = '" . mysql_real_escape_string($idents['TxnID']) . "',
+                            time_entries.imported = 1 
+		WHERE 
+			id = '" . $ID . "'";
+    QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'QUERY : ' . $queryString . ' ::: ID : ' . $ID . ' ::: ROW : '. print_r($idents, true));
+    $result = mysql_query($queryString);
+	return $result;	
 }
 
 /**
@@ -940,6 +1067,7 @@ function _quickbooks_time_tracking_import_response($requestID, $user, $action, $
 				'is_billable' => $Item->getChildDataAt($ret . ' IsBillable'), 
 				'is_billed' => $Item->getChildDataAt($ret . ' IsBilled'),  
 				'approved' => 1,  
+                                'imported' => 1
 				);
 			
 			
@@ -1516,6 +1644,222 @@ function _quickbooks_employee_import_response($requestID, $user, $action, $ID, $
 }
 
 /**
+ * Build a request to import customers already in QuickBooks into our application
+ */
+function _quickbooks_class_import_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
+{
+	
+		$last = _quickbooks_get_last_run($user, $action);
+		_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
+		
+		// Set the current run to $last
+		_quickbooks_set_current_run($user, $action, $last);
+	
+	
+	// Build the request
+	$xml = '<?xml version="1.0" encoding="utf-8"?>
+		<?qbxml version="' . $version . '"?>
+		<QBXML>
+			<QBXMLMsgsRq onError="stopOnError">
+				<ClassQueryRq>
+                                            <ActiveStatus>All</ActiveStatus>
+                                            <FromModifiedDate>' . $last . '</FromModifiedDate>
+                                           
+				</ClassQueryRq>	
+			</QBXMLMsgsRq>
+		</QBXML>';
+		
+        
+	return $xml;
+}
+
+/** 
+ * Handle a response from QuickBooks 
+ */
+function _quickbooks_class_import_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
+{	
+   
+	if (!empty($idents['iteratorRemainingCount']))
+	{
+		// Queue up another request
+		
+		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
+		$Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, null, QB_PRIORITY_CLASS, array( 'iteratorID' => $idents['iteratorID'] ));
+	}
+	
+	// This piece of the response from QuickBooks is now stored in $xml. You 
+	//	can process the qbXML response in $xml in any way you like. Save it to 
+	//	a file, stuff it in a database, parse it and stuff the records in a 
+	//	database, etc. etc. etc. 
+	//	
+	// The following example shows how to use the built-in XML parser to parse 
+	//	the response and stuff it into a database. 
+	
+	// Import all of the records
+	$errnum = 0;
+	$errmsg = '';
+	$Parser = new QuickBooks_XML_Parser($xml);
+	if ($Doc = $Parser->parse($errnum, $errmsg))
+	{
+		$Root = $Doc->getRoot();
+		$List = $Root->getChildAt('QBXML/QBXMLMsgsRs/ClassQueryRs');
+		
+                
+		foreach ($List->children() as $Employee)
+		{
+                    
+                    $arr = array(
+				'id' => $Employee->getChildDataAt('ClassRet ListID'),
+				'created' => $Employee->getChildDataAt('ClassRet TimeCreated'),
+				'modified' => $Employee->getChildDataAt('ClassRet TimeModified'),
+				'name' => $Employee->getChildDataAt('ClassRet Name'),
+                            'is_active' => $Employee->getChildDataAt('ClassRet IsActive'),
+				'full_name' => $Employee->getChildDataAt('ClassRet FullName'),
+				'parent_id' => $Employee->getChildDataAt('ClassRet ParentRef ListID'),
+                            'sub_level' => $Employee->getChildDataAt('ClassRet Sublevel'),
+                        
+                            );
+                    
+                
+                       
+			
+                       
+			foreach ($arr as $key => $value)
+			{
+				$arr[$key] = mysql_real_escape_string($value);
+			}
+			
+                        $query = "
+				REPLACE INTO
+					classes
+				(
+					" . implode(", ", array_keys($arr)) . "
+				) VALUES (
+					'" . implode("', '", array_values($arr)) . "'
+				)";
+                        
+                   //     QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'MYSQL QUERY: ' . print_r($query, true));
+                         
+			// Store the invoices in MySQL
+			mysql_query($query) or die(trigger_error(mysql_error()));
+                    
+                   
+			
+			
+		}
+	}
+	
+	return true;
+}
+
+/**
+ * Build a request to import customers already in QuickBooks into our application
+ */
+function _quickbooks_payrollitem_import_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
+{
+	
+		$last = _quickbooks_get_last_run($user, $action);
+		_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
+		
+		// Set the current run to $last
+		_quickbooks_set_current_run($user, $action, $last);
+	
+	
+	// Build the request
+	$xml = '<?xml version="1.0" encoding="utf-8"?>
+		<?qbxml version="' . $version . '"?>
+		<QBXML>
+			<QBXMLMsgsRq onError="stopOnError">
+				<PayrollItemWageQueryRq>
+                                            <ActiveStatus>All</ActiveStatus>
+                                            <FromModifiedDate>' . $last . '</FromModifiedDate>
+                                           
+				</PayrollItemWageQueryRq>	
+			</QBXMLMsgsRq>
+		</QBXML>';
+		
+        
+	return $xml;
+}
+
+/** 
+ * Handle a response from QuickBooks 
+ */
+function _quickbooks_payrollitem_import_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
+{	
+   
+	if (!empty($idents['iteratorRemainingCount']))
+	{
+		// Queue up another request
+		
+		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
+		$Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, null, QB_PRIORITY_CLASS, array( 'iteratorID' => $idents['iteratorID'] ));
+	}
+	
+	// This piece of the response from QuickBooks is now stored in $xml. You 
+	//	can process the qbXML response in $xml in any way you like. Save it to 
+	//	a file, stuff it in a database, parse it and stuff the records in a 
+	//	database, etc. etc. etc. 
+	//	
+	// The following example shows how to use the built-in XML parser to parse 
+	//	the response and stuff it into a database. 
+	
+	// Import all of the records
+	$errnum = 0;
+	$errmsg = '';
+	$Parser = new QuickBooks_XML_Parser($xml);
+	if ($Doc = $Parser->parse($errnum, $errmsg))
+	{
+		$Root = $Doc->getRoot();
+		$List = $Root->getChildAt('QBXML/QBXMLMsgsRs/PayrollItemWageQueryRs');
+		
+                
+		foreach ($List->children() as $Employee)
+		{
+                    
+                    $arr = array(
+				'id' => $Employee->getChildDataAt('PayrollItemWageRet ListID'),
+				'created' => $Employee->getChildDataAt('PayrollItemWageRet TimeCreated'),
+				'modified' => $Employee->getChildDataAt('PayrollItemWageRet TimeModified'),
+				'name' => $Employee->getChildDataAt('PayrollItemWageRet Name'),
+                            'is_active' => $Employee->getChildDataAt('PayrollItemWageRet IsActive'),
+				'wage_type' => $Employee->getChildDataAt('PayrollItemWageRet WageType'),
+				
+                        
+                            );
+                    
+                
+                       
+			
+                       
+			foreach ($arr as $key => $value)
+			{
+				$arr[$key] = mysql_real_escape_string($value);
+			}
+			
+                        $query = "
+				REPLACE INTO
+					payroll_items
+				(
+					" . implode(", ", array_keys($arr)) . "
+				) VALUES (
+					'" . implode("', '", array_values($arr)) . "'
+				)";
+                        
+                   //     QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'MYSQL QUERY: ' . print_r($query, true));
+                         
+			// Store the invoices in MySQL
+			mysql_query($query) or die(trigger_error(mysql_error()));
+                    
+                   
+			
+			
+		}
+	}
+	
+	return true;
+}
+/**
  * Handle a 500 not found error from QuickBooks
  * 
  * Instead of returning empty result sets for queries that don't find any 
@@ -1555,6 +1899,14 @@ function _quickbooks_error_e500_notfound($requestID, $user, $action, $ID, $extra
 		return true;
 	}
         else if ($action == QUICKBOOKS_IMPORT_TIMETRACKING)
+	{
+		return true;
+	}
+        else if ($action == QUICKBOOKS_IMPORT_CLASS)
+	{
+		return true;
+	}
+        else if ($action == QUICKBOOKS_IMPORT_PAYROLLITEMWAGE)
 	{
 		return true;
 	}

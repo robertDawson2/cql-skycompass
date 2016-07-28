@@ -8,6 +8,8 @@ class TimeEntry extends AppModel {
 
         public $belongsTo = array('User', 'Customer', 'Item');
 
+        
+        
 }
 
 ?>

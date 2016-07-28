@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="/adminPanel/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="/adminPanel/plugins/datatables/dataTables.bootstrap.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="/adminPanel/plugins/datepicker/datepicker3.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/adminPanel/plugins/select2/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/adminPanel/dist/css/AdminLTE.min.css">
   <link href="/_/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
@@ -463,6 +467,7 @@
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
+  <?= $this->element('modals/entry'); ?>
 
 </div>
 <!-- ./wrapper -->
@@ -497,8 +502,15 @@
 <script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
 <script src='/plugins/fullcalendar/scheduler.min.js'></script>
 
+<!-- bootstrap datepicker -->
+<script src="/adminPanel/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Select2 -->
+<script src="/adminPanel/plugins/select2/select2.full.min.js"></script>
+
 <?php echo $this->fetch('scripts'); ?>
 <script type="text/javascript">
+    
+    $('.select2 span').addClass('needsclick');
     
     $('.dataTable').DataTable({
       "paging": true,
@@ -611,6 +623,7 @@
 		});
 
 </script>
+
 <style>
     .ui-dialog {
         z-index: 99999 !important;
