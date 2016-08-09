@@ -1,4 +1,6 @@
- <div class="box box-info">
+  
+
+<div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-clock-o"></i> Single Time Entry Form</h3>
 
@@ -13,6 +15,15 @@
                       <label>Customer/Job</label>
                       <select id='customerList'  data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[TimeEntry][customer_id]' style="width: 100%;">
                    <option></option>
+                   <?php foreach($customers as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                   </div> 
                   <div class='form-group'>
@@ -46,27 +57,51 @@
                       </table>
               </div>
               
-              <style>
-                  .main-item {font-weight: bold;}
-                  .child-item {font-style: italic; font-size: 95%; padding-left: 25px;}
-              </style>
+             
             <div class="col-md-6">
               <div class="form-group">
                 <label>Service Item</label>
                 <select name='data[TimeEntry][item_id]' id='serviceItemList' data-placeholder='Select a service item...' class="form-control select2 validation" data-required = "required" style="width: 100%;">
                    <option></option>
+                   <?php foreach($services as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
               </div>
                  <div class='form-group'>
                 <label>Payroll Item</label>
                 <select name='data[TimeEntry][payroll_item_id]'  id='payrollItemList' data-placeholder='Select a payroll item...'  class="form-control select2 validation" data-required = "required" style="width: 100%;">
                     <option></option>
+                    <?php foreach($payrolls as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                 </div>
                  <div class='form-group'>
                 <label>Class</label>
                 <select name='data[TimeEntry][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
                     <option></option>
+                    <?php foreach($classes as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                 </div>
                  <div class='form-group'>
@@ -77,16 +112,18 @@
           </div>
             <div class='row'>
                 <div class='col-md-offset-10 col-md-2'>
-                    <button type="submit" class='btn btn-primary'><i class='fa fa-arrow-cirle-right'></i> Submit Time</button>
+                    <input id='submitButton' type="submit" class='btn btn-primary' value='Submit Time' />
                 </div>
             </div>
         </div>
         
-        <?php $this->Form->end(); ?>
+        <?php echo $this->Form->end(); ?>
  </div>
 
 <?php $this->append('scripts'); ?>
 <script>
+   
+    
     $("#singleAdminSingleForm").submit(function(e) {
        $isValid = validateForm(); 
        
@@ -164,99 +201,33 @@
         
         return $return;
     }
-    function populateLists() {
-        $.ajax({
-      
-           url: "/admin/customers/ajaxGetCustomerList",
-           dataType: "json",
-           success: function(data) {
-              $.each(data, function(index, value) {
-                  $newAdd = "<option value='" + value.id + "' class='" + value.class + "'>";
-                  $newAdd += value.name;
-                  $newAdd += "</option>";
-                  $("#customerList").append($newAdd);
-              });
-              $("#customerList").data('placeholder', "Select a customer or job...");
-           }
-   
-    });
-    $.ajax({
-      
-           url: "/admin/timeEntry/ajaxGetPayrollItemList",
-           dataType: "json",
-           success: function(data) {
-              $.each(data, function(index, value) {
-                  $newAdd = "<option value='" + value.id + "' class='" + value.class + "'>";
-                  $newAdd += value.name;
-                  $newAdd += "</option>";
-                  $("#payrollItemList").append($newAdd);
-              });
-              $("#payrollItemList").data('placeholder', "Select a payroll item...");
-           }
-   
-    });
     
-    $.ajax({
-      
-           url: "/admin/timeEntry/ajaxGetClassList",
-           dataType: "json",
-           success: function(data) {
-              $.each(data, function(index, value) {
-                  $newAdd = "<option value='" + value.id + "' class='" + value.class + "'>";
-                  $newAdd += value.name;
-                  $newAdd += "</option>";
-                  $("#classItemList").append($newAdd);
-              });
-              $("#classItemList").data('placeholder', "Select a class...");
-           }
-   
-    });
-    
-    $.ajax({
-      
-           url: "/admin/timeEntry/ajaxGetServiceItemList",
-           dataType: "json",
-           success: function(data) {
-              $.each(data, function(index, value) {
-                  $newAdd = "<option value='" + value.id + "' class='" + value.class + "'>";
-                  $newAdd += value.name;
-                  $newAdd += "</option>";
-                  $("#serviceItemList").append($newAdd);
-              });
-              $("#serviceItemList").data('placeholder', "Select a service item...");
-           }
-   
-    });
-    
-    return true;
-    }
-    
-         $answer = populateLists();
-                 if($answer) {
         
+    
             
+   
             //Initialize Select2 Elements
-    $(".select2").select2({
-       
-        templateResult: function (data) {    
-    // We only really care if there is an element to pull classes from
-    if (!data.element) {
-      return data.text;
-    }
-
-    var $element = $(data.element);
-
-    var $wrapper = $('<span></span>');
-    $wrapper.addClass($element[0].className);
-
-    $wrapper.text(data.text);
-
-    return $wrapper;
-  }
-    });
+//    $(".select2").select2({
+//       
+//        templateResult: function (data) {    
+//    // We only really care if there is an element to pull classes from
+//    if (!data.element) {
+//      return data.text;
+//    }
+//
+//    var $element = $(data.element);
+//
+//    var $wrapper = $('<span></span>');
+//    $wrapper.addClass($element[0].className);
+//
+//    $wrapper.text(data.text);
+//
+//    return $wrapper;
+//  }
+//    });
             
            
-    }
+    
    
    
  
@@ -276,5 +247,5 @@
         min: 0,
         max: 300
     }).val(0);
-    </script>
+</script>
 <?php $this->end(); ?>

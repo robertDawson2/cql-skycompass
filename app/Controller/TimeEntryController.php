@@ -12,34 +12,35 @@
     class TimeEntryController extends AppController {
 
     	public $name = 'TimeEntry';
-        public $uses = array('TimeEntry','Notification');
+        public $uses = array('TimeEntry','Notification', 'Config');
         
         public function beforeFilter() {
             parent::beforeFilter();
           
         }
-                public function admin_ajaxGetPayrollItemList() {
-            $this->layout = 'ajax';
-            $this->loadModel('PayrollItem');
-            $items = $this->PayrollItem->find('all');
-            
-            $returnArray = array();
-            foreach($items as $item)
-            {
-               
-                
-                $returnArray[] = array(
-                    'id' => $item['PayrollItem']['id'],
-                    'name' => $item['PayrollItem']['name'],
-                    'class' => ''
-                    
-                );
            
-            }
-             echo json_encode($returnArray);
+        function admin_delete($id = null)
+        {
+            if(isset($id) && $id !== null)
+            {
+                $this->TimeEntry->id = $id;
+                if($this->TimeEntry->delete())
+                {
+                    $this->Session->setFlash('Time Entry has been removed.', 'flash_success');
+                }
+                else
+                {
+                    $this->Session->setFlash('An error occurred while removing the record.', 'flash_error');
+                }
+                $this->redirect('/admin/timeEntry/viewMyTime');
                 exit();
+            }
+            else
+            {
+                 $this->Session->setFlash('An error occurred while removing the record.', 'flash_error');
+                $this->redirect('/admin/timeEntry/viewMyTime');
+            }
         }
-        
         function admin_viewMyTime()
         {
             $id = $this->Auth->user('id');
@@ -50,86 +51,14 @@
             $this->set('timeEntries', $timeEntries);
             $this->set('user', $this->Auth->user());
         }
-          public function admin_ajaxGetClassList() {
-            $this->layout = 'ajax';
-            $this->loadModel('Classes');
-            $items = $this->Classes->find('all', array('conditions' => array(
-                'Classes.parent_id' => ''
-            )));
-            
-            $returnArray = array();
-            foreach($items as $class)
-            {
-               
-                
-                $returnArray[] = array(
-                    'id' => $class['Classes']['id'],
-                    'name' => $class['Classes']['name'],
-                    'class' => 'main-item'
-                    
-                );
-                
-                if(!empty($class['Children']))
-                {
-                    foreach($class['Children'] as $job)
-                    {
-                        $returnArray[] = array(
-                         'id' => $job['id'],
-                            'name' => $job['name'],
-                            'class' => 'child-item'
-                        );
-                    }
-                }
-                
-               
-                
-            }
-             echo json_encode($returnArray);
-                exit();
-        }
+          
         
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'time');
             $this->layout = 'admin';
         }
-        public function admin_ajaxGetServiceItemlist()
-        {
-            $this->loadModel('Item');
-            $itemList = $this->Item->find('all', array('conditions' => array(
-                'Item.type' => 'Service',
-                'Item.parent_id' => ''
-            )));
-             $returnArray = array();
-            foreach($itemList as $class)
-            {
-               
-                
-                $returnArray[] = array(
-                    'id' => $class['Item']['id'],
-                    'name' => $class['Item']['name'],
-                    'class' => 'main-item'
-                    
-                );
-                
-                if(!empty($class['Children']))
-                {
-                    foreach($class['Children'] as $job)
-                    {
-                        $returnArray[] = array(
-                         'id' => $job['id'],
-                            'name' => $job['name'],
-                            'class' => 'child-item'
-                        );
-                    }
-                }
-                
-               
-                
-            }
-             echo json_encode($returnArray);
-                exit();
-        }
+        
         function admin_approve() {
             
             if(!empty($this->request->data))
@@ -157,7 +86,9 @@
                     }
                     else
                     {
-                        $this->_queueToSave($i);
+                        if($approve)
+                            $this->_queueToSave($i);
+                        
                         $timeEntry = $this->TimeEntry->findById($i);
                         
                         if($approve == 1)
@@ -222,6 +153,18 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             
         }
         public function admin_single() {
+            $payrolls = $this->_loadPayrollItems();
+            $this->set('payrolls', $payrolls);
+            
+            $classes = $this->_loadClasses();
+            $this->set('classes', $classes);
+            
+            $customers = $this->_loadCustomers();
+            $this->set('customers', $customers);
+            
+            $services = $this->_loadServices();
+            $this->set('services', $services);
+            
             if(!empty($this->request->data))
             {
                 
@@ -245,6 +188,8 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 $newRecord['TimeEntry']['billable_status'] = "Billable";
                 $newRecord['TimeEntry']['txn_number'] = 0;
                 $newRecord['TimeEntry']['id'] = sha1(serialize($newRecord) . time());
+                $newRecord['TimeEntry'] = $this->_checkRecord($newRecord['TimeEntry']);
+                
                 if($this->TimeEntry->save($newRecord))
                 {
                     $this->Session->setFlash('Your time entry has been successfully logged for approval.', 'flash_success');
@@ -260,11 +205,45 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             
         }
         
+        
+        private function _checkRecord($record = null)
+        {
+            $return = $record;
+            
+            // Check if service date falls before current pay period and 
+            // if so, change the date to the first date of current pay period
+            // with a note of the actual date of action
+           
+            $payrollStart = strtotime($this->config['admin.payroll_start']);
+            $dateOfService = strtotime($record['txn_date']);
+            
+            if($dateOfService < $payrollStart)
+            {
+                $return['txn_date'] = $this->config['admin.payroll_start'];
+                $return['notes'] .= "\n***BACKLOGGED TIME ENTRY***\nActual date of completed service: " . $record['txn_date'];
+            }
+            return $return;
+            
+        }
+        
         public function admin_edit($id = null) {
+            $payrolls = $this->_loadPayrollItems();
+            $this->set('payrolls', $payrolls);
+            
+            $classes = $this->_loadClasses();
+            $this->set('classes', $classes);
+            
+            $customers = $this->_loadCustomers();
+            $this->set('customers', $customers);
+            
+            $services = $this->_loadServices();
+            $this->set('services', $services);
+            
             if(!empty($this->request->data))
             {
                 
                 $newRecord = $this->request->data;
+                
                 $newRecord['TimeEntry']['duration'] = "PT" . $newRecord['TimeEntry']['hours'] .
                         "H" . $newRecord['TimeEntry']['minutes'] . "M";
                 $newRecord['TimeEntry']['user_id'] = $this->Auth->user('id');
@@ -283,7 +262,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 $newRecord['TimeEntry']['is_billable'] = "";
                 $newRecord['TimeEntry']['billable_status'] = "Billable";
                 $newRecord['TimeEntry']['txn_number'] = 0;
-                $newRecord['TimeEntry']['id'] = sha1(serialize($newRecord) . time());
+                
                 
                 $this->TimeEntry->id = $newRecord['TimeEntry']['id'];
                 if($this->TimeEntry->saveMany($newRecord))
@@ -332,6 +311,35 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             
         }
         
+        function updateConfiguration($hash = null)
+        {
+            if($hash !== 'addnri232naa83alk3ASD3A3han3kqln3')
+            {
+                exit('NOT AUTHORIZED');
+            }
+            
+            
+            // if it is past the admin payroll cutoff, time to advance everything by 2 weeks
+            if(time() > strtotime($this->config['admin.payroll_cutoff']))
+            {
+                $config = array(
+                    'admin.payroll_start' => date('Y-m-d H:i:s', strtotime($this->config['admin.payroll_start'] . " +2 weeks")),
+                    'admin.payroll_end' => date('Y-m-d H:i:s', strtotime($this->config['admin.payroll_end'] . " +2 weeks")),
+                    'admin.payroll_cutoff' => date('Y-m-d H:i:s', strtotime($this->config['admin.payroll_cutoff'] . " +2 weeks")),
+                    'admin.pay_date' => date('Y-m-d H:i:s', strtotime($this->config['admin.pay_date'] . " +2 weeks")),
+                );
+               
+                foreach($config as $i => $c)
+                {
+                    
+                    $this->Config->saveValue($i, $c);
+                }
+                
+                exit('done');
+            }
+            
+            exit('unnecessary');
+        }
         
         public function import($hash = null)
         {

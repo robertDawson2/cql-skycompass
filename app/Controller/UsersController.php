@@ -162,8 +162,8 @@ class UsersController extends AppController {
                 exit('You are not authorized to view this page');
             }
             $user = $this->User->find('first', array('conditions'=> array(
-                'reset_hash' => $hash,
-                'id' => $id
+                'User.reset_hash' => $hash,
+                'User.id' => $id
             )));
             if(empty($user))
                 exit('You are not authorized to view this page');

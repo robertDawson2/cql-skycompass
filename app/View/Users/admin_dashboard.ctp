@@ -62,7 +62,10 @@
       <!-- /.row -->
 
       <div class="row">
-        <div class="col-md-12">
+          <div class='col-md-4'>
+          <?= $this->element('payroll-widget'); ?>
+          </div>
+        <div class="col-md-8">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Monthly Recap Report</h3>

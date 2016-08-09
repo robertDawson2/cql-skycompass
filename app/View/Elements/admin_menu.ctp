@@ -101,11 +101,16 @@
             <li><a href="#entryModal" data-toggle="modal" ><i class="fa fa-user-plus"></i> Add Time Entry</a></li>
 
             <li><a href="/admin/timeEntry/viewMyTime"><i class="fa fa-list"></i> View My Time Entries</a></li>
+            <?php if(isset($currentUser['Vendor']) && !empty($currentUser['Vendor'])) { ?>
+            <li><a href="/admin/expenses/add" data-toggle="modal" ><i class="fa fa-user-plus"></i> Add Expense Sheet</a></li>
+
+            <li><a href="/admin/expenses/viewMyExpenses"><i class="fa fa-list"></i> View My Expenses</a></li>
+            <?php } ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['time_entries']['admin_approve']): ?>
             <li><a href="/admin/timeEntry/approve"><i class="fa fa-clock-o"></i> Approve Employee Time</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['bills']['admin_approve']): ?>
-            <li><a href="#"><i class="fa fa-credit-card"></i> Approve Employee Expenses</a></li>
+            <li><a href="/admin/expenses/approve"><i class="fa fa-credit-card"></i> Approve Employee Expenses</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['time_entries']['admin_index']): ?>
             <li><a href="#"><i class="fa fa-hourglass-half"></i> Time Log Summary</a></li>

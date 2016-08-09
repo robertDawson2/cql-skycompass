@@ -37,6 +37,137 @@ class AppController extends Controller {
 	public $config = array();
         public $user = array();
 
+        
+        public function _loadServices()
+        {
+            $this->loadModel('Item');
+            $itemList = $this->Item->find('all', array('conditions' => array(
+                'Item.type' => 'Service',
+                'Item.parent_id' => ''
+            )));
+             $returnArray = array();
+            foreach($itemList as $class)
+            {
+               
+                
+                $returnArray[] = array(
+                    'id' => $class['Item']['id'],
+                    'name' => $class['Item']['name'],
+                    'class' => 'main-item'
+                    
+                );
+                
+                if(!empty($class['Children']))
+                {
+                    foreach($class['Children'] as $job)
+                    {
+                        $returnArray[] = array(
+                         'id' => $job['id'],
+                            'name' => $job['name'],
+                            'class' => 'child-item'
+                        );
+                    }
+                }
+                
+               
+                
+            }
+             return $returnArray;
+        }
+        
+        public function _loadClasses() {
+           
+            $this->loadModel('Classes');
+            $items = $this->Classes->find('all', array('conditions' => array(
+                'Classes.parent_id' => ''
+            )));
+            
+            $returnArray = array();
+            foreach($items as $class)
+            {
+               
+                
+                $returnArray[] = array(
+                    'id' => $class['Classes']['id'],
+                    'name' => $class['Classes']['name'],
+                    'class' => 'main-item'
+                    
+                );
+                
+                if(!empty($class['Children']))
+                {
+                    foreach($class['Children'] as $job)
+                    {
+                        $returnArray[] = array(
+                         'id' => $job['id'],
+                            'name' => $job['name'],
+                            'class' => 'child-item'
+                        );
+                    }
+                }
+                
+               
+                
+            }
+             return $returnArray;
+              
+        }
+        
+        public function _loadPayrollItems()
+        {
+            $this->loadModel('PayrollItem');
+            $items = $this->PayrollItem->find('all');
+            
+            $returnArray = array();
+            foreach($items as $item)
+            {
+               
+                
+                $returnArray[] = array(
+                    'id' => $item['PayrollItem']['id'],
+                    'name' => $item['PayrollItem']['name'],
+                    'class' => ''
+                    
+                );
+           
+            }
+            return $returnArray;
+        }
+        
+        public function _loadCustomers() {
+            $this->loadModel('Customer');
+            $customers = $this->Customer->find('all');
+            
+            $returnArray = array();
+            foreach($customers as $customer)
+            {
+               
+                
+                $returnArray[] = array(
+                    'id' => $customer['Customer']['id'],
+                    'name' => $customer['Customer']['name'],
+                    'class' => 'main-item'
+                    
+                );
+                
+                if(!empty($customer['Jobs']))
+                {
+                    foreach($customer['Jobs'] as $job)
+                    {
+                        $returnArray[] = array(
+                         'id' => $job['id'],
+                            'name' => $job['name'],
+                            'class' => 'child-item'
+                        );
+                    }
+                }
+                
+               
+                
+            }
+            return $returnArray;
+        }
+        
 	public function beforeFilter() {	
 		
 
@@ -125,7 +256,8 @@ class AppController extends Controller {
 			$this->set('notification', $misc['notification']);
 			$this->Session->delete('Misc.notification');
 		}
-		
+		 $customers = $this->_loadCustomers();
+                $this->set('customerList', $customers);
 		if ($this->request['prefix'] == 'admin' || $this->request['prefix'] == 'ajax')
 			$this->layout = $this->request['prefix'];
 		

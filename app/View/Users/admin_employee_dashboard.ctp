@@ -64,6 +64,12 @@
         <!-- ./col -->
       </div>
       <!-- /.row -->
+      
+      <div class='row'>
+          <div class='col-md-4'>
+              <?= $this->element('payroll-widget'); ?>
+          </div>
+      </div>
 
       
 <!--       Main row 

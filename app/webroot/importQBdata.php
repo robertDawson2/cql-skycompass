@@ -77,6 +77,10 @@ define('QB_QUICKBOOKS_MAX_RETURNED', 10);
  * 
  */
 define('QB_PRIORITY_EMPLOYEE', 6);
+/**
+ * 
+ */
+define('QB_PRIORITY_BILL', 6);
 
 /**
  * 
@@ -139,6 +143,7 @@ $map = array(
 	QUICKBOOKS_IMPORT_INVOICE => array( '_quickbooks_invoice_import_request', '_quickbooks_invoice_import_response' ),
 	QUICKBOOKS_IMPORT_CUSTOMER => array( '_quickbooks_customer_import_request', '_quickbooks_customer_import_response' ), 
 	QUICKBOOKS_IMPORT_SALESORDER => array( '_quickbooks_salesorder_import_request', '_quickbooks_salesorder_import_response' ), 
+    QUICKBOOKS_IMPORT_BILL => array('_quickbooks_bill_import_request', '_quickbooks_bill_import_response' ), 
 	QUICKBOOKS_IMPORT_ITEM => array( '_quickbooks_item_import_request', '_quickbooks_item_import_response' ), 
     QUICKBOOKS_IMPORT_EMPLOYEE => array( '_quickbooks_employee_import_request', '_quickbooks_employee_import_response' ), 
     QUICKBOOKS_IMPORT_TIMETRACKING => array( '_quickbooks_time_tracking_import_request', '_quickbooks_time_tracking_import_response' ), 
@@ -264,6 +269,13 @@ function _quickbooks_hook_loginsuccess($requestID, $user, $hook, &$err, $hook_da
 	$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
 	$date = '1983-01-02 12:01:01';
 	
+        // Set up the invoice imports
+	if (!_quickbooks_get_last_run($user, QUICKBOOKS_IMPORT_BILL))
+	{
+		// And write the initial sync time
+		_quickbooks_set_last_run($user, QUICKBOOKS_IMPORT_BILL, $date);
+	}
+        
 	// Set up the invoice imports
 	if (!_quickbooks_get_last_run($user, QUICKBOOKS_IMPORT_INVOICE))
 	{
@@ -333,6 +345,7 @@ function _quickbooks_hook_loginsuccess($requestID, $user, $hook, &$err, $hook_da
 	$Queue->enqueue(QUICKBOOKS_IMPORT_ITEM, 1, QB_PRIORITY_ITEM);
         $Queue->enqueue(QUICKBOOKS_IMPORT_VENDOR, 1, QB_PRIORITY_VENDOR);
          $Queue->enqueue(QUICKBOOKS_IMPORT_EMPLOYEE, 1, QB_PRIORITY_EMPLOYEE);
+         $Queue->enqueue(QUICKBOOKS_IMPORT_BILL, 1, QB_PRIORITY_BILL);
          $Queue->enqueue(QUICKBOOKS_IMPORT_TIMETRACKING, 1, QB_PRIORITY_TIMETRACKING);
           $Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, 1, QB_PRIORITY_TIMETRACKING);
           $Queue->enqueue(QUICKBOOKS_IMPORT_PAYROLLITEMWAGE, 1, QB_PRIORITY_PAYROLLITEMWAGE);
@@ -486,6 +499,210 @@ function _quickbooks_time_add_response($requestID, $user, $action, $ID, $extra, 
     $result = mysql_query($queryString);
 	return $result;	
 }
+
+/**
+ * Build a request to import invoices already in QuickBooks into our application
+ */
+function _quickbooks_bill_import_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
+{
+	// Iterator support (break the result set into small chunks)
+	$attr_iteratorID = '';
+	$attr_iterator = ' iterator="Start" ';
+	if (empty($extra['iteratorID']))
+	{
+		// This is the first request in a new batch
+		$last = _quickbooks_get_last_run($user, $action);
+		_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
+		
+		// Set the current run to $last
+		_quickbooks_set_current_run($user, $action, $last);
+	}
+	else
+	{
+		// This is a continuation of a batch
+		$attr_iteratorID = ' iteratorID="' . $extra['iteratorID'] . '" ';
+		$attr_iterator = ' iterator="Continue" ';
+		
+		$last = _quickbooks_get_current_run($user, $action);
+	}
+	
+	// Build the request
+	$xml = '<?xml version="1.0" encoding="utf-8"?>
+		<?qbxml version="' . $version . '"?>
+		<QBXML>
+			<QBXMLMsgsRq onError="stopOnError">
+				<BillQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
+					<MaxReturned>' . QB_QUICKBOOKS_MAX_RETURNED . '</MaxReturned>
+					<IncludeLineItems>true</IncludeLineItems>
+					<OwnerID>0</OwnerID>
+				</BillQueryRq>	
+			</QBXMLMsgsRq>
+		</QBXML>';
+		
+	return $xml;
+}
+
+/** 
+ * Handle a response from QuickBooks 
+ */
+function _quickbooks_bill_import_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
+{	
+	if (!empty($idents['iteratorRemainingCount']))
+	{
+		// Queue up another request
+		
+		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
+		$Queue->enqueue(QUICKBOOKS_IMPORT_BILL, null, QB_PRIORITY_BILL, array( 'iteratorID' => $idents['iteratorID'] ));
+	}
+	
+	// This piece of the response from QuickBooks is now stored in $xml. You 
+	//	can process the qbXML response in $xml in any way you like. Save it to 
+	//	a file, stuff it in a database, parse it and stuff the records in a 
+	//	database, etc. etc. etc. 
+	//	
+	// The following example shows how to use the built-in XML parser to parse 
+	//	the response and stuff it into a database. 
+	
+	// Import all of the records
+	$errnum = 0;
+	$errmsg = '';
+	$Parser = new QuickBooks_XML_Parser($xml);
+	if ($Doc = $Parser->parse($errnum, $errmsg))
+	{
+		$Root = $Doc->getRoot();
+		$List = $Root->getChildAt('QBXML/QBXMLMsgsRs/BillQueryRs');
+		
+		foreach ($List->children() as $Bill)
+		{
+                    
+			$arr = array(
+				'id' => $Bill->getChildDataAt('BillRet TxnID'),
+				'created' => $Bill->getChildDataAt('BillRet TimeCreated'),
+				'modified' => $Bill->getChildDataAt('BillRet TimeModified'),
+				'vendor_id' => $Bill->getChildDataAt('BillRet VendorRef ListID'),
+				'customer_id' => $Bill->getChildDataAt('BillRet CustomerRef ListID'),
+				'ref_number' => $Bill->getChildDataAt('BillRet RefNumber'),
+				'txn_date' => $Bill->getChildDataAt('BillRet TxnDate'),
+				'amount_due' => $Bill->getChildDataAt('BillRet AmountDue'),
+				'terms_id' => $Bill->getChildDataAt('BillRet TermsRef ListID'),
+				'memo' => $Bill->getChildDataAt('BillRet Memo'),
+				'is_paid' => $Bill->getChildDataAt('BillRet IsPaid'),
+				
+				);
+			
+			QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'Importing bill #' . $arr['ref_number'] . ': ' . print_r($arr, true));
+			
+			foreach ($arr as $key => $value)
+			{
+				$arr[$key] = mysql_real_escape_string($value);
+			}
+			
+			// Store the invoices in MySQL
+			mysql_query("
+				REPLACE INTO
+					bills
+				(
+					" . implode(", ", array_keys($arr)) . "
+				) VALUES (
+					'" . implode("', '", array_values($arr)) . "'
+				)") or die(trigger_error(mysql_error()));
+			
+			// Remove any old line items
+			mysql_query("DELETE FROM bill_expenses WHERE bill_expenses.bill_id = '" . mysql_real_escape_string($arr['id']) . "' ") or die(trigger_error(mysql_error()));
+			
+                        // Remove any old line items
+			mysql_query("DELETE FROM bill_items WHERE bill_items.bill_id = '" . mysql_real_escape_string($arr['id']) . "' ") or die(trigger_error(mysql_error()));
+			
+			// Process the line items
+                        
+			foreach ($Bill->children() as $Child)
+			{
+                            QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, "CHILD NAME:::: " . $Child->name());
+                            
+				if ($Child->name() == 'ExpenseLineRet')
+				{
+					$ExpenseLine = $Child;
+					
+					$expenselineitem = array( 
+						'bill_id' => $arr['id'], 
+                                            'vendor_id' => $arr['vendor_id'],
+						'id' => $ExpenseLine->getChildDataAt('ExpenseLineRet TxnLineID'), 
+						'account_id' => $ExpenseLine->getChildDataAt('ExpenseLineRet AccountRef ListID'), 
+						'amount' => $ExpenseLine->getChildDataAt('ExpenseLineRet Amount'), 
+						'memo' => $ExpenseLine->getChildDataAt('ExpenseLineRet Memo'), 
+						'customer_id' => $ExpenseLine->getChildDataAt('ExpenseLineRet CustomerRef ListID'),
+						'class_id' => $ExpenseLine->getChildDataAt('ExpenseLineRet ClassRef ListID'), 
+                                                'billable' => $ExpenseLine->getChildDataAt('ExpenseLineRet BillableStatus'),
+                                                'approved' => 1
+    						);
+					
+					foreach ($expenselineitem as $key => $value)
+					{
+						$expenselineitem[$key] = mysql_real_escape_string($value);
+					}
+					
+                                        $qry = "
+						INSERT INTO
+							bill_expenses
+						(
+							" . implode(", ", array_keys($expenselineitem)) . "
+						) VALUES (
+							'" . implode("', '", array_values($expenselineitem)) . "'
+						) ";
+                                        
+					// Store the lineitems in MySQL
+					mysql_query($qry) or die(trigger_error(mysql_error()));
+                                        
+                                        
+                                        
+				}
+                                
+                                elseif($Child->name() == 'ItemLineRet')
+                                {
+                                    $ItemLine = $Child;
+					
+					$lineitem = array( 
+						'bill_id' => $arr['id'], 
+                                            'vendor_id' => $arr['vendor_id'],
+						'id' => $ItemLine->getChildDataAt('ItemLineRet TxnLineID'), 
+						'item_id' => $ItemLine->getChildDataAt('ItemLineRet ItemRef ListID'), 
+						'amount' => $ItemLine->getChildDataAt('ItemLineRet Amount'), 
+                                            'cost' => $ItemLine->getChildDataAt('ItemLineRet Cost'), 
+                                            'quantity' => $ItemLine->getChildDataAt('ItemLineRet Quantity'), 
+						'description' => $ItemLine->getChildDataAt('ItemLineRet Desc'), 
+						'customer_id' => $ItemLine->getChildDataAt('ItemLineRet CustomerRef ListID'),
+						'class_id' => $ItemLine->getChildDataAt('ItemLineRet ClassRef ListID'), 
+                                                'billable' => $ItemLine->getChildDataAt('ItemLineRet BillableStatus'),
+                                                'approved' => 1
+    						);
+					QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, "LINEITEM:::: " . print_r($lineitem, true));
+					foreach ($lineitem as $key => $value)
+					{
+						$lineitem[$key] = mysql_real_escape_string($value);
+					}
+					
+                                        $qry = "
+						INSERT INTO
+							bill_items
+						(
+							" . implode(", ", array_keys($lineitem)) . "
+						) VALUES (
+							'" . implode("', '", array_values($lineitem)) . "'
+						) ";
+                                        QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, "LINEITEM:::: " . $qry);
+					// Store the lineitems in MySQL
+					mysql_query($qry) or die(trigger_error(mysql_error()));
+                                        
+                                        
+                                        
+                                }
+			}
+		}
+	}
+	
+	return true;
+}
+
 
 /**
  * Build a request to import invoices already in QuickBooks into our application
@@ -1910,7 +2127,11 @@ function _quickbooks_error_e500_notfound($requestID, $user, $action, $ID, $extra
 	{
 		return true;
 	}
-	
+	else if ($action == QUICKBOOKS_IMPORT_BILL)
+	{
+		return true;
+	}
+        
 	return false;
 }
 

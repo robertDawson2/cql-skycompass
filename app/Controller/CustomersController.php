@@ -20,40 +20,7 @@
             
         }
         
-        public function admin_ajaxGetCustomerList() {
-            $this->layout = 'ajax';
-            $customers = $this->Customer->find('all');
-            
-            $returnArray = array();
-            foreach($customers as $customer)
-            {
-               
-                
-                $returnArray[] = array(
-                    'id' => $customer['Customer']['id'],
-                    'name' => $customer['Customer']['name'],
-                    'class' => 'main-item'
-                    
-                );
-                
-                if(!empty($customer['Jobs']))
-                {
-                    foreach($customer['Jobs'] as $job)
-                    {
-                        $returnArray[] = array(
-                         'id' => $job['id'],
-                            'name' => $job['name'],
-                            'class' => 'child-item'
-                        );
-                    }
-                }
-                
-               
-                
-            }
-             echo json_encode($returnArray);
-                exit();
-        }
+        
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'customers');
