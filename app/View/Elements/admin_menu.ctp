@@ -102,7 +102,7 @@
 
             <li><a href="/admin/timeEntry/viewMyTime"><i class="fa fa-list"></i> View My Time Entries</a></li>
             <?php if(isset($currentUser['Vendor']) && !empty($currentUser['Vendor'])) { ?>
-            <li><a href="/admin/expenses/add" data-toggle="modal" ><i class="fa fa-user-plus"></i> Add Expense Sheet</a></li>
+            <li><a href="/admin/expenses/add" data-toggle="modal" ><i class="fa fa-user-plus"></i> Add Expense</a></li>
 
             <li><a href="/admin/expenses/viewMyExpenses"><i class="fa fa-list"></i> View My Expenses</a></li>
             <?php } ?>

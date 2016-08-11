@@ -3,7 +3,7 @@
 
 <h1>Expense Entries for <small><em><?= $user['first_name'] . " " . $user['last_name']; ?></em></small></h1>
 <?php if (!empty($expenses)): ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="users-table">
+<table class="table table-striped table-responsive table-bordered table-hover dataTable" id="users-table">
 	<thead>
 		<tr>
                     
@@ -11,7 +11,7 @@
                         <th>Amount</th>
 			<th>Customer/Job</th>
 			<th>Item</th>
-			<th>Class</th>
+			<th style='max-width: 100px;'>Class</th>
                         <th>Description</th>
                         <th>Approved?</th>
                         <th>Options</th>
@@ -28,9 +28,9 @@
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $time['Classes']['full_name']; ?></td>
                         <td><?php echo $entry['description']; ?></td>
-                        <td><?php if($entry['approved']===1) 
+                        <td><?php if($entry['approved']===1 || $entry['approved'] === '1') 
                                     echo "<i class='green fa fa-lg fa-check-circle-o'></i> Approved";
-                                  elseif($entry['approved']===0)
+                                  elseif($entry['approved']===0 || $entry['approved'] === '0')
                                      echo "<i class='red fa fa-lg fa-warning'></i> Denied";
                                   else
                                       echo "";

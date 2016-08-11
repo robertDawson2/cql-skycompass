@@ -24,6 +24,62 @@
             pr($this->Bill->findById($id));
             exit();
         }
+        
+        function generateBills($hash = null)
+        {
+            if($hash !== '4naer9ANDJ83ana3uEJNe33801')
+                exit('not authorized');
+            
+            $approvedBills = $this->BillItem->find('all', array(
+                'conditions' => array(
+                    'BillItem.approved' => 1,
+                    'BillItem.bill_id' => NULL                
+            ),
+                'order' => array(
+                    'BillItem.vendor_id' => 'ASC',
+                    'BillItem.txn_date' => 'ASC'
+                )));
+            
+            // Create organized array with all info needed for QB export
+            $bill_data_array = array();
+            $id = null;
+            foreach($approvedBills as $i => $a)
+            {
+                if(!isset($bill_data_array[$a['BillItem']['vendor_id']])) {
+                $bill_data_array[$a['BillItem']['vendor_id']] = array(
+                    'Bill' => array(
+                        'id' => sha1('BILL'. $i .time()),
+                        'vendor_id' => $a['BillItem']['vendor_id'],
+                        'customer_id' => $a['Customer']['id'],
+                        'ref_number' => "",
+                        'txn_date' => date("Y-m-d H:i:s"),
+                        'amount_due' => 0.00,
+                        'terms_id' => "",
+                        'memo' => "",
+                        'is_paid' => "false"
+                    )
+                );
+                
+                $this->Bill->create();
+                $this->Bill->save($bill_data_array[$a['BillItem']['vendor_id']]);
+                
+                $id = $this->Bill->id;
+                
+                
+                
+                }
+                $this->BillItem->id = $a['BillItem']['id'];
+                $this->BillItem->saveField('bill_id', $id);
+            }
+            
+            foreach($bill_data_array as $i => $a)
+                $this->_queueToSave($a['Bill']['id']);
+            
+            
+            pr($bill_data_array);
+            exit('done');
+            
+        }
         function admin_chooseExpenseCustomer()
         {
             
@@ -339,7 +395,7 @@ $dsn = 'mysql://cqldev:St8!VwARH49pW#eh3P@localhost/cqldev';
  */
 
 $Queue = new QuickBooks_WebConnector_Queue($dsn);
-	$Queue->enqueue(QUICKBOOKS_ADD_TIMETRACKING, $id);
+	$Queue->enqueue(QUICKBOOKS_ADD_BILL, $id);
         }
         
         

@@ -10,6 +10,11 @@ class UsersController extends AppController {
 		parent::beforeRender();
 	}
 	
+        function admin_printRUser($id)
+        {
+            pr($this->User->findById($id));
+            exit();
+        }
 	function beforeFilter() {
 		parent::beforeFilter();
 		$this->set('section', 'employees');

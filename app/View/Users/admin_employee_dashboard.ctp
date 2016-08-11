@@ -28,7 +28,7 @@
             <div class="icon">
               <i class="ion ion-cash"></i>
             </div>
-            <a href="#" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/admin/expenses/add" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -58,7 +58,7 @@
             <div class="icon">
               <i class="ion ion-backspace-outline"></i>
             </div>
-            <a href="#" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/admin/expenses/viewMyExpenses" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

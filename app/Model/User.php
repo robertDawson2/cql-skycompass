@@ -4,7 +4,11 @@
 		
 		public $name = 'User';
                 public $belongsTo = array('Vendor');
-                public $hasMany = array('TimeEntry', 'Notification');
+                public $hasMany = array('TimeEntry', 'Notification',
+                    'ApprovalManager' => array(
+                        'className' => 'ApprovalManager',
+                        'foreignKey' => 'user_id'
+                    ));
 		public $validate = array(
 			'first_name' => array(
 				'rule' => 'notEmpty',

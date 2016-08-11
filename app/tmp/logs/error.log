@@ -13682,3 +13682,2010 @@ Stack Trace:
 #3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2016-08-10 15:55:12 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-10 15:55:12 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-10 15:55:12 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-10 15:55:30 Error: [MissingActionException] Action ExpensesController::admin_generateBills() could not be found.
+Exception Attributes: array (
+  'controller' => 'ExpensesController',
+  'action' => 'admin_generateBills',
+)
+Request URL: /admin/expenses/generateBills/4naer9ANDJ83ana3uEJNe33801
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ExpensesController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-11 01:49:57 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:49:57 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:49:58 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:49:58 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:53:51 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1066 Not unique table/alias: 'ApprovalManager'
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT `Approva...', Array, 'ApprovalManager')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ApprovalManager', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#12 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 01:54:54 Error: [MissingTableException] Table user_id for model UserId was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'user_id',
+  'class' => 'UserId',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('user_id')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UserId')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UserId')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1757): Model->joinModel('UserId', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1238): DboSource->generateAssociationQuery(Object(User), Object(User), 'hasAndBelongsTo...', 'User', Array, Array, true)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'User', Array, Array, true, Array, 0, Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#11 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#13 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#14 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#15 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#17 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#18 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#19 {main}
+2016-08-11 01:54:54 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:54:54 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 01:56:15 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'User.manager_id' in 'on clause'
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT `Approva...', Array, 'ApprovalManager')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ApprovalManager', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#12 [internal function]: UsersController->admin_printRUser('1')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 01:56:38 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1066 Not unique table/alias: 'ApprovalManager'
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT `Approva...', Array, 'ApprovalManager')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ApprovalManager', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#12 [internal function]: UsersController->admin_printRUser('1')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 02:20:27 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'User.web_user_type' in 'where clause'
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Managed...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Managed...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT `Managed...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT `Managed...', Array, 'ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#12 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 02:21:12 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'User.web_user_type' in 'where clause'
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Managed...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Managed...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT `Managed...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT `Managed...', Array, 'ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#12 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 02:44:51 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ManagedEmployees.' in 'field list'
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT DISTINCT...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT DISTINCT...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT DISTINCT...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT DISTINCT...', Array, 'ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#12 [internal function]: UsersController->admin_printRUser('1')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 02:44:53 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ManagedEmployees.' in 'field list'
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT DISTINCT...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT DISTINCT...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1444): DboSource->fetchAll('SELECT DISTINCT...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1297): DboSource->_fetchHasAndBelongsToMany(Object(User), 'SELECT DISTINCT...', Array, 'ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#12 [internal function]: UsersController->admin_printRUser('1')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 02:54:17 Error: [MissingTableException] Table managed_employees_users for model ManagedEmployeesUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'managed_employees_users',
+  'class' => 'ManagedEmployeesUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('managed_employe...')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('ManagedEmployee...')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('ManagedEmployee...', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(AppModel), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:54:18 Error: [MissingTableException] Table managed_employees_users for model ManagedEmployeesUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'managed_employees_users',
+  'class' => 'ManagedEmployeesUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('managed_employe...')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('ManagedEmployee...')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('ManagedEmployee...', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(AppModel), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:54:18 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:54:19 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:54:20 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:54:40 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:54:40 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:54:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:54:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:56:17 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:56:18 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:56:18 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:56:18 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:58:00 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:58:00 Error: [MissingTableException] Table users_users for model UsersUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users_users',
+  'class' => 'UsersUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('users_users')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('UsersUser')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('UsersUser')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('UsersUser', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:58:00 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:58:00 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:58:43 Error: [MissingTableException] Table managed_employees_users for model ManagedEmployeesUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'managed_employees_users',
+  'class' => 'ManagedEmployeesUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('managed_employe...')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('ManagedEmployee...')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('ManagedEmployee...', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(AppModel), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:58:44 Error: [MissingTableException] Table managed_employees_users for model ManagedEmployeesUser was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'managed_employees_users',
+  'class' => 'ManagedEmployeesUser',
+  'ds' => 'default',
+)
+Request URL: /admin/users/printRUser/1
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3501): Model->setSource('managed_employe...')
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1357): Model->getDataSource()
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(864): Model->schema()
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(892): Model->__isset('ManagedEmployee...')
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(3577): Model->__get('ManagedEmployee...')
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1303): Model->joinModel('ManagedEmployee...', Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(AppModel), 'hasAndBelongsTo...', 'ManagedEmployee...', Array, Array, true, Array, 0, Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('1')
+#13 [internal function]: UsersController->admin_printRUser('1')
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 02:58:44 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 02:58:44 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:20:28 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'notifications.user_id' in 'where clause'
+Request URL: /admin/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Notific...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Notific...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Notific...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Notification), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Model/User.php(34): Model->find('all', Array)
+#7 /var/www/cql.local/public_html/app/Controller/AppController.php(296): User->getNotifications('800003F4-146904...')
+#8 /var/www/cql.local/public_html/app/Controller/UsersController.php(10): AppController->beforeRender()
+#9 [internal function]: UsersController->beforeRender(Object(CakeEvent))
+#10 /var/www/cql.local/public_html/lib/Cake/Event/CakeEventManager.php(244): call_user_func(Array, Object(CakeEvent))
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(927): CakeEventManager->dispatch(Object(CakeEvent))
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(370): Controller->render('admin_employee_...')
+#13 [internal function]: UsersController->admin_dashboard()
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 03:20:29 Error: Fatal Error (1): Call to a member function getNotifications() on a non-object in [/var/www/cql.local/public_html/app/Controller/AppController.php, line 296]
+2016-08-11 03:20:29 Error: [FatalErrorException] Call to a member function getNotifications() on a non-object
+Request URL: /admin/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 296)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 296, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 296, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-08-11 03:21:17 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'notifications.user_id' in 'where clause'
+Request URL: /admin/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Notific...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Notific...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Notific...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Notification), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Model/User.php(34): Model->find('all', Array)
+#7 /var/www/cql.local/public_html/app/Controller/AppController.php(290): User->getNotifications('800003F4-146904...')
+#8 /var/www/cql.local/public_html/app/Controller/UsersController.php(10): AppController->beforeRender()
+#9 [internal function]: UsersController->beforeRender(Object(CakeEvent))
+#10 /var/www/cql.local/public_html/lib/Cake/Event/CakeEventManager.php(244): call_user_func(Array, Object(CakeEvent))
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(927): CakeEventManager->dispatch(Object(CakeEvent))
+#12 /var/www/cql.local/public_html/app/Controller/UsersController.php(370): Controller->render('admin_employee_...')
+#13 [internal function]: UsersController->admin_dashboard()
+#14 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#17 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2016-08-11 03:21:17 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:21:17 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:03 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:03 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:03 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:03 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:06 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:26:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:27:56 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ApprovalManager.id' in 'field list'
+Request URL: /admin
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(AppModel), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('list', Array)
+#6 /var/www/cql.local/public_html/app/Model/User.php(26): Model->find('list', Array)
+#7 /var/www/cql.local/public_html/app/Controller/AppController.php(290): User->getNotifications('1')
+#8 /var/www/cql.local/public_html/app/Controller/UsersController.php(10): AppController->beforeRender()
+#9 [internal function]: UsersController->beforeRender(Object(CakeEvent))
+#10 /var/www/cql.local/public_html/lib/Cake/Event/CakeEventManager.php(244): call_user_func(Array, Object(CakeEvent))
+#11 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(927): CakeEventManager->dispatch(Object(CakeEvent))
+#12 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#13 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#14 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-08-11 03:27:56 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:27:56 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:29:09 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:25 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:26 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:26 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:30:26 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:33 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:34 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:34 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:43 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:31:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:07 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:08 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:08 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:08 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:08 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:32:29 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:36:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:38:55 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:39:12 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:41:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:41:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:41:37 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:41:58 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ApprovalManager.user_id' in 'field list'
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1421): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1259): DboSource->_fetchHasMany(Object(User), 'SELECT `Approva...', Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(User), 'hasMany', 'ApprovalManager', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#12 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 03:43:44 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ApprovalManager.user_id' in 'field list'
+Request URL: /admin/users/printRUser/800003F4-1469042412
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Approva...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Approva...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1421): DboSource->fetchAll('SELECT `Approva...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1259): DboSource->_fetchHasMany(Object(User), 'SELECT `Approva...', Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1142): DboSource->queryAssociation(Object(User), Object(ApprovalManager), 'hasMany', 'ApprovalManager', Array, Array, true, Array, 0, Array)
+#6 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(User), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(597): Model->find('first', Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(800): DboSource->query('findById', Array, Object(User))
+#10 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): Model->__call('findById', Array)
+#11 /var/www/cql.local/public_html/app/Controller/UsersController.php(15): User->findById('800003F4-146904...')
+#12 [internal function]: UsersController->admin_printRUser('800003F4-146904...')
+#13 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#14 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#15 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#16 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#17 {main}
+2016-08-11 03:54:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:06 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:06 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 03:54:13 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:05:50 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'User.ApprovalManager.manager_id' in 'where clause'
+Request URL: /admin/timeEntry/approve
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(120): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_approve()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-08-11 04:06:17 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ApprovalManager.manager_id' in 'where clause'
+Request URL: /admin/timeEntry/approve
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(120): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_approve()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-08-11 04:23:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:04 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user3-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user7-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user5-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user6-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user8-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:10 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user2-160x160.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user4-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:23:11 Error: [MissingControllerException] Controller class DistController could not be found.
+Exception Attributes: array (
+  'class' => 'DistController',
+  'plugin' => NULL,
+)
+Request URL: /dist/img/user1-128x128.jpg
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:42:22 Error: [MissingControllerException] Controller class AdminPanelController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminPanelController',
+  'plugin' => NULL,
+)
+Request URL: /adminPanel/dist/css/skins/blue.min.css
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:42:24 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-11 04:42:38 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

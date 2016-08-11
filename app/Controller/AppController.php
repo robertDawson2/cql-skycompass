@@ -285,10 +285,11 @@ class AppController extends Controller {
                     $this->set('currentUser', $user);
                     $notifications = $this->Notification->find('all', array(
                         'conditions' => array(
-                            'Notification.user_id'=> array($user['id'], $user['web_user_type'])
+                            'Notification.user_id'=> array($user['id'], $user['web_user_type']),
+                   //         'Notification.allowed_admins LIKE' => "%" . $user['id'] . "%"
                             
                         ),
-                            'order' => 'Notification.seen ASC',
+                            'order' => array('Notification.seen' => 'ASC', 'Notification.created' => 'DESC'),
                         'limit' => 10)
                     );
                     $this->user = $user;
