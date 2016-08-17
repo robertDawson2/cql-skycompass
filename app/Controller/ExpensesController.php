@@ -248,6 +248,7 @@ if($uploadOk) {
             }
             
             $current = $this->BillItem->findById($id);
+            $current['BillItem']['txn_date'] = date("m/d/Y", strtotime($current['BillItem']['txn_date']));
             $this->data = $current;
             
         }
@@ -366,8 +367,22 @@ if($uploadOk) {
             
             
             }
-            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>null, 'BillItem.bill_id'=>null),
+            $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
+            $this->loadModel('Vendor');
+            $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
+            $entries = $this->BillItem->find('all', array('conditions'=>array(), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
+            foreach($entries as $i => $entry) 
+            {
+                $allowed = false;
+                foreach($entry['Vendor']['User']['ApprovalManager'] as $manager)
+                    if($manager['manager_id'] == $this->Auth->user('id'))
+                        $allowed = true;
+                    
+                    if(!$allowed)
+                        unset($entries[$i]);
+            }
+           
             
             $this->set('entries',$entries);
             

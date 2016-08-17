@@ -10,8 +10,8 @@
       <legend><?php echo __('Set Your New Password'); ?></legend>
       <?php
       //debug($users);
-      echo $this->Form->input('password', array('label' => 'Password'));
-      echo $this->Form->input('password_retype', array('label' => 'Confirm password', 'type' => 'password'));
+      echo $this->Form->input('password', array('label' => 'Password', 'class'=>'input form-control'));
+      echo $this->Form->input('password_retype', array('label' => 'Confirm password', 'type' => 'password', 'class' => 'input form-control'));
       ?>
       <p class='text-red' id='validation-error'>*** Passwords do not match ***</p>
       <?php

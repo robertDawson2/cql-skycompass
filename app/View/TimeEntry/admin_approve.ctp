@@ -4,7 +4,7 @@
 <h1>Pending Time Entries</h1>
 <?php if (!empty($entries)): ?>
 <?php echo $this->Form->create('approve'); ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="users-table">
+<table class="table table-striped table-bordered table-hover approval-dataTable" id="users-table">
 	<thead>
 		<tr>
                     <th></th>

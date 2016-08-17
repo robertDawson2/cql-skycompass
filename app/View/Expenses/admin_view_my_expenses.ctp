@@ -22,7 +22,12 @@
 	<?php foreach ($expenses as $time) {  $entry = $time['BillItem'];?>
                 <tr <?php if($entry['approved']) { ?> class='disabled' <?php } ?>>
                         
-			<td><?php echo date("m/d/Y", strtotime($entry['txn_date'])); ?></td>
+			<td><?php 
+                        if($entry['txn_date'] !== "0000-00-00 00:00:00")
+                            echo date("m/d/Y", strtotime($entry['txn_date'])); 
+                        else
+                            echo date("m/d/Y", strtotime($time['Bill']['txn_date']));
+                        ?></td>
                         <td>$<?= $entry['amount']; ?></td>
 			<td><?php echo $time['Customer']['full_name']; ?></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
@@ -63,8 +68,8 @@
         e.preventDefault();
         $.fancybox({
         
-        autoSize: true,
-        content: "<img src='/files/uploads/" + $(this).data('src') + "' />"
+        autoScale: true,
+        content: "<img width='800px'  src='/files/uploads/" + $(this).data('src') + "' />"
     });
     
     });

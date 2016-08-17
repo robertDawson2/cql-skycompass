@@ -110,6 +110,29 @@
 			</div>
                     
 		</div>
+                
+                <h4>Approval Managers</h4>
+		<div class="row form-group">
+                    <select id="admin-selector">
+                        <?php foreach($admins as $i => $admin): ?>
+                        
+                        <option data-id="<?= $admin['User']['id']; ?>"><?= $admin['User']['first_name'] . " " . $admin['User']['last_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <a id="admin-selector-add" href="#" class="btn btn-primary">
+                        Add
+                    </a>
+                    
+                </div>
+                <div class="row form-group">
+                    <h5>Current Approval Managers:</h5>
+                    <div id="current-approval-managers">
+                    <?php foreach($currentAdmins as $cadmin): ?>
+                    <div><?= $cadmin['User']['first_name'] . " " . $cadmin['User']['last_name']; ?> <a class="approval-manager-remove" href="#" data-id="<?= $cadmin['User']['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
     </div>
 </div>
 <?php endif; ?>
@@ -117,3 +140,60 @@
     
 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
 </form>
+
+<?php $this->append('scripts'); ?>
+<script>
+    
+$("#admin-selector-add").click(function(e) {
+    e.preventDefault();
+    $url = '/admin/users/ajaxAddManager/<?= $this->data['User']['id']; ?>/' + $( "#admin-selector option:selected" ).data('id');
+
+    $.ajax(
+            {
+                url: $url
+            }
+                )
+                .done(function(result) {
+                 if(result === 'ok')
+         {
+             $addition = '<div>' + $( "#admin-selector option:selected" ).val() + 
+                     '<a class="approval-manager-remove" href="#" data-id="' + 
+                     $( "#admin-selector option:selected" ).data('id') +
+                    '" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a></div>';
+             $( "#admin-selector option:selected" ).remove();
+             $("#current-approval-managers").append($addition);
+             
+             
+        }
+                
+            });
+});
+
+$(".approval-manager-remove").click(function(e) {
+    e.preventDefault();
+    $url = '/admin/users/ajaxRemoveManager/<?= $this->data['User']['id']; ?>/' + $(this).data('id');
+    $id = $(this).data('id');
+    $clicked = $(this);
+
+    $.ajax(
+            {
+                url: $url
+            }
+                )
+                .done(function(result) {
+                 if(result === 'ok')
+         {
+             $addition = '<option data-id="' + $id + '">' + $clicked.parent().text() +
+                     '</option>';
+             $clicked.parent().remove();
+             $("#admin-selector").append($addition);
+             
+             
+        }
+                
+            });
+});
+
+</script>
+
+<?php $this->end(); ?>

@@ -18,7 +18,7 @@ class UsersController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 		$this->set('section', 'employees');
-                $this->Auth->allow('passwordReset', 'firstLogin');
+                $this->Auth->allow('passwordReset', 'firstLogin', 'forgotPassword');
 	}
         public function admin_viewPermissions($id) {
             pr(unserialize($this->User->findById($id)['User']['permissions'])); exit();
@@ -178,6 +178,38 @@ class UsersController extends AppController {
             
             
         }
+        
+        function forgotPassword() {
+            $this->layout = 'no_menu';
+            if(!empty($this->request->data))
+            {
+                $user = $this->User->find('first', array('conditions' => array('User.email' => $this->request->data['User']['email'])));
+                if(empty($user))
+                {
+                    $this->Session->setFlash('No user found that matches this email address. Please try again.', 'flash_error');
+                    
+                }
+                else
+                {
+                    $this->User->id = $user['User']['id'];
+                    $this->User->saveField('password', null);
+                    App::uses('CakeEmail', 'Network/Email');
+                            $to = array($user['User']['email']);
+                            
+                            $email = new CakeEmail('smtp');
+                            $email->template('reset', 'default')
+                            ->emailFormat('both')
+                            ->subject($this->config['site.name'] . ' Password Reset')
+                            ->viewVars(array('user' => $user, 'config' => $this->config, 'description' => 'Password Reset Request'))
+                            ->to($to)
+                            ->send();
+                    $this->Session->setFlash('Password reset request has been sent to ' . $user['User']['first_name'] . " " . $user['User']['last_name'] . ".",
+                            'flash_success');
+                    $this->redirect('/admin');
+                }
+            }
+        }
+        
         function admin_sendWelcomeEmail($id = null)
         {
             if(isset($id))
@@ -299,6 +331,31 @@ class UsersController extends AppController {
             
             return true;
         }
+        function admin_ajaxAddManager($userId, $managerId)
+        {
+            $this->layout = 'ajax';
+            $newRecord = array('ApprovalManager' => array(
+                'user_id' => $userId,
+                'manager_id' => $managerId
+            ));
+            $this->loadModel('ApprovalManager');
+            $this->ApprovalManager->create();
+            if($this->ApprovalManager->save($newRecord))
+                exit('ok');
+            else
+                exit('error');
+        }
+        function admin_ajaxRemoveManager($userId, $managerId)
+        {
+            $this->layout = 'ajax';
+            
+            $this->loadModel('ApprovalManager');
+            
+            if($this->ApprovalManager->deleteAll(array('user_id' => $userId, 'manager_id' => $managerId)))
+                exit('ok');
+            else
+                exit('error');
+        }
 	function admin_create() {
 		// TODO: add security
 		if (!empty($this->request->data)) {
@@ -318,6 +375,37 @@ class UsersController extends AppController {
 	
 	function admin_edit($id = null) {
 		// TODO: add security
+            $admins = $this->User->find('all', array('conditions' => array(
+                'web_user_type' => 'admin'
+                
+            ), 'recursive' => -1,
+                'fields' => array(
+                    'User.id', 'User.first_name', 'User.last_name'
+                ),
+                'order' => 'User.id ASC'));
+           
+            
+            $this->loadModel('ApprovalManager');
+            $currentManagerIds = $this->ApprovalManager->find('list', array('conditions'=>array(
+                'user_id' => $id
+            
+            ),
+                'fields' => array('manager_id', 'manager_id')));
+           
+            $currentManagers = $this->User->find('all', array('conditions' => array(
+                'User.id' => $currentManagerIds
+            ),
+                'recursive' => -1,
+                'fields' => array('User.id','User.first_name', 'User.last_name')));
+            
+            foreach($admins as $i => $admin)
+            {
+                if(in_array($admin['User']['id'], $currentManagerIds))
+                        unset($admins[$i]);
+            }
+             $this->set('admins', $admins);
+             $this->set('currentAdmins', $currentManagers);
+            
 		$id = isset($id) ? $id : $this->request->data['User']['id'];
 		if (!empty($this->request->data)) {
 			$this->User->set($this->request->data);

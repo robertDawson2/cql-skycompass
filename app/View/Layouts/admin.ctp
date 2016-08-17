@@ -217,13 +217,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/adminPanel/uploads/bobbydawson.jpg" class="user-image" alt="User Image">
+              <img src="/adminPanel/uploads/default.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs"><?= $currentUser['first_name'] . " " . $currentUser['last_name']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/adminPanel/uploads/bobbydawson.jpg" class="img-circle" alt="User Image">
+                <img src="/adminPanel/uploads/default.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   <?= $currentUser['first_name'] . " " . $currentUser['last_name']; ?>
@@ -272,7 +272,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/adminPanel/uploads/bobbydawson.jpg" class="img-circle" alt="User Image">
+          <img src="/adminPanel/uploads/default.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?= $currentUser['first_name'] . " " . $currentUser['last_name']; ?></p>
@@ -387,10 +387,20 @@
       "info": true,
       "autoWidth": false
     });
+    $('.approval-dataTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "order": [[2,"desc"]]
+    });
  
 	$(function() {
             
-            $(".fancybox").fancybox();
+            $(".fancybox").fancybox({
+                    'autoScale': true});
             
 <?php echo $this->fetch('jquery-scripts'); ?>
 		

@@ -12,7 +12,7 @@
     class TimeEntryController extends AppController {
 
     	public $name = 'TimeEntry';
-        public $uses = array('TimeEntry','Notification', 'Config');
+        public $uses = array('TimeEntry','Notification', 'Config', 'User');
         
         public function beforeFilter() {
             parent::beforeFilter();
@@ -116,9 +116,24 @@
             
             
             }
-            $entries = $this->TimeEntry->find('all', array('conditions'=>array('approved'=>null),
-                'order' => 'TimeEntry.txn_date ASC'));
-            
+            $this->User->unbindModel(array('hasMany' => array('TimeEntry')));
+            $entries = $this->TimeEntry->find('all', array('recursive' => 2, 'conditions'=>array('TimeEntry.approved'=>null),
+                'order' => 'TimeEntry.txn_date ASC', 'contain' => array(
+                    'User.ApprovalManager.manager_id = "'.$this->Auth->user('id').'"',
+                    'Customer',
+                    'User',
+                    'Item')));
+            foreach($entries as $i => $entry)
+            {
+                
+                $allowed = false;
+                foreach($entry['User']['ApprovalManager'] as $manager)
+                    if($manager['manager_id'] == $this->Auth->user('id'))
+                        $allowed = true;
+                    
+                    if(!$allowed)
+                        unset($entries[$i]);
+            }
             $this->set('entries',$entries);
         }
         
@@ -282,7 +297,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             $duration = $timeEntry['TimeEntry']['duration'];
             $timeEntry['TimeEntry']['hours'] = substr($duration,2,strpos($duration,"H")-2);
             $timeEntry['TimeEntry']['minutes'] = substr($duration,strpos($duration,"H")+1,-1);
-            
+            $timeEntry['TimeEntry']['txn_date'] = date("m/d/Y", strtotime($timeEntry['TimeEntry']['txn_date']));
             $this->data = $timeEntry;
             $this->set('data', $timeEntry);
             

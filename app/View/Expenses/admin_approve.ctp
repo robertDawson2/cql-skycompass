@@ -4,7 +4,7 @@
 <h1>Pending Expenses</h1>
 <?php if (!empty($entries)): ?>
 <?php echo $this->Form->create('approve'); ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="users-table">
+<table class="table table-striped table-bordered table-hover approval-dataTable" id="users-table">
 	<thead>
 		<tr>
                     <th></th>
@@ -64,8 +64,8 @@
         e.preventDefault();
         $.fancybox({
         
-        autoSize: true,
-        content: "<img src='/files/uploads/" + $(this).data('src') + "' />"
+        autoScale: true,
+        content: "<img width='800px' src='/files/uploads/" + $(this).data('src') + "' />"
     });
     
     });

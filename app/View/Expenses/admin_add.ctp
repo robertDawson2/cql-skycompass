@@ -53,7 +53,7 @@
                       
                       <label>Date</label>
                       <div class="input-group date">
-                  <div class="input-group-addon">
+                  <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input name='data[BillItem][txn_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
@@ -136,6 +136,12 @@
 </div>
          <?php $this->append('scripts'); ?>
 <script>
+    
+    $("#calendar-show").click(function()
+   {
+       $("#datepicker").datepicker('show');
+   });
+   
     $("#addAdminAddForm").submit(function(e) {
        $isValid = validateForm(); 
        

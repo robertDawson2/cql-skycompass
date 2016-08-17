@@ -60,7 +60,7 @@
                       
                       <label>Date of Service</label>
                       <div class="input-group date">
-                  <div class="input-group-addon">
+                  <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input value='<?= $data['TimeEntry']['txn_date']; ?>' name='data[TimeEntry][txn_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
@@ -86,7 +86,7 @@
                                   
                                    <div class='form-group'>
                                        <label>Minutes</label>
-                      <input  type="tel"  name='data[TimeEntry][minutes]' default='<?= $timeArray[1]; ?>' data-type='number'  class='form-control minute-spinner validation' data-required='required'>
+                      <input  type="tel"  name='data[TimeEntry][minutes]' max="59" default='<?= $timeArray[1]; ?>' data-type='number'  class='form-control minute-spinner validation' data-required='required'>
                                    </div>
                               </td>
                           </tr>
@@ -168,6 +168,11 @@
 <?php $this->append('scripts'); ?>
 <script>
     
+    $("#calendar-show").click(function()
+   {
+       $("#datepicker").datepicker('show');
+   });
+    
 //    $editArray = {customer_id : '<?=$data['TimeEntry']['customer_id']; ?>',
 //        item_id : '<?=$data['TimeEntry']['item_id']; ?>',
 //        payroll_id : '<?=$data['TimeEntry']['payroll_item_id']; ?>',
@@ -245,6 +250,18 @@
                 {
                     $(this).closest('.form-group').removeClass('has-error');
                     $(this).closest(".form-group").children('.help-block').remove();
+                    
+                    var max = null;
+                    if($(this).data('max') !== undefined)
+                    {
+                        max = $(this).data('max');
+                        if($value > max)
+                {
+                    $(this).closest('.form-group').addClass('has-error');
+                    $(this).closest(".form-group").append('<span class="help-block">This field must be less than ' + max + '.</span>');
+                    $return = false;
+                }
+                    }
                     }
             }
             
