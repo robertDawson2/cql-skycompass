@@ -385,7 +385,8 @@
       "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false
+      "autoWidth": false,
+      "order": [[0, "desc"]]
     });
     $('.approval-dataTable').DataTable({
       "paging": true,

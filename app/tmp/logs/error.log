@@ -17236,3 +17236,803 @@ Request URL: /adminMenu/plugins/iCheck/icheck.min.js
 Stack Trace:
 #0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-08-25 14:28:39 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:28:40 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:28:40 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:28:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:28:44 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:33:06 Error: [MissingActionException] Action CustomerController::admin_ajaxGetCustomerList() could not be found.
+Exception Attributes: array (
+  'controller' => 'CustomerController',
+  'action' => 'admin_ajaxGetCustomerList',
+)
+Request URL: /admin/customers/ajaxGetCustomerList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CustomersController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 14:33:06 Error: [MissingActionException] Action TimeEntryController::admin_ajaxGetClassList() could not be found.
+Exception Attributes: array (
+  'controller' => 'TimeEntryController',
+  'action' => 'admin_ajaxGetClassList',
+)
+Request URL: /admin/timeEntry/ajaxGetClassList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 14:33:06 Error: [MissingActionException] Action TimeEntryController::admin_ajaxGetPayrollItemList() could not be found.
+Exception Attributes: array (
+  'controller' => 'TimeEntryController',
+  'action' => 'admin_ajaxGetPayrollItemList',
+)
+Request URL: /admin/timeEntry/ajaxGetPayrollItemList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 14:33:06 Error: [MissingActionException] Action TimeEntryController::admin_ajaxGetServiceItemList() could not be found.
+Exception Attributes: array (
+  'controller' => 'TimeEntryController',
+  'action' => 'admin_ajaxGetServiceItemList',
+)
+Request URL: /admin/timeEntry/ajaxGetServiceItemList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 14:37:26 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:47:45 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:48:32 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:49:18 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:51:20 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 14:59:05 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:00:37 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:08:31 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:08:39 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:09:32 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:09:49 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:10:09 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:12:04 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:13:08 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:15:12 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:16:32 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:17:01 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:18:07 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:18:46 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:19:57 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:20:30 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:22:24 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:26:22 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:26:25 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:26:59 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:28:02 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:28:28 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:29:59 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:30:05 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 15:52:29 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:08:27 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'is_billable' doesn't have a default value
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(TimeEntry), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(252): Model->save(Array)
+#5 [internal function]: TimeEntryController->admin_weekly()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2016-08-25 16:08:30 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:17:27 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:18:08 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:20:04 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:30:36 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:32:24 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:34:35 Error: [MissingActionException] Action TimeEntryController::viewMyTime() could not be found.
+Exception Attributes: array (
+  'controller' => 'TimeEntryController',
+  'action' => 'viewMyTime',
+)
+Request URL: /timeEntry/viewMyTime
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 16:34:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:34:49 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:37:30 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:40:15 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:40:44 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:41:11 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:41:34 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:42:18 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:42:37 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:44:55 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:45:54 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:46:22 Error: [MissingActionException] Action TimeEntryController::viewMyTime() could not be found.
+Exception Attributes: array (
+  'controller' => 'TimeEntryController',
+  'action' => 'viewMyTime',
+)
+Request URL: /timeEntry/viewMyTime
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-08-25 16:46:23 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery.cycle2.js.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:46:47 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:48:57 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:49:21 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:49:51 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:50:18 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:50:26 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:52:36 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:54:00 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:54:30 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:57:03 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:57:49 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:58:43 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 16:59:57 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:06:37 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:07:47 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:09:30 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:10:17 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:12:13 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:13:40 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:15:29 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:15:47 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:17:34 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:19:05 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:19:54 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:21:00 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:21:54 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-08-25 17:22:28 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

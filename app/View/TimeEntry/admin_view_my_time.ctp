@@ -28,12 +28,14 @@
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $entry['class_name']; ?></td>
                         <td><?php echo $entry['payroll_item_name']; ?></td>
-                        <td><?php if($entry['approved']==1) 
+                        <td><?php 
+                        if($entry['approved'] === null)
+                                      echo "";
+                        elseif($entry['approved']==1) 
                                     echo "<i class='green fa fa-lg fa-check-circle-o'></i> Approved";
                                   elseif($entry['approved']==0)
                                      echo "<i class='red fa fa-lg fa-warning'></i> Denied";
-                                  else
-                                      echo "";
+                                  
                                       ?></td>
                        
                         <td>

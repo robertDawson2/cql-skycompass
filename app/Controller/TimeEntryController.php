@@ -165,7 +165,115 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
         
         
         public function admin_weekly() {
+            $payrolls = $this->_loadPayrollItems();
+            $this->set('payrolls', $payrolls);
             
+            $classes = $this->_loadClasses();
+            $this->set('classes', $classes);
+            
+            $customers = $this->_loadCustomers();
+            $this->set('customers', $customers);
+            
+            $services = $this->_loadServices();
+            $this->set('services', $services);
+            
+            if(!empty($this->request->data))
+            {
+                $date = null;
+                $daysArray = array(
+                    0 => 'sunday',
+                    1 => 'monday',
+                    2 => 'tuesday',
+                    3 => 'wednesday',
+                    4 => 'thursday',
+                    5 => 'friday',
+                    6 => 'saturday'
+                );
+                $first = true;
+                $noerrors = true;
+                foreach($this->request->data as $i => $d)
+                {
+                  //  pr($this->request->data);
+                    $newTimeEntry = array();
+                    
+                    echo ($i); echo "<BR>";
+                    if($first)
+                    {
+                       $first=false;
+                        pr($d);
+                        $date = strtotime($d['datepicker']);
+                        $date = strtotime('last sunday, 12am', $date);
+                    }
+                    else
+                    {
+                        
+                        $this->loadModel('PayrollItem');
+                $payrollItem = $this->PayrollItem->findById($d['TimeEntry']['payroll_item_id']);
+                $payrollName = $payrollItem['PayrollItem']['name'];
+                
+                $this->loadModel('Classes');
+                $classItem = $this->Classes->findById($d['TimeEntry']['class_id']);
+                $className = $classItem['Classes']['name'];
+                
+                        $newTimeEntry = array(
+                            'user_id' => $this->Auth->user('id'),
+                            'customer_id' => $d['TimeEntry']['customer_id'],
+                            'item_id' => $d['TimeEntry']['item_id'],
+                            'txn_number' => 0,
+                            'txn_date' => null,
+                            'duration' => null,
+                            'class_id' => $d['TimeEntry']['class_id'],
+                            'payroll_item_id' => $d['TimeEntry']['payroll_item_id'],
+                            'notes' => null,
+                            'billable_status' => 'Billable',
+                            'approved' => null,
+                            'imported' => 0,
+                            'is_billable' => "",
+                            'is_billed' => "",
+                            'class_name' => $className,
+                            'payroll_item_name' => $payrollName,
+                            'id' => null
+                            
+                        );
+                        for($j=0; $j<7; $j++)
+                        {
+                            if($j=== 0)
+                                $newTimeEntry['txn_date'] = date('Y-m-d', $date);
+                            else if($j===1)
+                                $newTimeEntry['txn_date'] = date('Y-m-d', strtotime('+'.$j.' day', $date));
+                            else
+                                $newTimeEntry['txn_date'] = date('Y-m-d', strtotime('+'.$j.' days', $date));
+                                
+                            $minutes = $d['TimeEntry'][$daysArray[$j]] * 60;
+                            $hours = intval($minutes/60);
+                            $minutes = $minutes - ($hours * 60);
+                            $newTimeEntry['notes'] = $d['TimeEntry']['notes'];
+                            $newTimeEntry['duration'] = "PT" . $hours . "H" . $minutes . "M";
+                            $newTimeEntry['id'] = sha1(serialize($newTimeEntry) . time());
+                            $newTimeEntry = $this->_checkRecord($newTimeEntry);
+                            
+                    if($minutes > 0 || $hours > 0)
+                    {
+                        $this->TimeEntry->create();
+                        if(!$this->TimeEntry->save($newTimeEntry))
+                            $noerrors = false;
+                    }
+                        }
+                    }
+                }
+               
+                if($noerrors)
+                {
+                    $this->Session->setFlash('All Time Entries have been logged for approval.', 'flash_success');
+                   
+                }
+                else
+                {
+                    $this->Session->setFlash('An error occurred saving one or more of your entries. Please check your entries for accuracy.', 'flash_error');
+                }
+                 $this->redirect('/admin/timeEntry/viewMyTime');
+                    
+            }
         }
         public function admin_single() {
             $payrolls = $this->_loadPayrollItems();
@@ -278,7 +386,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 $newRecord['TimeEntry']['billable_status'] = "Billable";
                 $newRecord['TimeEntry']['txn_number'] = 0;
                 
-                
+                $newRecord['TimeEntry'] = $this->_checkRecord($newRecord['TimeEntry']);
                 $this->TimeEntry->id = $newRecord['TimeEntry']['id'];
                 if($this->TimeEntry->saveMany($newRecord))
                 {

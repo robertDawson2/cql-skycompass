@@ -15,9 +15,9 @@
               <div class="col-sm-6" style='border-right: 1px solid #dedede; margin-bottom: 15px;'>
                   <a href='/admin/timeEntry/single' class='btn btn-lg btn-info btn-block'><i class='fa fa-2x fa-edit'></i> Single Entry</a>
               </div>
-         <!--         <div class="col-sm-6">
+                <div class="col-sm-6">
                   <a href='/admin/timeEntry/weekly' class='btn btn-lg btn-info btn-block'><i class='fa fa-2x fa-list-alt'></i> Weekly Timesheet</a>
-              </div>-->
+              </div>
           </div>
       </div>
       <div class="modal-footer">

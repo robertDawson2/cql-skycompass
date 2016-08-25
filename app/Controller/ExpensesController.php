@@ -16,6 +16,7 @@
         
         public function beforeFilter() {
             parent::beforeFilter();
+            $this->Auth->allow('generateBills');
           
         }
           
@@ -76,7 +77,7 @@
                 $this->_queueToSave($a['Bill']['id']);
             
             
-            pr($bill_data_array);
+          //  pr($bill_data_array);
             exit('done');
             
         }
@@ -370,11 +371,12 @@ if($uploadOk) {
             $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
             $this->loadModel('Vendor');
             $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
-            $entries = $this->BillItem->find('all', array('conditions'=>array(), 'recursive' => 3,
+            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>null, 'BillItem.bill_id'=>null), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
             foreach($entries as $i => $entry) 
             {
                 $allowed = false;
+                if(isset($entry['Vendor']['User']['ApprovalManager']))
                 foreach($entry['Vendor']['User']['ApprovalManager'] as $manager)
                     if($manager['manager_id'] == $this->Auth->user('id'))
                         $allowed = true;

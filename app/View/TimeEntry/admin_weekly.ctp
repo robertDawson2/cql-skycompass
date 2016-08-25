@@ -9,7 +9,7 @@
         
         <div class="box-body">
             <div class="row">
-                <div class="col-md-offset-8 col-md-4"><input name="data[TimeEntry][datepicker]" type="week" id="weeklyDatePicker"/></div>
+                <div class="form-group col-md-offset-8 col-md-4"><input name="data[TimeEntry][datepicker]" type="week" class="validation" id="weeklyDatePicker" data-type="date" data-max="today" /></div>
             </div>
             <table class="table table-responsive table-hover table-condensed table-striped">
                 <thead>
@@ -34,6 +34,15 @@
                             <label>Customer</label>
                         <select data-placeholder='Select a customer or job...' class="form-control customerList select2 validation" data-required='required' name='data[<?= $i; ?>][TimeEntry][customer_id]' style="width: 100%;">
                    <option></option>
+                   <?php foreach($customers as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                         </div>
                             </div>
@@ -42,6 +51,15 @@
                             <label>Svc Item</label>
                         <select name='data[<?= $i; ?>][TimeEntry][item_id]' data-placeholder='Select a service item...' class="form-control serviceItemList select2 validation" data-required = "required" style="width: 100%;">
                    <option></option>
+                   <?php foreach($services as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                         </div>
                             </div>
@@ -52,6 +70,15 @@
                             <label>Payroll Item</label>
                         <select name='data[<?= $i; ?>][TimeEntry][payroll_item_id]' data-placeholder='Select a payroll item...'  class="form-control payrollItemList select2 validation" data-required = "required" style="width: 100%;">
                     <option></option>
+                    <?php foreach($payrolls as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select>
                    </div>
                             </div>
@@ -60,6 +87,15 @@
                             <label>Class</label>
                          <select name='data[<?= $i; ?>][TimeEntry][class_id]' data-placeholder='Select a class...'  class="form-control classItemList select2 validation" data-required = "required"  style="width: 100%;">
                     <option></option>
+                    <?php foreach($classes as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
                 </select> 
                     </div>
                         </div>
@@ -69,34 +105,42 @@
                         <input type="text"  name='data[<?= $i; ?>][TimeEntry][notes]'  class='form-control'  width='100%' />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][sunday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][sunday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][monday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][monday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][tuesday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][tuesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][wednesday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][wednesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][thursday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][thursday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][friday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][friday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input type="text" name="data[<?= $i; ?>][TimeEntry][saturday]" class="form-control" maxlength="6" />
+                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][saturday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
-                    <td class="total-col" id='row-<?= $i; ?>'>
+                    <td class="total-col" id='total-row-<?= $i; ?>'>
                         0.00
+                        
+                    </td>
+                    <td style='width: 6px;'>
+                <?php if($i > 0): ?>
+                        <div class="box-tools pull-right" style='margin-top: -10px; padding-left: 8px;'>
+                    <button class="btn btn-box-tool btn-remove-row" type='button'>x</button>
+                </div>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 
                 <?php endfor; ?>
             </table>
-                     
+                      
                      
                  
                       
@@ -128,12 +172,33 @@
         var dateString = "" + (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
         $("#weeklyDatePicker").val(dateString);
         makeChanges();
-    
+  
+  $(".btn-remove-row").click(function() {
+            $(this).closest("tr").fadeOut();
+        });
+    $(".hour-counter").change(function() {
+        $id = $(this).data('id');
+        $total = 0.00;
+
+        $(".hour-counter-"+$id).each(function() {
+           
+            if($(this).val() !== '')
+                $total += parseFloat($(this).val());
+            else
+                $(this).val(0);
+        });
+
+        $("#total-row-" + $id).text($total.toFixed(2));
+    });
     $(".form-control").change(function() {
         $id = $(this).closest("tr").data('id');
         $id += 1;
         if($("#input-row-"+$id).css('display') === 'none')
+        {
             $("#input-row-"+$id).fadeIn();
+            $("#input-row-"+$id).addClass('nextrow');
+            $("#input-row-"+($id-1)).removeClass('nextrow');
+        }
     });
     
     $("#weeklyAdminWeeklyForm").submit(function(e) {
@@ -146,6 +211,8 @@
         // Validate Customer
         $return = true;
         $(".validation").each(function() {
+            
+            if($(this).closest("tr").css('display') !== 'none' && !$(this).closest("tr").hasClass('nextrow')) {
              $(this).closest('.form-group').removeClass('has-error');
                     $(this).closest(".form-group").children('.help-block').remove();
             $value = $(this).val();
@@ -207,8 +274,11 @@
             }
             
             
-            
-            
+            } // END IF FOR VISIBLE ROW
+            else
+            {
+            $(this).closest("tr").remove();
+            }
         });
         
         return $return;
@@ -280,32 +350,7 @@
     return true;
     }
     
-         $answer = populateLists();
-                 if($answer) {
-        
-            
-            //Initialize Select2 Elements
-    $(".select2").select2({
-       
-        templateResult: function (data) {    
-    // We only really care if there is an element to pull classes from
-    if (!data.element) {
-      return data.text;
-    }
-
-    var $element = $(data.element);
-
-    var $wrapper = $('<span></span>');
-    $wrapper.addClass($element[0].className);
-
-    $wrapper.text(data.text);
-
-    return $wrapper;
-  }
-    });
-            
-           
-    }
+         
    
    
  
@@ -315,7 +360,8 @@
 //Initialize the datePicker(I have taken format as mm-dd-yyyy, you can have your own)
 $("#weeklyDatePicker").datepicker({
  autoclose: true,
-    format: 'mm/dd/yy'
+    format: 'mm/dd/yyyy',
+    maxDate: new Date()
 });
 
 //Get the value of Start and End of Week
@@ -332,7 +378,7 @@ function makeChanges() {
     
     firstDate.setDate(date1);
    // lastDate.setDate(date2);
-    daysofweek = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
+    daysofweek = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     currDate=firstDate;
     $(".table-dates").each(function() {
         
