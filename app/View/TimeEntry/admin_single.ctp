@@ -43,7 +43,7 @@
                                   
                                    <div class='form-group'>
                                        <label>Hours</label>
-                      <input type="tel" name='data[TimeEntry][hours]' data-type="number"  class='form-control hour-spinner validation' data-required='required' default='0'>
+                      <input type="tel" name='data[TimeEntry][hours]' data-type="number" data-max="24"   class='form-control hour-spinner validation' data-required='required' default='0'>
                                    </div>
                               </td>
                               <td style='padding: 5px;'>

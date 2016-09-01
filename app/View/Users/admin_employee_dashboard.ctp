@@ -17,6 +17,7 @@
           </div>
         </div>
         <!-- ./col -->
+        <?php if($currentUser['vendor_id'] != null): ?>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
@@ -28,10 +29,11 @@
             <div class="icon">
               <i class="ion ion-cash"></i>
             </div>
-            <a href="/admin/expenses/add" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#expenseModal" data-toggle="modal" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
+        <?php endif; ?>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
@@ -47,6 +49,7 @@
           </div>
         </div>
         <!-- ./col -->
+        <?php if($currentUser['vendor_id'] != null): ?>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
@@ -62,6 +65,7 @@
           </div>
         </div>
         <!-- ./col -->
+        <?php endif; ?>
       </div>
       <!-- /.row -->
       

@@ -15,6 +15,7 @@
 			<th>Item</th>
 			<th>Class</th>
                         <th>Description</th>
+                        <th>CC?</th>
                         <th>Image</th>
                         <th>Billable Status</th>
 			
@@ -25,16 +26,17 @@
                 <tr <?php if($entry['approved']) { ?> class='disabled' <?php } ?>>
                         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php echo $entry['approved'] ? "checked disabled" : ""; ?> class="input form-control checkbox" /> </td>
                         <td><?= $time['Vendor']['first_name'] . " " . $time['Vendor']['last_name'];?></td>
-			<td><?php echo date("m/d/Y", strtotime($entry['txn_date'])); ?></td>
+			<td><?php echo date("m/d/y", strtotime($entry['txn_date'])); ?></td>
                         <td>$<?= $entry['amount']; ?></td>
 			<td><?php echo $time['Customer']['full_name']; ?></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $time['Classes']['full_name']; ?></td>
                         <td><?php echo $entry['description']; ?></td>
+                        <td><?php if($entry['company_cc_item']): ?><i style='color: green;' class='fa fa-lg fa-check-circle'></i><?php endif; ?></td>
                         <td>
                             <?php if(!empty($entry['image'])) { ?>
                             <a class="btn btn-block btn-primary view-attachment" href="#" data-src="<?= $entry['image']; ?>">
-                                <i class="fa fa-2x fa-eye"></i>
+                                <i class="fa fa-lg fa-eye"></i>
                             <?php } ?>
                             </a>
                         </td>

@@ -331,7 +331,7 @@
 
  <!-- This is where the sidebar would go if i need it - it's an element now -->
   <?= $this->element('modals/entry'); ?>
-
+<?= $this->element('modals/expense'); ?>
 
 
 </div>

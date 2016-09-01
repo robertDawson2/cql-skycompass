@@ -4,16 +4,26 @@
 
           
         </div>
+     
+     <style>
+         .custom-combobox {
+    position: relative;
+    display: inline-block;
+    width: 65%;
+    float: right;
+    margin-bottom: 2px;
+  }
+     </style>
         <!-- /.box-header -->
         <?php echo $this->Form->create('weekly'); ?>
         
         <div class="box-body">
             <div class="row">
-                <div class="form-group col-md-offset-8 col-md-4"><input name="data[TimeEntry][datepicker]" type="week" class="validation" id="weeklyDatePicker" data-type="date" data-max="today" /></div>
+                <div class="form-group col-md-offset-8 col-md-4"><input name="data[TimeEntry][datepicker]" class="validation" id="weeklyDatePicker" data-type="date" data-max="today" /></div>
             </div>
-            <table class="table table-responsive table-hover table-condensed table-striped">
+            <table class="table table-responsive table-hover table-striped">
                 <thead>
-                <th>Details</th>
+                <th style='min-width: 300px;'>Details</th>
                 
                 <th>Notes</th>
                 <th class="table-dates"></th>
@@ -26,13 +36,13 @@
                       <th>Total</th>
                 </thead>
                 <?php for($i=0;$i<10;$i++): ?>
-                <tr id="input-row-<?= $i; ?>" data-id="<?= $i; ?>" <?php if($i>0){ echo "style='display: none;'"; } ?>>
-                    <td>
+                <tr id="input-row-<?= $i; ?>" data-id="<?= $i; ?>" <?php if($i>0){ echo "style='display: none;'"; } else { echo "class='nextrow'"; } ?>>
+                    <td style="max-width: 250px !important;">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                         <div class="form-group inline">
                             <label>Customer</label>
-                        <select data-placeholder='Select a customer or job...' class="form-control customerList select2 validation" data-required='required' name='data[<?= $i; ?>][TimeEntry][customer_id]' style="width: 100%;">
+                        <select data-placeholder='Select a customer or job...' class="short-box customerList select2 validation" data-required='required' name='data[<?= $i; ?>][TimeEntry][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -46,10 +56,10 @@
                 </select>
                         </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                         <div class="form-group inline">
                             <label>Svc Item</label>
-                        <select name='data[<?= $i; ?>][TimeEntry][item_id]' data-placeholder='Select a service item...' class="form-control serviceItemList select2 validation" data-required = "required" style="width: 100%;">
+                        <select name='data[<?= $i; ?>][TimeEntry][item_id]' data-placeholder='Select a service item...' class="short-box serviceItemList select2 validation" data-required = "required" style="width: 100%;">
                    <option></option>
                    <?php foreach($services as $p): ?>
                     <?php $selected = "";
@@ -65,10 +75,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                    <div class="form-group inline">
                             <label>Payroll Item</label>
-                        <select name='data[<?= $i; ?>][TimeEntry][payroll_item_id]' data-placeholder='Select a payroll item...'  class="form-control payrollItemList select2 validation" data-required = "required" style="width: 100%;">
+                        <select name='data[<?= $i; ?>][TimeEntry][payroll_item_id]' data-placeholder='Select a payroll item...'  class="short-box payrollItemList select2 validation" data-required = "required" style="width: 100%;">
                     <option></option>
                     <?php foreach($payrolls as $p): ?>
                     <?php $selected = "";
@@ -82,10 +92,10 @@
                 </select>
                    </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                     <div class="form-group inline">
-                            <label>Class</label>
-                         <select name='data[<?= $i; ?>][TimeEntry][class_id]' data-placeholder='Select a class...'  class="form-control classItemList select2 validation" data-required = "required"  style="width: 100%;">
+                            <label style="display: inline;">Class</label>
+                         <select name='data[<?= $i; ?>][TimeEntry][class_id]' data-placeholder='Select a class...'  class="short-box classItemList select2 validation" data-required = "required"  style="width: 100%;">
                     <option></option>
                     <?php foreach($classes as $p): ?>
                     <?php $selected = "";
@@ -102,7 +112,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text"  name='data[<?= $i; ?>][TimeEntry][notes]'  class='form-control'  width='100%' />
+                        <textarea  name='data[<?= $i; ?>][TimeEntry][notes]'  class='form-control' style="min-width: 150px; min-height: 140px;" width='100%'></textarea>
                     </td>
                     <td>
                         <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][sunday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
@@ -210,7 +220,12 @@
     function validateForm() {
         // Validate Customer
         $return = true;
+        if($("#input-row-0").hasClass('nextrow')){
+                return false;
+            }
         $(".validation").each(function() {
+            
+                
             
             if($(this).closest("tr").css('display') !== 'none' && !$(this).closest("tr").hasClass('nextrow')) {
              $(this).closest('.form-group').removeClass('has-error');

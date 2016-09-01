@@ -37,6 +37,14 @@
   <?= $this->Form->hidden('BillItem.image'); ?>
   <div class='box-body'>
 	<fieldset>
+             <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <div class='form-group'>
+                    <?= $this->Form->input('BillItem.company_cc_item', array('label' => 'Comany Credit Card Charge',
+                            'type' => 'checkbox')); ?>
+                    </div>
+                </div>
+            </div>
             <div class="row">
               <div class="col-md-6">
                   <div class='form-group'>

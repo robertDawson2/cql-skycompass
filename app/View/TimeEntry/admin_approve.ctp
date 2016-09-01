@@ -16,12 +16,14 @@
 			<th>Class</th>
                         <th>Payroll Item</th>
                         <th>Billable Status</th>
+                        <th>Notes</th>
+                        <th>Submitted</th>
 			
 		</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($entries as $time) { $entry = $time['TimeEntry']; ?>
-                <tr <?php if($entry['approved']) { ?> class='disabled' <?php } ?>>
+                <tr data-id="<?= $entry['id']; ?>" class='approval-row <?php if($entry['approved']) { ?> disabled <?php } ?>'>
                         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php echo $entry['approved'] ? "checked disabled" : ""; ?> class="input form-control checkbox" /> </td>
                         <td><?= $time['User']['first_name'] . " " . $time['User']['last_name'];?></td>
 			<td><?php echo date("m/d/Y", strtotime($entry['txn_date'])); ?></td>
@@ -31,6 +33,8 @@
 			<td><?php echo $entry['class_name']; ?></td>
                         <td><?php echo $entry['payroll_item_name']; ?></td>
                         <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable_status']; ?>' name='data[entries][<?= $entry['id']; ?>][billable_status]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
+                        <td><?= $entry['notes']; ?></td>
+                        <td><?= date('m/d/Y H:i', strtotime($entry['modified'])); ?></td>
 			
 		</tr>
 	<?php } ?>
@@ -52,6 +56,17 @@
 
 <?php $this->append('scripts'); ?>
 <script>
+    
+    $(".approval-row").click(function() {
+        $approvalRow = $(this);
+        $url = "/timeEntry/ajaxGetDetails/" + $(this).data('id');
+        $.ajax({
+            url: $url
+            
+        }).done(function(data) {
+            console.log(data);
+        });
+    });
 var checked = false;
 $("#btn-check-uncheck").click(function(e) {
     e.preventDefault();

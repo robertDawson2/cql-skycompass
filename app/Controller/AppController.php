@@ -273,7 +273,7 @@ class AppController extends Controller {
 		}
 		$this->set('menu', $menu);
 
-		if ($this->isMobile) {
+		if ($this->isMobile && $this->request['prefix'] != 'admin') {
 			$this->layout = 'mobile';
         	//$this->set('navigation', $this->Content->find('threaded', array('fields' => array('Content.id', 'Content.tag', 'Content.parent_id', 'Content.lft', 'Content.rght'), 'conditions' => array('Content.status' => 'live'), 'order' => array('Content.lft ASC'))));
 		}
@@ -283,7 +283,13 @@ class AppController extends Controller {
                 {
                     $user['pmArray'] = unserialize($user['permissions']);
                     $this->set('currentUser', $user);
-                    $notifications = $this->Notification->find('all', array(
+                   
+                    if($this->Auth->user('web_user_type') == 'admin')
+                    {
+                        $timeEntryApprovals = $this->_getTimeEntryApprovals($this->Auth->user('id'));
+                        $expenseApprovals = $this->_getExpenseApprovals($this->Auth->user('id'));
+                    }
+                     $notifications = $this->Notification->find('all', array(
                         'conditions' => array(
                             'Notification.user_id'=> array($user['id'], $user['web_user_type']),
                    //         'Notification.allowed_admins LIKE' => "%" . $user['id'] . "%"
@@ -309,6 +315,131 @@ class AppController extends Controller {
                 
 	}
 
+        private function _getTimeEntryApprovals($compareId)
+        {
+              $this->Notification->deleteAll(array(
+                            'Notification.user_id'=> array($compareId),
+ 
+                            'Notification.context' => 'Admin_TimeApprove'
+            ));
+            
+                        $this->loadModel('ApprovalManager');
+                        $approvalIds = $this->ApprovalManager->find('list', array(
+                            'conditions' => array(
+                                'manager_id' => $compareId
+                            ),
+                            'fields' => array('user_id', 'user_id')
+                        ));
+                        $this->loadModel('TimeEntry');
+                        $adminApprovals = $this->TimeEntry->find('list', array(
+                            'conditions' => array(
+                                'approved' => NULL
+                                
+                            ),
+                            'fields' => array('TimeEntry.id', 'TimeEntry.user_id')
+                        ));
+                       if(!empty($adminApprovals))
+                        foreach($adminApprovals as $i => $a)
+                        {
+                            if(!in_array($a, $approvalIds))
+                            {
+                                unset($adminApprovals[$i]);
+                            }
+                        }
+                        
+                        if(!empty($adminApprovals))
+                        {
+                            $return = array('Notification' => array(
+                                'user_id' => $compareId,
+                                'context' => 'Admin_TimeApprove',
+                                'href' => '/admin/timeEntry/approve',
+                                'title' => 'Approval Needed',
+                                'message' => '%i records queued for approval',
+                                'count' => count($adminApprovals),
+                                'seen' => 0
+                            ));
+                            $this->Notification->create();
+                            $this->Notification->save($return);
+                            
+                            return true;
+                        }
+                        
+                        return false;
+                        
+        }
+        private function _swapVendorForUser($arr)
+        {
+            $this->loadModel('User');
+            $usersToVendors = $this->User->find('list', array('fields' => array(
+                'User.vendor_id', 'User.id'
+            ),
+              'conditions' => array('NOT' => array('User.vendor_id' => NULL) )));
+            
+            foreach($arr as $i => $a)
+            {
+                $arr[$i] = $usersToVendors[$a];
+            }
+            return $arr;
+        }
+        private function _getExpenseApprovals($compareId)
+        {
+            
+            $this->Notification->deleteAll(array(
+                            'Notification.user_id'=> array($compareId),
+ 
+                            'Notification.context' => 'Admin_ExpenseApprove'
+            ));
+            
+            
+                        $this->loadModel('ApprovalManager');
+                        $approvalIds = $this->ApprovalManager->find('list', array(
+                            'conditions' => array(
+                                'manager_id' => $compareId
+                            ),
+                            'fields' => array('user_id', 'user_id')
+                        ));
+                        $this->loadModel('BillItem');
+                       
+                        $adminApprovals = $this->BillItem->find('list', array(
+                            
+                            'conditions' => array(
+                                'approved' => NULL
+                                
+                            ),
+                            'recursive' => -1,
+                            'fields' => array('BillItem.id', 'BillItem.vendor_id')
+                        ));
+                        $adminApprovals = $this->_swapVendorForUser($adminApprovals);
+                        
+                       if(!empty($adminApprovals))
+                        foreach($adminApprovals as $i => $a)
+                        {
+                            if(!in_array($a, $approvalIds))
+                            {
+                                unset($adminApprovals[$i]);
+                            }
+                        }
+                        
+                        if(!empty($adminApprovals))
+                        {
+                            $return = array('Notification' => array(
+                                'user_id' => $compareId,
+                                'context' => 'Admin_ExpenseApprove',
+                                'href' => '/admin/expenses/approve',
+                                'title' => 'Approval Needed',
+                                'message' => '%i expenses queued for approval',
+                                'count' => count($adminApprovals),
+                                'seen' => 0
+                            ));
+                            $this->Notification->create();
+                            $this->Notification->save($return);
+                            
+                            return true;
+                        }
+                        
+                        return false;
+                        
+        }
         private function _newEmployeesSinceLogin($lastLogin) {
             $this->loadModel('User');
             $count = $this->User->find('count', array('conditions' => array(

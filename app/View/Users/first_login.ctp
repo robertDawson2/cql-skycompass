@@ -8,6 +8,7 @@
    <?php echo $this->Form->create('User', array('action' => 'firstLogin')); ?>
    <fieldset>
       <legend><?php echo __('Set Your New Password'); ?></legend>
+      <small><em>Password must be at least 8 characters long.</em></small>
       <?php
       //debug($users);
       echo $this->Form->input('password', array('label' => 'Password', 'class'=>'input form-control'));
@@ -30,6 +31,17 @@ $("#UserFirstLoginForm").submit(function(e) {
  e.preventDefault();
  }
  
+ $("#tooshort-error").remove();
+ var len = $("#UserPassword").val().length;
+ 
+ if(len < 8)
+ {
+     $html = "<span id='tooshort-error' class='error' style='color: red; font-weight: bold;'>Your password must be at least 8 characters long.</span>";
+     $(".form").append($html);
+      e.preventDefault();
+ }
+
+
 });
 $("#UserPasswordRetype").on('keyup', function(){
 

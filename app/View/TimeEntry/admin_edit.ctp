@@ -79,14 +79,14 @@
                             ?>
                                    <div class='form-group'>
                                        <label>Hours</label>
-                      <input type="tel" name='data[TimeEntry][hours]' default='<?= $timeArray[0]; ?>' data-type="number"  class='form-control hour-spinner validation' data-required='required'>
+                      <input type="tel" name='data[TimeEntry][hours]' data-max="24" max="24" default='<?= $timeArray[0]; ?>' data-type="number"  class='form-control hour-spinner validation' data-required='required'>
                                    </div>
                               </td>
                               <td style='padding: 5px;'>
                                   
                                    <div class='form-group'>
                                        <label>Minutes</label>
-                      <input  type="tel"  name='data[TimeEntry][minutes]' max="59" default='<?= $timeArray[1]; ?>' data-type='number'  class='form-control minute-spinner validation' data-required='required'>
+                      <input  type="tel"  name='data[TimeEntry][minutes]' data-max="59" max="59" default='<?= $timeArray[1]; ?>' data-type='number'  class='form-control minute-spinner validation' data-required='required'>
                                    </div>
                               </td>
                           </tr>

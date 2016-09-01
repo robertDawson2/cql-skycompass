@@ -30,10 +30,16 @@
 				)
 			),
 			'password' => array(
+                            'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'message' => 'This field is required',
 				'on' => 'create'
-			),
+                                ),
+                            'minLength' => array(
+                                'rule' => array('minLength', '8'),
+                                'message' => 'Password must be at least 8 characters long.'
+                            )
+                            ),
 			'password_confirmation' => array(
 				'rule' => array('matchesField', 'password'),
 				'message' => 'The passwords you entered do not match',

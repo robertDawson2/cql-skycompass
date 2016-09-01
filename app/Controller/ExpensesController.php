@@ -25,6 +25,16 @@
             pr($this->Bill->findById($id));
             exit();
         }
+        function admin_travelSheet()
+        {
+            $this->set('mileage', 0.565);
+            $classes = $this->_loadClasses();
+            $this->set('classes', $classes);
+            
+            $customers = $this->_loadCustomers();
+            $this->set('customers', $customers);
+            
+        }
         
         function generateBills($hash = null)
         {
@@ -34,7 +44,8 @@
             $approvedBills = $this->BillItem->find('all', array(
                 'conditions' => array(
                     'BillItem.approved' => 1,
-                    'BillItem.bill_id' => NULL                
+                    'BillItem.bill_id' => NULL,
+                    'BillItem.company_cc_item' => 0
             ),
                 'order' => array(
                     'BillItem.vendor_id' => 'ASC',
@@ -151,7 +162,7 @@ if($uploadOk) {
         $this->BillItem->create();
         if($this->BillItem->save($newRecord))
         {
-            $this->Notification->queueNotification('admin', 'Admin_ExpenseApprove', '/admin/expenses/approve', 'Approval Needed', '%i expenses queued for approval.');
+            
              $this->Session->setFlash('Bill item has been saved and sent for approval.', 'flash_success');
                     $this->redirect('/admin/expenses/add');
                     exit();
@@ -226,7 +237,7 @@ if($uploadOk) {
         if($this->BillItem->save($newRecord))
         {
              $this->Session->setFlash('Bill item has been saved and sent for approval.', 'flash_success');
-             $this->Notification->queueNotification('admin', 'Admin_ExpenseApprove', '/admin/expenses/approve', 'Approval Needed', '%i expenses queued for approval.');
+           
                     $this->redirect('/admin/expenses/viewMyExpenses');
                     exit();
         }

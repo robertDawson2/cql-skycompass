@@ -41,6 +41,15 @@
                 $this->redirect('/admin/timeEntry/viewMyTime');
             }
         }
+        function ajaxGetDetails($id)
+        {
+            $this->layout = 'ajax';
+            $entry = $this->TimeEntry->findById($id);
+            
+            
+            pr($entry);
+            exit();
+        }
         function admin_viewMyTime()
         {
             $id = $this->Auth->user('id');
@@ -196,11 +205,11 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                   //  pr($this->request->data);
                     $newTimeEntry = array();
                     
-                    echo ($i); echo "<BR>";
+                   
                     if($first)
                     {
                        $first=false;
-                        pr($d);
+                        
                         $date = strtotime($d['datepicker']);
                         $date = strtotime('last sunday, 12am', $date);
                     }
@@ -316,7 +325,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 if($this->TimeEntry->save($newRecord))
                 {
                     $this->Session->setFlash('Your time entry has been successfully logged for approval.', 'flash_success');
-                    $this->Notification->queueNotification('admin', 'Admin_TimeApprove', '/admin/timeEntry/approve', 'Approval Needed', '%i records queued for approval.');
+                   
                     
                 }
                 else
@@ -391,7 +400,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 if($this->TimeEntry->saveMany($newRecord))
                 {
                     $this->Session->setFlash('Your time entry has been successfully logged for approval.', 'flash_success');
-                    $this->Notification->queueNotification('admin', 'Admin_TimeApprove', '/admin/timeEntry/approve', 'Approval Needed', '%i records queued for approval.');
+                  
                     
                 }
                 else

@@ -215,7 +215,8 @@ class UsersController extends AppController {
             if(isset($id))
             {
                 $user = $this->User->findById($id);
-                if($user['User']['password'] !== null)
+                
+                if($user['User']['password'] != null)
                 {
                     $this->Session->setFlash('User has already set up their account. Please have user reset password, or reset from the "Employees" tab',
                             'flash_error');
@@ -250,8 +251,13 @@ class UsersController extends AppController {
                 
                 $users = $this->User->find('all', array('conditions' => array(
                     'User.password' => NULL,
-                    
+                    'User.email LIKE' => '%@%.%',
+                    'NOT' => array(
+                        'User.email' => '',
+                        'User.email' => null
+                    )
                 )));
+               
                 $count = sizeof($users);
                 foreach($users as $user):
                             $to = array($user['User']['email']);
@@ -293,8 +299,14 @@ class UsersController extends AppController {
                 {
                     $this->User->id = $user['User']['id'];
                     $this->_generateResetHash($user['User']['id']);
-                    $this->User->saveField('password', $this->Auth->password($this->request->data['User']['password']));
-                    $this->Session->setFlash('Password Updated!');
+                    if($this->User->saveField('password', $this->Auth->password($this->request->data['User']['password'])))
+                    {
+                    $this->Session->setFlash('Password Updated!', 'flash_success');
+                    }
+                    else
+                    {
+                        $this->Session->setFlash('An error occurred.', 'flash_error');
+                    }
                     $this->redirect('/admin');
                 }
                 else
@@ -375,8 +387,10 @@ class UsersController extends AppController {
 	
 	function admin_edit($id = null) {
 		// TODO: add security
-            $admins = $this->User->find('all', array('conditions' => array(
-                'web_user_type' => 'admin'
+            $admins = $this->User->find('all', array('conditions' => array('OR' => array(
+                'User.web_user_type' => 'admin',
+                'User.permissions LIKE' => '%s:12:"time_entries";a:2:{s:13:"admin_approve";s:1:"1"%'
+        )
                 
             ), 'recursive' => -1,
                 'fields' => array(
@@ -410,6 +424,8 @@ class UsersController extends AppController {
 		if (!empty($this->request->data)) {
 			$this->User->set($this->request->data);
 			if ($this->User->validates()) {
+                            if(!empty($this->request->data['User']['new_password']))
+                                $this->request->data['User']['password'] = $this->Auth->password($this->request->data['User']['new_password']);
 				$this->request->data['User']['permissions'] = serialize($this->request->data['User']['permissions']);
 				if ($this->User->save($this->request->data)) {
 					$this->queueNotification(sprintf('Your changes to the user record for <b>%s %s</b> have been saved.', $this->request->data['User']['first_name'], $this->request->data['User']['last_name']), '/admin/users');
