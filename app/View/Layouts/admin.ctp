@@ -248,7 +248,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/admin/users/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="/admin/users/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -262,7 +262,6 @@
           </li>
         </ul>
       </div>
-
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->

@@ -345,17 +345,17 @@ function _quickbooks_hook_loginsuccess($requestID, $user, $hook, &$err, $hook_da
         
 	// Make sure the requests get queued up
         
-	$Queue->enqueue(QUICKBOOKS_IMPORT_SALESORDER, 1, QB_PRIORITY_SALESORDER);
-	$Queue->enqueue(QUICKBOOKS_IMPORT_INVOICE, 1, QB_PRIORITY_INVOICE);
-	$Queue->enqueue(QUICKBOOKS_IMPORT_PURCHASEORDER, 1, QB_PRIORITY_PURCHASEORDER);
-	$Queue->enqueue(QUICKBOOKS_IMPORT_CUSTOMER, 1, QB_PRIORITY_CUSTOMER);
-	$Queue->enqueue(QUICKBOOKS_IMPORT_ITEM, 1, QB_PRIORITY_ITEM);
-        $Queue->enqueue(QUICKBOOKS_IMPORT_VENDOR, 1, QB_PRIORITY_VENDOR);
+//	$Queue->enqueue(QUICKBOOKS_IMPORT_SALESORDER, 1, QB_PRIORITY_SALESORDER);
+//	$Queue->enqueue(QUICKBOOKS_IMPORT_INVOICE, 1, QB_PRIORITY_INVOICE);
+//	$Queue->enqueue(QUICKBOOKS_IMPORT_PURCHASEORDER, 1, QB_PRIORITY_PURCHASEORDER);
+//	$Queue->enqueue(QUICKBOOKS_IMPORT_CUSTOMER, 1, QB_PRIORITY_CUSTOMER);
+//	$Queue->enqueue(QUICKBOOKS_IMPORT_ITEM, 1, QB_PRIORITY_ITEM);
+  //      $Queue->enqueue(QUICKBOOKS_IMPORT_VENDOR, 1, QB_PRIORITY_VENDOR);
          $Queue->enqueue(QUICKBOOKS_IMPORT_EMPLOYEE, 1, QB_PRIORITY_EMPLOYEE);
-         $Queue->enqueue(QUICKBOOKS_IMPORT_BILL, 1, QB_PRIORITY_BILL);
-         $Queue->enqueue(QUICKBOOKS_IMPORT_TIMETRACKING, 1, QB_PRIORITY_TIMETRACKING);
-          $Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, 1, QB_PRIORITY_TIMETRACKING);
-          $Queue->enqueue(QUICKBOOKS_IMPORT_PAYROLLITEMWAGE, 1, QB_PRIORITY_PAYROLLITEMWAGE);
+    //     $Queue->enqueue(QUICKBOOKS_IMPORT_BILL, 1, QB_PRIORITY_BILL);
+      //   $Queue->enqueue(QUICKBOOKS_IMPORT_TIMETRACKING, 1, QB_PRIORITY_TIMETRACKING);
+        //  $Queue->enqueue(QUICKBOOKS_IMPORT_CLASS, 1, QB_PRIORITY_TIMETRACKING);
+          //$Queue->enqueue(QUICKBOOKS_IMPORT_PAYROLLITEMWAGE, 1, QB_PRIORITY_PAYROLLITEMWAGE);
 }
 
 /**
@@ -1928,6 +1928,7 @@ function _quickbooks_employee_import_request($requestID, $user, $action, $ID, $e
 				<EmployeeQueryRq>
                                             <ActiveStatus>All</ActiveStatus>
                                             <FromModifiedDate>' . $last . '</FromModifiedDate>
+                                            
                                             <OwnerID>0</OwnerID>
 				</EmployeeQueryRq>	
 			</QBXMLMsgsRq>
@@ -2001,14 +2002,23 @@ function _quickbooks_employee_import_response($requestID, $user, $action, $ID, $
                         'released_date' => $Employee->getChildDataAt('EmployeeRet ReleasedDate'),
                             'birth_date' => $Employee->getChildDataAt('EmployeeRet BirthDate'),
                             'pay_period' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo PayPeriod'),
-                            'use_time_data' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo IsUsingTimeDataToCreatePaychecks'),
+                            'use_time_data' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo UseTimeDataToCreatePaychecks'),
                             'notes' => $Employee->getChildDataAt('EmployeeRet Notes'),
-                            'vendor_id' => null
+                            'vendor_id' => null,
+                            'part_or_full_time' => $Employee->getChildDataAt('EmployeeRet PartOrFullTime'),
+
+   //                         'employee_payroll_class_id' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo ClassRef ListID'),
+   //                         'employee_payroll_class_full_name' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo ClassRef FullName'),
+                            'sick_hours_available' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo SickHours HoursAvailable'),
+                            'sick_hours_accrued' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo SickHours HoursAccrued'),
+                            'sick_hours_used' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo SickHours HoursUsed'),
+                            'vacation_hours_available' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo VacationHours HoursAvailable'),
+                            'vacation_hours_accrued' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo VacationHours HoursAccrued'),
+                            'vacation_hours_used' => $Employee->getChildDataAt('EmployeeRet EmployeePayrollInfo VacationHours HoursUsed')
                             );
                     
                 
                        
-			
                         $queryString = "
 				SELECT `id` FROM 
 					`vendors`
@@ -2046,18 +2056,62 @@ function _quickbooks_employee_import_response($requestID, $user, $action, $ID, $
                         {
                             $query .= $key . "='" . $value . "', ";
                                 }
-                                $query = substr($query,0,-1);
+                                $query = substr($query,0,-2);
                                 $query .= ";"
                                 
                                 ;
                         
-                   //     QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'MYSQL QUERY: ' . print_r($query, true));
+                 //       QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'MYSQL QUERY: ' . print_r($query, true));
                          
 			// Store the invoices in MySQL
 			mysql_query($query) or die(trigger_error(mysql_error()));
                     
-                   
+                        // break up earnings
+                        $Earnings = $Employee->getChildAt('EmployeeRet/EmployeePayrollInfo');
+                        QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'GETINFO: ' . print_r($Earnings, true));
+                        foreach ($Earnings->children() as $Earning)
+		{
+                            if($Earning->name() == 'Earnings') {
+                            QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'earning: ' . print_r((array) $Earning, true));
+                           
+                            $arrEarnings = array(
+                                'employee_id' => $arr['id'],
+                                'payroll_item_id' => $Earning->getChildDataAt('Earnings PayrollItemWageRef ListID'),
+                                'payroll_item_name' => $Earning->getChildDataAt('Earnings PayrollItemWageRef FullName'),
+                                'rate' => $Earning->getChildDataAt('Earnings Rate'),
+                                'rate_percent' => $Earning->getChildDataAt('Earnings RatePercent')
+                            );
+                            foreach ($arrEarnings as $key => $value)
+			{
+				$arrEarnings[$key] = mysql_real_escape_string($value);
+			}
 			
+                        $query = "
+				INSERT INTO
+					employee_earnings
+				(
+					" . implode(", ", array_keys($arrEarnings)) . "
+				) VALUES (
+					'" . implode("', '", array_values($arrEarnings)) . "'
+				) ON DUPLICATE KEY UPDATE ";
+                                foreach($arrEarnings as $key => $value)
+                        {
+                            $query .= $key . "='" . $value . "', ";
+                                }
+                                $query = substr($query,0,-2);
+                                $query .= ";"
+                                
+                                ;
+                        
+                       QuickBooks_Utilities::log(QB_QUICKBOOKS_DSN, 'MYSQL QUERY: ' . print_r($query, true));
+                         
+			// Store the invoices in MySQL
+			mysql_query($query) or die(trigger_error(mysql_error()));
+			
+                }  
+                        }
+                   
+                        
 			
 		}
 	}

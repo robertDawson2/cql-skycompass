@@ -133,4 +133,25 @@
           </ul>
         </li>
         <?php endif; ?>
+        
+        <?php if(isset($superUser)): ?> 
+        <li class="<?= $section == 'superApprove' ? 'active' : ''; ?> treeview">
+          <a href="/admin/timeEntry/superApprove">
+            <i class="fa fa-clock-o"></i> <span>Send Time To QB</span>
+     
+            <span class="label label-primary pull-right"><?= $superUser['entries']; ?></span>
+
+          </a>
+          
+        </li>
+        <li class="<?= $section == 'superApprove' ? 'active' : ''; ?> treeview">
+          <a href="/admin/expenses/superApprove">
+            <i class="fa fa-money"></i> <span>Send Bills To QB</span>
+     
+            <span class="label label-info pull-right"><?= $superUser['expenses']; ?></span>
+
+          </a>
+          
+        </li>
+        <?php endif; ?>
           </ul>

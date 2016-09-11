@@ -9,6 +9,15 @@ class UsersController extends AppController {
 	function beforeRender() {
 		parent::beforeRender();
 	}
+        
+        function admin_profile()
+        {
+            $this->User->bindModel(array('hasMany'=>array('EmployeeEarning'=>array(
+                'foreignKey' => 'employee_id'
+            ))));
+            $user = $this->User->findById($this->Auth->user('id'));
+            $this->set('user', $user);
+        }
 	
         function admin_printRUser($id)
         {

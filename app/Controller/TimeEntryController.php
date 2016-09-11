@@ -95,9 +95,9 @@
                     }
                     else
                     {
-                        if($approve)
-                            $this->_queueToSave($i);
-                        
+//                        if($approve)
+//                            $this->_queueToSave($i);
+//                        
                         $timeEntry = $this->TimeEntry->findById($i);
                         
                         if($approve == 1)
@@ -143,6 +143,74 @@
                     if(!$allowed)
                         unset($entries[$i]);
             }
+            $this->set('entries',$entries);
+        }
+        
+        function admin_superApprove() {
+            
+              if(!$this->Auth->user('super_user'))
+                exit("You are not authorized to use this page.");
+            
+            if(!empty($this->request->data))
+            {
+               
+                $error = false;
+                $approve = null;
+                if($this->request->data['TimeEntry']['approveDeny'] === 'approve')
+                    $approve = 1;
+                else
+                    $approve = 0;
+                foreach($this->request->data['entries'] as $i => $d)
+                {
+                    if(isset($d['approved']) && $d['approved'] == 'on')
+                    {
+                    $entry = array('TimeEntry' => array(
+                        'id' => $i,
+                        'super_approved' => $approve,
+                            'approved' => $approve
+                    ));
+                    
+                    if(!$this->TimeEntry->saveMany($entry))
+                    {
+                        $error = true;
+                    }
+                    else
+                    {
+                        if($approve)
+                            $this->_queueToSave($i);
+                        
+                        $timeEntry = $this->TimeEntry->findById($i);
+                        
+                        if($approve == 0)
+                            $this->Notification->queueNotification($timeEntry['TimeEntry']['user_id'],'TimeDeny','/admin/timeEntry/viewMyTime','Time Denied','%i time records were denied by super user');
+                    }
+                }
+                
+                    
+            }
+            
+            if(!$error)
+            {
+                if($approve == 1)
+                            $this->Session->setFlash('All selected entries set for approval','flash_success');
+                        else
+                            $this->Session->setFlash('All selected entries set for denial','flash_success');
+                    }
+                    else
+                    {
+                        $this->Session->setFlash('An error occurred while saving your request.', 'flash_error');
+                    }
+            
+            
+            
+            }
+            $this->User->unbindModel(array('hasMany' => array('TimeEntry')));
+            $entries = $this->TimeEntry->find('all', array('recursive' => 2, 'conditions'=>array('TimeEntry.super_approved'=>null, 'TimeEntry.approved'=>'1', 'NOT' => array('TimeEntry.imported' => '1')),
+                'order' => 'TimeEntry.txn_date ASC', 'contain' => array(
+                    'Customer',
+                    'User',
+                    'Item')));
+            
             $this->set('entries',$entries);
         }
         
@@ -394,6 +462,7 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 $newRecord['TimeEntry']['is_billable'] = "";
                 $newRecord['TimeEntry']['billable_status'] = "Billable";
                 $newRecord['TimeEntry']['txn_number'] = 0;
+                 $newRecord['TimeEntry']['super_approved'] = null;
                 
                 $newRecord['TimeEntry'] = $this->_checkRecord($newRecord['TimeEntry']);
                 $this->TimeEntry->id = $newRecord['TimeEntry']['id'];

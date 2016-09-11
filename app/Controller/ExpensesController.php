@@ -43,6 +43,7 @@
             
             $approvedBills = $this->BillItem->find('all', array(
                 'conditions' => array(
+                    'BillItem.super_approved' => 1,
                     'BillItem.approved' => 1,
                     'BillItem.bill_id' => NULL,
                     'BillItem.company_cc_item' => 0
@@ -208,6 +209,7 @@ if($uploadOk) {
                 $newRecord['BillItem']['approved'] = null;
                 $newRecord['BillItem']['bill_id'] = null;
                 $newRecord['BillItem']['cost'] = $newRecord['BillItem']['amount'];
+                 $newRecord['BillItem']['super_approved'] = null;
                
                 
                 // upload the image - fail if it does not upload
@@ -396,6 +398,80 @@ if($uploadOk) {
                         unset($entries[$i]);
             }
            
+            
+            $this->set('entries',$entries);
+            
+            
+        }
+        
+        function admin_superApprove() {
+            if(!$this->Auth->user('super_user'))
+                exit("You are not authorized to use this page.");
+            
+            if(!empty($this->request->data))
+            {
+
+                $error = false;
+                $approve = null;
+                if($this->request->data['TimeEntry']['approveDeny'] === 'approve')
+                    $approve = 1;
+                else
+                    $approve = 0;
+                foreach($this->request->data['entries'] as $i => $d)
+                {
+                    if(isset($d['approved']) && $d['approved'] == 'on')
+                    {
+                    $entry = array('BillItem' => array(
+                        'id' => $i,
+                        'super_approved' => $approve,
+                        'approved' => $approve
+                    ));
+                    
+                    if(!$this->BillItem->saveMany($entry))
+                    {
+                        $error = true;
+                    }
+                    else
+                    {
+                        // Only need this if we were uploading always - only generating bills on pay switch
+//                        if($approve)
+//                            $this->_queueToSave($i);
+                        
+                        $timeEntry = $this->BillItem->findById($i);
+                        
+                        $this->loadModel('User');
+                        $user = $this->User->find('first', array('conditions'=>array(
+                            'User.vendor_id' =>$timeEntry['BillItem']['vendor_id']
+                        )));
+                        if($approve == 0)
+                            $this->Notification->queueNotification($user['User']['id'],'ExpenseDeny','/admin/expenses/viewMyExpenses','Expense Denied','%i expenses were denied by super user');
+                    }
+                }
+                
+                    
+            }
+            
+            if(!$error)
+            {
+                if($approve == 1)
+                            $this->Session->setFlash('All selected expenses set for approval','flash_success');
+                        else
+                            $this->Session->setFlash('All selected expenses set for denial','flash_success');
+                    }
+                    else
+                    {
+                        $this->Session->setFlash('An error occurred while saving your request.', 'flash_error');
+                    }
+            
+            
+            
+            }
+            $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
+            $this->loadModel('Vendor');
+            $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
+            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1', 'BillItem.super_approved' => null, 'BillItem.bill_id'=>null), 'recursive' => 3,
+                'order' => 'BillItem.txn_date ASC'));
+            
             
             $this->set('entries',$entries);
             

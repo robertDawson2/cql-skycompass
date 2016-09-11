@@ -278,9 +278,34 @@ class AppController extends Controller {
         	//$this->set('navigation', $this->Content->find('threaded', array('fields' => array('Content.id', 'Content.tag', 'Content.parent_id', 'Content.lft', 'Content.rght'), 'conditions' => array('Content.status' => 'live'), 'order' => array('Content.lft ASC'))));
 		}
                 
+                
                 $user = $this->Auth->user();
                 if(!empty($user))
                 {
+                    if($this->Auth->user('super_user'))
+                    {
+                        $this->loadModel('TimeEntry');
+                        $superApprovals = array('expenses' => 0, 'entries' => 0);
+                        $list = $this->TimeEntry->find('list', array('conditions' => array(
+                            'TimeEntry.approved' => '1',
+                            'TimeEntry.super_approved' => null,
+                            'NOT' => array('TimeEntry.imported' => '1')
+                        )));
+                        $superApprovals['entries'] = count($list);
+                        
+                        $this->loadModel('BillItem');
+                        $list = $this->BillItem->find('list', array('conditions' => array(
+                            'BillItem.approved' => '1',
+                            'BillItem.super_approved' => null,
+                            
+                                'BillItem.bill_id' => null
+                            
+                            
+                        )));
+                        $superApprovals['expenses'] = count($list);
+                        $this->set('superUser', $superApprovals);
+                    }
+                    
                     $user['pmArray'] = unserialize($user['permissions']);
                     $this->set('currentUser', $user);
                    
