@@ -7,7 +7,7 @@
 <?php $this->end(); ?>
 
 <?php if (!empty($contents)): ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="content-table">
+<table class="table table-striped table-bordered table-hover dataTable" id="acontent-table">
 	<thead>
 		<tr>
 			<th>Page Name</th>

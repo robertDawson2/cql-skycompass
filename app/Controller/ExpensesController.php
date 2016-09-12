@@ -25,14 +25,143 @@
             pr($this->Bill->findById($id));
             exit();
         }
+        function admin_ajaxUploadReceipts() 
+        {
+            $this->layout = "ajax";
+            if(!empty($_FILES))
+            {
+                foreach($_FILES['files']['name'] as $i =>  $filename)
+                {
+                    $target_dir = WWW_ROOT . "files/uploads/";
+                $imageFileType = pathinfo($filename,PATHINFO_EXTENSION);
+
+$uploadOk = 1;
+
+
+    // Check if file already exists
+if (file_exists($filename)) {
+            
+    $uploadOk = 0;
+} 
+
+
+if($uploadOk) {
+    
+    if(move_uploaded_file($_FILES['files']['tmp_name'][$i], $target_dir . $filename)) {
+        $this->_shrinkReceipt($filename, $target_dir);
+        
+            }
+            else
+            {
+            
+            exit('done with errors.');
+            }
+            
+        }
+                }
+        
+        exit('done');
+            }
+            else
+            {
+                exit('no files');
+            }
+        }
+        
+        private function _shrinkReceipt($filename, $path)
+        {
+            $target_dir = $path . $filename;
+            $fileparts = pathinfo($target_dir);
+		$image = null;
+		switch($fileparts['extension'])
+		{
+			case "jpg":
+			$image = imagecreatefromjpeg($target_dir);
+			break;
+			
+			case "png":
+			$image = imagecreatefrompng($target_dir);
+			break;
+
+			case null:
+			break;
+
+		}
+		
+                if(isset($image) && $image != null) {
+		$ratio = 500 / imagesx($image);
+		$height = imagesy($image) * $ratio;
+		$new_image = imagecreatetruecolor(500, $height);
+		imagecopyresampled($new_image, $image, 0, 0, 0, 0, 500, $height, imagesx($image), imagesy($image));
+		$image = $new_image; // $image has now been replaced with the resized one.
+		imagejpeg($image,$target_dir, 90);
+		unset($new_image);
+    unset($image);
+                }
+   
+                return true;
+        }
         function admin_travelSheet()
         {
+            
+            if(!empty($this->request->data))
+            {
+                pr($this->request->data);
+                $data = $this->request->data;
+                $billItem = $data['BillItem'];
+                $customer = $this->Customer->findById($billItem['customer_id']);
+                $priorDesc = $billItem['description'];
+                $billItem['description'] = $billItem['dest'] . " ::: " . $customer['Customer']['full_name'] . " ::: " . 
+                        $billItem['depart_date'] . " - " . $billItem['return_date'] . "\n" . $priorDesc;
+                $billItem['txn_date'] = date('Y-m-d H:i:s', strtotime($billItem['depart_date']));
+               
+                $billItem['quantity'] = 1;
+                $user = $this->Auth->user();
+                $billItem['vendor_id'] = $user['Vendor']['id'];
+                
+                //break down corporate items
+                if(isset($data['corporate']))
+                {
+                    $corporateItem = $billItem;
+                    foreach($data['corporate'] as $corp)
+                    {
+                        $corporateItem['company_cc_item'] = 1;
+                        
+                    }
+                }
+                
+                
+                
+                pr($billItem);
+                
+                // Break down meal per diem
+                $upcharge = $data['meals']['nyc'] * 2.50;
+                $quarterCost = 10.00 + $upcharge;
+                $quarters = 0;
+                unset($data['meals']['nyc']);
+                
+                //if there are no meals, ['meals'] should be empty
+                if(!empty($data['meals']))
+                {
+                    foreach($data['meals'] as $m => $meal)
+                    {
+                        if($m == 'breakfast' || $m == 'lunch')
+                            $quarters++;
+                        else
+                            $quarters += 2;
+                    }
+                }
+                
+                exit();
+                
+            }
             $this->set('mileage', 0.565);
             $classes = $this->_loadClasses();
             $this->set('classes', $classes);
             
             $customers = $this->_loadCustomers();
             $this->set('customers', $customers);
+            
             
         }
         
@@ -157,6 +286,8 @@ if($uploadOk) {
             $newRecord['BillItem']['image'] = "";
         else
             $newRecord['BillItem']['image'] = $target_file;
+        
+        $this->_shrinkReceipt($target_file, $target_dir);
         
         $newRecord['BillItem']['id'] = $user['Vendor']['id'] . time();
         
@@ -490,7 +621,12 @@ if($uploadOk) {
 }
 else
 {
-$dsn = 'mysql://cqldev:St8!VwARH49pW#eh3P@localhost/cqldev';
+    $fields = get_class_vars('DATABASE_CONFIG');
+    $db = $fields['production']['database'];
+    $user = $fields['production']['login'];
+    $pass = $fields['production']['password'];
+    
+$dsn = 'mysql://' . $user . ':' . $pass . '@localhost/' . $db;
 }
 //$dsn = 'mysql://testuser:testpassword@localhost/testdatabase';
 

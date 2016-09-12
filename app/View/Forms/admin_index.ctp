@@ -1,10 +1,6 @@
 <?php $this->set('title_for_layout', 'Manage Forms'); ?>
 
-<?php $this->start('jquery-scripts'); ?>
-	$('#users-table').dataTable({	
-		"sPaginationType": "bootstrap"
-	});
-<?php $this->end(); ?>
+
 
 <?php if (!empty($forms)): ?>
 <table class="table table-striped table-bordered table-hover dataTable" id="users-table">

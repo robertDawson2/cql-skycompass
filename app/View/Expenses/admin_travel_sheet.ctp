@@ -30,7 +30,7 @@
                   <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][txn_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][depart_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
                   </div>
                       </div> 
               </div>
@@ -58,7 +58,7 @@
                   <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][txn_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][return_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
                   </div>
                       </div> 
                 </div> 
@@ -81,7 +81,7 @@
 	
             
 	</fieldset>
-    
+
   </div>
 <?php echo $this->Form->end(); ?>
 <hr>
@@ -89,7 +89,7 @@
 <div id="total-corporate" style='float: right;padding: 10px;'>
     <strong>Total: $0.00</strong>
 </div>
-<form id='addToCorp' action='#' method='post'>
+<form id='addToCorp' action='#' method='post' enctype="multipart/form-data">
 
 <table id='corporate-expense-table' class='table table-bordered table-responsive table-striped'>
     <thead>
@@ -117,13 +117,17 @@
     </select>
             </td>
             <td>
-    <input type='text' name='date' class="datepicker" />
+                <div class="form-group">
+    <input type='text' name='date' class="datepicker corp-validation" data-type="date" data-max="today" data-required ="required" />
+                </div>
             </td><td>
-    <input name='amount' type='text' />
+                <div class="form-group">
+    <input name='amount' type='text' data-type="number" data-required="required" class="corp-validation" />
+                </div>
             </td><td>
     <textarea name='note'></textarea>
             </td><td>
-    <input type='file' name='receipt' />
+    <input type='file' name='receipt' id="corporate-file-upload" />
             </td>
             <td>
     
@@ -200,7 +204,7 @@ text-align: right;">
                             </td>
                             <?php for($i=0; $i<7; $i++): ?>
                             <td>
-                            <input data-type="1" class="breakfast meal" type='checkbox' name='b[<?=$i; ?>]' />
+                            <input data-type="1" class="breakfast meal" type='checkbox' name='[<?=$i; ?>][breakfast]' />
                             </td>
                             <?php endfor; ?>
                         </tr>
@@ -210,7 +214,7 @@ text-align: right;">
                             </td>
                             <?php for($i=0; $i<7; $i++): ?>
                             <td>
-                            <input data-type="1" class="meal" type='checkbox' name='l[<?=$i; ?>]' />
+                            <input data-type="1" class="meal" type='checkbox' name='[<?=$i; ?>][lunch]' />
                             </td>
                             <?php endfor; ?>
                         </tr>
@@ -222,7 +226,7 @@ text-align: right;">
                             </td>
                             <?php for($i=0; $i<7; $i++): ?>
                             <td>
-                            <input data-type="2" class="meal" type='checkbox' name='d[<?=$i; ?>]' />
+                            <input data-type="2" class="meal" type='checkbox' name='[<?=$i; ?>][dinner]' />
                             </td>
                             <?php endfor; ?>
                         </tr>
@@ -262,12 +266,18 @@ text-align: right;">
     <tfoot>
 <tr id='submit-row'>
             <td>
-    <input type='text' name='trans-from' />
+                <div class='form-group'>
+    <input type='text' name='trans-from' class='trans-validation' data-required='required' />
+                </div>
             </td>
             <td>
-    <input type='text' name='trans-to' />
+                <div class='form-group'>
+    <input type='text' name='trans-to' class='trans-validation' data-required='required' />
+                </div>
             </td><td>
-    <input name='trans-date' type='text' class="datepicker" style='width: 100px;'/>
+                <div class='form-group'>
+    <input name='trans-date' type='text' data-type='date' data-max='today' data-required='required' class="datepicker trans-validation" style='width: 100px;'/>
+                </div>
             </td><td>
     <select name='trans-taxi-car'>
         <option value='Car'>Car</option>
@@ -275,10 +285,13 @@ text-align: right;">
 
     </select>
             </td><td>
-                <input type='text' name='trans-mileage' style='width: 100px;' />
+                <div class='form-group'>
+                <input type='text' name='trans-mileage' data-type='number' data-min='0' data-required='required' style='width: 100px;' class='trans-validation' />
+                </div>
+                
             </td>
             <td>
-                <input type="file" name="trans-receipt" style='width: 150px;'/>
+                <input type="file" name="trans-receipt" id='trans-file-upload' style='width: 150px;'/>
             </td>
             <td>
     
@@ -313,13 +326,19 @@ text-align: right;">
 <tr id='submit-row'>
             
             <td>
-    <input type='text' name='other-date' class="datepicker" />
+                <div class='form-group'>
+    <input type='text' name='other-date' class="datepicker other-validation" data-type='date' data-max='today' data-required='required' />
+                </div>
             </td><td>
-    <input name='other-amount' type='text' />
+    <div class='form-group'>
+                <input name='other-amount' type='text' class='other-validation' data-type='number' data-min='0' data-required='required' />
+    </div>
             </td><td>
-    <textarea name='other-note'></textarea>
+                <div class='form-group'>
+    <textarea name='other-note' class='other-validation' data-required='required'></textarea>
+                </div>
             </td><td>
-    <input type='file' name='other-receipt' />
+    <input type='file' name='other-receipt' id="other-file-upload" />
             </td>
             <td>
     
@@ -335,12 +354,14 @@ text-align: right;">
 </div>
 
 <h3>Submission Disclaimer</h3>
-<div style="padding: 10px; background: rgba(255,255,255,0.4); margin-bottom: 10px;">
-<input type='checkbox' name='disclaimer-accept' /> &nbsp;<strong><em>I hereby certify that this report is a true and accurate representation of expenses incurred.</em></strong>
+<div class="form-group" style="padding: 10px; background: rgba(255,255,255,0.4); margin-bottom: 10px;">
+<input class='validation' data-required='required' type='checkbox' id='disclaimer-accept' /> &nbsp;<strong><em>I hereby certify that this report is a true and accurate representation of expenses incurred.</em></strong>
 </div>
+
 <p>
-    <a href='#' class='btn btn-info btn-lg'><i class="fa fa-arrow-circle-right"></i> Submit</a>
+    <a href='#' id='submit-all' class='btn btn-info btn-lg'><i class="fa fa-arrow-circle-right"></i> Submit</a>
 </p>
+
 <style>
     .remove {
         color: red;
@@ -370,19 +391,23 @@ text-align: right;">
     };
     var mileage = <?= $mileage; ?>;
     var quarter = 10.00;
+    var rowCounter = 0;
+                var formData = new FormData();
     
     function updateTotals(category, value)
     {
 
         total[category] += parseFloat(value);
+        
+        if(category != 'corporate')
         total['tot'] += parseFloat(value);
-        console.log(total);
+     //   console.log(total);
         
         var field = "#total-" + category;
 
         $(field).html("<strong>Total: $" + total[category].toFixed(2) + "</strong>");
         
-        if(category !== 'corporate')
+        
         $("#total-total").html("<strong>Total Due: $" + total['tot'].toFixed(2) + "</strong>");
     }
     
@@ -396,24 +421,97 @@ text-align: right;">
     
 });
 
+$("#submit-all").click(function(e) {
+    e.preventDefault();
+      $("#addAdminTravelSheetForm").submit();
+      
+    } );
 $("#checkForNYC").change(function() {
-    if(this.checked)
+    if(this.checked){
         quarter = 12.50;
+        total['tot'] -= total['meals'];
+        $quarters = total['meals']/10;
+        total['meals'] = 0.00;
+        updateTotals('meals', (quarter * $quarters));
+    }
     else
+    {
         quarter = 10.00;
+        total['tot'] -= total['meals'];
+        $quarters = total['meals']/12.50;
+        total['meals'] = 0.00;
+        updateTotals('meals', (quarter * $quarters));
+    }
 });
+
+
+$("#addAdminTravelSheetForm").submit(function(e) {
+    
+   $isValid = validateForm(".validation"); 
+       
+       if(!$isValid)
+            e.preventDefault();
+        
+        $(".meal").each(function() {
+            if($(this).is(':checked'))
+            {
+              $html = "<input type='hidden' name='data[meals]" + $(this).attr('name') + "' value='1' />";
+              $("#addAdminTravelSheetForm").append($html);
+        }
+    });
+    
+    if($("#checkForNYC").is(':checked'))
+    {
+        $html = "<input type='hidden' name='data[meals][nyc]' value='1' />";
+              $("#addAdminTravelSheetForm").append($html);
+          }
+          else
+          {
+            $html = "<input type='hidden' name='data[meals][nyc]' value='0' />";
+              $("#addAdminTravelSheetForm").append($html);  
+              }
+            
+            
+//            for (var [key, value] of formData.entries()) { 
+//                console.log(key, value);}
+                
+           // upload the receipt images to the server
+           $.ajax({
+               url: "/admin/expenses/ajaxUploadReceipts",
+               contentType: false,
+               data: formData,
+               processData: false,
+               cache: false,
+               type: 'POST',
+               success: function(data) {
+               console.log(data);
+    }
+               });
+            
+
+
+        
+        
+    });
+    
     
     $("#addToCorp").submit(function(e) {
         // Validation
-        var valid = true;
+        var valid = validateForm(".corp-validation");
         
         
         
         if(valid)
         {
+            var fileSelect = document.getElementById('corporate-file-upload');
+            //console.log(fileSelect.files[0]);
+            var fileName = "";
+            
+            if(fileSelect.files[0] != null)
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
             // update corporate total
             updateTotals('corporate', parseFloat($('[name="amount"]').val()).toFixed(2));
-            $html = "<tr><td>";
+            $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
             $html += $('[name="type"]').val();
             $html += "</td><td>";
             $html += $('[name="date"]').val();
@@ -422,7 +520,8 @@ $("#checkForNYC").change(function() {
              $html += "</td><td>";
             $html += $('[name="note"]').val();
             $html += "</td><td>";
-           
+            
+
             if(($('[name="receipt"]').val() != ""))
                 $html += "<i class='fa fa-lg fa-check-circle' style='color: green;'></i>";
             
@@ -430,6 +529,23 @@ $("#checkForNYC").change(function() {
             $html += "</td><td><a data-ival='" + amount + "' onclick='removeRow(this, \"corporate\"); return false;' class='remove' href='#'><i class='fa fa-ban'></i></a></td></tr>";
             
             $("#corporate-expense-table tbody").append($html);
+            
+            $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[corporate][" + rowCounter + "][type] value='" + $('[name="type"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[corporate][" + rowCounter + "][date] value='" + $('[name="date"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[corporate][" + rowCounter + "][amount] value='" + parseFloat($('[name="amount"]').val()).toFixed(2) + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[corporate][" + rowCounter + "][note] value='" + $('[name="note"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[corporate][" + rowCounter + "][receipt] value='" + fileName + "' />";
+            
+
+            if(fileName != "")
+                formData.append('files[]', fileSelect.files[0],fileName);
+            
+            
+            rowCounter++;
+            $("#addAdminTravelSheetForm").append($html);
+           
+//            for (var [key, value] of formData.entries()) { 
+//                console.log(key, value);}
             $(this)[0].reset();
             
         }
@@ -440,7 +556,7 @@ $("#checkForNYC").change(function() {
     
     $("#transForm").submit(function(e) {
         // Validation
-        var valid = true;
+        var valid = validateForm('.trans-validation');
         
         
         
@@ -450,9 +566,15 @@ $("#checkForNYC").change(function() {
             var amount = parseFloat($('[name="trans-mileage"]').val()) * mileage;
 
             amount = parseFloat(amount).toFixed(2);
-
+             var fileSelect = document.getElementById('trans-file-upload');
+            //console.log(fileSelect.files[0]);
+            var fileName = "";
+            
+            if(fileSelect.files[0] != null)
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
+            
             updateTotals('trans', amount);
-            $html = "<tr><td>";
+            $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
             $html += $('[name="trans-from"]').val();
             $html += "</td><td>";
             $html += $('[name="trans-to"]').val();
@@ -471,6 +593,23 @@ $("#checkForNYC").change(function() {
             $html += "</td><td><a data-ival='" + amount + "' onclick='removeRow(this, \"trans\"); return false;' class='remove' href='#'><i class='fa fa-ban'></i></a></td></tr>";
             
             $("#transportation-expense-table tbody").append($html);
+            
+            $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][from] value='" + $('[name="trans-from"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][to] value='" + $('[name="trans-to"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][date] value='" + $('[name="trans-date"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][taxi-car] value='" + $('[name="trans-taxi-car"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][amount] value='" + amount + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][mileage] value='" + $('[name="trans-mileage"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[trans][" + rowCounter + "][receipt] value='" + fileName + "' />";
+            
+
+            if(fileName != "")
+                formData.append('files[]', fileSelect.files[0],fileName);
+            
+            
+            rowCounter++;
+            $("#addAdminTravelSheetForm").append($html);
+            
             $(this)[0].reset();
             
         }
@@ -481,15 +620,21 @@ $("#checkForNYC").change(function() {
     
     $("#addToOther").submit(function(e) {
         // Validation
-        var valid = true;
+        var valid = validateForm('.other-validation');
         
         
         
         if(valid)
         {
+            var fileSelect = document.getElementById('other-file-upload');
+            //console.log(fileSelect.files[0]);
+           var fileName = "";
+            
+            if(fileSelect.files[0] != null)
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
             
               updateTotals('other', parseFloat($('[name="other-amount"]').val()).toFixed(2));
-            $html = "<tr><td>";
+            $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
             
             $html += $('[name="other-date"]').val();
              $html += "</td><td>$";
@@ -504,6 +649,21 @@ $("#checkForNYC").change(function() {
             $html += "</td><td><a data-ival='" + parseFloat($('[name="other-amount"]').val()).toFixed(2) +"' onclick='removeRow(this, \"other\"); return false;' class='remove' href='#'><i class='fa fa-ban'></i></a></td></tr>";
             
             $("#other-expense-table tbody").append($html);
+            
+            
+            $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][date] value='" + $('[name="other-date"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][amount] value='" + parseFloat($('[name="other-amount"]').val()).toFixed(2) + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][note] value='" + $('[name="other-note"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][receipt] value='" + fileName + "' />";
+            
+
+            if(fileName != "")
+                formData.append('files[]', fileSelect.files[0],fileName);
+            
+            
+            rowCounter++;
+            $("#addAdminTravelSheetForm").append($html);
+           
             $(this)[0].reset();
             
         }
@@ -515,9 +675,12 @@ $("#checkForNYC").change(function() {
     function removeRow(row, category)
     {
        var removeVal = parseFloat($(row).data('ival')) * -1;
+       classRemoval = $(row).parent().parent().data('remove');
+       console.log(classRemoval);
         updateTotals(category, removeVal);
         $(row).parent().parent().fadeOut(500, function() {
-       $(this).remove();     
+       $(this).remove();    
+       $("." + classRemoval).remove();
     });
         
     }
@@ -526,6 +689,85 @@ $("#checkForNYC").change(function() {
     $('.datepicker').datepicker({
       autoclose: true
     });
+    
+    
+    
+    
+    
+    
+    
+    
+    function validateForm($validationClass) {
+        // Validate Customer
+        $return = true;
+        $($validationClass).each(function() {
+             $(this).closest('.form-group').removeClass('has-error');
+                    $(this).closest(".form-group").children('.help-block').remove();
+            $value = $(this).val();
+            if($(this).data('required') === 'required')
+            {
+                if($value === "" || ($(this).attr('type') == 'checkbox' && !$(this).is(":checked")))
+                {
+                    $(this).closest('.form-group').addClass('has-error');
+                    $(this).closest(".form-group").append('<span class="help-block">This field is required.</span>');
+                    $return = false;
+                }
+                else
+                {
+                    $(this).closest('.form-group').removeClass('has-error');
+                    $(this).closest(".form-group").children('.help-block').remove();
+                    }
+            }
+            
+            if($(this).data('type') === 'date')
+            {
+                if(!Date.parse($value))
+                {
+                    $(this).closest('.form-group').addClass('has-error');
+                    $(this).closest(".form-group").append('<span class="help-block">This field must be a date.</span>');
+                    $return = false;
+                }
+                else
+                {
+                    if($(this).data('max') === 'today')
+                    {
+                        if($(this).datepicker('getDate') > new Date())
+                        {
+                            $(this).closest('.form-group').addClass('has-error');
+                            $(this).closest(".form-group").append('<span class="help-block">You may not select a date in the future.</span>');
+                            $return = false;
+                        }
+                    else
+                    {
+                         $(this).closest('.form-group').removeClass('has-error');
+                         $(this).closest(".form-group").children('.help-block').remove();
+                    }
+                    }
+                }
+            }
+            
+            if($(this).data('type') === 'number')
+            {
+                if(!$.isNumeric($value))
+                {
+                    $(this).closest('.form-group').addClass('has-error');
+                    $(this).closest(".form-group").append('<span class="help-block">This field must be a number.</span>');
+                    $return = false;
+                }
+                else
+                {
+                    $(this).closest('.form-group').removeClass('has-error');
+                    $(this).closest(".form-group").children('.help-block').remove();
+                    }
+            }
+            
+            
+            
+            
+        });
+        return $return;
+    }
+    
     </script>
 
 <?php $this->end(); ?>

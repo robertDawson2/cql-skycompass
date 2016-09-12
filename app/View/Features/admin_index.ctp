@@ -1,10 +1,6 @@
 <?php $this->set('title_for_layout', 'Manage Home Page Features'); ?>
 
-<?php $this->start('jquery-scripts'); ?>
-	$('#features-table').dataTable({	
-		"sPaginationType": "bootstrap"
-	});
-<?php $this->end(); ?>
+
 
 <?php if (!empty($features)): ?>
 <table class="table table-striped table-bordered table-hover dataTable" id="features-table">

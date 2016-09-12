@@ -42,6 +42,13 @@ class UsersController extends AppController {
                 
             }
         }
+        public function admin_setPermissions($id, $level)
+        {
+            $p = $this->_setPermissions($id, $level);
+            $this->User->id = $id;
+            $this->User->saveField('permissions',serialize($p));
+            exit('done');
+        }
 	private function _setPermissions($id = null, $level = 'employee')
         {
             if($level == 'admin') {

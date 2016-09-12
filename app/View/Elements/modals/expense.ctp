@@ -15,11 +15,11 @@
               <div class="col-sm-6" style='border-right: 1px solid #dedede; margin-bottom: 15px;'>
                   <a href='/admin/expenses/add' class='btn btn-lg btn-info btn-block'><i class='fa fa-2x fa-edit'></i> Single Entry</a>
               </div>
-              <!--
+     
                 <div class="col-sm-6">
                   <a href='/admin/expenses/travelSheet' class='btn btn-lg btn-info btn-block'><i class='fa fa-2x fa-list-alt'></i> Travel Sheet</a>
               </div>
-              -->
+             
           </div>
       </div>
       <div class="modal-footer">

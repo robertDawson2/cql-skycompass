@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="/_/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/_/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css?v=011415">
-	<link href="http://fonts.googleapis.com/css?family=Roboto:400,500,700|Roboto+Condensed:400,500,700|Oswald:400,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Roboto+Condensed:400,500,700|Oswald:400,700" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
 	<link rel="stylesheet" media="screen" href="/plugins/superfish/superfish.css?v=112314">
 	<link rel="shortcut icon" href="/favicon.ico">
 
@@ -96,7 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<h1><a href="/"><span>CQL | The Council on Quality and Leadership</span></a></h1>
 		<ul class="nav-top">
 <!--			<li style="margin-left: 60px; padding-top: 2px;"><a href="/ligas-outreach">Ligas Outreach</a></li>-->
-<li style="margin-left: 60px; padding-top: 2px;"><a href="/ColoradoTraining">Colorado Training</a></li>
+<!--<li style="margin-left: 60px; padding-top: 2px;"><a href="/ColoradoTraining">Colorado Training</a></li>-->
 			<li style="padding-top: 2px;"><a href="http://ecommunity.c-q-l.org" target="_blank">e-Community</a></li>
 			<li style="padding-top: 2px;"><a href="/contact">Contact Us</a></li>
 			<li style="padding-top: 2px;"><a href="/sitemap">Site Map</a></li>

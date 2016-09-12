@@ -226,7 +226,12 @@
 }
 else
 {
-$dsn = 'mysql://cqldev:St8!VwARH49pW#eh3P@localhost/cqldev';
+    $fields = get_class_vars('DATABASE_CONFIG');
+    $db = $fields['production']['database'];
+    $user = $fields['production']['login'];
+    $pass = $fields['production']['password'];
+    
+$dsn = 'mysql://' . $user . ':' . $pass . '@localhost/' . $db;
 }
 //$dsn = 'mysql://testuser:testpassword@localhost/testdatabase';
 
