@@ -4,11 +4,13 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
-	public $uses = array('User', 'Content');
+	public $uses = array('User', 'Content', 'Chat');
 
 	function beforeRender() {
 		parent::beforeRender();
 	}
+        
+        
         
         function admin_profile()
         {

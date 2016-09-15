@@ -4,11 +4,21 @@
 		
 		public $name = 'User';
                 public $belongsTo = array('Vendor');
+                public $actsAs = array('Containable');
                 public $hasMany = array('TimeEntry', 'Notification',
                     'ApprovalManager' => array(
                         'className' => 'ApprovalManager',
                         'foreignKey' => 'user_id'
                     ));
+                
+                public $hasAndBelongsToMany = array('Chat' => array(
+                    'className' => 'Chat',
+                    'joinTable' => 'chats_users',
+                    'foreignKey' => 'user_id',
+                    'associationForeignKey' => 'chat_id',
+                    'unique' => true
+                ));
+                
 		public $validate = array(
 			'first_name' => array(
 				'rule' => 'notEmpty',
@@ -64,7 +74,8 @@
 			$client = $this->find('first', array('conditions' => array('User.email' => trim($field['email']), 'User.id <>' => $id)));
 			return empty($client);
 		}
-
+                
+             
 	}
 
 ?>

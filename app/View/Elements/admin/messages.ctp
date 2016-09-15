@@ -1,41 +1,67 @@
 <li class="dropdown messages-menu">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-<!--              <span class="label label-success">2</span>-->
-            </a>
-            <ul class="dropdown-menu">
+<?php
+
+$count = 0;
+$this->start('message-contents');
+if(empty($messages)): ?>
               <li class="header">You have no new messages</li>
-<!--              <li>
-                 inner menu: contains the actual data 
+              <?php else: ?>
+              <li>
+                
                 <ul class="menu">
-                  <li> start message 
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="/adminMenu/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                         Approval Manager
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>I forgot to approve time, can you do that today?</p>
-                    </a>
-                  </li>
-                   end message 
+                    <?php $count = count($messages); foreach($messages as $message):
+                        
+                        
+                        ?>
+                    
+                    
                   <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="/adminMenu/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
+                    <a href="/admin/messages/ajaxView/<?= $message['Chat']['id']; ?>">
+<!--                      <div class="pull-left">
+                        <img src="/adminMenu/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      </div>-->
                       <h4>
-                        Admin
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                         <?= $message['User']['first_name'] . " " . $message['User']['last_name']; ?>
+                        <small><i class="fa fa-clock-o"></i> <?php $diff = time() - strtotime($message['Message']['created']); 
+                                                                    if($diff < 60)
+                                                                        echo $diff . " seconds ago";
+                                                                    elseif($diff < 120)
+                                                                        echo "1 minute ago";
+                                                                    elseif($diff < 3600)
+                                                                        echo (int) ($diff/60) . " minutes ago";
+                                                                    elseif($diff < (3600*24))
+                                                                        echo (int) ($diff/3600) . " hours ago";
+                                                                    else
+                                                                        echo (int) ($diff/(3600*24)) . " days ago";
+                                                                            
+                                                                            
+                                                                     ?></small>
                       </h4>
-                      <p>Are you enjoying the new app?</p>
+                      <p><?= $message['Message']['message']; ?></p>
                     </a>
                   </li>
                   
+                  <?php
+                        endforeach;
+                   
+                   ?>
+                  
+                    
+                  
                 </ul>
-              </li>-->
+              </li>
+              <?php endif; ?>
+              <?php $this->end(); ?>
+              <?php if($count > 0){
+                    ?>
+                  
+                   <span class="label label-success"><?= $count; ?></span>
+                    <?php } ?>
+            </a>
+            <ul class="dropdown-menu">
+                <?= $this->fetch('message-contents'); ?>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>

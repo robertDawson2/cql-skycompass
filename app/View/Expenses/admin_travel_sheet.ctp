@@ -1,4 +1,5 @@
-<div id="total-total" style='float: right; position:fixed; right: 25px; padding: 10px; background: rgba(255,255,255,0.9); font-size: 120%;'>
+
+<div id="total-total" style='float: right; z-index: 9999999; position:fixed; right: 25px; padding: 10px; background: rgba(255,255,255,0.9); font-size: 120%;'>
     <strong>Total Due: $0.00</strong>
 </div>
 <h3>General Information</h3>
@@ -25,12 +26,12 @@
                   </div> 
                   <div class='form-group'>
                       
-                      <label>Departure Date/Time</label>
+                      <label>Departure Date</label>
                       <div class="input-group date">
                   <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][depart_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
                   </div>
                       </div> 
               </div>
@@ -53,12 +54,12 @@
                 </div>
                 <div class='form-group'>
                       
-                      <label>Return Date/Time</label>
+                      <label>Return Date</label>
                       <div class="input-group date">
                   <div class="input-group-addon" id="calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][return_date]' data-max='today' type="text" class="form-control pull-right validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
                   </div>
                       </div> 
                 </div> 
@@ -108,26 +109,30 @@
 <tr id='submit-row'>
             <td>
     <select name='type'>
-        <option value='Hotel'>Hotel</option>
-        <option value='Air'>Airfare</option>
-        <option value='Car'>Rental Car</option>
-        <option value='Parking'>Parking</option>
-        <option value='Taxi'>Taxi</option>
-        <option value='Other'>Other</option>
+        <option></option>
+                   <?php foreach($services as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
     </select>
             </td>
             <td>
                 <div class="form-group">
-    <input type='text' name='date' class="datepicker corp-validation" data-type="date" data-max="today" data-required ="required" />
+    <input type='text' style="max-width: 100px;" name='date' class="datepicker corp-validation" data-type="date" data-max="today" data-required ="required" />
                 </div>
             </td><td>
                 <div class="form-group">
-    <input name='amount' type='text' data-type="number" data-required="required" class="corp-validation" />
+    <input name='amount' type='text' style="max-width: 100px;"  data-type="number" data-required="required" class="corp-validation" />
                 </div>
             </td><td>
     <textarea name='note'></textarea>
-            </td><td>
-    <input type='file' name='receipt' id="corporate-file-upload" />
+            </td><td style="max-width: 120px; overflow-x: hidden;" >
+    <input type='file' accept="image/*" capture="camera" name='receipt' id="corporate-file-upload" />
             </td>
             <td>
     
@@ -291,7 +296,7 @@ text-align: right;">
                 
             </td>
             <td>
-                <input type="file" name="trans-receipt" id='trans-file-upload' style='width: 150px;'/>
+                <input type="file"  accept="image/*" capture="camera"  name="trans-receipt" id='trans-file-upload' style='width: 150px;'/>
             </td>
             <td>
     
@@ -314,6 +319,7 @@ text-align: right;">
     <thead>
         <tr>
     <th>Date</th>
+    <th>Type</th>
     <th>Amount</th>
     <th>Description</th>
     <th>Receipt?</th>
@@ -327,18 +333,33 @@ text-align: right;">
             
             <td>
                 <div class='form-group'>
-    <input type='text' name='other-date' class="datepicker other-validation" data-type='date' data-max='today' data-required='required' />
+    <input type='text' name='other-date' style="max-width: 100px;" class="datepicker other-validation" data-type='date' data-max='today' data-required='required' />
                 </div>
-            </td><td>
+            </td>
+            <td>
+                <select name='other-type'>
+        <option></option>
+                   <?php foreach($services as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+    </select>
+            </td>
+            <td>
     <div class='form-group'>
-                <input name='other-amount' type='text' class='other-validation' data-type='number' data-min='0' data-required='required' />
+                <input name='other-amount' style="max-width: 100px;" type='text' class='other-validation' data-type='number' data-min='0' data-required='required' />
     </div>
             </td><td>
                 <div class='form-group'>
     <textarea name='other-note' class='other-validation' data-required='required'></textarea>
                 </div>
             </td><td>
-    <input type='file' name='other-receipt' id="other-file-upload" />
+    <input type='file'  accept="image/*" capture="camera"  style="max-width: 120px;" name='other-receipt' id="other-file-upload" />
             </td>
             <td>
     
@@ -637,6 +658,8 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
             
             $html += $('[name="other-date"]').val();
+             $html += "</td><td>";
+             $html += $('[name="other-type"] option:selected').text();
              $html += "</td><td>$";
             $html += parseFloat($('[name="other-amount"]').val()).toFixed(2);
              $html += "</td><td>";
@@ -652,6 +675,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             
             
             $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][date] value='" + $('[name="other-date"]').val() + "' />";
+            $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][type] value='" + $('[name="other-type"]').val() + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][amount] value='" + parseFloat($('[name="other-amount"]').val()).toFixed(2) + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][note] value='" + $('[name="other-note"]').val() + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][receipt] value='" + fileName + "' />";

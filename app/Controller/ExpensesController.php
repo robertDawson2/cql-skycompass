@@ -106,13 +106,16 @@ if($uploadOk) {
             
             if(!empty($this->request->data))
             {
+                $error = array();
+                $toSave = array();
                 pr($this->request->data);
                 $data = $this->request->data;
                 $billItem = $data['BillItem'];
                 $customer = $this->Customer->findById($billItem['customer_id']);
                 $priorDesc = $billItem['description'];
-                $billItem['description'] = $billItem['dest'] . " ::: " . $customer['Customer']['full_name'] . " ::: " . 
-                        $billItem['depart_date'] . " - " . $billItem['return_date'] . "\n" . $priorDesc;
+                $baseDescription = "**" . $billItem['dest'] . " ::: " . $customer['Customer']['full_name'] . " ::: " . 
+                        $billItem['depart_date'] . " - " . $billItem['return_date'] . "\n" . $priorDesc . "**\n";
+                $billItem['description'] = $baseDescription;
                 $billItem['txn_date'] = date('Y-m-d H:i:s', strtotime($billItem['depart_date']));
                
                 $billItem['quantity'] = 1;
@@ -122,45 +125,177 @@ if($uploadOk) {
                 //break down corporate items
                 if(isset($data['corporate']))
                 {
-                    $corporateItem = $billItem;
+                    
                     foreach($data['corporate'] as $corp)
                     {
+                        $corporateItem = $billItem;
                         $corporateItem['company_cc_item'] = 1;
+                        $corporateItem['txn_date'] = date('Y-m-d H:i:s', strtotime($corp['date']));
+                        $corporateItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
+                        $corporateItem['cost'] = $corp['amount'];
+                        $corporateItem['amount'] = $corp['amount'];
+                        // Add description, don't overwrite
+                        $corporateItem['description'] .= $corp['note'];
+                        $corporateItem['image'] = $corp['receipt'];
+                        $corporateItem['item_id'] = $corp['type'];
+                        
+                        // All fields set, lets save the little feller.
+                        $this->BillItem->create($corporateItem);
+                        if($this->BillItem->validates($corporateItem))
+                            $toSave[] = $corporateItem;
+                        else
+                            $error[] = "Corporate Item";
                         
                     }
                 }
                 
                 
                 
-                pr($billItem);
-                
+               
                 // Break down meal per diem
-                $upcharge = $data['meals']['nyc'] * 2.50;
-                $quarterCost = 10.00 + $upcharge;
+                if(isset($data['meals']) && !empty($data['meals']))
+                {
+                $upcharge = $data['meals']['nyc'] * $this->config['expenses.nyc_quarters_upcharge'];
+                $quarterCost = $this->config['expenses.quarters'] + $upcharge;
                 $quarters = 0;
                 unset($data['meals']['nyc']);
                 
                 //if there are no meals, ['meals'] should be empty
                 if(!empty($data['meals']))
                 {
-                    foreach($data['meals'] as $m => $meal)
+                    foreach($data['meals'] as $meal)
                     {
+                        foreach($meal as $m => $val)
                         if($m == 'breakfast' || $m == 'lunch')
                             $quarters++;
                         else
                             $quarters += 2;
                     }
+                    
+                    $total = $quarterCost * $quarters;
+                    
+                    // Only create a bill if total > 0, obvi...
+                    if($total > 0)
+                    {
+                        $mealItem = $billItem;
+                        $mealItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
+                        $mealItem['quantity'] = $quarters;
+                        $mealItem['cost'] = $quarterCost;
+                        $mealItem['amount'] = $total;
+                        $mealItem['description'] .= "Meal Per Diem";
+                        $mealItem['item_id'] = $this->config['expenses.meals'];
+                        
+                        // this will set all fields, so let's save the meal item!
+                        
+                       // Don't create - id's are not sequential, so it can't generate - id is gnerated above
+                       //  $this->BillItem->create();
+                       $this->BillItem->create($mealItem);
+                        if($this->BillItem->validates($mealItem))
+                            $toSave[] = $mealItem;
+                        else
+                            $error[] = "Meal Item";
+                        
+                        
+                    }
+                }
+                }
+                
+                // Break down and submit transportation items
+                if(isset($data['trans']) && !empty($data['trans']))
+                {
+                    foreach($data['trans'] as $trans)
+                    {
+                    $transItem = $billItem;
+                    $transItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
+                        $transItem['cost'] = $this->config['expenses.mileage'];
+                        $transItem['amount'] = $trans['amount'];
+                        // Add description, don't overwrite
+                        $transItem['description'] .= $trans['taxi-car'] . ": " . $trans['from'] . " => " . $trans['to'];
+                        $transItem['quantity'] = $trans['mileage'];
+                        $transItem['image'] = $trans['receipt'];
+                        $transItem['item_id'] = $this->config['expenses.mileage_item'];
+                        $transItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
+                        
+                       // Validate and queue for later saving, and save error otherwise.
+                        
+                        $this->BillItem->create($transItem);
+                        if($this->BillItem->validates($transItem))
+                            $toSave[] = $transItem;
+                        else
+                            $error[] = "Transportation Item";
+                        
+                            
+                        
+                    
+                            
+                    }
+                }
+                
+                //Finally we take care of "other" items
+                if(isset($data['other']) && !empty($data['other']))
+                {
+                    foreach($data['other'] as $trans)
+                    {
+                    $otherItem = $billItem;
+                    $otherItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
+                        $otherItem['cost'] = $trans['amount'];
+                        $otherItem['amount'] = $trans['amount'];
+                        // Add description, don't overwrite
+                        $otherItem['description'] .= $trans['note'];
+                        $otherItem['quantity'] = 1;
+                        $otherItem['image'] = $trans['receipt'];
+                        $otherItem['item_id'] = $trans['type'];
+                        $otherItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
+                        
+                        // And then, obvi, we save. And we save HARD.
+                        $this->BillItem->create($otherItem);
+                        if($this->BillItem->validates($otherItem))
+                            $toSave[] = $otherItem;
+                        else
+                            $error[] = "Other Item";
+                        
+                    
+                            
+                    }
+                }
+               
+                
+                // Check validation, and save each item if all validated
+                // Return an error message and don't save anything if there is an error.
+                if(empty($error))
+                {
+                    foreach($toSave as $s)
+                    {
+                        $this->BillItem->save($s);
+                    }
+                    $this->Session->setFlash('All items successfully saved for approval.', 'flash_success');
+                    
+                }
+                else
+                {
+                    $message = "Your form could not be saved there were errors with one or more entries in the following sections: <br />";
+                    foreach($error as $e)
+                        $message .= $e . "<br />";
+                    
+                    $message .= "If this problem persists, please contact an administrator.";
+                    
+                    $this->Session->setFlash($message, 'flash_error');
+                    
+                    $this->redirect('/admin/expenses/travelSheet');
                 }
                 
                 exit();
                 
             }
-            $this->set('mileage', 0.565);
+            $this->set('mileage', $this->config['expenses.mileage']);
             $classes = $this->_loadClasses();
             $this->set('classes', $classes);
             
             $customers = $this->_loadCustomers();
             $this->set('customers', $customers);
+            
+            $services = $this->_loadServices();
+            $this->set('services', $services);
             
             
         }

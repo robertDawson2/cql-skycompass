@@ -134,6 +134,15 @@ class AppController extends Controller {
             return $returnArray;
         }
         
+        private function _getUnreadMessages()
+        {
+            $this->loadModel('Message');
+            
+            $messages = $this->Message->getUnread();
+            
+            return $messages;
+        }
+        
         public function _loadCustomers() {
             $this->loadModel('Customer');
             $customers = $this->Customer->find('all');
@@ -282,6 +291,9 @@ class AppController extends Controller {
                 $user = $this->Auth->user();
                 if(!empty($user))
                 {
+
+                    $this->set('messages', $this->_getUnreadMessages());
+                    
                     if($this->Auth->user('super_user'))
                     {
                         $this->loadModel('TimeEntry');
