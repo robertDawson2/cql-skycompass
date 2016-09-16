@@ -675,7 +675,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             
             
             $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][date] value='" + $('[name="other-date"]').val() + "' />";
-            $html = "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][type] value='" + $('[name="other-type"]').val() + "' />";
+            $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][type] value='" + $('[name="other-type"]').val() + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][amount] value='" + parseFloat($('[name="other-amount"]').val()).toFixed(2) + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][note] value='" + $('[name="other-note"]').val() + "' />";
             $html += "<input class='rowCounter-" + rowCounter + "' type='hidden' name=data[other][" + rowCounter + "][receipt] value='" + fileName + "' />";

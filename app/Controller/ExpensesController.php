@@ -108,7 +108,7 @@ if($uploadOk) {
             {
                 $error = array();
                 $toSave = array();
-                pr($this->request->data);
+              //  pr($this->request->data);
                 $data = $this->request->data;
                 $billItem = $data['BillItem'];
                 $customer = $this->Customer->findById($billItem['customer_id']);
@@ -184,6 +184,7 @@ if($uploadOk) {
                         $mealItem['amount'] = $total;
                         $mealItem['description'] .= "Meal Per Diem";
                         $mealItem['item_id'] = $this->config['expenses.meals'];
+                        $mealItem['image'] = "";
                         
                         // this will set all fields, so let's save the meal item!
                         
@@ -284,7 +285,7 @@ if($uploadOk) {
                     $this->redirect('/admin/expenses/travelSheet');
                 }
                 
-                exit();
+               // exit();
                 
             }
             $this->set('mileage', $this->config['expenses.mileage']);
@@ -758,10 +759,10 @@ else
 {
     $fields = get_class_vars('DATABASE_CONFIG');
     $db = $fields['production']['database'];
-    $user = $fields['production']['login'];
-    $pass = $fields['production']['password'];
+    $u = $fields['production']['login'];
+    $p = $fields['production']['password'];
     
-$dsn = 'mysql://' . $user . ':' . $pass . '@localhost/' . $db;
+$dsn = 'mysql://' . $u . ':' . $p . '@localhost/' . $db;
 }
 //$dsn = 'mysql://testuser:testpassword@localhost/testdatabase';
 

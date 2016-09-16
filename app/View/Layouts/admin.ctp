@@ -37,6 +37,10 @@
   <![endif]-->
   <link href="/adminPanel/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
   <link href="/adminPanel/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+  
+  <link type="text/css" href="/adminPanel/plugins/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
+   
+    
   <script type="text/javascript">
 		tinymceSettings = {
 			selector: ".tinymce",
@@ -334,6 +338,10 @@
 
 
 </div>
+  <div id="chat-bar">
+      <div id="chat_div">
+    </div>
+  </div>
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.0 -->
@@ -372,6 +380,7 @@
 <link rel="stylesheet" href="/adminPanel/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 <script type="text/javascript" src="/adminPanel/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
+ <script type="text/javascript" src="/adminPanel/plugins/chatbox/jquery.ui.chatbox.js"></script>
 
 <?php echo $this->fetch('scripts'); ?>
 <script type="text/javascript">
@@ -642,6 +651,41 @@
     $( ".select2" ).combobox();
 
 </script>
+
+<script type="text/javascript">
+     
+          var box = [];
+          $(".message-link").click(function(event, ui) {
+              event.preventDefault();
+              if(box[$(this).data('chatid')]) {
+                  box.chatbox("option", "boxManager").toggleBox();
+              }
+              else {
+                  $user = $(this).data('user');
+                  $url = $(this).attr('href');
+                  $boxid = $(this).data('chatid');
+                  box[$(this).data('chatid')] = $("#chat_div").chatbox({id:"<?= $currentUser['first_name']; ?>-" + $boxid, 
+                                                user:{key : "value"},
+                                                title : $user,
+                                                messageSent : function(id, user, msg) {
+                                                    $("#log").append(id + " said: " + msg + "<br/>");
+                                                    $("#chat_div").chatbox("option", "boxManager").addMsg(id, msg);
+                                                }});
+                     
+                                            $.ajax(
+                                                    {
+                                                        url: $url
+                                                    }).done(function(data) {
+                                                        alert(data);
+                                                        $message = data;
+                                                        $("#chat_div").chatbox("option", "boxManager").addMsg($user, $message);
+                                                        });
+                                                        
+                        
+              }
+          });
+  
+    </script>
 
 <style>
     .ui-dialog {

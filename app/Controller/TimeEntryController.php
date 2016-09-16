@@ -16,7 +16,7 @@
         
         public function beforeFilter() {
             parent::beforeFilter();
-          
+           $this->Auth->allow('updateConfiguration');
         }
            
         function admin_delete($id = null)
@@ -228,10 +228,10 @@ else
 {
     $fields = get_class_vars('DATABASE_CONFIG');
     $db = $fields['production']['database'];
-    $user = $fields['production']['login'];
-    $pass = $fields['production']['password'];
+    $u = $fields['production']['login'];
+    $p = $fields['production']['password'];
     
-$dsn = 'mysql://' . $user . ':' . $pass . '@localhost/' . $db;
+$dsn = 'mysql://' . $u . ':' . $p . '@localhost/' . $db;
 }
 //$dsn = 'mysql://testuser:testpassword@localhost/testdatabase';
 

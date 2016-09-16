@@ -57,7 +57,12 @@ class MessagesController extends AppController {
         
         public function admin_ajaxView($id = null)
         {
-            pr($this->Chat->findById($id));
+            $this->layout = 'ajax';
+            $chat = ($this->Chat->findById($id));
+            foreach($chat['Message'] as $message)
+            {
+                echo $message['message'];
+            }
             exit();
         }
 }

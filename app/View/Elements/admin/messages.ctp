@@ -18,7 +18,7 @@ if(empty($messages)): ?>
                     
                     
                   <li>
-                    <a href="/admin/messages/ajaxView/<?= $message['Chat']['id']; ?>">
+                    <a data-chatid="<?= $message['Chat']['id']; ?>" data-user= "<?= $message['User']['first_name'] . " " . $message['User']['last_name']; ?>" class="message-link" href="/admin/messages/ajaxView/<?= $message['Chat']['id']; ?>">
 <!--                      <div class="pull-left">
                         <img src="/adminMenu/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>-->
