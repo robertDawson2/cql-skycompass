@@ -208,17 +208,28 @@ if($uploadOk) {
                     {
                     $transItem = $billItem;
                     $transItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
-                        $transItem['cost'] = $this->config['expenses.mileage'];
+                        if($trans['taxi-car'] == 'Taxi')
+                        {
+                            $transItem['cost'] = $trans['amount'];
                         $transItem['amount'] = $trans['amount'];
+                        $transItem['quantity'] = 1;
+                        }
+                        else
+                        {
+                            $transItem['cost'] = $this->config['expenses.mileage'];
+                        $transItem['amount'] = $trans['amount'];
+                        $transItem['quantity'] = $trans['mileage'];
+                        }
+                        
                         // Add description, don't overwrite
                         $transItem['description'] .= $trans['taxi-car'] . ": " . $trans['from'] . " => " . $trans['to'];
-                        $transItem['quantity'] = $trans['mileage'];
+                        
                         $transItem['image'] = $trans['receipt'];
                         $transItem['item_id'] = $this->config['expenses.mileage_item'];
                         $transItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
                         
                        // Validate and queue for later saving, and save error otherwise.
-                        
+                   
                         $this->BillItem->create($transItem);
                         if($this->BillItem->validates($transItem))
                             $toSave[] = $transItem;
@@ -230,6 +241,7 @@ if($uploadOk) {
                     
                             
                     }
+               
                 }
                 
                 //Finally we take care of "other" items
@@ -691,7 +703,8 @@ if($uploadOk) {
                     $entry = array('BillItem' => array(
                         'id' => $i,
                         'super_approved' => $approve,
-                        'approved' => $approve
+                        'approved' => $approve,
+                        'billable' => $d['billable']
                     ));
                     
                     if(!$this->BillItem->saveMany($entry))

@@ -40,7 +40,7 @@
                             <?php } ?>
                             </a>
                         </td>
-                        <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable']; ?>' name='data[entries][<?= $entry['id']; ?>][billable]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
+                        <td><select <?php echo $entry['super_approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable']; ?>' name='data[entries][<?= $entry['id']; ?>][billable]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
 			
 		</tr>
 	<?php } ?>
@@ -64,13 +64,36 @@
 <script>
     $(".view-attachment").click(function(e){
         e.preventDefault();
+        var val = $(this).data('src');
+var file_type = val.substr(val.lastIndexOf('.')).toLowerCase();
+if (file_type  === '.pdf') {
+    var url = "/files/uploads/" + $(this).data("src");
+    $.fancybox({
+    autoScale: false,
+    // href : $('.fancybox').attr('id'), // don't need this
+    type: 'iframe',
+    padding: 0,
+    closeClick: false,
+    // other options
+    beforeLoad: function () {
+        
+      
+        this.href = url;
+    }
+}); // fancybox
+        }
+        else
+        {
+    $content = "<img width='800px' src='/files/uploads/" + $(this).data('src') + "' />";
+
         $.fancybox({
         
         autoScale: true,
-        content: "<img width='800px' src='/files/uploads/" + $(this).data('src') + "' />"
+        content: $content
+    });
+    }
     });
     
-    });
     
     
     </script>

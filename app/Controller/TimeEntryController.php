@@ -167,7 +167,8 @@
                     $entry = array('TimeEntry' => array(
                         'id' => $i,
                         'super_approved' => $approve,
-                            'approved' => $approve
+                            'approved' => $approve,
+                        'billable' => $d['billable']
                     ));
                     
                     if(!$this->TimeEntry->saveMany($entry))

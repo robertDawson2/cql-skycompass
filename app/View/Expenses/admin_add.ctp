@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-md-3 col-md-offset-9">
                     <div class='form-group'>
-                    <?= $this->Form->input('BillItem.company_cc_item', array('label' => 'Comany Credit Card Charge',
+                    <?= $this->Form->input('BillItem.company_cc_item', array('label' => 'Company Credit Card Charge',
                             'type' => 'checkbox')); ?>
                     </div>
                 </div>

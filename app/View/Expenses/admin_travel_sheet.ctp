@@ -28,7 +28,7 @@
                       
                       <label>Departure Date</label>
                       <div class="input-group date">
-                  <div class="input-group-addon" id="calendar-show">
+                  <div class="input-group-addon calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input name='data[BillItem][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
@@ -56,7 +56,7 @@
                       
                       <label>Return Date</label>
                       <div class="input-group date">
-                  <div class="input-group-addon" id="calendar-show">
+                  <div class="input-group-addon calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input name='data[BillItem][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
@@ -260,7 +260,7 @@ text-align: right;">
     <th>To</th>
     <th>Date</th>
     <th>Car/Taxi</th>
-    <th>Mileage</th>
+    <th id="mileage-cost">Mileage (mi.)</th>
     <th>Receipt?</th>
     <th>Cost</th>
         </tr>
@@ -403,6 +403,26 @@ text-align: right;">
 <?php $this->append('scripts'); ?>
 <script>
     
+    $("select[name='trans-taxi-car']").change(function() {
+       $selected = $(this).val();
+       
+       if($selected === "Taxi")
+       {
+           $("#mileage-cost").text("Cost ($)");
+           taxiCar = "taxi";
+       }
+       else
+       {
+           $("#mileage-cost").text("Mileage (mi.)");
+           taxiCar = "car";
+       }
+    });
+    $(".calendar-show").click(function()
+   {
+       $(this).parent().children('input').datepicker('show');
+   });
+    
+    var taxiCar = "car";
     var total = {
         corporate: 0.00,
         meals: 0.00,
@@ -584,7 +604,15 @@ $("#addAdminTravelSheetForm").submit(function(e) {
         if(valid)
         {
             
-            var amount = parseFloat($('[name="trans-mileage"]').val()) * mileage;
+            var amount = 0.00;
+            
+            if(taxiCar === "taxi") {
+               amount = parseFloat($('[name="trans-mileage"]').val());
+            }
+            else
+            {
+              amount =  parseFloat($('[name="trans-mileage"]').val()) * mileage;
+            }
 
             amount = parseFloat(amount).toFixed(2);
              var fileSelect = document.getElementById('trans-file-upload');
@@ -604,7 +632,16 @@ $("#addAdminTravelSheetForm").submit(function(e) {
              $html += "</td><td>";
             $html += $('[name="trans-taxi-car"]').val();
             $html += "</td><td>";
-            $html += $('[name="trans-mileage"]').val();
+            
+            if(taxiCar === "taxi") {
+                $html += "$" + amount;
+            }
+            else
+            {
+               $html += $('[name="trans-mileage"]').val() + " mi.";
+            }
+            
+            
             $html += "</td><td>";
            
             if(($('[name="trans-receipt"]').val() != ""))
@@ -635,7 +672,10 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             
         }
         
+        // reset shit. 
         
+        $("#mileage-cost").text("Mileage (mi.)");
+           taxiCar = "car";
         e.preventDefault();
     });
     
