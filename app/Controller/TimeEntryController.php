@@ -375,8 +375,20 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             {
                 
                 $newRecord = $this->request->data;
-                $newRecord['TimeEntry']['duration'] = "PT" . $newRecord['TimeEntry']['hours'] .
-                        "H" . $newRecord['TimeEntry']['minutes'] . "M";
+                
+                // if someone is stupid, convert hours and minutes correctly.
+                $hours = $newRecord['TimeEntry']['hours'];
+                $minutes = $newRecord['TimeEntry']['minutes'];
+                if (round($hours, 0) != $hours)
+                {
+                    $totalTime = ($hours * 60) + $minutes;
+                            $hours = intval($totalTime/60);
+                            $minutes = $totalTime - ($hours * 60);
+                    
+                }
+                
+                $newRecord['TimeEntry']['duration'] = "PT" . $hours .
+                        "H" . $minutes . "M";
                 $newRecord['TimeEntry']['user_id'] = $this->Auth->user('id');
                 
                 $this->loadModel('PayrollItem');
@@ -447,21 +459,39 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
             
             if(!empty($this->request->data))
             {
-                
+                // Sets the submissions to $newRecord
                 $newRecord = $this->request->data;
                 
-                $newRecord['TimeEntry']['duration'] = "PT" . $newRecord['TimeEntry']['hours'] .
-                        "H" . $newRecord['TimeEntry']['minutes'] . "M";
-                $newRecord['TimeEntry']['user_id'] = $this->Auth->user('id');
+                // if someone is stupid, convert hours and minutes correctly.
+                $hours = $newRecord['TimeEntry']['hours'];
+                $minutes = $newRecord['TimeEntry']['minutes'];
+                if (round($hours, 0) != $hours)
+                {
+                    $totalTime = ($hours * 60) + $minutes;
+                            $hours = intval($totalTime/60);
+                            $minutes = $totalTime - ($hours * 60);
+                    
+                }
                 
+                // Combine to the correct time format for quickbooks
+                $newRecord['TimeEntry']['duration'] = "PT" . $hours .
+                        "H" . $minutes . "M";
+                
+                // This sets the user id to the current user if not already set in the form (it should be set)
+                if(!isset($newRecord['TimeEntry']['user_id']) || empty($newRecord['TimeEntry']['user_id']))
+                    $newRecord['TimeEntry']['user_id'] = $this->Auth->user('id');
+                
+                // Get payroll item information for quickbooks' sake
                 $this->loadModel('PayrollItem');
                 $payrollItem = $this->PayrollItem->findById($newRecord['TimeEntry']['payroll_item_id']);
                 $newRecord['TimeEntry']['payroll_item_name'] = $payrollItem['PayrollItem']['name'];
                 
+                // Same with payroll class.
                 $this->loadModel('Classes');
                 $classItem = $this->Classes->findById($newRecord['TimeEntry']['class_id']);
                 $newRecord['TimeEntry']['class_name'] = $classItem['Classes']['name'];
                 
+                // Set all unset properties to allow for a complete submisssion with no errors
                 $newRecord['TimeEntry']['txn_date'] = date('Y-m-d', strtotime($this->request->data['TimeEntry']['txn_date']));
                 $newRecord['TimeEntry']['approved'] = null;
                 $newRecord['TimeEntry']['is_billed'] = "";
@@ -470,7 +500,11 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 $newRecord['TimeEntry']['txn_number'] = 0;
                  $newRecord['TimeEntry']['super_approved'] = null;
                 
+                 
+                 // moves time entry to current period if past the submission cut off
                 $newRecord['TimeEntry'] = $this->_checkRecord($newRecord['TimeEntry']);
+                
+                // Set TimeEntry to this record and try to save all the new fields
                 $this->TimeEntry->id = $newRecord['TimeEntry']['id'];
                 if($this->TimeEntry->saveMany($newRecord))
                 {
@@ -482,7 +516,13 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                 {
                     $this->Session->setFlash('There was an error processing your request. Please try again.', 'flash_error');
                 }
-                $this->redirect('/admin/timeEntry/viewMyTime');
+                
+                // Redirect to either viewMyTime or approval screen based on who edited
+                
+                if($this->Auth->user('id') !== $newRecord['TimeEntry']['user_id'])
+                    $this->redirect('/admin/timeEntry/approve');
+                else
+                    $this->redirect('/admin/timeEntry/viewMyTime');
             }
             
             $timeEntry = $this->TimeEntry->findById($id);

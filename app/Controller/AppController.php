@@ -38,13 +38,23 @@ class AppController extends Controller {
         public $user = array();
 
         
-        public function _loadServices()
+        public function _loadServices($expenses = 0)
         {
             $this->loadModel('Item');
-            $itemList = $this->Item->find('all', array('conditions' => array(
+            
+            
+            if($expenses) {
+                $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
-                'Item.parent_id' => ''
-            )));
+                'Item.full_name LIKE' => "%Staff Items%"
+            ))); }
+            else {
+                $itemList = $this->Item->find('all', array('conditions' => array(
+                'Item.type' => 'Service',
+                    'NOT' => array(
+                'Item.full_name LIKE' => "%Staff Items%")
+            ))); }
+            
              $returnArray = array();
             foreach($itemList as $class)
             {
@@ -307,9 +317,10 @@ class AppController extends Controller {
                         
                         $this->loadModel('BillItem');
                         $list = $this->BillItem->find('list', array('conditions' => array(
-                            'BillItem.approved' => '1',
-                            'BillItem.super_approved' => null,
-                            
+                            'BillItem.approved' => '1', 'OR' => array(
+                            'BillItem.drew_approved' => null,
+                                'BillItem.mary_approved' => null
+                            ),
                                 'BillItem.bill_id' => null
                             
                             

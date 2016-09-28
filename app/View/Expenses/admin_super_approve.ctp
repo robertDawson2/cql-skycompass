@@ -4,6 +4,21 @@
 <h1>Pending Expenses (Super User Approval)</h1>
 <?php if (!empty($entries)): ?>
 <?php echo $this->Form->create('superApprove'); ?>
+
+<style>
+    .bg-green {
+        background-color: rgba(0,255,0,0.2) !important;
+        color: #222 !important;
+    }
+    .bg-yellow {
+        background-color: rgba(200,200,0,0.2) !important;
+        color: #222 !important;
+    }
+</style>
+<div>
+    <small><em>
+            Green: Waiting on Mary Kay --- Yellow: Waiting on Drew</em></small>
+</div>
 <table class="table table-striped table-bordered table-hover approval-dataTable" id="users-table">
 	<thead>
 		<tr>
@@ -22,9 +37,13 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php foreach ($entries as $time) { $entry = $time['BillItem']; ?>
-                <tr <?php if($entry['super_approved']) { ?> class='disabled' <?php } ?>>
-                        <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php echo $entry['super_approved'] ? "checked disabled" : ""; ?> class="input form-control checkbox" /> </td>
+	<?php foreach ($entries as $time) { $entry = $time['BillItem'];  ?>
+            
+                <tr class='<?php if($entry['super_approved'] && $entry['drew_approved'] && $entry['mary_approved']) { ?> disabled <?php } ?> 
+                    <?php if(isset($entry['drew_approved']) && !isset($entry['mary_approved'])) { ?> bg-green <?php } ?> 
+                    <?php if(isset($entry['mary_approved']) && !isset($entry['drew_approved'])) { ?> bg-yellow <?php } ?> 
+                    '>
+        <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['super_approved'] && $entry['mary_approved'] && $entry['drew_approved']){ echo "disabled";}  ?> <?php if($entry['super_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
                         <td><?= $time['Vendor']['first_name'] . " " . $time['Vendor']['last_name'];?></td>
 			<td><?php echo date("m/d/y", strtotime($entry['txn_date'])); ?></td>
                         <td>$<?= $entry['amount']; ?></td>

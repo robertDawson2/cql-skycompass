@@ -18,6 +18,7 @@
                         <th>Billable Status</th>
                         <th>Notes</th>
                         <th>Submitted</th>
+                        <th>Options</th>
 			
 		</tr>
 	</thead>
@@ -35,6 +36,8 @@
                         <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable_status']; ?>' name='data[entries][<?= $entry['id']; ?>][billable_status]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
                         <td><?= $entry['notes']; ?></td>
                         <td><?= date('m/d/Y H:i', strtotime($entry['modified'])); ?></td>
+                        <td><a class="btn btn-info" href="/admin/timeEntry/edit/<?= $entry['id']; ?>">
+                                <i class="fa fa-edit"></i> Edit</a></td>
 			
 		</tr>
 	<?php } ?>

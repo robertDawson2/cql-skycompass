@@ -1,17 +1,25 @@
-
+<style>
+    .ignore {
+        display: none;
+    }
+    .even
+    {
+       background-color: #fef2f7;
+    }
+    </style>
 <div id="total-total" style='float: right; z-index: 9999999; position:fixed; right: 25px; padding: 10px; background: rgba(255,255,255,0.9); font-size: 120%;'>
     <strong>Total Due: $0.00</strong>
 </div>
 <h3>General Information</h3>
 <?php echo $this->Form->create('add', array('type' => 'file')); ?>
   <div class='box-body'>
-	<fieldset>
+	<fieldset id="customer-box">
            
-            <div class="row">
+            <div class="row customer-row odd">
               <div class="col-md-4">
                   <div class='form-group'>
                       <label>Customer/Job</label>
-                      <select id='customerList'  data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][customer_id]' style="width: 100%;">
+                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][1][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -31,7 +39,7 @@
                   <div class="input-group-addon calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][1][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
                   </div>
                       </div> 
               </div>
@@ -39,7 +47,7 @@
 
                  <div class='form-group'>
                 <label>Class</label>
-                <select name='data[BillItem][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
+                <select name='data[BillItem][1][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
                     <option></option>
                     <?php foreach($classes as $p): ?>
                     <?php $selected = "";
@@ -59,7 +67,7 @@
                   <div class="input-group-addon calendar-show">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input name='data[BillItem][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date' id="datepicker">
+                  <input name='data[BillItem][1][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
                   </div>
                       </div> 
                 </div> 
@@ -68,20 +76,241 @@
                       
                       <label>Destination (City, State)</label>
                      
-                  <input name='data[BillItem][dest]' type="text" class="form-control pull-right validation" data-required='required' />
+                  <input name='data[BillItem][1][dest]' type="text" class="form-control pull-right validation" data-required='required' />
                   
                       </div> 
                  
                  <div class='form-group' style='margin-top: 44px;'>
                 <label>Trip Notes</label>
-                <textarea  name='data[BillItem][description]'  class='form-control' rows='5' width='100%'></textarea>
+                <textarea  name='data[BillItem][1][description]'  class='form-control' rows='5' width='100%'></textarea>
               </div>
             </div> 
           </div>
-		             
+		 
+            
+            <div class="row customer-row even ignore">
+                <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
+              <div class="col-md-4">
+                  <div class='form-group'>
+                      <label>Customer/Job</label>
+                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][2][customer_id]' style="width: 100%;">
+                   <option></option>
+                   <?php foreach($customers as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                  </div> 
+                  <div class='form-group'>
+                      
+                      <label>Departure Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][2][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+              </div>
+                <div class='col-md-4'>
+
+                 <div class='form-group'>
+                <label>Class</label>
+                <select name='data[BillItem][2][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
+                    <option></option>
+                    <?php foreach($classes as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                </div>
+                <div class='form-group'>
+                      
+                      <label>Return Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][2][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+                </div> 
+                <div class='col-md-4'> 
+                    <div class='form-group' style='padding-bottom: 10px;'>
+                      
+                      <label>Destination (City, State)</label>
+                     
+                  <input name='data[BillItem][2][dest]' type="text" class="form-control pull-right validation" data-required='required' />
+                  
+                      </div> 
+                 
+                 <div class='form-group' style='margin-top: 44px;'>
+                <label>Trip Notes</label>
+                <textarea  name='data[BillItem][2][description]'  class='form-control' rows='5' width='100%'></textarea>
+              </div>
+            </div> 
+          </div>
+            
+            <div class="row customer-row odd ignore">
+                 <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
+              <div class="col-md-4">
+                  <div class='form-group'>
+                      <label>Customer/Job</label>
+                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][3][customer_id]' style="width: 100%;">
+                   <option></option>
+                   <?php foreach($customers as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                  </div> 
+                  <div class='form-group'>
+                      
+                      <label>Departure Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][3][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+              </div>
+                <div class='col-md-4'>
+
+                 <div class='form-group'>
+                <label>Class</label>
+                <select name='data[BillItem][3][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
+                    <option></option>
+                    <?php foreach($classes as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                </div>
+                <div class='form-group'>
+                      
+                      <label>Return Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][3][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+                </div> 
+                <div class='col-md-4'> 
+                    <div class='form-group' style='padding-bottom: 10px;'>
+                      
+                      <label>Destination (City, State)</label>
+                     
+                  <input name='data[BillItem][3][dest]' type="text" class="form-control pull-right validation" data-required='required' />
+                  
+                      </div> 
+                 
+                 <div class='form-group' style='margin-top: 44px;'>
+                <label>Trip Notes</label>
+                <textarea  name='data[BillItem][3][description]'  class='form-control' rows='5' width='100%'></textarea>
+              </div>
+            </div> 
+          </div>
+            
+            <div class="row customer-row even ignore">
+                 <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
+              <div class="col-md-4">
+                  <div class='form-group'>
+                      <label>Customer/Job</label>
+                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][4][customer_id]' style="width: 100%;">
+                   <option></option>
+                   <?php foreach($customers as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                  </div> 
+                  <div class='form-group'>
+                      
+                      <label>Departure Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][4][depart_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+              </div>
+                <div class='col-md-4'>
+
+                 <div class='form-group'>
+                <label>Class</label>
+                <select name='data[BillItem][4][class_id]'  id='classItemList' data-placeholder='Select a class...'  class="form-control select2 validation" data-required = "required"  style="width: 100%;">
+                    <option></option>
+                    <?php foreach($classes as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
+                        <?=$p['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                </div>
+                <div class='form-group'>
+                      
+                      <label>Return Date</label>
+                      <div class="input-group date">
+                  <div class="input-group-addon calendar-show">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name='data[BillItem][4][return_date]' data-max='today' type="text" class="form-control pull-right datepicker validation" data-required='required' data-type='date'>
+                  </div>
+                      </div> 
+                </div> 
+                <div class='col-md-4'> 
+                    <div class='form-group' style='padding-bottom: 10px;'>
+                      
+                      <label>Destination (City, State)</label>
+                     
+                  <input name='data[BillItem][4][dest]' type="text" class="form-control pull-right validation" data-required='required' />
+                  
+                      </div> 
+                 
+                 <div class='form-group' style='margin-top: 44px;'>
+                <label>Trip Notes</label>
+                <textarea  name='data[BillItem][4][description]'  class='form-control' rows='5' width='100%'></textarea>
+              </div>
+            </div> 
+          </div>
 	
             
 	</fieldset>
+      
+      <a href="#" id="customer-add"><i class="fa fa-plus-circle"></i> Add another customer...</a>
 
   </div>
 <?php echo $this->Form->end(); ?>
@@ -402,7 +631,21 @@ text-align: right;">
 
 <?php $this->append('scripts'); ?>
 <script>
-    
+    $(".close-parent").click(function(e) {
+        e.preventDefault();
+        $(this).parent().fadeOut().addClass('ignore');
+    });
+    $("#customer-add").click(function(e) {
+        e.preventDefault();
+        $shown = false;
+        $(".customer-row").each(function() {
+           if($(this).hasClass("ignore") && !$shown)
+           {
+               $(this).fadeIn().removeClass('ignore');
+               $shown = true;
+           }
+        });
+    });
     $("select[name='trans-taxi-car']").change(function() {
        $selected = $(this).val();
        
@@ -485,13 +728,47 @@ $("#checkForNYC").change(function() {
     }
 });
 
-
+var filesUploaded = false;
 $("#addAdminTravelSheetForm").submit(function(e) {
-    
+     
+            
    $isValid = validateForm(".validation"); 
        
+       
+       
        if(!$isValid)
+       {
             e.preventDefault();
+            return false;
+        }
+        
+        
+        //form is valid, upload images if not done already, skip if they have been
+        if(!filesUploaded)
+        {
+            $("#submit-all").fadeOut('fast');
+            $("#overlay").fadeIn();
+        e.preventDefault();
+        filesUploaded = true;
+        
+        $.ajax({
+               url: "/admin/expenses/ajaxUploadReceipts",
+               contentType: false,
+               data: formData,
+               processData: false,
+               cache: false,
+               type: 'POST',
+               success: function(data) {
+               console.log(data);
+    }
+               }).done(function()
+               {
+                   $("#addAdminTravelSheetForm").submit();
+                   });
+        }
+        else
+        {
+        
         
         $(".meal").each(function() {
             if($(this).is(':checked'))
@@ -513,25 +790,16 @@ $("#addAdminTravelSheetForm").submit(function(e) {
               }
             
             
+            }
+            
+            // Everything now added, form will submit!
+            
 //            for (var [key, value] of formData.entries()) { 
 //                console.log(key, value);}
                 
            // upload the receipt images to the server
-           $.ajax({
-               url: "/admin/expenses/ajaxUploadReceipts",
-               contentType: false,
-               data: formData,
-               processData: false,
-               cache: false,
-               type: 'POST',
-               success: function(data) {
-               console.log(data);
-    }
-               });
-            
-
-
-        
+         //  console.log(formData);
+         
         
     });
     
@@ -549,11 +817,11 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             var fileName = "";
             
             if(fileSelect.files[0] != null)
-                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name.replace(" ","_");
             // update corporate total
             updateTotals('corporate', parseFloat($('[name="amount"]').val()).toFixed(2));
             $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
-            $html += $('[name="type"]').val();
+            $html += $('[name="type"] option:selected').text();
             $html += "</td><td>";
             $html += $('[name="date"]').val();
              $html += "</td><td>$";
@@ -620,7 +888,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             var fileName = "";
             
             if(fileSelect.files[0] != null)
-                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name.replace(" ","_");
             
             updateTotals('trans', amount);
             $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
@@ -692,7 +960,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
            var fileName = "";
             
             if(fileSelect.files[0] != null)
-                fileName = new Date().getTime() + "-" + fileSelect.files[0].name;
+                fileName = new Date().getTime() + "-" + fileSelect.files[0].name.replace(" ","_");
             
               updateTotals('other', parseFloat($('[name="other-amount"]').val()).toFixed(2));
             $html = "<tr data-remove='rowCounter-" + rowCounter + "'><td>";
@@ -835,3 +1103,19 @@ $("#addAdminTravelSheetForm").submit(function(e) {
     </script>
 
 <?php $this->end(); ?>
+
+    <div id="overlay" style="position: fixed; width: 100%;
+         height: 100%;
+         left: 0;
+         top: 0;
+         bottom: 0;
+         right: 0;
+         margin: 0;
+         padding: 0;
+         background: rgba(0,0,0,0.5);
+         display: none;
+             z-index: 999999999;">
+        <div id="message" style="display: table; margin: 0 auto; padding: 25%; font-size: 3em; text-shadow: 0 0 7px #000; font-weight: bold; color: white;">
+            Form is submitting, please wait...
+        </div>
+    </div>

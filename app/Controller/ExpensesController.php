@@ -30,6 +30,7 @@
             $this->layout = "ajax";
             if(!empty($_FILES))
             {
+                pr($_FILES);
                 foreach($_FILES['files']['name'] as $i =>  $filename)
                 {
                     $target_dir = WWW_ROOT . "files/uploads/";
@@ -307,7 +308,7 @@ if($uploadOk) {
             $customers = $this->_loadCustomers();
             $this->set('customers', $customers);
             
-            $services = $this->_loadServices();
+            $services = $this->_loadServices(1);
             $this->set('services', $services);
             
             
@@ -321,6 +322,8 @@ if($uploadOk) {
             $approvedBills = $this->BillItem->find('all', array(
                 'conditions' => array(
                     'BillItem.super_approved' => 1,
+                    'BillItem.drew_approved' => 1,
+                    'BillItem.mary_approved' => 1,
                     'BillItem.approved' => 1,
                     'BillItem.bill_id' => NULL,
                     'BillItem.company_cc_item' => 0
@@ -390,7 +393,7 @@ if($uploadOk) {
             $customers = $this->_loadCustomers();
             $this->set('customers', $customers);
             
-            $services = $this->_loadServices();
+            $services = $this->_loadServices(1);
             $this->set('services', $services);
             
             if(!empty($this->request->data))
@@ -476,7 +479,7 @@ if($uploadOk) {
             $customers = $this->_loadCustomers();
             $this->set('customers', $customers);
             
-            $services = $this->_loadServices();
+            $services = $this->_loadServices(1);
             $this->set('services', $services);
             
             
@@ -489,6 +492,8 @@ if($uploadOk) {
                 $newRecord['BillItem']['bill_id'] = null;
                 $newRecord['BillItem']['cost'] = $newRecord['BillItem']['amount'];
                  $newRecord['BillItem']['super_approved'] = null;
+                 $newRecord['BillItem']['drew_approved'] = null;
+                 $newRecord['BillItem']['mary_approved'] = null;
                
                 
                 // upload the image - fail if it does not upload
@@ -700,11 +705,17 @@ if($uploadOk) {
                 {
                     if(isset($d['approved']) && $d['approved'] == 'on')
                     {
+                        if($this->Auth->user('id') === "80000302-1459626390")
+                            $superuser = "drew_approved";
+                        else
+                            $superuser = "mary_approved";
+                        
                     $entry = array('BillItem' => array(
                         'id' => $i,
                         'super_approved' => $approve,
                         'approved' => $approve,
-                        'billable' => $d['billable']
+                        'billable' => $d['billable'],
+                        $superuser => $approve
                     ));
                     
                     if(!$this->BillItem->saveMany($entry))
@@ -749,9 +760,16 @@ if($uploadOk) {
             $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
             $this->loadModel('Vendor');
             $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
-            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1', 'BillItem.super_approved' => null, 'BillItem.bill_id'=>null), 'recursive' => 3,
+            if($this->Auth->user('id') == "80000302-1459626390")
+            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
+                'BillItem.drew_approved' => null
+            ), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
-            
+            else
+            $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
+                'BillItem.mary_approved' => null
+            ), 'recursive' => 3,
+                'order' => 'BillItem.txn_date ASC'));
             
             $this->set('entries',$entries);
             

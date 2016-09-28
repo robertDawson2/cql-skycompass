@@ -36,6 +36,7 @@
         <!-- /.box-header -->
         <?php echo $this->Form->create('edit'); ?>
         <input type="hidden" name='data[TimeEntry][id]' value='<?= $data['TimeEntry']['id']; ?>' />
+        <input type="hidden" name='data[TimeEntry][user_id]' value='<?= $data['TimeEntry']['user_id']; ?>' />
         <div class="box-body">
           <div class="row">
               <div class="col-md-6">
