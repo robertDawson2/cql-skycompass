@@ -18,6 +18,8 @@
                         <th>CC?</th>
                         <th>Image</th>
                         <th>Billable Status</th>
+                        <th>Options</th>
+                        
 			
 		</tr>
 	</thead>
@@ -41,6 +43,12 @@
                             </a>
                         </td>
                         <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable']; ?>' name='data[entries][<?= $entry['id']; ?>][billable]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
+                        <td><a class="btn btn-info" href="/admin/expenses/edit/<?= $entry['id']; ?>">
+                                <i class="fa fa-edit"></i> Edit</a> <br />
+                        <a class="btn btn-warning denial-notice" href="#">
+                                <i class="fa fa-plus-circle"></i> Add Denial Message</a>
+                        <input type="hidden" name='data[entries][<?= $entry['id']; ?>][denial_message]' value='' class='denial-msg' /></td>
+                       
 			
 		</tr>
 	<?php } ?>
@@ -130,6 +138,16 @@ $("#btn-deny").click(function(e) {
     e.preventDefault();
     $("#approveDeny").val('deny');
     $("#approveAdminApproveForm").submit();
+});
+
+$(".denial-notice").click(function(e) {
+    e.preventDefault();
+    $j = prompt("Enter denial message below, or cancel to exit.");
+    if($j != null)
+    {
+        $(this).parent().children(".denial-msg").val($j);
+        $(this).parent().children(".denial-msg").attr('type', 'text');
+    }
 });
 </script>
 

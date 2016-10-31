@@ -149,7 +149,17 @@ class AppController extends Controller {
             $this->loadModel('Message');
             
             $messages = $this->Message->getUnread();
-            
+          //  pr($messages);
+            return $messages;
+        }
+        private function _getReadMessages($limit)
+        {
+//            if($limit > 0)
+//                $messages = $this->Message->getRead($limit);
+//            else
+//                $messages = $this->Message->getRead();
+//            
+            $messages = "";
             return $messages;
         }
         
@@ -303,6 +313,7 @@ class AppController extends Controller {
                 {
 
                     $this->set('messages', $this->_getUnreadMessages());
+                    $this->set('readMessages', $this->_getReadMessages(5));
                     
                     if($this->Auth->user('super_user'))
                     {

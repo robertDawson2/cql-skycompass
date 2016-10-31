@@ -361,7 +361,7 @@
             </td><td>
     <textarea name='note'></textarea>
             </td><td style="max-width: 120px; overflow-x: hidden;" >
-    <input type='file' accept="image/*" capture="camera" name='receipt' id="corporate-file-upload" />
+    <input data-required='required'  type='file' accept="image/*" capture="camera" name='receipt' id="corporate-file-upload" />
             </td>
             <td>
     
@@ -588,7 +588,7 @@ text-align: right;">
     <textarea name='other-note' class='other-validation' data-required='required'></textarea>
                 </div>
             </td><td>
-    <input type='file'  accept="image/*" capture="camera"  style="max-width: 120px;" name='other-receipt' id="other-file-upload" />
+    <input type='file'  data-required='required'  accept="image/*" capture="camera"  style="max-width: 120px;" name='other-receipt' id="other-file-upload" />
             </td>
             <td>
     
@@ -768,6 +768,9 @@ $("#addAdminTravelSheetForm").submit(function(e) {
         }
         else
         {
+            
+            // remove unused customers
+            $(".ignore").remove();
         
         
         $(".meal").each(function() {
@@ -1033,6 +1036,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
         // Validate Customer
         $return = true;
         $($validationClass).each(function() {
+            if(!$(this).closest('.customer-row').hasClass('ignore')) {
              $(this).closest('.form-group').removeClass('has-error');
                     $(this).closest(".form-group").children('.help-block').remove();
             $value = $(this).val();
@@ -1094,7 +1098,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             }
             
             
-            
+            }
             
         });
         return $return;

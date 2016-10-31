@@ -35,7 +35,7 @@ class MessagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Message', 'Chat');
+	public $uses = array('Message', 'Chat', 'User');
 
 /**
  * Displays a view
@@ -45,24 +45,40 @@ class MessagesController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-        public function admin_sendMessage()
+        public function admin_sendMessage($chatId, $message, $userIds = null)
         {
-
-            $users = array("1");
-            $this->Message->sendMessage($users, 'Let me tap that shit!!');
+            $this->layout = 'ajax';
+            $message = urldecode($message);
+            
+            $this->Message->sendMessage(0, $message, $chatId);
+            exit();
         }
         public function admin_getUnread() {
             $this->Message->getUnread();
         }
+        public function admin_getRead($limit = 500)
+        {
+            $this->Message->getRead($limit);
+        }
         
         public function admin_ajaxView($id = null)
         {
+            $currUser = AuthComponent::user('id');
             $this->layout = 'ajax';
             $chat = ($this->Chat->findById($id));
             foreach($chat['Message'] as $message)
             {
-                echo $message['message'];
+                $user=  $this->User->findById($message['user_id']);
+                $this->Message->id = $message['id'];
+                if($currUser !== $user['User']['id'])
+                    $this->Message->saveField('seen', 1);
+                
+                $messages[] = array('user' => $user['User']['first_name'] . " " . 
+                        $user['User']['last_name'],
+                    'message' => $message['message']);
+                        
             }
+            echo json_encode($messages);
             exit();
         }
 }

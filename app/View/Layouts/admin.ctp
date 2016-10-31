@@ -335,6 +335,7 @@
  <!-- This is where the sidebar would go if i need it - it's an element now -->
   <?= $this->element('modals/entry'); ?>
 <?= $this->element('modals/expense'); ?>
+ <?= $this->element('modals/expense_report'); ?>
 
 
 </div>
@@ -404,6 +405,17 @@
       "info": true,
       "autoWidth": false,
       "order": [[2,"desc"]]
+    });
+    $(".datepicker").datepicker();
+    
+    $("#expenseReportGenerate").click(function(e) {
+        e.preventDefault();
+        $start = new Date($("#startDateReport").val());
+        $end = new Date($("#endDateReport").val());
+                window.location = "/admin/expenses/expenseExport/" + 
+                        $start.getFullYear() + "-" + ($start.getMonth()+1) + "-" + $start.getDate() + "/" + 
+                        $end.getFullYear() + "-" + ($end.getMonth()+1) + "-" + $end.getDate()
+        
     });
  
 	$(function() {
@@ -664,21 +676,35 @@
                   $user = $(this).data('user');
                   $url = $(this).attr('href');
                   $boxid = $(this).data('chatid');
-                  box[$(this).data('chatid')] = $("#chat_div").chatbox({id:"<?= $currentUser['first_name']; ?>-" + $boxid, 
+                  box[$(this).data('chatid')] = $("#chat_div").chatbox({id:"<?= $currentUser['first_name']; ?>", 
                                                 user:{key : "value"},
                                                 title : $user,
                                                 messageSent : function(id, user, msg) {
-                                                    $("#log").append(id + " said: " + msg + "<br/>");
-                                                    $("#chat_div").chatbox("option", "boxManager").addMsg(id, msg);
+                                                    console.log(id + " said: " + msg);
+                                                    var encoded = encodeURIComponent(msg);
+                                                    $.ajax(
+                                                    {
+                                                        url: '/admin/messages/sendMessage/' + $boxid + '/' + encoded
+                                                    }).done(function(data) {
+                                                      //  alert(data);
+                                                        $message = msg;
+                                                        $("#chat_div").chatbox("option", "boxManager").addMsg(id, $message);
+                                                        });
+                                                    //$("#chat_div").chatbox("option", "boxManager").addMsg(id, msg);
                                                 }});
                      
                                             $.ajax(
                                                     {
-                                                        url: $url
+                                                        url: $url,
+                                                        dataType: 'json'
                                                     }).done(function(data) {
-                                                        alert(data);
-                                                        $message = data;
-                                                        $("#chat_div").chatbox("option", "boxManager").addMsg($user, $message);
+                                                      //  alert(data);
+                                                      
+                                                        $.each(data, function(name, message) {
+                                                            
+                                                            $("#chat_div").chatbox("option", "boxManager").addMsg(message.user, message.message);
+                                                        });
+                                                        
                                                         });
                                                         
                         

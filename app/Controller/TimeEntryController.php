@@ -19,6 +19,12 @@
            $this->Auth->allow('updateConfiguration');
         }
            
+        function admin_viewApproved() {
+            $timeEntries = $this->TimeEntry->find('all', array('conditions' => array(
+                'TimeEntry.approved' => 1
+            )));
+            $this->set('timeEntries', $timeEntries);
+        }
         function admin_delete($id = null)
         {
             if(isset($id) && $id !== null)
@@ -70,6 +76,7 @@
         
         function admin_approve() {
             
+            $denialNotice = array();
             if(!empty($this->request->data))
             {
                
@@ -102,8 +109,19 @@
                         
                         if($approve == 1)
                             $this->Notification->queueNotification($timeEntry['TimeEntry']['user_id'],'TimeAdd','/admin/timeEntry/viewMyTime','Time Approved','%i time records were approved');
-                        else
+                        else {
                             $this->Notification->queueNotification($timeEntry['TimeEntry']['user_id'],'TimeDeny','/admin/timeEntry/viewMyTime','Time Denied','%i time records were denied');
+                        
+                         // queue denial notice email for sending
+                            if(!empty($d['denial_message']))
+                            {
+                                $denialNotice[$timeEntry['User']['id']][] = array('notice' => $d["denial_message"],
+                                    'customer' => $timeEntry['Customer']['name'],
+                                    'user_email' => $timeEntry['User']['email'],
+                                    'date' => $timeEntry['TimeEntry']['txn_date']);
+                                
+                            }
+                        }
                     }
                 }
                 
@@ -122,7 +140,7 @@
                         $this->Session->setFlash('An error occurred while saving your request.', 'flash_error');
                     }
             
-            
+            $this->_sendDenialNotices($denialNotice);
             
             }
             $this->User->unbindModel(array('hasMany' => array('TimeEntry')));
@@ -144,6 +162,32 @@
                         unset($entries[$i]);
             }
             $this->set('entries',$entries);
+        }
+        
+           
+        private function _sendDenialNotices($denials = null)
+        {
+            if(isset($denials) && !empty($denials))
+            {
+                
+                foreach($denials as $d)
+                {
+                   
+                     App::uses('CakeEmail', 'Network/Email');
+                            $to = array($d[0]['user_email']);
+                            
+                            $email = new CakeEmail('smtp');
+                            $email->template('denial', 'default')
+                            ->emailFormat('both')
+                            ->subject($this->config['site.name'] . ' Time Entry Denial Notice')
+                            ->viewVars(array('full' => $d,'config' => $this->config, 'description' => 'Time Entry Denial Notice'))
+                            ->to($to)
+                            ->send();
+                }
+                return true;
+            }
+            
+            return false;
         }
         
         function admin_superApprove() {

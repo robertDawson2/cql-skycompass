@@ -19,7 +19,92 @@
             $this->Auth->allow('generateBills');
           
         }
-          
+         
+        function admin_userExpenses($vendor_id = null)
+        {
+            $expenses = $this->BillItem->find('all', array('conditions' => array(
+                'BillItem.vendor_id' => $vendor_id
+            )));
+            $this->set('expenses', $expenses);
+            
+            $u = $this->User->find('first', array('conditions' => array(
+                'vendor_id' => $vendor_id
+            )));
+                    
+                    $this->set('user', $u['User']);
+        }
+        function admin_approved() {
+            $expenses = $this->BillItem->find('all', array('conditions' => array(
+                'drew_approved' => 1,
+                'mary_approved' => 1,
+                'NOT' => array(
+                    'bill_id' => NULL
+                )
+            )));
+            $this->set('expenses', $expenses);
+        }
+        function admin_expenseExport($startDate = "2016-09-01", $endDate = "2016-11-01")
+        {
+            echo date('Y-m-d H:i:s', strtotime($startDate)) . " TO " . date('Y-m-d H:i:s', strtotime($endDate)) . "<br /> <br />";
+            $result = $this->BillItem->query('SELECT BillItem.id, Item.full_name, BillItem.txn_date, BillItem.image, BillItem.customer_id, Classes.full_name, Customer.full_name, BillItem.vendor_id, Vendor.first_name, Vendor.last_name, BillItem.cost, BillItem.quantity, BillItem.amount, BillItem.description
+FROM bill_items AS BillItem
+JOIN customers AS Customer ON BillItem.customer_id = Customer.id
+JOIN vendors AS Vendor ON Vendor.id = BillItem.vendor_id
+JOIN classes AS Classes ON Classes.id = BillItem.class_id 
+JOIN items AS Item ON Item.id = BillItem.item_id
+WHERE BillItem.txn_date
+BETWEEN "' . date('Y-m-d H:i:s', strtotime($startDate)) . '"
+AND "' . date('Y-m-d H:i:s', strtotime($endDate)) . '"
+AND BillItem.mary_approved =1
+AND BillItem.drew_approved =1
+AND BillItem.company_cc_item =1
+ORDER BY vendor_id ASC , customer_id ASC , txn_date ASC ');
+            $user = "";
+            $cust = "";
+            $count = 0;
+            echo "<html><body><style>@page {
+  size: 8.5in 11in;
+} body{position absolute; left: 0; top: 0; margin: 0; width: 450px;}
+ td {border: 1px solid black; padding: 5px 10px;} th {font-weight: bold; background-color: #ddd; padding: 5px 10px; border: 1px solid black;}";
+            echo "</style>";
+            echo "<div style='width: 100%;'>";
+            foreach($result as $r)
+            {
+                $vendorName = $r['Vendor']['first_name'] . " " . $r['Vendor']['last_name'];
+               
+                if($vendorName !== $user) {
+                //     echo "NEWVENDOR";
+                    if($count > 0)
+                        echo "</table>";
+                    
+                    echo "<h1>" . $vendorName . "</h1>";
+                   $customer = "";
+                   $user = $vendorName;
+                }
+                $count++;
+                
+                if($r['Customer']['full_name'] !== $cust)
+                {
+                    if($count > 1)
+                        echo "</table>";
+                        
+                    $cust = $r['Customer']['full_name'];
+                    echo "<h3>" . $cust . "</h3>";
+                            echo "<table style='width: 100%;'>";
+                            echo "<tr>";
+                            echo "<th>Date</th><th>Class</th><th>Item</th><th>Receipt</th><th>Cost</th><th>Quantity</th><th>Total</th><th style='max-width: 150px;'>Description</th></tr>";
+                           
+                }
+                echo "<tr><td>" . date('m/d/Y', strtotime($r['BillItem']['txn_date'])) . "</td><td>" . $r['Classes']['full_name'] . "</td>" .
+                       "<td>" . $r['Item']['full_name'] . "</td>" . "<td><a href='/files/uploads/" . $r['BillItem']['image'] . "'>Link</a></td>" .
+                        "<td>" . $r['BillItem']['cost'] . "</td>" . "<td>" . $r['BillItem']['quantity'] . "</td>" .
+                        "<td>" . $r['BillItem']['amount'] . "</td>" . "<td>" . $r['BillItem']['description'] . "</td></tr>";
+            }
+            echo "</table>";
+            echo "</div></body></html>";
+            
+            exit();
+        }
         function admin_showBill($id)
         {
             pr($this->Bill->findById($id));
@@ -107,21 +192,36 @@ if($uploadOk) {
             
             if(!empty($this->request->data))
             {
+                $totalSpan = 0;
+                $count = 0;
                 $error = array();
                 $toSave = array();
               //  pr($this->request->data);
                 $data = $this->request->data;
+                
+                // break down each customer item
                 $billItem = $data['BillItem'];
-                $customer = $this->Customer->findById($billItem['customer_id']);
-                $priorDesc = $billItem['description'];
-                $baseDescription = "**" . $billItem['dest'] . " ::: " . $customer['Customer']['full_name'] . " ::: " . 
-                        $billItem['depart_date'] . " - " . $billItem['return_date'] . "\n" . $priorDesc . "**\n";
-                $billItem['description'] = $baseDescription;
-                $billItem['txn_date'] = date('Y-m-d H:i:s', strtotime($billItem['depart_date']));
+                $count = sizeof($billItem);
+                foreach($billItem as $i => $bill) 
+                    {
+                $customer = $this->Customer->findById($bill['customer_id']);
+                $priorDesc = $bill['description'];
+                $baseDescription = "**" . $bill['dest'] . " ::: " . $customer['Customer']['full_name'] . " ::: " . 
+                        $bill['depart_date'] . " - " . $bill['return_date'] . "\n" . $priorDesc . "**\n";
+                $billItem[$i]['description'] = $baseDescription;
+                $billItem[$i]['txn_date'] = date('Y-m-d H:i:s', strtotime($bill['depart_date']));
                
-                $billItem['quantity'] = 1;
+                $billItem[$i]['quantity'] = 1;
                 $user = $this->Auth->user();
-                $billItem['vendor_id'] = $user['Vendor']['id'];
+                $billItem[$i]['vendor_id'] = $user['Vendor']['id'];
+                
+                // number of days between the two dates
+                $depart = strtotime($bill['depart_date']);
+                $return = strtotime($bill['return_date']);
+                $billItem[$i]['range'] = floor(abs($depart-$return) / (60 * 60 * 24)) + 1;
+                $totalSpan += $billItem[$i]['range'];
+                }
+                
                 
                 //break down corporate items
                 if(isset($data['corporate']))
@@ -129,12 +229,46 @@ if($uploadOk) {
                     
                     foreach($data['corporate'] as $corp)
                     {
-                        $corporateItem = $billItem;
+                        
+                        $runningAmount = 0.00;
+                        
+                        // if air item, going to divide 50/50
+                        $this->loadModel('Item');
+                        $item = $this->Item->findById($corp['type']);
+                        
+                        // Must check item for the string "air" - dumb I know but it works.
+                        $airItem = false;
+                        if(strpos(strtolower($item['Item']['full_name']), 'air') !== false)
+                        {
+                            $airItem = true;
+                        }
+                       
+                        foreach($billItem as $bill)
+                        {
+                            if(!$airItem)
+                                $amount = ($corp['amount'] * $bill['range'])/$totalSpan;
+                            else
+                                $amount = $corp['amount']/$count;
+                            
+                            $amount = round($amount, 2);
+                            $runningAmount += $amount;
+                            
+                            // clean up difference on last item
+                            $difference = $corp['amount'] - $runningAmount;
+                            if($difference != 0 && abs($difference)<0.10)
+                            {
+                                // edits the amount for the last company to pick up the slack.
+                                // sorry, suckers.
+                                $amount += $difference;
+                            }
+                                
+                            
+                        $corporateItem = $bill;
                         $corporateItem['company_cc_item'] = 1;
                         $corporateItem['txn_date'] = date('Y-m-d H:i:s', strtotime($corp['date']));
                         $corporateItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
-                        $corporateItem['cost'] = $corp['amount'];
-                        $corporateItem['amount'] = $corp['amount'];
+                        $corporateItem['cost'] = $amount;
+                        $corporateItem['amount'] = $amount;
                         // Add description, don't overwrite
                         $corporateItem['description'] .= $corp['note'];
                         $corporateItem['image'] = $corp['receipt'];
@@ -146,6 +280,7 @@ if($uploadOk) {
                             $toSave[] = $corporateItem;
                         else
                             $error[] = "Corporate Item";
+                        }
                         
                     }
                 }
@@ -178,11 +313,28 @@ if($uploadOk) {
                     // Only create a bill if total > 0, obvi...
                     if($total > 0)
                     {
-                        $mealItem = $billItem;
+                        // run for each company
+                        $quartersRemaining = $quarters;
+                        foreach($billItem as $bill) {
+                            
+                            // total possible number of quarters for this company
+                            $possibleQuarters = $bill['range'] * 4;
+                            
+                            // if the number of possible quarters is greater than quarters remaining,
+                            // then less than a day of quarters was eaten, or we are on the last company, 
+                            // and not a full day is accounted for. Otherwise, decrement remaining quarters by
+                            // possible quarters
+                            if($quartersRemaining < $possibleQuarters)
+                                $possibleQuarters = $quartersRemaining;
+                            else
+                                $quartersRemaining -= $possibleQuarters;
+                            
+                            
+                        $mealItem = $bill;
                         $mealItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
-                        $mealItem['quantity'] = $quarters;
+                        $mealItem['quantity'] = $possibleQuarters;
                         $mealItem['cost'] = $quarterCost;
-                        $mealItem['amount'] = $total;
+                        $mealItem['amount'] = ($possibleQuarters * $quarterCost);
                         $mealItem['description'] .= "Meal Per Diem";
                         $mealItem['item_id'] = $this->config['expenses.meals'];
                         $mealItem['image'] = "";
@@ -197,29 +349,73 @@ if($uploadOk) {
                         else
                             $error[] = "Meal Item";
                         
-                        
+                        }   
                     }
                 }
                 }
+                
+                
                 
                 // Break down and submit transportation items
                 if(isset($data['trans']) && !empty($data['trans']))
                 {
                     foreach($data['trans'] as $trans)
                     {
-                    $transItem = $billItem;
+                        
+                        $runningAmount = 0.00;
+                        foreach($billItem as $bill)
+                        {
+                            // if it's a taxi, break up as normal.
+                            if($trans['taxi-car'] == 'Taxi')
+                        {
+                            $amount = ($trans['amount'] * $bill['range'])/$totalSpan;
+                            $amount = round($amount, 2);
+                            $runningAmount += $amount;
+                            
+                            // clean up difference on last item
+                            $difference = $trans['amount'] - $runningAmount;
+                            if($difference != 0 && abs($difference)<0.10)
+                            {
+                                // edits the amount for the last company to pick up the slack.
+                                // sorry, suckers.
+                                $amount += $difference;
+                            }
+                        }
+                        else
+                        {
+                            // dealing with a car and mileage. ugh.
+                        
+                        
+                        $amount = ($trans['mileage'] * $bill['range'])/$totalSpan;
+                            $amount = round($amount, 0);
+                            $runningAmount += $amount;
+                            
+                            // clean up difference on last item
+                            $difference = $trans['mileage'] - $runningAmount;
+                            if($difference != 0 && abs($difference)<5)
+                            {
+                                // edits the amount for the last company to pick up the slack.
+                                // sorry, suckers.
+                                $amount += $difference;
+                            }
+                        
+                        }
+                        
+                            
+                                
+                    $transItem = $bill;
                     $transItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
                         if($trans['taxi-car'] == 'Taxi')
                         {
-                            $transItem['cost'] = $trans['amount'];
-                        $transItem['amount'] = $trans['amount'];
+                            $transItem['cost'] = $amount;
+                        $transItem['amount'] = $amount;
                         $transItem['quantity'] = 1;
                         }
                         else
                         {
                             $transItem['cost'] = $this->config['expenses.mileage'];
-                        $transItem['amount'] = $trans['amount'];
-                        $transItem['quantity'] = $trans['mileage'];
+                        $transItem['amount'] = round(($transItem['cost']*$amount), 2);
+                        $transItem['quantity'] = $amount;
                         }
                         
                         // Add description, don't overwrite
@@ -239,21 +435,55 @@ if($uploadOk) {
                         
                             
                         
-                    
+                        }
                             
                     }
                
                 }
+                
+                
                 
                 //Finally we take care of "other" items
                 if(isset($data['other']) && !empty($data['other']))
                 {
                     foreach($data['other'] as $trans)
                     {
-                    $otherItem = $billItem;
+                        $runningAmount = 0.00;
+                        
+                        // if air item, going to divide 50/50
+                        $this->loadModel('Item');
+                        $item = $this->Item->findById($trans['type']);
+                        
+                        // Must check item for the string "air" - dumb I know but it works.
+                        $airItem = false;
+                        if(strpos(strtolower($item['Item']['full_name']), 'air') !== false)
+                        {
+                            $airItem = true;
+                        }
+                        
+                        foreach($billItem as $bill)
+                        {
+                            if(!$airItem)
+                                $amount = ($trans['amount'] * $bill['range'])/$totalSpan;
+                            else
+                                $amount = $trans['amount']/$count;
+                            
+                            $amount = round($amount, 2);
+                            $runningAmount += $amount;
+                            
+                            // clean up difference on last item
+                            $difference = $trans['amount'] - $runningAmount;
+                            if($difference != 0 && abs($difference)<0.10)
+                            {
+                                // edits the amount for the last company to pick up the slack.
+                                // sorry, suckers.
+                                $amount += $difference;
+                            }
+                        
+                    $otherItem = $bill;
                     $otherItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
-                        $otherItem['cost'] = $trans['amount'];
-                        $otherItem['amount'] = $trans['amount'];
+                        $otherItem['cost'] = $amount;
+                        $otherItem['amount'] = $amount;
                         // Add description, don't overwrite
                         $otherItem['description'] .= $trans['note'];
                         $otherItem['quantity'] = 1;
@@ -269,11 +499,10 @@ if($uploadOk) {
                             $error[] = "Other Item";
                         
                     
-                            
+                        }  
                     }
                 }
                
-                
                 // Check validation, and save each item if all validated
                 // Return an error message and don't save anything if there is an error.
                 if(empty($error))
@@ -368,11 +597,65 @@ if($uploadOk) {
             foreach($bill_data_array as $i => $a)
                 $this->_queueToSave($a['Bill']['id']);
             
+            $this->_generateCCBills();
             
           //  pr($bill_data_array);
             exit('done');
             
         }
+        private function _generateCCBills() {
+            $approvedBills = $this->BillItem->find('all', array(
+                'conditions' => array(
+                    'BillItem.super_approved' => 1,
+                    'BillItem.drew_approved' => 1,
+                    'BillItem.mary_approved' => 1,
+                    'BillItem.approved' => 1,
+                    'BillItem.bill_id' => NULL,
+                    'BillItem.company_cc_item' => 1
+            ),
+                'order' => array(
+                    'BillItem.vendor_id' => 'ASC',
+                    'BillItem.txn_date' => 'ASC'
+                )));
+            
+            // Create organized array with all info needed for QB export
+            $bill_data_array = array();
+            $id = null;
+            foreach($approvedBills as $i => $a)
+            {
+                if(!isset($bill_data_array[$a['BillItem']['vendor_id']])) {
+                $bill_data_array[$a['BillItem']['vendor_id']] = array(
+                    'Bill' => array(
+                        'id' => sha1('BILL'. $i .time()),
+                        'vendor_id' => $a['BillItem']['vendor_id'],
+                        'customer_id' => $a['Customer']['id'],
+                        'ref_number' => "",
+                        'txn_date' => date("Y-m-d H:i:s"),
+                        'amount_due' => 0.00,
+                        'terms_id' => "",
+                        'memo' => "",
+                        'is_paid' => "false"
+                    )
+                );
+                
+                $this->Bill->create();
+                $this->Bill->save($bill_data_array[$a['BillItem']['vendor_id']]);
+                
+                $id = $this->Bill->id;
+                
+                
+                
+                }
+                $this->BillItem->id = $a['BillItem']['id'];
+                $this->BillItem->saveField('bill_id', $id);
+            }
+            
+            foreach($bill_data_array as $i => $a)
+                $this->_queueToSave($a['Bill']['id'], 'credit-charge');
+            
+            return true;
+        }
+        
         function admin_chooseExpenseCustomer()
         {
             
@@ -524,6 +807,11 @@ if($uploadOk) {
         {
              $this->Session->setFlash('Bill item has been saved and sent for approval.', 'flash_success');
            
+             // Redirect to either viewMyTime or approval screen based on who edited
+                
+                if($this->Auth->user('id') !== $newRecord['BillItem']['user_id'])
+                    $this->redirect('/admin/expenses/approve');
+                else
                     $this->redirect('/admin/expenses/viewMyExpenses');
                     exit();
         }
@@ -605,9 +893,10 @@ if($uploadOk) {
        
         function admin_approve() {
             
+            $denialNotice = array();
             if(!empty($this->request->data))
             {
-
+                
                 $error = false;
                 $approve = null;
                 if($this->request->data['TimeEntry']['approveDeny'] === 'approve')
@@ -623,6 +912,8 @@ if($uploadOk) {
                         'approved' => $approve,
                         'billable' => $d['billable']
                     ));
+                    
+                    
                     
                     if(!$this->BillItem->saveMany($entry))
                     {
@@ -643,13 +934,27 @@ if($uploadOk) {
                         if($approve == 1)
                             $this->Notification->queueNotification($user['User']['id'],'ExpenseAdd','/admin/expenses/viewMyExpenses','Expense Approved','%i expenses were approved');
                         else
+                        {
                             $this->Notification->queueNotification($user['User']['id'],'ExpenseDeny','/admin/expenses/viewMyExpenses','Expense Denied','%i expenses were denied');
+                            
+                            // queue denial notice email for sending
+                            if(!empty($d['denial_message']))
+                            {
+                                $denialNotice[$user['User']['id']][] = array('notice' => $d["denial_message"],
+                                    'customer' => $timeEntry['Customer']['name'],
+                                    'user_email' => $timeEntry['Vendor']['email'],
+                                    'date' => $timeEntry['BillItem']['txn_date']);
+                                
+                            }
+                        }
                     }
                 }
                 
                     
             }
             
+           
+                            
             if(!$error)
             {
                 if($approve == 1)
@@ -663,6 +968,7 @@ if($uploadOk) {
                     }
             
             
+                    $this->_sendDenialNotices($denialNotice);
             
             }
             $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
@@ -688,6 +994,30 @@ if($uploadOk) {
             
         }
         
+        private function _sendDenialNotices($denials = null)
+        {
+            if(isset($denials) && !empty($denials))
+            {
+                
+                foreach($denials as $d)
+                {
+                   
+                     App::uses('CakeEmail', 'Network/Email');
+                            $to = array($d[0]['user_email']);
+                            
+                            $email = new CakeEmail('smtp');
+                            $email->template('denial', 'default')
+                            ->emailFormat('both')
+                            ->subject($this->config['site.name'] . ' Expense Denial Notice')
+                            ->viewVars(array('full' => $d,'config' => $this->config, 'description' => 'Expense Denial Notice'))
+                            ->to($to)
+                            ->send();
+                }
+                return true;
+            }
+            
+            return false;
+        }
         function admin_superApprove() {
             if(!$this->Auth->user('super_user'))
                 exit("You are not authorized to use this page.");
@@ -760,23 +1090,34 @@ if($uploadOk) {
             $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
             $this->loadModel('Vendor');
             $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
-            if($this->Auth->user('id') == "80000302-1459626390")
+            if($this->Auth->user('id') == "80000302-1459626390"){
             $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
-                'BillItem.drew_approved' => null
+               'OR'=>array(
+                   'BillItem.drew_approved' => null,
+                   'BillItem.mary_approved' => null
+                   )
             ), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
+            $this->set("super_user", 'drew');
+            }
             else
+            {
             $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
-                'BillItem.mary_approved' => null
+              'OR'=>array(
+                   'BillItem.drew_approved' => null,
+                   'BillItem.mary_approved' => null
+                   )
             ), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
+            $this->set("super_user", 'mary');
+            }
             
             $this->set('entries',$entries);
             
             
         }
         
-        private function _queueToSave($id)
+        private function _queueToSave($id, $type = 'personal')
         {
            require_once WWW_ROOT . '/QuickBooks/QuickBooks.php'; 
            $user = 'quickbooks';
@@ -802,7 +1143,10 @@ $dsn = 'mysql://' . $u . ':' . $p . '@localhost/' . $db;
  */
 
 $Queue = new QuickBooks_WebConnector_Queue($dsn);
-	$Queue->enqueue(QUICKBOOKS_ADD_BILL, $id);
+        if($type === "personal")
+            $Queue->enqueue(QUICKBOOKS_ADD_BILL, $id);
+        else
+            $Queue->enqueue(QUICKBOOKS_ADD_CREDIT_CARD_CHARGE, $id);
         }
         
         

@@ -113,10 +113,13 @@
             <li><a href="/admin/expenses/approve"><i class="fa fa-credit-card"></i> Approve Employee Expenses</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['time_entries']['admin_index']): ?>
-            <li><a href="#"><i class="fa fa-hourglass-half"></i> Time Log Summary</a></li>
+            <li><a href="/admin/timeEntry/viewApproved"><i class="fa fa-hourglass-half"></i> Time Log Summary</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['bills']['admin_index']): ?>
-            <li><a href="#"><i class="fa fa-money"></i> Expense Summary</a></li>
+            <li><a href="/admin/expenses/approved"><i class="fa fa-money"></i> Expense Summary</a></li>
+            <?php endif; ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['bills']['admin_index']): ?>
+            <li><a href="#expenseReportModal" data-toggle='modal'><i class="fa fa-money"></i> CC Expense Report</a></li>
             <?php endif; ?>
           </ul>
         </li>

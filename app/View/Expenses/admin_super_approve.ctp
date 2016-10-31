@@ -22,7 +22,8 @@
 <table class="table table-striped table-bordered table-hover approval-dataTable" id="users-table">
 	<thead>
 		<tr>
-                    <th></th>
+                    <th>Drew</th>
+                    <th>Mary Kay</th>
                     <th>Vendor</th>
 			<th>Date</th>
                         <th>Amount</th>
@@ -40,10 +41,15 @@
 	<?php foreach ($entries as $time) { $entry = $time['BillItem'];  ?>
             
                 <tr class='<?php if($entry['super_approved'] && $entry['drew_approved'] && $entry['mary_approved']) { ?> disabled <?php } ?> 
-                    <?php if(isset($entry['drew_approved']) && !isset($entry['mary_approved'])) { ?> bg-green <?php } ?> 
-                    <?php if(isset($entry['mary_approved']) && !isset($entry['drew_approved'])) { ?> bg-yellow <?php } ?> 
+                    
                     '>
-        <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['super_approved'] && $entry['mary_approved'] && $entry['drew_approved']){ echo "disabled";}  ?> <?php if($entry['super_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+                   <?php if($super_user === 'drew'): ?>
+        <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['drew_approved']){ echo "disabled";}  ?> <?php if($entry['drew_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+        <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php echo "disabled"; ?> <?php if($entry['mary_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+        <?php else: ?>
+        <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php { echo "disabled";}  ?> <?php if($entry['drew_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+        <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['mary_approved']){ echo "disabled";}  ?> <?php if($entry['mary_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+        <?php endif; ?>
                         <td><?= $time['Vendor']['first_name'] . " " . $time['Vendor']['last_name'];?></td>
 			<td><?php echo date("m/d/y", strtotime($entry['txn_date'])); ?></td>
                         <td>$<?= $entry['amount']; ?></td>

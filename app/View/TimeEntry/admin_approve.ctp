@@ -37,7 +37,11 @@
                         <td><?= $entry['notes']; ?></td>
                         <td><?= date('m/d/Y H:i', strtotime($entry['modified'])); ?></td>
                         <td><a class="btn btn-info" href="/admin/timeEntry/edit/<?= $entry['id']; ?>">
-                                <i class="fa fa-edit"></i> Edit</a></td>
+                                <i class="fa fa-edit"></i> Edit</a><br />
+                        <a class="btn btn-warning denial-notice" href="#">
+                                <i class="fa fa-plus-circle"></i> Add Denial Message</a>
+                        <input type="hidden" name='data[entries][<?= $entry['id']; ?>][denial_message]' value='' class='denial-msg' />
+                       </td>
 			
 		</tr>
 	<?php } ?>
@@ -100,6 +104,17 @@ $("#btn-deny").click(function(e) {
     e.preventDefault();
     $("#approveDeny").val('deny');
     $("#approveAdminApproveForm").submit();
+});
+
+
+$(".denial-notice").click(function(e) {
+    e.preventDefault();
+    $j = prompt("Enter denial message below, or cancel to exit.");
+    if($j != null)
+    {
+        $(this).parent().children(".denial-msg").val($j);
+        $(this).parent().children(".denial-msg").attr('type', 'text');
+    }
 });
 </script>
 

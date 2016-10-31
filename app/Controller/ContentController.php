@@ -9,7 +9,7 @@
 
         public function beforeFilter() {
             parent::beforeFilter();
-            $this->Auth->allow('home', 'display', 'import', 'map', 'tag', 'forms', 'search', 'event');
+            $this->Auth->allow('home', 'display', 'import', 'map', 'tag', 'forms', 'search', 'event','s');
 			$this->set('section', 'web');
         }
 
@@ -17,13 +17,24 @@
         	parent::beforeRender();
            
         }
+        
+        public function s($urlId) {
+            $this->loadModel('AutoLink');
+            $record = $this->AutoLink->find('first', array('conditions' => array('BINARY (tiny_url) LIKE' => "%".$urlId)));
+            if(!empty($record))
+                $this->redirect($record['AutoLink']['url']);
+            else
+                echo "The URL you requested cannot be found. Please contact CQL for more information.";
+            
+            exit();
+            
+        }
 
         public function herp() {
         	exit();
         	//$this->Content->recover('parent');
         	exit('ok');
         }
-
         public function home() {
         	//$this->set('columns', $this->Content->find('all', array('conditions' => array('Content.parent_id' => 8, 'Content.status' => 'live'))));
         	$columns = $this->Content->find('all', array('conditions' => array('Content.parent_id' => 8, 'Content.status' => 'live')));

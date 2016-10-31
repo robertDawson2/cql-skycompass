@@ -5,37 +5,27 @@ class Message extends AppModel {
     public $name = 'Message';
     public $useTable = 'messages';
 
-
+    public $actsAs = array('Containable');
     public $belongsTo = array('Chat', 'User');
 
     
     
-    function sendMessage($userIds = array(), $message="")
+    function sendMessage($userIds = null, $message="", $chatId = null)
     {
         $senderId = AuthComponent::user('id');
-        $userIds[] = $senderId;
-       
+        
         $chats = ClassRegistry::init('Chat');
-        $chat = $chats->find('all', array(
-            'contain' => array('User' => array(
+        
+        if(isset($chatId))
+        $chat = $chats->find('first', array(
             'conditions' => array(
-            'User.id' => $userIds
-                ))
+                'id' => $chatId
         )));
-        foreach($chat as $i => $c)
-            if(count($c['User']) < count($userIds))
-            {
-                unset($chat[$i]);
-            }
-            if(!empty($chat))
-                $chat = $chat[0]["Chat"];
-            else
-                $chat = null;
-            
+        
             if(isset($chat))
             {
                 $message = array(
-                    'chat_id' => $chat['id'],
+                    'chat_id' => $chat['Chat']['id'],
                     'user_id' => $senderId,
                     'message' => $message
                 );
@@ -78,21 +68,19 @@ class Message extends AppModel {
     
     function getUnread() {
         $userId = AuthComponent::user('id');
-        
+       // pr($userId);
+        $chatUser = ClassRegistry::init('ChatUser');
+        $chats = $chatUser->find('list', array('conditions' => array(
+            'user_id' => $userId
+        )));
+       // pr($chats);
         $unread = $this->find('all', array(
-            'contain' => array(
-                'Chat' => array(
-                    'User' => array(
-                        'conditions' => array(
-                            'User.id' => $userId
-                        )
-                    )
-                ),
-                'User'
-            ),
-            'conditions' => array( 'NOT' => array(
-                'Message.user_id' => $userId),
-                'Message.seen' => 0
+            'conditions' => array(
+                'Chat.id' => $chats,
+                'Message.seen' => 0,
+                'NOT' => array(
+                    'Message.user_id' => $userId
+                )
             ),
             'order' => 'Message.created DESC'
         ));
@@ -100,6 +88,28 @@ class Message extends AppModel {
         return $unread;
     }
 
+    function getRead($limit = 500) {
+        $userId = AuthComponent::user('id');
+       // pr($userId);
+        $chatUser = ClassRegistry::init('ChatUser');
+        $chats = $chatUser->find('list', array('conditions' => array(
+            'user_id' => $userId
+        ),'fields' => 'chat_id', 'chat_id'));
+       // pr($chats);
+        $read = $this->find('all', array(
+            'conditions' => array(
+                'Chat.id' => $chats,
+                'Message.seen' => 1,
+                'NOT' => array(
+                    'Message.user_id' => $userId
+                )
+            ),
+            'order' => 'Message.created DESC',
+            'limit' => $limit
+        ));
+        
+        return $read;
+    }
 
 }
 
