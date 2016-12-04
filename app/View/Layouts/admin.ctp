@@ -40,6 +40,7 @@
   
   <link type="text/css" href="/adminPanel/plugins/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
    
+
     
   <script type="text/javascript">
 		tinymceSettings = {
@@ -336,7 +337,7 @@
   <?= $this->element('modals/entry'); ?>
 <?= $this->element('modals/expense'); ?>
  <?= $this->element('modals/expense_report'); ?>
-
+<div id="dialog" style="display: none">
 
 </div>
   <div id="chat-bar">
@@ -426,85 +427,7 @@
 <?php echo $this->fetch('jquery-scripts'); ?>
 		
                
-          $('#calendar').fullCalendar({
-			now: '2016-05-07',
-			editable: true,
-			aspectRatio: 1.8,
-			scrollTime: '00:00',
-			header: {
-				left: 'promptResource today prev,next',
-				center: 'title',
-				right: 'timelineDay,timelineThreeDays,agendaWeek,month'
-			},
-			customButtons: {
-				promptResource: {
-					text: '+ room',
-					click: function() {
-						var title = prompt('Room name');
-						if (title) {
-							$('#calendar').fullCalendar(
-								'addResource',
-								{ title: title },
-								true // scroll to the new resource?
-							);
-						}
-					}
-				}
-			},
-			defaultView: 'timelineDay',
-			views: {
-				timelineThreeDays: {
-					type: 'timeline',
-					duration: { days: 3 }
-				}
-			},
-			resourceLabelText: 'Rooms',
-			resourceRender: function(resource, cellEls) {
-				cellEls.on('click', function() {
-					if (confirm('Are you sure you want to delete ' + resource.title + '?')) {
-						$('#calendar').fullCalendar('removeResource', resource);
-					}
-				});
-			},
-			resources: [
-				{ id: 'a', title: 'Auditorium A' },
-				{ id: 'b', title: 'Auditorium B', eventColor: 'green' },
-				{ id: 'c', title: 'Auditorium C', eventColor: 'orange' },
-				{ id: 'd', title: 'Auditorium D', children: [
-					{ id: 'd1', title: 'Room D1' },
-					{ id: 'd2', title: 'Room D2' }
-				] },
-				{ id: 'e', title: 'Auditorium E' },
-				{ id: 'f', title: 'Auditorium F', eventColor: 'red' },
-				{ id: 'g', title: 'Auditorium G' },
-				{ id: 'h', title: 'Auditorium H' },
-				{ id: 'i', title: 'Auditorium I' },
-				{ id: 'j', title: 'Auditorium J' },
-				{ id: 'k', title: 'Auditorium K' },
-				{ id: 'l', title: 'Auditorium L' },
-				{ id: 'm', title: 'Auditorium M' },
-				{ id: 'n', title: 'Auditorium N' },
-				{ id: 'o', title: 'Auditorium O' },
-				{ id: 'p', title: 'Auditorium P' },
-				{ id: 'q', title: 'Auditorium Q' },
-				{ id: 'r', title: 'Auditorium R' },
-				{ id: 's', title: 'Auditorium S' },
-				{ id: 't', title: 'Auditorium T' },
-				{ id: 'u', title: 'Auditorium U' },
-				{ id: 'v', title: 'Auditorium V' },
-				{ id: 'w', title: 'Auditorium W' },
-				{ id: 'x', title: 'Auditorium X' },
-				{ id: 'y', title: 'Auditorium Y' },
-				{ id: 'z', title: 'Auditorium Z' }
-			],
-			events: [
-				{ id: '1', resourceId: 'b', start: '2016-05-07T02:00:00', end: '2016-05-07T07:00:00', title: 'event 1' },
-				{ id: '2', resourceId: 'c', start: '2016-05-07T05:00:00', end: '2016-05-07T22:00:00', title: 'event 2' },
-				{ id: '3', resourceId: 'd', start: '2016-05-06', end: '2016-05-08', title: 'event 3' },
-				{ id: '4', resourceId: 'e', start: '2016-05-07T03:00:00', end: '2016-05-07T08:00:00', title: 'event 4' },
-				{ id: '5', resourceId: 'f', start: '2016-05-07T00:30:00', end: '2016-05-07T02:30:00', title: 'event 5' }
-			]
-		});   
+     
          
          
 	});
@@ -711,6 +634,38 @@
               }
           });
   
+        var fileName = "<?= $config['site.faq_file']; ?>";
+        var width = $(window).width();
+var height = $(window).height();
+
+// Provide some space between the window edges.
+width = width - 50;
+height = height - 50; // iframe height will need to be even less to account for space taken up by dialog title bar, buttons, etc.
+
+            $("#faq-link").click(function (r) {
+                r.preventDefault();
+                $("#dialog").dialog({
+                    modal: true,
+                    title: fileName,
+                    width: width,
+                    height: height,
+                    buttons: {
+                        Close: function () {
+                            $(this).dialog('close');
+                        }
+                    },
+                    open: function () {
+                        var object = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"100%\" height=\"100%\">";
+                        object += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
+                        object += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
+                        object += "</object>";
+                        object = object.replace(/{FileName}/g, fileName);
+                        $("#dialog").html(object);
+                    }
+                });
+            });
+       
+    
     </script>
 
 <style>

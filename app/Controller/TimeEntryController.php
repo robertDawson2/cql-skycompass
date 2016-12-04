@@ -163,6 +163,163 @@
             }
             $this->set('entries',$entries);
         }
+        function admin_approveMultiple($userId, $billable)
+                
+        {
+                $data = $this->TimeEntry->find('all', array('conditions' => array(
+                        'TimeEntry.user_id' => $userId,
+                        'TimeEntry.approved' => null
+                        
+                )));
+                
+                foreach($data as $item)
+                {
+                    $this->TimeEntry->id = $item['TimeEntry']['id'];
+                    $this->TimeEntry->saveField('billable_status', $billable);
+                    $this->TimeEntry->saveField('approved', 1);
+                }
+                $this->Session->setFlash('The Employee Time Sheet Has Been Approved as '.$billable . '.', 'flash_success');
+                $this->redirect($this->referer());
+        }
+        
+        function admin_superApproveMultiple($userId)
+                
+        {
+                $data = $this->TimeEntry->find('all', array('conditions' => array(
+                        'TimeEntry.user_id' => $userId,
+                        'TimeEntry.approved' => 1,
+                        'TimeEntry.super_approved' => null
+                        
+                )));
+                
+                foreach($data as $item)
+                {
+                    $this->TimeEntry->id = $item['TimeEntry']['id'];
+                    $this->TimeEntry->saveField('super_approved', 1);
+                    
+                    $i = $item['TimeEntry']['id'];
+                    $timeEntry = $this->TimeEntry->findById($i);
+                         // moves time entry to current period if past the submission cut off
+                $timeEntry['TimeEntry'] = $this->_checkRecord($timeEntry['TimeEntry']);
+                $this->TimeEntry->save($timeEntry);
+             
+                            $this->_queueToSave($i);
+                }
+                $this->Session->setFlash('The Employee Time Sheet Has Been Sent To QuickBooks.', 'flash_success');
+                $this->redirect($this->referer());
+        }
+        function ajaxViewTimesheet($userId = null, $admin = 0)
+        {
+            if(isset($userId))
+            {
+                if(!$admin)
+                {
+                $data = $this->TimeEntry->find('all', array(
+                    'conditions' => array(
+                        'TimeEntry.user_id' => $userId,
+                        'TimeEntry.approved' => null
+                        
+                    ),
+                    'order' => array(
+                        'TimeEntry.customer_id ASC',
+                        'TimeEntry.txn_date ASC'
+                    )
+                ));
+                }
+                else
+                {
+                    $data = $this->TimeEntry->find('all', array(
+                    'conditions' => array(
+                        'TimeEntry.user_id' => $userId,
+                        'TimeEntry.approved' => 1,
+                        'TimeEntry.super_approved' => null
+                        
+                    ),
+                    'order' => array(
+                        'TimeEntry.customer_id ASC',
+                        'TimeEntry.txn_date ASC'
+                    )
+                ));
+                }
+                $separated = array('backdated'=> array(), 'current' => array());
+                foreach($data as $d)
+                {
+                    if(strpos($d['TimeEntry']['notes'], 'BACKLOGGED') !== false)
+                    {
+                        $separated['backdated'][] = $d;
+                    }
+                    else
+                        $separated['current'][] = $d;
+                }
+                
+                $first = true;
+
+                $return  = "<div id='approveMultiInfo' style='display: none;'><div id='user-id'>" . $userId . "</div></div>";
+                $return .= "<h1>" . $data[0]['User']['full_name'] ."</h1>";
+    
+                foreach($separated['current'] as $item)
+                {
+                    
+                    if($first)
+                    {
+                        $return .= "<h2>Current Time Period Entries</h2><table class='table table-responsive table-striped table-hover'>" .
+                                "<tr>";
+                        if($admin)
+                            $return .= "<td>Billable</td>";
+                        $return .= "<td>Date</td><td>Duration</td><td>Customer/Job</td><td>Class</td><td>Payroll Item</td><td>Notes</td></tr>";
+                        $first = false;
+                    }
+                    $return .= "<tr>";
+                    if($admin)
+                            $return .= "<td>" . ($item['TimeEntry']['billable_status'] == 'Billable' ? "<i class='fa fa-check'></i>" : "") . "</td>";
+                    $return .= "<td>" . date("(D) m-d-Y", strtotime($item['TimeEntry']['txn_date'])) . "</td><td>" . 
+                            str_replace("PT", "", str_replace("H", " Hrs, ", str_replace("M"," Mins",$item['TimeEntry']['duration']))) . "</td><td>" . 
+                            $item['Customer']['full_name'] . "</td><td>" . $item['TimeEntry']['class_name'] . "</td><td>" . 
+                            $item['TimeEntry']['payroll_item_name'] . 
+                            "</td><td>" . ($item['TimeEntry']['notes']) . "</td></tr>";
+                }
+                if(!$first){
+                    $return .= "</table>";
+                    $return .= "<hr>";
+                }
+                
+                
+                $first = true;
+                
+                foreach($separated['backdated'] as $item)
+                {
+                    
+                    if($first)
+                    {
+                        $return .= "<h2>Backdated Time Entries</h2><table class='table table-responsive table-striped table-hover'>" .
+                                "<tr>";
+                        if($admin)
+                            $return .= "<td>Billable</td>";
+                        $return .= "<td>Date</td><td>Duration</td><td>Customer/Job</td><td>Class</td><td>Payroll Item</td><td>Notes</td></tr>";
+                        $first = false;
+                    }
+                    $return .= "<tr>";
+                    if($admin)
+                            $return .= "<td>" . ($item['TimeEntry']['billable_status'] == 'Billable' ? "<i class='fa fa-check'></i>" : "") . "</td>";
+                    $return .= "<td>" . date("(D) m-d-Y", strtotime(substr($item['TimeEntry']['notes'],-10))) . "</td><td>" . 
+                            str_replace("PT", "", str_replace("H", " Hrs, ", str_replace("M"," Mins",$item['TimeEntry']['duration']))) . "</td><td>" . 
+                            $item['Customer']['full_name'] . "</td><td>" . $item['TimeEntry']['class_name'] . "</td><td>" . 
+                            $item['TimeEntry']['payroll_item_name'] . 
+                            "</td><td>" . ($item['TimeEntry']['notes']) . "</td></tr>";
+                }
+                if(!$first){
+                    $return .= "</table>";
+                    $return .= "<hr>";
+                }
+                
+                
+                echo $return;
+            }
+            else
+                echo "error";
+            
+            exit();
+        }
         
            
         private function _sendDenialNotices($denials = null)
@@ -212,7 +369,7 @@
                         'id' => $i,
                         'super_approved' => $approve,
                             'approved' => $approve,
-                        'billable' => $d['billable']
+                        'billable_status' => $d['billable_status']
                     ));
                     
                     if(!$this->TimeEntry->saveMany($entry))
@@ -221,10 +378,15 @@
                     }
                     else
                     {
+                        $timeEntry = $this->TimeEntry->findById($i);
+                         // moves time entry to current period if past the submission cut off
+                $timeEntry['TimeEntry'] = $this->_checkRecord($timeEntry['TimeEntry']);
+                $this->TimeEntry->save($timeEntry);
+                
                         if($approve)
                             $this->_queueToSave($i);
                         
-                        $timeEntry = $this->TimeEntry->findById($i);
+                        
                         
                         if($approve == 0)
                             $this->Notification->queueNotification($timeEntry['TimeEntry']['user_id'],'TimeDeny','/admin/timeEntry/viewMyTime','Time Denied','%i time records were denied by super user');
@@ -430,6 +592,8 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                             $minutes = $totalTime - ($hours * 60);
                     
                 }
+                if(empty($minutes) || $minutes == "")
+                    $minutes = 0;
                 
                 $newRecord['TimeEntry']['duration'] = "PT" . $hours .
                         "H" . $minutes . "M";
@@ -516,6 +680,8 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                             $minutes = $totalTime - ($hours * 60);
                     
                 }
+                if(empty($minutes) || $minutes == "")
+                    $minutes = 0;
                 
                 // Combine to the correct time format for quickbooks
                 $newRecord['TimeEntry']['duration'] = "PT" . $hours .

@@ -32,11 +32,49 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	public $uses = array('Config', 'Content','Notification');
+	public $uses = array('Config', 'Content','Notification', 'Job');
 	public $components = array('Auth', 'Session');
 	public $config = array();
         public $user = array();
 
+        
+        public function _getOpenJobProgress()
+        {
+            $jobs = $this->Job->find('all', array('conditions' => array('Job.end_date'=> null), 'recursive'=>3));
+            $returnArray = array();
+            foreach($jobs as $job)
+            {
+                if(isset($job['JobTaskList']['JobTaskListItem']))
+                    $total = sizeof($job['JobTaskList']['JobTaskListItem']);
+                else
+                    $total = 1;
+                $completed = 0;
+                $mostRecent = null;
+                        if(isset($job['JobTaskList']['JobTaskListItem']))
+                foreach($job['JobTaskList']['JobTaskListItem'] as $i => $item)
+                {
+                    if(isset($item['completed']))
+                    {
+                        $completed++;
+                        if(isset($mostRecent))
+                        {
+                            if(strtotime($job['JobTaskList']['JobTaskListItem'][$mostRecent]['completed']) < strtotime($item['completed']))
+                                $mostRecent = $i;
+                        }
+                        else
+                            $mostRecent = $i;
+                    }
+                }
+                if($total <= 0)
+                    $total = 1;
+                $percent = ($completed / $total)*100;
+                $returnArray[] = array('jobId' => $job['Job']['id'], 'jobName' => $job['Job']['full_name'],
+                        'percentage' => $percent, 'lastDone' => isset($mostRecent) ? $job['JobTaskList']['JobTaskListItem'][$mostRecent] : array(), 'nextUp' => $job['JobTaskList']['JobTaskListItem'][$mostRecent+1]);
+            }
+            
+           // pr($returnArray);
+            return $returnArray;
+        }
         
         public function _loadServices($expenses = 0)
         {
@@ -179,17 +217,17 @@ class AppController extends Controller {
                     
                 );
                 
-                if(!empty($customer['Jobs']))
-                {
-                    foreach($customer['Jobs'] as $job)
-                    {
-                        $returnArray[] = array(
-                         'id' => $job['id'],
-                            'name' => $job['name'],
-                            'class' => 'child-item'
-                        );
-                    }
-                }
+//                if(!empty($customer['Jobs']))
+//                {
+//                    foreach($customer['Jobs'] as $job)
+//                    {
+//                        $returnArray[] = array(
+//                         'id' => $job['id'],
+//                            'name' => $job['name'],
+//                            'class' => 'child-item'
+//                        );
+//                    }
+//                }
                 
                
                 
@@ -311,6 +349,7 @@ class AppController extends Controller {
                 $user = $this->Auth->user();
                 if(!empty($user))
                 {
+                    $this->set('jobsProgress', $this->_getOpenJobProgress());
 
                     $this->set('messages', $this->_getUnreadMessages());
                     $this->set('readMessages', $this->_getReadMessages(5));

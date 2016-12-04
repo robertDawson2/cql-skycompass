@@ -19,7 +19,213 @@
             $this->Auth->allow('generateBills');
           
         }
-         
+        
+        function admin_approveMultiple($vendor, $customer, $dt)
+                
+        {
+            
+                $data = $this->BillItem->find('all', array('conditions' => array(
+                        'BillItem.vendor_id' => $vendor,
+                        'BillItem.customer_id' => $customer,
+                        'BillItem.txn_date >' => date('Y-m-d H:i:s', strtotime($dt . " -2 weeks")),
+                        'BillItem.txn_date <' => date('Y-m-d H:i:s', strtotime($dt . " +2 weeks")),
+                        'BillItem.bill_id' => null,
+                        'BillItem.approved' => null
+                        
+                )));
+                
+                foreach($data as $item)
+                {
+                    $this->BillItem->id = $item['BillItem']['id'];
+                    $this->BillItem->saveField('approved', 1);
+                }
+                $this->Session->setFlash('The Selected Bill Has Been Approved.', 'flash_success');
+                $this->redirect($this->referer());
+        }
+        
+        function admin_superApproveMultiple($vendor, $customer, $dt)
+                
+        {
+            
+                $data = $this->BillItem->find('all', array('conditions' => array(
+                        'BillItem.vendor_id' => $vendor,
+                        'BillItem.customer_id' => $customer,
+                        'BillItem.txn_date >' => date('Y-m-d H:i:s', strtotime($dt . " -2 weeks")),
+                        'BillItem.txn_date <' => date('Y-m-d H:i:s', strtotime($dt . " +2 weeks")),
+                        'BillItem.bill_id' => null,
+                        'BillItem.approved' => 1,
+                    'OR'=>array(
+                   'BillItem.drew_approved' => null,
+                   'BillItem.mary_approved' => null
+                   )                     
+                        
+                )));
+                if($this->Auth->user('id') === "80000302-1459626390")
+                            $superuser = "drew_approved";
+                        else
+                            $superuser = "mary_approved";
+                        
+                    
+                foreach($data as $item)
+                {
+                    $this->BillItem->id = $item['BillItem']['id'];
+                    $this->BillItem->saveField($superuser, 1);
+                    $this->BillItem->saveField('super_approved', 1);
+                }
+                $this->Session->setFlash('The Selected Bill Has Been Sent To QuickBooks.', 'flash_success');
+                $this->redirect($this->referer());
+        }
+        
+        function ajaxViewBill($vendor = null, $customer = null, $dt = null, $super = 0)
+        {
+            if(isset($vendor) && isset($customer))
+            {
+                if(!$super)
+                {
+                $data = $this->BillItem->find('all', array('conditions' => array(
+                        'BillItem.vendor_id' => $vendor,
+                        'BillItem.customer_id' => $customer,
+                        'BillItem.txn_date >' => date('Y-m-d H:i:s', strtotime($dt . " -2 weeks")),
+                        'BillItem.txn_date <' => date('Y-m-d H:i:s', strtotime($dt . " +2 weeks")),
+                        'BillItem.bill_id' => null,
+                        'BillItem.approved' => null
+                        
+                ),
+                    'order' => array('BillItem.company_cc_item' => 'DESC', 'BillItem.item_id' => "ASC")));
+                }
+                else
+                {
+      
+                     $data = $this->BillItem->find('all', array('conditions' => array(
+                        'BillItem.vendor_id' => $vendor,
+                        'BillItem.customer_id' => $customer,
+                        'BillItem.txn_date >' => date('Y-m-d H:i:s', strtotime($dt . " -2 weeks")),
+                        'BillItem.txn_date <' => date('Y-m-d H:i:s', strtotime($dt . " +2 weeks")),
+                        'BillItem.bill_id' => null,
+                        'BillItem.approved' => 1,
+                         'OR' =>array(
+                             'BillItem.drew_approved' => null,
+                             'BillItem.mary_approved' => null
+                         )
+                        
+                ),
+                    'order' => array('BillItem.company_cc_item' => 'DESC', 'BillItem.item_id' => "ASC")));
+                }
+                $first = true;
+
+                $return  = "<div id='approveMultiInfo' style='display: none;'><div id='vendor-id'>" . $vendor . "</div><div id='customer-id'>" .
+                        $customer . "</div><div id='selected-date'>" . $dt . "</div></div>";
+                $return .= "<h1>" . $data[0]['Customer']['full_name'] . "<br /><small>" . 
+                        substr($data[0]['BillItem']['description'], strpos($data[0]['BillItem']['description'], "**") + 2,
+                                strrpos($data[0]['BillItem']['description'], "**") - 2) ."</small></h1>";
+                $separated = array('corporate' => array(), 'meals' => array(), 'transportation' => array(), 'other' => array());
+                // separate into more managable array
+                foreach($data as $item)
+                {
+                    if($item['BillItem']['company_cc_item'] == 1)
+                    {
+                        $separated['corporate'][] = $item;
+                    }
+                    elseif(strpos(strtolower($item['Item']['full_name']),'meal'))
+                    {
+                        $separated['meals'][] = $item;
+                    }
+                    elseif(strpos(strtolower($item['Item']['full_name']),'mileage'))
+                    {
+                        $separated['transportation'][] = $item;
+                    }
+                    else
+                    {
+                        $separated['other'][] = $item;
+                    }
+                }
+                
+                $amount = 0.00;
+   
+                foreach($separated['corporate'] as $item)
+                {
+                    
+                    if($first)
+                    {
+                        $return .= "<h2>Corporate Card Items</h2><table class='table table-responsive table-striped table-hover'>" .
+                                "<tr><td>Date</td><td>Amount</td><td>Item</td><td>Class</td><td>Description</td><td>Billable</td></tr>";
+                        $first = false;
+                    }
+                    $amount += $item['BillItem']['amount'];
+                    $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . ($item['BillItem']['billable'] == 'Billable' ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
+                }
+                if(!$first){
+                    $return .= "</table>";
+                    $return .= "<h4 style='color: red;'>Corporate Card Total: <strong>$" . $amount . "</strong></h4><hr>";
+                }
+                
+                
+                $first = true;
+                $amount = 0.00;
+                
+                foreach($separated['meals'] as $item)
+                {
+                    if($first)
+                    {
+                        $return .= "<h2>Meal Per Diem</h2>";
+                        $first = false;
+                    }
+                    $amount += $item['BillItem']['amount'];
+                    $return .= "<h5>" . $item['BillItem']['quantity'] . " quarters @ $" . $item['BillItem']['cost'] . " rate: <strong>$" . $item['BillItem']['amount'] . "</strong> <small>(Not Billable)</small></h5>";
+                }
+                
+                $first = true;
+               
+                foreach($separated['transportation'] as $item)
+                {
+                    if($first)
+                    {
+                        $return .= "<h2>Transportation</h2><table class='table table-responsive table-striped table-hover'>" .
+                                "<tr><td>Date</td><td>Amount</td><td>Item</td><td>Class</td><td>Description</td><td>Billable</td></tr>";
+                        $first = false;
+                    }
+                    $amount += $item['BillItem']['amount'];
+                    $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . ($item['BillItem']['billable'] ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
+                    
+                }
+                if(!$first){
+                    $return .= "</table>";
+                }
+                
+                $first = true;
+                
+                foreach($separated['other'] as $item)
+                {
+                    if($first)
+                    {
+                        $return .= "<h2>Other Charges</h2><table class='table table-responsive table-striped table-hover'>" .
+                                "<tr><td>Date</td><td>Amount</td><td>Item</td><td>Class</td><td>Description</td><td>Billable</td></tr>";
+                        $first = false;
+                    }
+                    $amount += $item['BillItem']['amount'];
+                    $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . ($item['BillItem']['billable'] ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
+                    
+                }
+                if(!$first){
+                    $return .= "</table>";
+                }
+                
+                $return .= "<h4 style='color: red;'>Total Owed To Employee: <strong>$" . $amount . "</strong></h4>";
+                
+            }
+            else
+            {
+                $return = "error";
+            }
+            echo $return;
+            exit();
+        }
         function admin_userExpenses($vendor_id = null)
         {
             $expenses = $this->BillItem->find('all', array('conditions' => array(
@@ -273,6 +479,7 @@ if($uploadOk) {
                         $corporateItem['description'] .= $corp['note'];
                         $corporateItem['image'] = $corp['receipt'];
                         $corporateItem['item_id'] = $corp['type'];
+                        $corporateItem['billable'] = $this->_checkBillableStatus($corp['type']);
                         
                         // All fields set, lets save the little feller.
                         $this->BillItem->create($corporateItem);
@@ -338,6 +545,7 @@ if($uploadOk) {
                         $mealItem['description'] .= "Meal Per Diem";
                         $mealItem['item_id'] = $this->config['expenses.meals'];
                         $mealItem['image'] = "";
+                        $mealItem['billable'] = 'NotBillable';
                         
                         // this will set all fields, so let's save the meal item!
                         
@@ -404,7 +612,7 @@ if($uploadOk) {
                             
                                 
                     $transItem = $bill;
-                    $transItem['id'] = $user['Vendor']['id'] . time() . rand(0,1000);
+                    $transItem['id'] = $user['Vendor']['id'] . time() . rand(0,10000);
                         if($trans['taxi-car'] == 'Taxi')
                         {
                             $transItem['cost'] = $amount;
@@ -422,9 +630,10 @@ if($uploadOk) {
                         $transItem['description'] .= $trans['taxi-car'] . ": " . $trans['from'] . " => " . $trans['to'];
                         
                         $transItem['image'] = $trans['receipt'];
-                        $transItem['item_id'] = $this->config['expenses.mileage_item'];
-                        $transItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
                         
+                        $transItem['item_id'] = $this->_determineTransportationItem($transItem['class_id']);
+                        $transItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
+                        $transItem['billable'] = 'NotBillable';
                        // Validate and queue for later saving, and save error otherwise.
                    
                         $this->BillItem->create($transItem);
@@ -490,6 +699,7 @@ if($uploadOk) {
                         $otherItem['image'] = $trans['receipt'];
                         $otherItem['item_id'] = $trans['type'];
                         $otherItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
+                        $otherItem['billable'] = $this->_checkBillableStatus($trans['type']);
                         
                         // And then, obvi, we save. And we save HARD.
                         $this->BillItem->create($otherItem);
@@ -541,6 +751,51 @@ if($uploadOk) {
             $this->set('services', $services);
             
             
+        }
+        
+        private function _determineTransportationItem($classId)
+        {
+            $this->loadModel('Classes');
+            $this->loadModel('Item');
+            $class = $this->Classes->findById($classId)['Classes']['full_name'];
+            $items = $this->Item->find('all', array('conditions' => array('Item.full_name LIKE' => "%Staff Items:Mileage%"                
+            )));
+            $item = array();
+            foreach($items as $i)
+            {
+                if(strpos(strtolower($i['Item']['name']), 'bip'))
+                        $item['bip'] = $i['Item']['id'];
+                elseif(strpos(strtolower($i['Item']['name']), 'admin'))
+                        $item['admin'] = $i['Item']['id'];
+                elseif(strpos(strtolower($i['Item']['name']), 'accred'))
+                        $item['accred'] = $i['Item']['id'];
+                else
+                    $item['core'] = $i['Item']['id'];
+            }
+            $class = " " . $class;
+        
+             if(strpos(strtolower($class), 'bip'))
+             {
+                 $ret = $item['bip'];
+                
+             }
+             elseif(strpos(strtolower($class), 'admin'))
+             {
+                 $ret = $item['admin'];
+
+             }
+             elseif(strpos(strtolower($class), 'accred'))
+             {
+                 $ret = $item['accred'];
+
+             }
+             else
+             {
+                 $ret = $item['core'];
+
+             }
+             
+             return $ret;
         }
         
         function generateBills($hash = null)
@@ -678,10 +933,9 @@ if($uploadOk) {
             
             $services = $this->_loadServices(1);
             $this->set('services', $services);
-            
+           
             if(!empty($this->request->data))
             {
-                
                 $user = $this->Auth->user();
                 if(!isset($user['Vendor']) || empty($user['Vendor']))
                 {
@@ -696,6 +950,10 @@ if($uploadOk) {
                 $newRecord['BillItem']['cost'] = $newRecord['BillItem']['amount'];
                 $newRecord['BillItem']['vendor_id'] = $user['Vendor']['id'];
                 
+                
+                // If Air or Hotel Item, billable is default, else it is not
+                   $newRecord['BillItem']['billable'] = $this->_checkBillableStatus($newRecord['BillItem']['item_id']);
+                       
                 // upload the image - fail if it does not upload
                 $target_dir = WWW_ROOT . "files/uploads/";
                 $imageFileType = pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION);
@@ -753,6 +1011,19 @@ if($uploadOk) {
             
         }
         
+        private function _checkBillableStatus($itemId)
+        {
+            $this->loadModel('Item');
+            $item = $this->Item->findById($itemId);
+           
+            $n = strtolower($item['Item']['full_name']);
+            
+             
+            if(strpos($n, 'hotel') === false && strpos($n, 'air') === false)
+                    return 'NotBillable';
+            
+            return 'Billable';
+        }
         function admin_edit($id = null)
         {
            

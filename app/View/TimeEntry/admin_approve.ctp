@@ -26,7 +26,7 @@
 	<?php foreach ($entries as $time) { $entry = $time['TimeEntry']; ?>
                 <tr data-id="<?= $entry['id']; ?>" class='approval-row <?php if($entry['approved']) { ?> disabled <?php } ?>'>
                         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php echo $entry['approved'] ? "checked disabled" : ""; ?> class="input form-control checkbox" /> </td>
-                        <td><?= $time['User']['first_name'] . " " . $time['User']['last_name'];?></td>
+                        <td><?= $time['User']['first_name'] . " " . $time['User']['last_name'];?> <a data-id="<?= $time['User']['id']; ?>" href="#" class="view-full-timesheet" title="View Full Employee Timesheet"><i class="fa fa-list-alt"></i></a></td>
 			<td><?php echo date("m/d/Y", strtotime($entry['txn_date'])); ?></td>
                         <td><?= str_replace("PT", "", str_replace("H", " Hrs, ", str_replace("M"," Mins",$entry['duration']))); ?></td>
 			<td><?php echo $time['Customer']['full_name']; ?></td>
@@ -56,13 +56,34 @@
     <div class="col-md-2"><a class="btn btn-block btn-danger" href="#" id="btn-deny"><i class="fa fa-remove"></i> Deny Selected</a></div>
 </div>
 <?php echo $this->element('modals/delete', array('title' => 'Delete User', 'text' => 'delete the user record for <strong>{name}</strong>', 'action' => '/admin/users/delete/{id}')); ?>
-
+<?= $this->element('modals/timesheet'); ?>
 <?php else: ?>
 <p>There are no pending time entries in your database.</p>
 <?php endif; ?>
 
 <?php $this->append('scripts'); ?>
 <script>
+    
+    $(".view-full-timesheet").click(function(e) {
+        e.preventDefault();
+        $url = "/timeEntry/ajaxViewTimesheet/" + $(this).data('id');
+        $.ajax($url).done(function(data) {
+            $("#timesheetViewBody").html(data);
+            $("#timesheetModal").modal("show");
+        });
+        
+    });
+    
+    $("#approveTimesheetBillable").click(function() {
+        $url = "/admin/timeEntry/approveMultiple/" + $("#approveMultiInfo > #user-id").text() + "/Billable";
+       
+        window.location = $url;
+    });
+    $("#approveTimesheetNotBillable").click(function() {
+        $url = "/admin/timeEntry/approveMultiple/" + $("#approveMultiInfo > #user-id").text() + "/NotBillable";
+       
+        window.location = $url;
+    });
     
     $(".approval-row").click(function() {
         $approvalRow = $(this);

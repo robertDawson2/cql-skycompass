@@ -315,6 +315,10 @@
   </div>
 <?php echo $this->Form->end(); ?>
 <hr>
+<div class='alert alert-warning alert-dismissable'>
+    <button class='close' type="button" data-dismiss="alert" aria-hidden="true">x</button>
+    <small><em><strong><font style='color: darkred;'>IMPORTANT: </font>Receipts that are not in a PDF or valid Image format will be denied by the administrators.</strong></em></small>
+</div>
 <h3>Corporate Card Expenses</h3>
 <div id="total-corporate" style='float: right;padding: 10px;'>
     <strong>Total: $0.00</strong>
@@ -588,8 +592,9 @@ text-align: right;">
     <textarea name='other-note' class='other-validation' data-required='required'></textarea>
                 </div>
             </td><td>
-    <input type='file'  data-required='required'  accept="image/*" capture="camera"  style="max-width: 120px;" name='other-receipt' id="other-file-upload" />
-            </td>
+                <div class="form-group">
+    <input type='file'  data-required='required'  accept="image/*" capture="camera"  style="max-width: 120px;" name='other-receipt' id="other-file-upload" class="other-validation"/>
+                </div></td>
             <td>
     
     <input type='submit' class='btn btn-info' value='Add' />
@@ -1042,6 +1047,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             $value = $(this).val();
             if($(this).data('required') === 'required')
             {
+                alert($value);
                 if($value === "" || ($(this).attr('type') == 'checkbox' && !$(this).is(":checked")))
                 {
                     $(this).closest('.form-group').addClass('has-error');

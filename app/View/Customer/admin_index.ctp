@@ -28,9 +28,11 @@
 			<td>
                             <?php if($currentUser['pmArray']['customers']['admin_edit']): ?>
 				<a role="button" class="btn btn-primary" href="/admin/customers/edit/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-edit"></i> View/Edit</a>&nbsp;
+                                <a role="button" class="btn btn-success" href="/admin/jobs/add/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-plus"></i> New Job</a>&nbsp;
                                 
 				<?php endif; ?>
 				<?php if($currentUser['pmArray']['customers']['admin_delete']): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $user['User']['first_name']; ?> <?php echo $user['User']['last_name']; ?>" data-object-id="<?php echo $user['User']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
+                                
                                 
 			</td>
 		</tr>

@@ -81,12 +81,16 @@
                         <div class="hide-button">
                        <input id="upload-photo" name="data[Image][image]" type="file" accept="image/*" capture="camera"> 
                         </div> 
-                         </div>
                      
+                         </div>
+                         
                      <div class='col-md-6'>
                      <img id='imagePreview' style='max-height: 120px; '/>
                      </div>
+                        
                      </div>
+                     <small><em><strong><font style='color: red;'>IMPORTANT: </font></strong>Receipts that are not in a PDF or valid Image format will be denied by the administrators.</em></small>
+                     
                  </div>
                   
               </div>
@@ -142,8 +146,28 @@
   </div>
 <?php echo $this->Form->end(); ?>
 </div>
+  
+  <?= $this->element('modals/corporate'); ?>
+
+<?php $this->append('jquery-scripts'); ?>
+$("#corporateModal").modal('show');
+
+<?php $this->end(); ?>
          <?php $this->append('scripts'); ?>
 <script>
+    
+    $('#corporate-button').click(function(e) {
+        e.preventDefault();
+        $('#corporateModal').modal('hide');
+        $("#BillItemCompanyCcItem").prop('checked', true);
+        
+    });
+    $('#personal-button').click(function(e) {
+        e.preventDefault();
+        $('#corporateModal').modal('hide');
+        $("#BillItemCompanyCcItem").prop('checked', false);
+        
+    });
     
     $("#calendar-show").click(function()
    {

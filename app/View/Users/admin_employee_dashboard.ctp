@@ -73,6 +73,13 @@
           <div class='col-md-4'>
               <?= $this->element('payroll-widget'); ?>
           </div>
+          <div class='col-md-8' style="">
+            <?= $this->element('jobs-widget'); ?>
+        </div>
+      
+          <div class="col-md-4">
+              <?= $this->element('links-widget'); ?>
+          </div>
       </div>
 
       

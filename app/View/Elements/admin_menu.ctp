@@ -63,6 +63,8 @@
           <ul class="treeview-menu">
             <li><a href="/admin/jobs"><i class="fa fa-circle-o"></i> View Open Jobs</a></li>
             <li><a href="/admin/jobs/index/past"><i class="fa fa-circle"></i> View Past Jobs</a></li>
+            <li><a href="/admin/jobs/add"><i class="fa fa-plus-circle"></i> New Job</a></li>
+            <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
           </ul>
         </li>
         <?php endif; ?>

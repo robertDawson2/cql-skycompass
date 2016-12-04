@@ -30,7 +30,11 @@
                         <td><?= $time['Vendor']['first_name'] . " " . $time['Vendor']['last_name'];?></td>
 			<td><?php echo date("m/d/y", strtotime($entry['txn_date'])); ?></td>
                         <td>$<?= $entry['amount']; ?></td>
-			<td><?php echo $time['Customer']['full_name']; ?></td>
+                        <td><?php echo $time['Customer']['full_name']; ?> <a 
+                                data-vendor="<?=$time['Vendor']['id']; ?>" 
+                                data-customer="<?= $time['Customer']['id']; ?>" 
+                                data-dt="<?= date("Y-m-d",strtotime($entry['txn_date'])); ?>" 
+                                title="View Full Bill For Customer" href="#" class="viewFullBill"><i class="fa fa-list-alt"></i></a></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $time['Classes']['full_name']; ?></td>
                         <td><?php echo $entry['description']; ?></td>
@@ -42,7 +46,7 @@
                             <?php } ?>
                             </a>
                         </td>
-                        <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable']; ?>' name='data[entries][<?= $entry['id']; ?>][billable]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
+                        <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" name='data[entries][<?= $entry['id']; ?>][billable]'><option <?= $entry['billable'] == 'Billable' ? 'selected="selected" ' : ''; ?> value='Billable'>Billable</option><option <?= $entry['billable'] == 'NotBillable' ? 'selected="selected" ' : ''; ?> value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
                         <td><a class="btn btn-info" href="/admin/expenses/edit/<?= $entry['id']; ?>">
                                 <i class="fa fa-edit"></i> Edit</a> <br />
                         <a class="btn btn-warning denial-notice" href="#">
@@ -63,13 +67,30 @@
     <div class="col-md-2"><a class="btn btn-block btn-danger" href="#" id="btn-deny"><i class="fa fa-remove"></i> Deny Selected</a></div>
 </div>
 <?php echo $this->element('modals/delete', array('title' => 'Delete User', 'text' => 'delete the user record for <strong>{name}</strong>', 'action' => '/admin/users/delete/{id}')); ?>
-
+<?= $this->element('modals/bill'); ?>
 <?php else: ?>
 <p>There are no pending time entries in your database.</p>
 <?php endif; ?>
 
 <?php $this->append('scripts'); ?>
 <script>
+    $(".viewFullBill").click(function(e) {
+        e.preventDefault();
+        $url = "/expenses/ajaxViewBill/" + $(this).data('vendor') + "/" + $(this).data('customer') + "/" + $(this).data('dt');
+        $.ajax($url).done(function(data) {
+            $("#billViewBody").html(data);
+            $("#billModal").modal("show");
+        });
+        
+    });
+    
+    $("#approveBill").click(function() {
+        $url = "/admin/expenses/approveMultiple/" + $("#approveMultiInfo > #vendor-id").text() + "/" +
+                $("#approveMultiInfo > #customer-id").text() + "/" + $("#approveMultiInfo > #selected-date").text();
+       
+        window.location = $url;
+    });
+    
     $(".view-attachment").click(function(e){
         e.preventDefault();
         var val = $(this).data('src');

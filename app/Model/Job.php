@@ -6,7 +6,9 @@ class Job extends AppModel {
     public $useTable = 'jobs';
 	
 
-        public $belongsTo = array('Customer');
+        public $belongsTo = array('Customer', 'ServiceArea');
+        
+        public $hasOne = array('JobTaskList');
 
 }
 

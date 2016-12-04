@@ -25,14 +25,14 @@
 	<?php foreach ($entries as $time) { $entry = $time['TimeEntry']; ?>
                 <tr data-id="<?= $entry['id']; ?>" class='approval-row <?php if($entry['super_approved']) { ?> disabled <?php } ?>'>
                         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php echo $entry['super_approved'] ? "checked disabled" : ""; ?> class="input form-control checkbox" /> </td>
-                        <td><?= $time['User']['first_name'] . " " . $time['User']['last_name'];?></td>
+                        <td><?= $time['User']['first_name'] . " " . $time['User']['last_name'];?> <a data-id="<?= $time['User']['id']; ?>" href="#" class="view-full-timesheet" title="View Full Employee Timesheet"><i class="fa fa-list-alt"></i></a></td>
 			<td><?php echo date("m/d/Y", strtotime($entry['txn_date'])); ?></td>
                         <td><?= str_replace("PT", "", str_replace("H", " Hrs, ", str_replace("M"," Mins",$entry['duration']))); ?></td>
 			<td><?php echo $time['Customer']['full_name']; ?></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $entry['class_name']; ?></td>
                         <td><?php echo $entry['payroll_item_name']; ?></td>
-                        <td><select <?php echo $entry['super_approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable_status']; ?>' name='data[entries][<?= $entry['id']; ?>][billable_status]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
+                        <td><select <?php echo $entry['super_approved'] ? "disabled" : ""; ?> class="input form-control" name='data[entries][<?= $entry['id']; ?>][billable_status]'><option value='Billable' <?= $entry['billable_status'] == 'Billable' ? 'selected="selected"' : ''; ?>>Billable</option><option value='NotBillable' <?= $entry['billable_status'] == 'NotBillable' ? 'selected="selected"' : ''; ?>>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
                         <td><?= $entry['notes']; ?></td>
                         <td><?= date('m/d/Y H:i', strtotime($entry['modified'])); ?></td>
 			
@@ -49,13 +49,29 @@
     <div class="col-md-2"><a class="btn btn-block btn-danger" href="#" id="btn-deny"><i class="fa fa-remove"></i> Deny Selected</a></div>
 </div>
 <?php echo $this->element('modals/delete', array('title' => 'Delete User', 'text' => 'delete the user record for <strong>{name}</strong>', 'action' => '/admin/users/delete/{id}')); ?>
-
+<?= $this->element('modals/super-timesheet'); ?>
 <?php else: ?>
 <p>There are no pending time entries in your database.</p>
 <?php endif; ?>
 
 <?php $this->append('scripts'); ?>
 <script>
+     $(".view-full-timesheet").click(function(e) {
+        e.preventDefault();
+        $url = "/timeEntry/ajaxViewTimesheet/" + $(this).data('id') + "/1";
+        $.ajax($url).done(function(data) {
+            $("#timesheetViewBody").html(data);
+            $("#timesheetModal").modal("show");
+        });
+        
+    });
+    
+    $("#approveTimesheet").click(function() {
+        $url = "/admin/timeEntry/superApproveMultiple/" + $("#approveMultiInfo > #user-id").text();
+       
+        window.location = $url;
+    });
+
     
     $(".approval-row").click(function() {
         $approvalRow = $(this);
