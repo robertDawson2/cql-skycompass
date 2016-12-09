@@ -213,6 +213,7 @@ var setColors = {
             dataType: "json"
             
         }).done(function(data) {
+            currentJob = calEvent.id;
             $("#jobName").text(data.job_name);
             $("#custName").text(data.cust_name);
             $("#custLoc").text(data.location);

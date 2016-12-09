@@ -15,23 +15,34 @@
             </style>
            <div class='container' style='width: 100%;'>
                <h3>Customer Name: <em><span id='custName'></span></em> (<span id="custLoc"></span>)</h3>
-            <div class='row'><div class='col-md-3'>
+            <div class='row'><div class='col-md-2'>
                     <h4>Team Leaders (<span id="teamLeadersNeeded">0</span> of <span id="teamLeadersCount">2</span>)</h4><div id='teamLeaders' class='empList'></div>
             <h4>Employees (<span id="employeesNeeded">0</span> of <span id="employeesCount">2</span>)</h4><div id='employees' class='empList'></div></div>
-            <div class='col-md-6'><h4>Available Employees</h4>
+            <div class='col-md-8'><h4>Available Employees</h4>
                  
                    <table id='employees-tbl' class='table table-responsive table-striped table-hover table-condensed' >
                                <thead><tr>
                                        <th>First</th>
                                        <th>Last</th>
-                                       <th>Location</th>
+                                       <th>Loc</th>
+                                       <th>Dist</th>
                                        <th>Abilities</th>
                                        <th>Notes</th>
                                        <th>Team Leader</th>
                                        <th>Employee</th>
                            </tr></thead>
                    </table></div> 
-                    <div class='col-md-3'>Sorting stuff here</div></div></div>
+                <div class='col-md-2'><h2>Refine Results</h2>
+                    <p><select id="refine-distance">
+                            <option value="999999">All</option>
+                            <option value="10">10 mi.</option>
+                            <option value="25">25 mi.</option>
+                            <option value="50">50 mi.</option>
+                            <option value="100">100 mi.</option>
+                            <option value="200">200 mi.</option>
+                            
+                        </select></p>
+                </div></div></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -40,8 +51,17 @@
 
   </div>
 </div>
+<?php $this->append('scripts'); ?>
+
+<?php $this->end(); ?>
 <?php $this->append('jquery-scripts'); ?>
 
+    var currentJob = null;
+    $("#refine-distance").on('change', function() {
+    var newUrl = "/ajax/jobs/scheduleEmployees/" + currentJob + "/distance:" + this.value;
+    emptable.ajax.url(newUrl).load();
+    });
+    
     var emptable =  $("#employees-tbl").DataTable({
 
         "ajax": "/ajax/jobs/scheduleEmployees",
@@ -52,6 +72,7 @@
              "data": "last" 
             },
             {"data": "location"},
+            {"data": "distance"},
             {"data": "abilities"},
             {"data": "notes"},
             {"data": "team-leader"},

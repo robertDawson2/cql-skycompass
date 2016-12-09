@@ -115,9 +115,14 @@
 
                 $return  = "<div id='approveMultiInfo' style='display: none;'><div id='vendor-id'>" . $vendor . "</div><div id='customer-id'>" .
                         $customer . "</div><div id='selected-date'>" . $dt . "</div></div>";
+                if(strpos($data[0]['BillItem']['description'], "**") !== false)
+                        $descr = substr($data[0]['BillItem']['description'], strpos($data[0]['BillItem']['description'], "**") + 2,
+                                strrpos($data[0]['BillItem']['description'], "**") - 2);
+                else
+                    $descr =$data[0]['BillItem']['description'];
+                
                 $return .= "<h1>" . $data[0]['Customer']['full_name'] . "<br /><small>" . 
-                        substr($data[0]['BillItem']['description'], strpos($data[0]['BillItem']['description'], "**") + 2,
-                                strrpos($data[0]['BillItem']['description'], "**") - 2) ."</small></h1>";
+                        $descr ."</small></h1>";
                 $separated = array('corporate' => array(), 'meals' => array(), 'transportation' => array(), 'other' => array());
                 // separate into more managable array
                 foreach($data as $item)
@@ -152,8 +157,13 @@
                         $first = false;
                     }
                     $amount += $item['BillItem']['amount'];
+                    if(strpos($data[0]['BillItem']['description'], "**") !== false)
+                        $descr = substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3);
+                else
+                    $descr =$item['BillItem']['description'];
+                
                     $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
-                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . $descr . 
                             "</td><td>" . ($item['BillItem']['billable'] == 'Billable' ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
                 }
                 if(!$first){
@@ -187,8 +197,12 @@
                         $first = false;
                     }
                     $amount += $item['BillItem']['amount'];
+                    if(strpos($data[0]['BillItem']['description'], "**") !== false)
+                        $descr = substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3);
+                else
+                    $descr =$item['BillItem']['description'];
                     $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
-                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . $descr . 
                             "</td><td>" . ($item['BillItem']['billable'] ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
                     
                 }
@@ -207,8 +221,12 @@
                         $first = false;
                     }
                     $amount += $item['BillItem']['amount'];
+                    if(strpos($data[0]['BillItem']['description'], "**") !== false)
+                        $descr = substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3);
+                else
+                    $descr =$item['BillItem']['description'];
                     $return .= "<tr><td>" . date("m-d-Y", strtotime($item['BillItem']['txn_date'])) . "</td><td>" . $item['BillItem']['amount'] . "</td><td>" . $item['Item']['full_name'] . 
-                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . substr($item['BillItem']['description'], strrpos($item['BillItem']['description'], "**") + 3) . 
+                            "</td><td>" . $item['Classes']['full_name'] . "</td><td>" . $descr . 
                             "</td><td>" . ($item['BillItem']['billable'] ? "<i class='fa fa-check'></i>" : "") . "</td></tr>";
                     
                 }

@@ -25,6 +25,74 @@
             parent::beforeRender();
             $this->set('section', 'jobs');
         }
+        
+        public function admin_d()
+        {
+            $employees = $this->User->find('all');
+            pr($this->_distanceFromJob("dd472677110393e382e95252b3fab046e95ed379", $employees));
+            exit();
+        }
+        private function _distanceFromJob($jobId, $employees, $max = null)
+        {
+            
+            $this->layout = 'ajax';
+            $job = $this->Job->findById($jobId);
+            $dest_city = $job['Customer']['bill_city'];
+            $dest_state = $job['Customer']['bill_state'];
+            
+            
+            $origin = array();
+            foreach($employees as $user)
+                $origin[] = $user['User']['city'] . "+" . $user['User']['state'];
+            
+            
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+                   
+            $first = true;
+            foreach($origin as $o)
+            {
+                if(!$first)
+                    $url .= "|";
+                else
+                    $first = false;
+                
+                    $url .= urlencode($o);
+                    
+            }
+                    $url .= "&destinations=" . 
+                    urlencode($dest_city) . "+" . urlencode($dest_state) . "&units=imperial&mode=driving&key=AIzaSyDdgof__00FT0RRTX1usO93WORD_5Dh5g4";
+//            $ch = curl_init();
+//            curl_ssetopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            curl_setopt($ch, CURLOPT_URL, $url);
+//            $result = curl_exec($ch);
+//            curl_close($ch);
+            $result = file_get_contents($url);
+            $resultArray = json_decode($result);
+            
+         //   return $resultArray;
+            foreach($employees as $i => $user){
+                if(isset($resultArray->rows[$i]->elements[0]->distance->text)){
+                    
+                    if(isset($max) && !empty($max) && $max <= $resultArray->rows[$i]->elements[0]->distance->text) {
+                        unset($employees[$i]);
+                    }
+                    else
+                    {
+                        $employees[$i]['distance'] = $resultArray->rows[$i]->elements[0]->distance->text;
+                        
+                    }
+                }
+                    
+                    
+            }
+          
+           
+            return $employees;
+        
+            
+            
+        }
         public function ajax_schedulerArray($id = null)
         {
             $this->layout = 'ajax';
@@ -42,21 +110,43 @@
             echo json_encode($return);
             exit();
         }
-        public function ajax_scheduleEmployees($id = null) 
+        public function ajax_scheduleEmployees($id = null, $options=null) 
         {
+           
+            $opts = array();
+        
+            if(isset($options))
+            {
+            $options = explode("|", $options);
+            
+            foreach($options as $i => $opt)
+            {
+                $temp = explode(":", $opt);
+                $opts[$temp[0]] = $temp[1];
+            } 
+            
+            }
+            
             $this->layout = 'ajax';
             $job = $this->Job->findById($id);
             if(!isset($id))
-            $employeeList = $this->User->find('all');
+                $employeeList = $this->User->find('all');
             else
-                $employeeList = $this->User->find('all', array('conditions'=> array('User.first_name LIKE ' => "%e%")));
+                $employeeList = $this->User->find('all', array('conditions'=> array()));
             
+            if(isset($opts['distance']) && !empty($opts['distance']))
+                $employeeList = $this->_distanceFromJob($id, $employeeList, $opts['distance']);
+            else
+                $employeeList = $this->_distanceFromJob($id, $employeeList);
+            
+  
             $return = array('draw' => 1, 'recordsTotal' => sizeof($employeeList), 'recordsFiltered' => sizeof($employeeList),
                 'data' => array());
                     foreach($employeeList as $emp)
             {
+                       
                 $return['data'][] = array('first' => $emp['User']['first_name'], 'last' => $emp['User']['last_name'],
-                    'location' => $emp['User']['city'] . ", " . $emp['User']['state'], 'abilities' => '{list of all areas}', 'notes' => '{pertinent notes}',
+                    'location' => $emp['User']['city'] . ", " . $emp['User']['state'], 'distance' => (isset($emp['distance']) ? substr($emp['distance'],0,-3) : "999999"), 'abilities' => '{list of all areas}', 'notes' => '{pertinent notes}',
                     'team-leader' => '<a onclick="teamLeaderAdd(this);" data-id="' . $emp['User']['id'] . '" class="addLeader" href="#"><i class="fa fa-plus-circle"></i></a>',
                     'employee' => '<a onclick="employeeAdd(this);" data-id="' . $emp['User']['id'] . '" class="addEmployee" href="#"><i class="fa fa-plus-circle"></i></a>');
                     }
