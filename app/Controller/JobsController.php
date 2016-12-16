@@ -12,7 +12,7 @@
     class JobsController extends AppController {
 
     	public $name = 'Job';
-        public $uses = array('Job', 'User', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
+        public $uses = array('Job', 'User', 'ScheduleEntry', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
 
         
         public function beforeFilter() {
@@ -110,6 +110,205 @@
             echo json_encode($return);
             exit();
         }
+        public function admin_checkSchedule() {
+            $data = $this->request->input('json_decode',true);
+            pr(($data), true);
+            
+            exit();
+        }
+        
+        private function _scheduleEvent($data,$event,$eventId)
+        {
+            $this->Job->id = $eventId;
+                $currJob = $this->Job->read();
+                $this->Job->saveField('start_date', $event['start']);
+                $this->Job->saveField('end_date', $event['end']);
+                
+                // Schedule the job in the task list
+                // $this->Job->markScheduled()
+                
+                // store current schedule
+                $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
+                        'ScheduleEntry.job_id' => $eventId
+                    ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
+                    
+                    // clear all current schedulings
+                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                
+                // check each employee and schedule separately
+                foreach($event['employees'] as $typeName => $type)
+                {
+                    if(is_array($type)){
+                        $position = (trim($typeName) == 'teamLeaders' ? 'team_leader' : 'employee'); 
+                    
+                    foreach($type as $employeeId => $employee) {
+                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId);
+                        if($result == 'ok')
+                            {
+                                // EMPLOYEE not scheduled, free to schedule and queue notification
+                                 $this->ScheduleEntry->create();
+                                $newSchedule = array('ScheduleEntry' => array(
+                                    'user_id' => $employeeId,
+                                    'start_date' => $event['start'],
+                                    'end_date' => $event['end'],
+                                    'job_id' => $eventId,
+                                    'position' => $position
+                                    
+                                ));
+                                 $this->ScheduleEntry->save($newSchedule);
+                                
+                                // Queue employee notification if not already scheduled previously
+                                 // Also remove from list, because employee remaining must be notified of unscheduling
+                                 if(!in_array($employeeId, $currentSchedule))
+                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/jobs/approveScheduling', 'New Schedule Item', 'You have %i new pending schedule entries.');
+                                 else
+                                     unset($currentSchedule[$employeeId]);
+                            }
+                
+                    }
+                    
+                    // If any employees are still in the array, then we have to notify them of descheduling
+                    foreach($currentSchedule as $id)
+                    {
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
+                    }
+                }
+                }
+        }
+        
+        private function _rescheduleEvent($data,$event,$eventId)
+        {
+            $this->Job->id = $eventId;
+                $currJob = $this->Job->read();
+                $this->Job->saveField('start_date', $event['start']);
+                $this->Job->saveField('end_date', $event['end']);
+                
+                // Schedule the job in the task list
+                // $this->Job->markScheduled()
+                
+                // store current schedule
+                $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
+                        'ScheduleEntry.job_id' => $eventId
+                    ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
+                    
+                    // clear all current schedulings
+                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                
+                // check each employee and schedule separately
+                foreach($event['employees'] as $typeName => $type)
+                {
+                    if(is_array($type)){
+                        $position = (trim($typeName) == 'teamLeaders' ? 'team_leader' : 'employee'); 
+                    
+                    foreach($type as $employeeId => $employee) {
+                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId);
+                        if($result == 'ok')
+                            {
+                                // EMPLOYEE not scheduled, free to schedule and queue notification
+                                 $this->ScheduleEntry->create();
+                                $newSchedule = array('ScheduleEntry' => array(
+                                    'user_id' => $employeeId,
+                                    'start_date' => $event['start'],
+                                    'end_date' => $event['end'],
+                                    'job_id' => $eventId,
+                                    'position' => $position,
+                                        'approved' => null, // must unapprove because of rescheduling
+                                    'denial_mesage' => null
+                                ));
+                                 $this->ScheduleEntry->save($newSchedule);
+                                
+                                
+                                
+                                // Queue employee notification if not already scheduled previously
+                                 // Also remove from list, because employee remaining must be notified of unscheduling
+                                 if(!in_array($employeeId, $currentSchedule)) {
+                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/jobs/approveScheduling', 'New Schedule Item', 'You have %i new pending schedule entries.');
+                                    
+                                 }
+                                 // else employee was already scheduled, notify of rescheduling
+                                 else
+                                 {
+                                     unset($currentSchedule[$employeeId]);
+                                    $this->Notification->queueNotification($employeeId, 'EditScheduling', '/admin/jobs/approveScheduling', 'Edited Schedule Item', 'The schedule for ' . $currJob['Job']['name'] . ' has changed!', 0); 
+                                 }
+                            } 
+                
+                    }
+                    
+                    // If any employees are still in the array, then we have to notify them of descheduling
+                    foreach($currentSchedule as $id)
+                    {
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
+                    }
+                }
+                }
+        }
+        
+        private function _descheduleEvent($data,$event,$eventId)
+        {
+            // start with unscheduling the job
+                    $this->Job->id = $eventId;
+                    $currJob = $this->Job->read();
+                    $this->Job->saveField('start_date', null);
+                    $this->Job->saveField('end_date', null);
+                    
+                    // see current schedule, deschedule all and then notify all employees of descheduling
+                     $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
+                        'ScheduleEntry.job_id' => $eventId
+                    ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
+                   
+                    // clear all current schedulings
+                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                    
+                    // notify all users of descheduling
+                    foreach($currentSchedule as $id)
+                    {
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', $currJob['Job']['name'] . " has been rescheduled or cancelled.", 0);
+                    }
+        }
+        
+        public function admin_schedule() {
+            $data = json_decode($this->request->data, true);
+            
+            foreach($data as $eventId => $event)
+            {
+                if(!empty($event)) {
+                // Definitely schedule the event, regardless of employees BUT FIRST..
+                    
+                    // check to make sure the event isn't already scheduled but with different dates.
+                    // that gets handled separately because employees must be notified of rescheduling
+                                       
+                $this->Job->id = $eventId;
+                $currJob = $this->Job->read();
+                
+                if(($event['start'] == $currJob['Job']['start_date'] && $event['end'] == $currJob['Job']['end_date']) || 
+                       ($currJob['Job']['start_date'] == null && $currJob['Job']['end_date'] == null))
+                    $this->_scheduleEvent($data, $event, $eventId);
+                else
+                    $this->_rescheduleEvent($data, $event, $eventId);
+                
+                
+                }
+                else //empty event - this means it WAS scheduled, and then got removed
+                    // have to remove employees from schedule, notify them they were removed, and unschedule event
+                    // also have to decrement the task list
+                {
+                    
+                    $this->_descheduleEvent($data,$event,$eventId);
+                }
+            }
+              $this->Session->setFlash('All schedulings saved successfully!', 'flash_success');
+              $this->redirect('/admin/jobs/scheduler');
+           
+        }
+        
+        private function _checkEmployees($start, $end, $userId, $jobId)
+        {
+            $return = 'ok';
+           
+            
+            return $return;
+        }
         public function ajax_scheduleEmployees($id = null, $options=null) 
         {
            
@@ -154,19 +353,38 @@
              exit();
         }
         public function admin_scheduler() {
+            $this->set('setColors', [
+        "training" => 'pink',
+        "certification"=> 'lightblue',
+        "accreditation"=> 'lightgreen',
+        "other" => 'lightgray'
+    ]);
+$this->set('pendingColors', [
+        "training"=> 'purple',
+        "certification" => 'darkblue',
+        "accreditation" => 'darkred',
+        "other" => 'black'
+    ]);
             $openJobs = $this->Job->find('all', array('recursive' => 2,  'conditions' => array(
-                'review_start' => null
+                'review_start' => null,
+                'start_date' => null,
+                'end_date' => null
             )));
+            
             foreach($openJobs as  $i => $job) {
                 unset($openJobs[$i]['Customer']['Jobs']);
             }
-            $scheduledJobs = $this->Job->find('all', array('conditions'=> array(
+            $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'conditions'=> array(
+                'review_start' => null,
                 'NOT' => array(
-                    'review_start' => null
+                    'start_date' => null,
+                    'end_date' => null
                 )
             )));
             
             $this->set('jobs', array('open' => $openJobs, 'set' => $scheduledJobs));
+            
+            
         }
         
         public function admin_showById($id){

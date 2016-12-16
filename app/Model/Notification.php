@@ -14,13 +14,16 @@ class Notification extends AppModel {
                 'seen' => 0
             )));
             
-            if(!empty($oldRecord))
+            if(!empty($oldRecord) && $count > 0)
             {
                 $this->id = $oldRecord['Notification']['id'];
                 return $this->saveField('count', $oldRecord['Notification']['count']+$count);
             }
             else
             {
+                if($count == 0)
+                    $count =1;
+                
             $newRecord = array('Notification' => array(
                 'user_id' => $userId,
                 'context' => $context,

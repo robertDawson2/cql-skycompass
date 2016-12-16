@@ -45,6 +45,7 @@
                 </div></div></div>
       </div>
       <div class="modal-footer">
+          <button type='button' class='btn btn-info' id='saveEmployees'>Save Changes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -57,6 +58,28 @@
 <?php $this->append('jquery-scripts'); ?>
 
     var currentJob = null;
+    $("#saveEmployees").on('click', function() {
+        var id = $("#jobName").data('id');
+        var count = 0;
+        neededPrev = scheduledEvents[id].employees.needed;
+               
+                   scheduledEvents[id].employees = {teamLeaders : {}, other: {}, needed : neededPrev, employeeCount : 0};
+
+        $("#teamLeaders > div").each(function() {
+        count++;
+        
+            scheduledEvents[id].employees.teamLeaders[$(this).data('id')] = {name: $(this).text()}
+        });
+        $("#employees > div").each(function() {
+        count++;
+            scheduledEvents[id].employees.other[$(this).data('id')] = {name: $(this).text()}
+        });
+        scheduledEvents[id].employees.employeeCount = count;
+        updateColor();
+      
+     //   updateQuickView();
+     $("#availableEmployeesModal").modal('hide');
+    });
     $("#refine-distance").on('change', function() {
     var newUrl = "/ajax/jobs/scheduleEmployees/" + currentJob + "/distance:" + this.value;
     emptable.ajax.url(newUrl).load();

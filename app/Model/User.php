@@ -5,7 +5,7 @@
 		public $name = 'User';
                 public $belongsTo = array('Vendor');
                 public $actsAs = array('Containable');
-                public $hasMany = array('TimeEntry', 'Notification',
+                public $hasMany = array('ScheduleEntry', 'TimeEntry', 'Notification',
                     'ApprovalManager' => array(
                         'className' => 'ApprovalManager',
                         'foreignKey' => 'user_id'

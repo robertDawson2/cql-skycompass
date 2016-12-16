@@ -9,6 +9,7 @@ class Job extends AppModel {
         public $belongsTo = array('Customer', 'ServiceArea');
         
         public $hasOne = array('JobTaskList');
+        public $hasMany = array('ScheduleEntry');
 
 }
 

@@ -924,7 +924,7 @@ if($uploadOk) {
             }
             
             foreach($bill_data_array as $i => $a)
-                $this->_queueToSave($a['Bill']['id'], 'credit-charge');
+                $this->_queueToSave($id, 'credit-charge');
             
             return true;
         }
