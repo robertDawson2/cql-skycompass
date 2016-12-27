@@ -80,6 +80,9 @@
           <div class="col-md-4">
               <?= $this->element('links-widget'); ?>
           </div>
+          <div class='col-md-4'>
+              <?= $this->element('scheduling-notes-widget'); ?>
+          </div>
       </div>
 
       

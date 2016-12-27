@@ -15,6 +15,12 @@
         public $uses = array('Job', 'User', 'ScheduleEntry', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
 
         
+        public function admin_view($id)
+        {
+            $this->Job->unbindModel(array('belongsTo' => array('Customer')));
+            $job = $this->Job->find('first', array('conditions'=>array('Job.id' => $id), 'recursive' => 2));
+           // pr($job); exit();
+        }
         public function beforeFilter() {
             parent::beforeFilter();
             $this->Auth->allow('import','ajax_scheduleEmployees');
@@ -74,7 +80,7 @@
             foreach($employees as $i => $user){
                 if(isset($resultArray->rows[$i]->elements[0]->distance->text)){
                     
-                    if(isset($max) && !empty($max) && $max <= $resultArray->rows[$i]->elements[0]->distance->text) {
+                    if(isset($max) && !empty($max) && $max <= ((int) substr($resultArray->rows[$i]->elements[0]->distance->text,0,-3))) {
                         unset($employees[$i]);
                     }
                     else
@@ -120,6 +126,7 @@
         private function _scheduleEvent($data,$event,$eventId)
         {
             $this->Job->id = $eventId;
+            
                 $currJob = $this->Job->read();
                 $this->Job->saveField('start_date', $event['start']);
                 $this->Job->saveField('end_date', $event['end']);
@@ -127,14 +134,25 @@
                 // Schedule the job in the task list
                 // $this->Job->markScheduled()
                 
-                // store current schedule
+                // store current schedule, excluding disapprovals
                 $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
-                        'ScheduleEntry.job_id' => $eventId
+                        'ScheduleEntry.job_id' => $eventId,
+                    'OR' => array(
+                        'ScheduleEntry.approved is null',
+                        'ScheduleEntry.approved' => "1")
                     ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
                     
-                    // clear all current schedulings
-                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+
                 
+                $needNewList = array();
+                $ignoreIds = array();
+                
+                    // clear all current schedulings 
+                // UPDATE, don't do this - it gets rid of approvals already in place, duh...
+                  //  $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                
+                   
+                    
                 // check each employee and schedule separately
                 foreach($event['employees'] as $typeName => $type)
                 {
@@ -142,9 +160,10 @@
                         $position = (trim($typeName) == 'teamLeaders' ? 'team_leader' : 'employee'); 
                     
                     foreach($type as $employeeId => $employee) {
-                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId);
+                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         if($result == 'ok')
                             {
+                            
                                 // EMPLOYEE not scheduled, free to schedule and queue notification
                                  $this->ScheduleEntry->create();
                                 $newSchedule = array('ScheduleEntry' => array(
@@ -156,7 +175,22 @@
                                     
                                 ));
                                  $this->ScheduleEntry->save($newSchedule);
+                                $needNewList[$this->ScheduleEntry->id] = $position;
+                                 // Link schedule entry to task list, after removing current linkings
+                                 
+                                 
+                                 // Find first open list not linked to a user. UPDATE. NO.
+                                 //$newListToLink = $this->JobTaskList->find('first', array('conditions' => array(
+                                 //    'JobTaskList.job_id' => $eventId,
+                                 //    'JobTaskList.type' => $position,
+                                 //    'JobTaskList.schedule_entry_id is NULL'
+                                // )));
                                 
+//                                 if(!empty($newListToLink)) {
+//                                 $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
+//                                 $this->JobTaskList->saveField('schedule_entry_id', $this->ScheduleEntry->id);
+//                                 }
+                                 
                                 // Queue employee notification if not already scheduled previously
                                  // Also remove from list, because employee remaining must be notified of unscheduling
                                  if(!in_array($employeeId, $currentSchedule))
@@ -164,16 +198,118 @@
                                  else
                                      unset($currentSchedule[$employeeId]);
                             }
+                            // employee is scheduled already in the time frame given... gots a problem dude.                            
+                            else if($result == 'error') 
+                            {
+                                
+                               
+                            }
+
+                            // employee already on this event and has not denied, we can ignore them.
+                            else
+                            {
+                                 unset($currentSchedule[$employeeId]);
+                                 // result will hold the schedule entry id that matches this employee and job
+                                $ignoreIds[] = $result;
+                            }
                 
+                           
                     }
+                    }
+                }
+                    
+                                    
                     
                     // If any employees are still in the array, then we have to notify them of descheduling
+                
                     foreach($currentSchedule as $id)
                     {
+                        
                         $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
                     }
-                }
-                }
+                    
+                    // Remove user schedule entry
+                        $removeUs = $this->ScheduleEntry->find('all', array('conditions' => 
+                            array('ScheduleEntry.user_id' => $currentSchedule, 
+                                'ScheduleEntry.job_id' => $eventId,
+                                'OR' => array(
+                                    'ScheduleEntry.approved is null',
+                                    'ScheduleEntry.approved' => "1"
+                                ))
+                            ));
+                
+                        
+                        foreach($removeUs as $delete)
+                        {
+                            $this->ScheduleEntry->id = $delete['ScheduleEntry']['id'];
+                            $this->ScheduleEntry->delete();
+                            
+                            if(!empty($delete['JobTaskList'])) {
+                            if(!empty($delete['JobTaskList']['id'])){
+                            $this->JobTaskList->id = $delete['JobTaskList']['id'];
+                            $this->JobTaskList->saveField('schedule_entry_id', null);
+                            }
+                            }
+                        }
+                    
+                    // update all lists to have no schedule entry if their name was not ignored
+                    $this->JobTaskList->updateAll(array('JobTaskList.schedule_entry_id' => null), array(
+                                     'NOT' => array('JobTaskList.type' => 'scheduler',
+                                         'JobTaskList.schedule_entry_id' => $ignoreIds),
+                                     'JobTaskList.job_id' => $eventId));
+                    
+                    
+                    foreach($needNewList as $schedId => $type)
+                    {
+                      //   Find first open list not linked to a user. UPDATE. NO.
+                                 $newListToLink = $this->JobTaskList->find('first', array('conditions' => array(
+                                     'JobTaskList.job_id' => $eventId,
+                                     'JobTaskList.type' => $type,
+                                     'JobTaskList.schedule_entry_id is null'
+                                 )));
+                                
+                                 if(!empty($newListToLink)) {
+                                 $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
+                                 $this->JobTaskList->saveField('schedule_entry_id', $schedId);
+                                 }
+                    }
+                    
+                    // Just a clean up method to make sure all the ignoreIds already have a task list. 
+                    // If not, give them one
+                    foreach($ignoreIds as $checkId)
+                    {
+                        $this->ScheduleEntry->id = $checkId;
+                        $test = $this->ScheduleEntry->read();
+                        if(empty($test['JobTaskList']) || empty($test['JobTaskList']['id']))
+                        {
+                            $newListToLink = $this->JobTaskList->find('first', array('conditions' => array(
+                                     'JobTaskList.job_id' => $eventId,
+                                     'JobTaskList.type' => $type,
+                                     'JobTaskList.schedule_entry_id is null'
+                                 )));
+                                
+                                 if(!empty($newListToLink)) {
+                                 $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
+                                 $this->JobTaskList->saveField('schedule_entry_id', $checkId);
+                                 }
+                        }
+                    }
+                
+        }
+        
+        function admin_dashboard($id = null) {
+            $this->ScheduleEntry->unbindModel(array('belongsTo' => array('Job')));
+            $this->User->unbindModel(array('hasMany' => array('ScheduleEntry', 'TimeEntry')));
+            $job = $this->Job->find('first', array('conditions'=>array('Job.id' => $id),'recursive' => 4));
+            $this->set('job', $job);
+            
+            if($this->Auth->user('is_scheduler'))
+                $this->set('isScheduler', true);
+            else
+                $this->set('isScheduler', false);
+            
+            
+            
         }
         
         private function _rescheduleEvent($data,$event,$eventId)
@@ -188,12 +324,22 @@
                 
                 // store current schedule
                 $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
-                        'ScheduleEntry.job_id' => $eventId
+                        'ScheduleEntry.job_id' => $eventId,
+                    'OR' => array(
+                        'ScheduleEntry.approved is null',
+                        'ScheduleEntry.approved' => "1")
                     ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
                     
+
                     // clear all current schedulings
-                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId,
+                        'OR' => array('ScheduleEntry.approved is null',
+                            'ScheduleEntry.approved' => "1")));
                 
+                    $this->JobTaskList->updateAll(array('JobTaskList.schedule_entry_id' => null), array(
+                                     'NOT' => array('JobTaskList.type' => 'scheduler'),
+                                     'JobTaskList.job_id' => $eventId));
+                    
                 // check each employee and schedule separately
                 foreach($event['employees'] as $typeName => $type)
                 {
@@ -201,7 +347,7 @@
                         $position = (trim($typeName) == 'teamLeaders' ? 'team_leader' : 'employee'); 
                     
                     foreach($type as $employeeId => $employee) {
-                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId);
+                        $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         if($result == 'ok')
                             {
                                 // EMPLOYEE not scheduled, free to schedule and queue notification
@@ -217,7 +363,18 @@
                                 ));
                                  $this->ScheduleEntry->save($newSchedule);
                                 
-                                
+                                 // Link schedule entry to task list
+                                 
+                                 
+                                 // Find first open list not linked to a user.
+                                 $newListToLink = $this->JobTaskList->find('first', array('conditions' => array(
+                                     'JobTaskList.job_id' => $eventId,
+                                     'JobTaskList.type' => $position,
+                                     'JobTaskList.schedule_entry_id' => null
+                                 )));
+                                 $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
+                                 $this->JobTaskList->updateField('schedule_entry_id', $this->ScheduleEntry->id);
+                                 
                                 
                                 // Queue employee notification if not already scheduled previously
                                  // Also remove from list, because employee remaining must be notified of unscheduling
@@ -232,6 +389,11 @@
                                     $this->Notification->queueNotification($employeeId, 'EditScheduling', '/admin/jobs/approveScheduling', 'Edited Schedule Item', 'The schedule for ' . $currJob['Job']['name'] . ' has changed!', 0); 
                                  }
                             } 
+                            // employee already scheduled on that day, cannot double book
+                            else
+                            {
+                                // TODO: handle double booking alert for administrator.
+                            }
                 
                     }
                     
@@ -253,12 +415,18 @@
                     $this->Job->saveField('end_date', null);
                     
                     // see current schedule, deschedule all and then notify all employees of descheduling
-                     $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
-                        'ScheduleEntry.job_id' => $eventId
+                      $currentSchedule = $this->ScheduleEntry->find('list', array('conditions' => array(
+                        'ScheduleEntry.job_id' => $eventId,
+                    'OR' => array(
+                        'ScheduleEntry.approved is null',
+                        'ScheduleEntry.approved' => "1")
                     ), 'fields' => array('ScheduleEntry.user_id', 'ScheduleEntry.user_id')));
-                   
+                    
+
                     // clear all current schedulings
-                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId));
+                    $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $eventId,
+                        'OR' => array('ScheduleEntry.approved is null',
+                            'ScheduleEntry.approved' => "1")));
                     
                     // notify all users of descheduling
                     foreach($currentSchedule as $id)
@@ -266,10 +434,22 @@
                         $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', $currJob['Job']['name'] . " has been rescheduled or cancelled.", 0);
                     }
         }
-        
+        private function _fixEndDate($data) {
+            // We are given an end date that is always one too many.. decrement if not the same as start date
+            foreach($data as $i => $event)
+            {
+                if($event['start'] != $event['end'])
+                {
+                    $data[$i]['end'] = date('Y-m-d', strtotime($event['end'] . " -1 day"));
+                }
+            }
+            return $data;
+                
+        }
         public function admin_schedule() {
             $data = json_decode($this->request->data, true);
-            
+            $data = $this->_fixEndDate($data);
+          //  pr($data); exit();
             foreach($data as $eventId => $event)
             {
                 if(!empty($event)) {
@@ -297,14 +477,35 @@
                     $this->_descheduleEvent($data,$event,$eventId);
                 }
             }
+            
               $this->Session->setFlash('All schedulings saved successfully!', 'flash_success');
               $this->redirect('/admin/jobs/scheduler');
            
         }
         
-        private function _checkEmployees($start, $end, $userId, $jobId)
+        private function _checkEmployees($start, $end, $userId, $jobId, $type = 'employee')
         {
             $return = 'ok';
+           
+            // check for exact entry
+            $entry = $this->ScheduleEntry->find('first', array('conditions' => array(
+                'ScheduleEntry.user_id' => $userId,
+                'ScheduleEntry.job_id' => $jobId,
+                'ScheduleEntry.start_date' => $start,
+                'ScheduleEntry.end_date' => $end,
+                'ScheduleEntry.position' => $type,
+                'ScheduleEntry.type' => 'scheduling',
+                'OR' => array(
+                    'ScheduleEntry.approved' => "1",
+                    'ScheduleEntry.approved is null'
+                )
+            )));
+            
+            if(!empty($entry))
+            {
+                $return = $entry['ScheduleEntry']['id'];
+            }
+                
            
             
             return $return;
@@ -313,15 +514,18 @@
         {
            
             $opts = array();
-        
+            $test = $options;
             if(isset($options))
             {
-            $options = explode("|", $options);
+            $options = explode("&", $options);
             
             foreach($options as $i => $opt)
             {
-                $temp = explode(":", $opt);
-                $opts[$temp[0]] = $temp[1];
+                $temp = explode("=", $opt);
+                if(substr($temp[0], 0, 9) != 'abilities')
+                    $opts[$temp[0]] = $temp[1];
+                else
+                    $opts['abilities'][] = substr($temp[0],10);
             } 
             
             }
@@ -331,27 +535,145 @@
             if(!isset($id))
                 $employeeList = $this->User->find('all');
             else
-                $employeeList = $this->User->find('all', array('conditions'=> array()));
+            {
+                if(isset($opts['abilities']) && !empty($opts['abilities'])){
+                    $employeeList = $this->User->find('all', array(
+                        'fields' => array(
+                            'DISTINCT User.id',
+                            'User.first_name', 'User.last_name',
+                            'User.city', 'User.state','User.zip',
+                            'User.scheduling_admin_notes', 'User.scheduling_employee_notes'
+                        ),
+                        'joins' => array(array(
+                            'table' => 'user_abilities',
+                            'alias' => 'UserAbility',
+                            'type' => 'INNER',
+                            'conditions' => array('User.id = UserAbility.user_id'),
+                            'limit' => 1
+                        )),
+                        'conditions'=> array(
+                        'UserAbility.ability_id' => $opts['abilities']
+                            
+                    )));
+                }
+                else
+                    $employeeList = $this->User->find('all', array('conditions'=> array()));
+                
+            }
             
             if(isset($opts['distance']) && !empty($opts['distance']))
                 $employeeList = $this->_distanceFromJob($id, $employeeList, $opts['distance']);
             else
                 $employeeList = $this->_distanceFromJob($id, $employeeList);
             
-  
+            if(isset($opts['start']) && !empty($opts['start']) && $opts['start'] != 'null')
+                $start =  date('Y-m-d', $opts['start']/1000 + 86400);
+            else
+                $start = date('Y-m-d');
+            
+            if(isset($opts['end']) && !empty($opts['end']) && $opts['end'] != 'null')
+                $end =  date('Y-m-d', $opts['end']/1000 + 86400);
+            else
+                $end = $start;
+            
+            $employeeList = $this->_removeConflicts($employeeList, $start, $end);
+ 
             $return = array('draw' => 1, 'recordsTotal' => sizeof($employeeList), 'recordsFiltered' => sizeof($employeeList),
                 'data' => array());
                     foreach($employeeList as $emp)
-            {
-                       
+                        
+            {           
+                        
+                    $schedulingNotes = "<strong>Admin: <br/></strong>" . $emp['User']['scheduling_admin_notes'] .
+                            "<br /><strong>Employee: <br /></strong>" . $emp['User']['scheduling_employee_notes'];
+                    $abilitiesList = "{None Listed}";
+                    if(isset($emp['Ability']) && !empty($emp['Ability'])){ 
+                        $abilitiesList = "";
+                    $count = 0;
+                    foreach($emp['Ability'] as $ability)
+                    {
+                        if($count > 0)
+                            $abilitiesList .= ", ";
+                        
+                        $count++;
+                        $abilitiesList .= $ability['name'];
+                    }
+                    
+                    
+            } 
+
                 $return['data'][] = array('first' => $emp['User']['first_name'], 'last' => $emp['User']['last_name'],
-                    'location' => $emp['User']['city'] . ", " . $emp['User']['state'], 'distance' => (isset($emp['distance']) ? substr($emp['distance'],0,-3) : "999999"), 'abilities' => '{list of all areas}', 'notes' => '{pertinent notes}',
+                    'location' => $emp['User']['city'] . ", " . $emp['User']['state'], 'distance' => (isset($emp['distance']) ? substr($emp['distance'],0,-3) : "999999"), 'score' => $this->_calculateScore($emp['User']['id'], $start), 'abilities' => $abilitiesList, 'notes' => $schedulingNotes,
                     'team-leader' => '<a onclick="teamLeaderAdd(this);" data-id="' . $emp['User']['id'] . '" class="addLeader" href="#"><i class="fa fa-plus-circle"></i></a>',
                     'employee' => '<a onclick="employeeAdd(this);" data-id="' . $emp['User']['id'] . '" class="addEmployee" href="#"><i class="fa fa-plus-circle"></i></a>');
+                       
                     }
                     echo json_encode($return);
              exit();
         }
+        private function _removeConflicts($list, $start, $end)
+        {
+            
+            foreach($list as $i => $user)
+            {
+                foreach($user['ScheduleEntry'] as $entry)
+                {
+                     
+                    if(!(strtotime($entry['start_date']) > strtotime($end) || 
+                            strtotime($entry['end_date']) < strtotime($start)
+                            ))
+                    {
+                        // overlap
+                       
+                        if(($entry['approved'] != "0" && $entry['type'] == 'scheduling') || ($entry['approved'] == "1" && $entry['type'] != 'scheduling'))
+                        {
+                            // not a denied record - must remove overlap
+                       
+                        unset($list[$i]);
+                        }
+                    }
+                        
+                }
+            }
+            
+            return($list);
+        }
+        
+        function admin_score($id, $start)
+        {
+            echo $this->_calculateScore($id, $start);
+            exit();
+        }
+        private function _calculateScore($id, $start)
+        {
+            $this->ScheduleEntry->unbindModel(array('belongsTo' => array(
+                'Job', 'User'
+            )));
+            $schedule = $this->ScheduleEntry->find('all', array('conditions' => array(
+                'ScheduleEntry.user_id' => $id,
+                'ScheduleEntry.start_date >=' => date('Y-m-d H:i:s', strtotime($start . " -2 month")),
+                'ScheduleEntry.type' => 'scheduling',
+                'ScheduleEntry.start_date <=' => date('Y-m-d H:i:s', strtotime($start))
+            )));
+           $score = 0;
+            foreach($schedule as $entry)
+            {
+                $diff = date_diff(date_create(date('Y-m-d',strtotime($entry['ScheduleEntry']['start_date']))), date_create($start));
+                
+                if($diff->days <= 28)
+                    $score++;
+                if($diff->days <= 21)
+                    $score++;
+                if($diff->days <= 14)
+                    $score++;
+                if($diff->days <= 7)
+                    $score++;
+                
+            }
+            return $score;
+           
+        }
+        
         public function admin_scheduler() {
             $this->set('setColors', [
         "training" => 'pink',
@@ -383,7 +705,8 @@ $this->set('pendingColors', [
             )));
             
             $this->set('jobs', array('open' => $openJobs, 'set' => $scheduledJobs));
-            
+            $this->loadModel('Ability');
+            $this->set('abilities', $this->Ability->find('list'));
             
         }
         
@@ -420,33 +743,17 @@ $this->set('pendingColors', [
                 $id = $this->Job->id;
                 
                 // create new task list based on the template
-               $newTaskList = $this->TaskListTemplate->find('first', array('conditions' => array('id' => $job['task_list_template_id']),'recursive' => 0));
+               $this->_saveList($id, $job['SchedulerTaskList'], 'scheduler');
                
-               $newList = array('name' => $newTaskList['TaskListTemplate']['name'],
-                   'job_id' => $id,
-                   'description' => $newTaskList['TaskListTemplate']['description']);
+               // same for team leader(s)
+               for($i = 0; $i < $job['team_leader_count']; $i ++)
+                    $this->_saveList($id, $job['TeamLeaderTaskList'], 'team_leader');
                
-               $this->JobTaskList->create();
-               $this->JobTaskList->save($newList);
-               
-               $id = $this->JobTaskList->id;
-               
-               // Add all items to the new list
-               $this->loadModel('TaskListTemplateItem');
-               
-               $taskItems = $this->TaskListTemplateItem->find('all', array('conditions' => array(
-                   'task_list_template_id' => $job['task_list_template_id']
-               )));
-               
-               foreach($taskItems as $item)
-               {
-                   $save = array('job_task_list_id' => $id, 'task_item_id' => $item['TaskListTemplateItem']['task_item_id'],
-                      'sort_order' => $item['TaskListTemplateItem']['sort_order'] );
-                   $this->JobTaskListItem->create();
-                   $this->JobTaskListItem->save($save);
-               }
+               // same for schedulers
+               for($i = 0; $i < $job['employee_count']; $i++)
+                    $this->_saveList($id, $job['EmployeeTaskList'], 'employee');
                 
-               
+               $this->Session->setFlash('New Job Created Successfully!', 'flash_success');
             }
             // If customer ID is passed in, we will use that to autofill some parts
             if(isset($customerId))
@@ -479,6 +786,35 @@ $this->set('pendingColors', [
             $this->set('taskLists', $taskLists);
         }
         
+        private function _saveList($jobId,$templateId, $type)
+        {
+            $newTaskList = $this->TaskListTemplate->find('first', array('conditions' => array('id' => $templateId),'recursive' => 0));
+               
+               $newList = array('name' => $newTaskList['TaskListTemplate']['name'],
+                   'job_id' => $jobId,
+                   'type' => $type,
+                   'description' => $newTaskList['TaskListTemplate']['description']);
+               
+               $this->JobTaskList->create();
+               $this->JobTaskList->save($newList);
+               
+               $id = $this->JobTaskList->id;
+               
+               // Add all items to the new list
+               $this->loadModel('TaskListTemplateItem');
+               
+               $taskItems = $this->TaskListTemplateItem->find('all', array('conditions' => array(
+                   'task_list_template_id' => $templateId
+               )));
+               
+               foreach($taskItems as $item)
+               {
+                   $save = array('job_task_list_id' => $id, 'task_item_id' => $item['TaskListTemplateItem']['task_item_id'],
+                      'sort_order' => $item['TaskListTemplateItem']['sort_order'] );
+                   $this->JobTaskListItem->create();
+                   $this->JobTaskListItem->save($save);
+               }
+        }
         public function admin_index($past = null) {
             if(isset($past)) {
                 $this->set('jobs', $this->Job->find('all', array('conditions' => array(

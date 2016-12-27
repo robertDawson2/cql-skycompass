@@ -9,6 +9,16 @@ Class TaskItem extends AppModel {
 //            'associationForeignKey' => 'task_list_template_id'
 //        )
 //    );
+    public $belongsTo = array('ActivateEvent' => array(
+        'className' => 'TaskListAction',
+        'foreignKey' => 'activate_event'
+        
+    ),
+        'CompleteEvent' => array(
+        'className' => 'TaskListAction',
+            'foreignKey' => 'complete_event'
+        
+    ));
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.

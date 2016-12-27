@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/adminPanel/dist/css/skins/skin-blue.min.css">
   <link href='/plugins/fullcalendar/lib/fullcalendar.min.css' rel='stylesheet' />
 <link href='/plugins/fullcalendar/lib/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link rel="stylesheet" href="/adminPanel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <link href='/plugins/fullcalendar/scheduler.min.css' rel='stylesheet' />
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -305,7 +306,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <?= $title_for_layout; ?>
+        <?= $this->fetch('title'); ?>
         <small>Version 2.0</small>
       </h1>
       <ol class="breadcrumb">
@@ -383,7 +384,7 @@
 <script type="text/javascript" src="/adminPanel/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
  <script type="text/javascript" src="/adminPanel/plugins/chatbox/jquery.ui.chatbox.js"></script>
-
+<script src="/adminPanel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <?php echo $this->fetch('scripts'); ?>
 <script type="text/javascript">
     

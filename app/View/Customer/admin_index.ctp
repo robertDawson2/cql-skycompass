@@ -11,6 +11,7 @@
                         <th>Primary Contact</th>
 			<th>Email Address</th>
 			<th>Phone</th>
+                        <th>Current Jobs</th>
                         <th>Balance</th>
                         <th>Notes</th>
 			<th>Options</th>
@@ -23,19 +24,21 @@
 			<td><?php echo $cust['Customer']['contact']; ?></td>
                         <td><?= ucfirst($cust['Customer']['email']); ?></td>
 			<td><?php echo $cust['Customer']['phone']; ?></td>
+                        <td><?= count($cust['Jobs']); ?></td>
 			<td><?php echo $cust['Customer']['total_balance']; ?></td>
                         <td><?php echo $cust['Customer']['notes']; ?></td>
 			<td>
                             <?php if($currentUser['pmArray']['customers']['admin_edit']): ?>
-				<a role="button" class="btn btn-primary" href="/admin/customers/edit/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-edit"></i> View/Edit</a>&nbsp;
+                            <a role="button" class="btn btn-primary" href="/admin/customers/view/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-eye"></i> View</a>&nbsp; 
+				<a role="button" class="btn btn-primary" href="/admin/customers/edit/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-edit"></i> Edit</a>&nbsp;
                                 <a role="button" class="btn btn-success" href="/admin/jobs/add/<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-plus"></i> New Job</a>&nbsp;
                                 
 				<?php endif; ?>
-				<?php if($currentUser['pmArray']['customers']['admin_delete']): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $user['User']['first_name']; ?> <?php echo $user['User']['last_name']; ?>" data-object-id="<?php echo $user['User']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
+				<?php if($currentUser['pmArray']['customers']['admin_delete']): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $cust['Customer']['name']; ?>" data-object-id="<?php echo $cust['Customer']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
                                 
                                 
 			</td>
-		</tr>
+		</tr
 	<?php } ?>
 	</tbody>
 </table>

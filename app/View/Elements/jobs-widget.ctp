@@ -10,6 +10,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                <?php foreach($jobsProgress as $job): ?>
+                <div class='form-group'>
                 <p><?= $job['jobName']; ?><br />
                 <?php if(!empty($job['lastDone'])) { ?>
                     <small>Last Completed Item: <?= $job['lastDone']['TaskItem']['long_name'] . " (" .date('m/d/Y H:i', strtotime($job['lastDone']['completed'])) . ")"; ?></small> <br />
@@ -22,23 +23,10 @@
                   <span class="sr-only"><?= $job['percentage']; ?>% Complete</span>
                 </div>
               </div>
+                </div>
                 <hr>
                 <?php endforeach; ?>
-              <div class="progress">
-                <div class="progress-bar progress-bar-aqua" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                  <span class="sr-only">20% Complete</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div class="progress-bar progress-bar-yellow" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                  <span class="sr-only">60% Complete (warning)</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                  <span class="sr-only">80% Complete</span>
-                </div>
-              </div>
+              
             </div>
             <!-- /.box-body -->
           </div>

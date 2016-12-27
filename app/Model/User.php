@@ -11,7 +11,15 @@
                         'foreignKey' => 'user_id'
                     ));
                 
-                public $hasAndBelongsToMany = array('Chat' => array(
+                public $hasAndBelongsToMany = array(
+                    'Ability' => array(
+                        'className' => 'Ability',
+                        'joinTable' => 'user_abilities',
+                        'foreignKey' => 'user_id',
+                        'associationForeignKey' => 'ability_id',
+                        'unique' => true
+                    ),
+                    'Chat' => array(
                     'className' => 'Chat',
                     'joinTable' => 'chats_users',
                     'foreignKey' => 'user_id',

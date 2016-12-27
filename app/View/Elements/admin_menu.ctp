@@ -3,7 +3,7 @@
         <li class="header"></li>
                 <li class="header"><?= $currentUser['web_user_type']; ?> Dashboard</li>
            
-                <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['content'] === 1): ?>
+                <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['content'] == 1): ?>
 
                 <li class="<?= $section == 'web' ? 'active' : ''; ?> treeview">
           <a href="#">
@@ -125,7 +125,19 @@
             <?php endif; ?>
           </ul>
         </li>
-        
+        <li class="<?= $section == 'scheduling' ? 'active' : ''; ?> treeview">
+        <a href="#">
+            <i class="fa fa-calendar"></i> <span>Scheduling</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/schedule/requestOff"><i class="fa fa-circle-o"></i> Request Time Off</a></li>
+            <li><a href="/admin/schedule/mySchedule"><i class="fa fa-circle-o"></i> View Schedule</a></li>
+            <li><a href="/admin/schedule/approveTimeOff"><i class="fa fa-circle-o"></i> Approve/Deny Time Off</a></li>
+            <li><a href="/admin/taskListTemplates"><i class="fa fa-circle-o"></i> View Task List Templates</a></li>
+            <li><a href="/admin/taskListTemplates/create"><i class="fa fa-circle-o"></i> Add Task List Template</a></li>
+          </ul>
+        </li>
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['config']['admin_index']): ?>
         <li class="<?= $section == 'misc' ? 'active' : ''; ?> treeview">
           <a href="#">

@@ -2,6 +2,7 @@
 <script>
     var clickedEvent = null;
     var currentId = null;
+    var calendarEvent = null;
     $("#submitInfo").click(function(e) {
         var a = JSON.stringify(scheduledEvents);
         e.preventDefault();
@@ -182,8 +183,8 @@ var setColors = {
                     $count++;
                 } ?>
                 "<?= $job['Job']['id']; ?>" : {
-                    start: "<?= $job['Job']['start_date']; ?>",
-                    end: "<?= $job['Job']['end_date']; ?>",
+                    start: "<?= date("Y-m-d", strtotime($job['Job']['start_date'])); ?>",
+                    end: "<?= date("Y-m-d", strtotime($job['Job']['end_date'] . " +1 day")); ?>",
                     
                     employees: { "teamLeaders" : {
                         <?php foreach($employees['team_leaders'] as $i => $d): ?> 
@@ -254,6 +255,7 @@ var setColors = {
     $('#calendar').fullCalendar({
     weekends: false,
     defaultView: 'basicWeek',
+    forceEventDuration: true,
     editable: true,
     droppable: true,
     events: [
@@ -263,8 +265,8 @@ var setColors = {
             else
                 $color = 'other'; ?>
     { title: "<?= $job['Job']['company_name']; ?>:\n<?= $job['Job']['name']; ?>\n<?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?>\n<?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?>",
-            start: "<?= $job['Job']['start_date']; ?>",
-            end: "<?= $job['Job']['end_date']; ?>",
+            start: "<?= date("Y-m-d", strtotime($job['Job']['start_date'])); ?>",
+            end: "<?= date("Y-m-d", strtotime($job['Job']['end_date'] . " +1 day")); ?>",
             color: "<?php
             if(($job['Job']['team_leader_count'] + $job['Job']['employee_count']) > count($job['ScheduleEntry']))
                 echo $pendingColors[$color];
@@ -332,7 +334,8 @@ var setColors = {
          
                 }
             },
-    header: {center: 'basicWeek,month'},
+            nextDayThreshold: "00:00:00",
+    header: {center: 'basicWeek,month,listYear'},
     eventDrop: function(event, delta, revertFunc) {
         id = event.id;
        
@@ -374,10 +377,10 @@ var setColors = {
         $(this).children(".popup-text").remove();
     },
     eventClick: function(calEvent, jsEvent, view) {
-   
+        calendarEvent = calEvent;
         clickedEvent = this;
         $.ajax({
-            url: "/ajax/jobs/schedulerArray/" + calEvent.id,
+            url: "/ajax/jobs/schedulerArray/" + calEvent.id ,
             dataType: "json"
             
         }).done(function(data) {
@@ -387,12 +390,15 @@ var setColors = {
             $("#jobName").data('id', calEvent.id);
             $("#custName").text(data.cust_name);
             $("#custLoc").text(data.location);
+            
             $("#teamLeadersCount").text(data.team_leaders_count);
             $("#employeesCount").text(data.employees_count);
             $(".empList div").remove();
             $("#teamLeadersNeeded").text(data.current_team_leaders.length);
             $("#employeesNeeded").text(data.current_employees.length);
-            emptable.ajax.url("/ajax/jobs/scheduleEmployees/"+calEvent.id).load(function() {
+            var url = "/ajax/jobs/scheduleEmployees/"+calEvent.id + "/start=" + calEvent.start + "&end=" + calEvent.end;
+           console.log(url);
+            emptable.ajax.url(url).load(function() {
             
             // Load already loaded employees
             var count = 0;

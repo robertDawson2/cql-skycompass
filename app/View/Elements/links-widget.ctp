@@ -15,7 +15,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="http://portal.office365.com" target="_BLANK" class="product-title">Office 365 Portal
+                      <a href="http://portal.office365.com" target="_BLANK" class="product-title">Office 365 Portal</a>
                       
                         <span class="product-description">
                           Follow this link to access OneDrive, Email, and other Office-Related Products
@@ -27,7 +27,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="http://concur.com" class="product-title">Travel Site
+                      <a href="http://concur.com" class="product-title">Travel Site</a>
                       
                         <span class="product-description">
                           Follow this link to make travel reservations
@@ -38,7 +38,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="#" id="faq-link" class="product-title">SkyCompass FAQ
+                      <a href="#" id="faq-link" class="product-title">SkyCompass FAQ</a>
                       
                         <span class="product-description">
                           An all-inclusive SkyCompass guide to time-logging and expense reporting.
@@ -51,7 +51,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a target="_BLANK" href="<?= $config['site.faq_file']; ?>" class="product-title">SkyCompass FAQ Download
+                      <a target="_BLANK" href="<?= $config['site.faq_file']; ?>" class="product-title">SkyCompass FAQ Download</a>
                       
                         <span class="product-description">
                           Download a copy of the SkyCompass FAQ (to open externally)

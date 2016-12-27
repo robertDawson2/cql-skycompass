@@ -9,7 +9,7 @@
         margin-left: 25px;
         margin-top: 3px;
         box-shadow: 2px 2px 8px #888;
-        z-index: 99999;
+        z-index: 99999999;
     }
     .popup-text p
     {

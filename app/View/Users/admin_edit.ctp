@@ -8,6 +8,7 @@
         <?php if(isset($currentUser['pmArray']['users']['setPermissions']) && $currentUser['pmArray']['users']['setPermissions']): ?>
 	<li><a href="#web-permissions" data-toggle="tab">Web Content Permissions</a></li>
         <li><a href="#skycompass-permissions" data-toggle="tab">SkyCompass Permissions</a></li>
+        <li><a href="#abilities" data-toggle="tab">Scheduling</a></li>
         <?php endif; ?>
 </ul>
 
@@ -134,6 +135,42 @@
                     </div>
                 </div>
     </div>
+    
+    <div class="tab-pane" id="abilities">
+        <h4>Abilities</h4>
+        <div class="row">
+            <div class="col-md-6">
+		<div class="row form-group">
+                    <div class="col-md-6">
+                    <select id="ability-selector">
+                        <?php foreach($abilities as $i => $ability): ?>
+                        
+                        <option data-id="<?= $i; ?>"><?= $ability; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <a id="ability-add" href="#" data-id="<?= $user['User']['id']; ?>" class="btn btn-primary">
+                        Add
+                    </a>
+                    
+                </div>
+		<div class="col-md-6">	
+			<h5>Current Abilities:</h5>
+                    <div id="current-abilities">
+                    <?php foreach($user['Ability'] as $ability): ?>
+                    <div><?= $ability['name']; ?> <a class="ability-remove" href="#" data-id="<?= $ability['id']; ?>"  data-userid="<?= $user['User']['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                    <?php endforeach; ?>
+                    </div>
+		</div>
+            </div>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->input('User.scheduling_admin_notes', array('div'=>'col-md-12', 'class'=>'input form-control')); ?>
+                <?= $this->Form->input('User.scheduling_employee_notes', array('div'=>'col-md-12', 'class'=>'input form-control')); ?>
+            </div>
+        </div>
+            
+	</div>
 </div>
 <?php endif; ?>
 <?php echo $this->Form->hidden('User.id'); ?>
@@ -187,6 +224,57 @@ $(".approval-manager-remove").click(function(e) {
                      '</option>';
              $clicked.parent().remove();
              $("#admin-selector").append($addition);
+             
+             
+        }
+                
+            });
+});
+
+$("#ability-add").click(function(e) {
+    e.preventDefault();
+   
+    $url = '/admin/users/ajaxAddAbility/<?= $this->data['User']['id']; ?>/' + $( "#ability-selector option:selected" ).data('id');
+
+    $.ajax(
+            {
+                url: $url
+            }
+                )
+                .done(function(result) {
+                 if(result === 'ok')
+         {
+             $addition = '<div>' + $( "#ability-selector option:selected" ).val() + 
+                     '<a class="ability-remove" href="#" data-id="' + 
+                     $( "#ability-selector option:selected" ).data('id') +
+                    '" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a></div>';
+             $( "#ability-selector option:selected" ).remove();
+             $("#current-abilities").append($addition);
+             
+             
+        }
+                
+            });
+});
+
+$(".ability-remove").click(function(e) {
+    e.preventDefault();
+    $url = '/admin/users/ajaxRemoveAbility/<?= $this->data['User']['id']; ?>/' + $(this).data('id');
+    $id = $(this).data('id');
+    $clicked = $(this);
+
+    $.ajax(
+            {
+                url: $url
+            }
+                )
+                .done(function(result) {
+                 if(result === 'ok')
+         {
+             $addition = '<option data-id="' + $id + '">' + $clicked.parent().text() +
+                     '</option>';
+             $clicked.parent().remove();
+             $("#ability-selector").append($addition);
              
              
         }

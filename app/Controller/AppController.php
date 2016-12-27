@@ -32,7 +32,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	public $uses = array('Config', 'Content','Notification', 'Job');
+	public $uses = array('Config', 'Content','Notification', 'Job', 'User');
 	public $components = array('Auth', 'Session');
 	public $config = array();
         public $user = array();
@@ -40,39 +40,51 @@ class AppController extends Controller {
         
         public function _getOpenJobProgress()
         {
-            $jobs = $this->Job->find('all', array('conditions' => array('Job.end_date'=> null), 'recursive'=>3));
+            $jobs = $this->Job->find('all', array('recursive'=>3));
             $returnArray = array();
+            
             foreach($jobs as $job)
             {
-                if(isset($job['JobTaskList']['JobTaskListItem']))
-                    $total = sizeof($job['JobTaskList']['JobTaskListItem']);
-                else
-                    $total = 1;
+                
+                    $total = 0;
                 $completed = 0;
                 $mostRecent = null;
-                        if(isset($job['JobTaskList']['JobTaskListItem']))
-                foreach($job['JobTaskList']['JobTaskListItem'] as $i => $item)
+                $mostRecentItem = null;
+                        if(!empty($job['JobTaskList']))
+                        {
+                            foreach($job['JobTaskList'] as $h => $list)
+                            {
+                                foreach($list['JobTaskListItem'] as $i => $item)
                 {
+                                    $total++;
                     if(isset($item['completed']))
                     {
                         $completed++;
                         if(isset($mostRecent))
                         {
-                            if(strtotime($job['JobTaskList']['JobTaskListItem'][$mostRecent]['completed']) < strtotime($item['completed']))
-                                $mostRecent = $i;
+                            if(strtotime($job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent]['completed']) < strtotime($item['completed']))
+                            {$mostRecentItem = $h;
+                            $mostRecent = $i;}
                         }
-                        else
+                        else{
+                            $mostRecentItem = $h;
                             $mostRecent = $i;
+                            
+                        }
                     }
                 }
+                            }
+                        }
+                
                 if($total <= 0)
                     $total = 1;
                 $percent = ($completed / $total)*100;
+                if(!empty($job['JobTaskList']))
                 $returnArray[] = array('jobId' => $job['Job']['id'], 'jobName' => $job['Job']['full_name'],
-                        'percentage' => $percent, 'lastDone' => isset($mostRecent) ? $job['JobTaskList']['JobTaskListItem'][$mostRecent] : array(), 'nextUp' => $job['JobTaskList']['JobTaskListItem'][$mostRecent+1]);
+                        'percentage' => $percent, 'lastDone' => (isset($mostRecent) && isset($mostRecentItem)) ? $job['JobTaskList'][$mostRecentItem]['JobTaskListItem'][$mostRecent] : array(), 'nextUp' => $job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1]);
             }
             
-           // pr($returnArray);
+            
             return $returnArray;
         }
         
@@ -318,6 +330,13 @@ class AppController extends Controller {
 	}
 	
 	public function beforeRender() {
+            
+             if($this->Auth->user('id') !== null){
+                        $updatedUser = $this->User->findById($this->Auth->user('id'));
+                         $this->set('updatedUser', $updatedUser);
+                   // pr($updatedUser); exit();
+             }
+             
 		$misc = $this->Session->read('Misc');
 		if (isset($misc['notification']) && !empty($misc['notification'])) {
 			$this->set('notification', $misc['notification']);
@@ -345,11 +364,12 @@ class AppController extends Controller {
         	//$this->set('navigation', $this->Content->find('threaded', array('fields' => array('Content.id', 'Content.tag', 'Content.parent_id', 'Content.lft', 'Content.rght'), 'conditions' => array('Content.status' => 'live'), 'order' => array('Content.lft ASC'))));
 		}
                 
+               
                 
                 $user = $this->Auth->user();
                 if(!empty($user))
                 {
-                    $this->set('jobsProgress', $this->_getOpenJobProgress());
+                  //  $this->set('jobsProgress', $this->_getOpenJobProgress());
 
                     $this->set('messages', $this->_getUnreadMessages());
                     $this->set('readMessages', $this->_getReadMessages(5));
@@ -379,9 +399,13 @@ class AppController extends Controller {
                         $this->set('superUser', $superApprovals);
                     }
                     
+                   
+                    
+                    
                     $user['pmArray'] = unserialize($user['permissions']);
                     $this->set('currentUser', $user);
                    
+                    
                     if($this->Auth->user('web_user_type') == 'admin')
                     {
                         $timeEntryApprovals = $this->_getTimeEntryApprovals($this->Auth->user('id'));

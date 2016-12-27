@@ -228,6 +228,58 @@ class UsersController extends AppController {
             }
         }
         
+        function admin_quickEmail() {
+            if(!empty($this->request->data))
+            {
+                
+                $error = false;
+                $message = "Email successfully sent to ";
+          
+ 
+                if(!isset($this->request->data['to']) || empty($this->request->data['to'])
+                        || (strpos($this->request->data['to'], "@") === false) || 
+                        (strpos($this->request->data['to'], ".") === false))
+                {
+                    $error = true;
+                    $message = "You have not provided a valid email address. (" . $this->request->data['to'] . ")";
+                }
+                if(!isset($this->request->data['message']) || empty($this->request->data['message']))
+                {
+                    $error = true;
+                    $message = "No message provided.";
+                }
+                
+                $from = null;
+                if($this->request->data['from'] == "company")
+                    $from = 'noreply@c-q-l.org';
+                else
+                    $from = $this->Auth->user('email');
+                
+              
+                if(!$error)
+                {
+                    App::uses('CakeEmail', 'Network/Email');
+                            $to = $this->request->data['to'];
+                            
+                            $email = new CakeEmail('smtp');
+                            $email->emailFormat('html')
+                            ->subject($this->request->data['subject'])
+                            ->from($from)
+                            ->to($this->request->data['to'])
+                            ->send($this->request->data['message']);
+                    $this->Session->setFlash('Message has been sent to ' . $this->request->data['to'] . ".",
+                            'flash_success');
+                           
+                    
+                    
+                }
+                else
+                    $this->Session->setFlash($message, 'flash_error');
+                
+                
+            }
+            $this->redirect($this->referer('/admin'));
+        }
         function admin_sendWelcomeEmail($id = null)
         {
             if(isset($id))
@@ -386,6 +438,49 @@ class UsersController extends AppController {
             else
                 exit('error');
         }
+        
+        function admin_ajaxUpdateSchedulingNotes()
+        {
+            $this->layout = 'ajax';
+
+            $this->User->id = $this->Auth->user('id');
+            if($this->User->saveField('scheduling_employee_notes', $this->request->data['notes']))
+                    echo 'success';
+            else
+                echo 'error';
+            
+            exit();
+        }
+        
+        function admin_ajaxAddAbility($userId, $managerId)
+        {
+            $this->layout = 'ajax';
+            $newRecord = array(
+                    
+                        'user_id' => $userId,
+                        'ability_id' => $managerId
+                    
+                );
+            
+            $this->loadModel('UserAbility');
+           $this->UserAbility->create();
+            if($this->UserAbility->save($newRecord))
+                exit('ok');
+            else
+                exit('error');
+        }
+        function admin_ajaxRemoveAbility($userId, $managerId)
+        {
+            $this->layout = 'ajax';
+            
+            $this->loadModel('UserAbility');
+            
+            if($this->UserAbility->deleteAll(array('user_id' => $userId, 'ability_id' => $managerId)))
+                exit('ok');
+            else
+                exit('error');
+        }
+        
 	function admin_create() {
 		// TODO: add security
 		if (!empty($this->request->data)) {
@@ -457,6 +552,10 @@ class UsersController extends AppController {
 			$this->request->data['User']['permissions'] = unserialize($this->request->data['User']['permissions']);
 		}
 		$this->set('content', $this->_treeContent());
+                $this->set('user', $this->User->findById($id));
+                
+                $this->loadModel('Ability');
+                $this->set('abilities', $this->Ability->find('list'));
 	}
 	
 	function admin_delete($id) {
@@ -490,6 +589,8 @@ class UsersController extends AppController {
                 $userType = $this->Auth->user('web_user_type');
                 if($userType === 'employee')
                     $this->render('admin_employee_dashboard');
+                
+                $this->set('jobsProgress', $this->_getOpenJobProgress());
 	}
 	
 	public function admin_login() {

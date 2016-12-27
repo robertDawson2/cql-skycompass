@@ -29,10 +29,16 @@
         public function admin_index() {
             
             $this->set('customers', $this->Customer->find('all'));
+
         }
         public function admin_view($id = null) {
-            pr($this->Customer->findById($id));
-            exit();
+            $customer = $this->Customer->find('first', array('conditions'=>array('Customer.id' => $id),
+                'recursive' => 0));
+            $this->Job->unbindModel(array('belongsTo' => array('Customer')));
+            $jobs = $this->Job->find('all', array('conditions'=> array('Job.customer_id' => $id), 
+                'recursive' => 3, 'order' => 'Job.start_date DESC', 'limit' => 10));
+            $this->set('jobs', $jobs);
+            $this->set('customer', $customer);
         }
         public function admin_edit($id = null) {
             $this->Session->setFlash('This feature has not been added yet!', 'flash_error');

@@ -33,6 +33,7 @@
 
         public function admin_index() {
             $this->set('events', $this->Event->find('all'));
+            
         }
 
         public function admin_create() {

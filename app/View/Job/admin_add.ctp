@@ -73,8 +73,34 @@
                 </select>
               </div>
                   <div class='form-group'>
-                      <label>Task List Template</label>
-                      <select id='taskList'  data-placeholder='Select a task list template...' class="form-control validation" data-required='required' name='data[Job][task_list_template_id]' style="width: 100%;">
+                      <label>Scheduler Task List Template</label>
+                      <select id='taskList'  data-placeholder='Select a task list template...' class="form-control validation" data-required='required' name='data[Job][SchedulerTaskList]' style="width: 100%;">
+      
+                   <?php foreach($taskLists as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option value="<?= $p['TaskListTemplate']['id'];?>" <?= $selected; ?>>
+                        <?=$p['TaskListTemplate']['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                      <label>Team Leader Task List Template</label>
+                      <select id='taskList'  data-placeholder='Select a task list template...' class="form-control validation" data-required='required' name='data[Job][TeamLeaderTaskList]' style="width: 100%;">
+      
+                   <?php foreach($taskLists as $p): ?>
+                    <?php $selected = "";
+                    
+                    ?>
+                    <option value="<?= $p['TaskListTemplate']['id'];?>" <?= $selected; ?>>
+                        <?=$p['TaskListTemplate']['name']; ?>
+                    </option>
+                    
+                    <?php endforeach; ?>
+                </select>
+                      <label>Employee Task List Template</label>
+                      <select id='taskList'  data-placeholder='Select a task list template...' class="form-control validation" data-required='required' name='data[Job][EmployeeTaskList]' style="width: 100%;">
       
                    <?php foreach($taskLists as $p): ?>
                     <?php $selected = "";

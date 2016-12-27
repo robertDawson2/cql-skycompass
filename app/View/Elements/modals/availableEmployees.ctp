@@ -17,8 +17,13 @@
                <h3>Customer Name: <em><span id='custName'></span></em> (<span id="custLoc"></span>)</h3>
             <div class='row'><div class='col-md-2'>
                     <h4>Team Leaders (<span id="teamLeadersNeeded">0</span> of <span id="teamLeadersCount">2</span>)</h4><div id='teamLeaders' class='empList'></div>
-            <h4>Employees (<span id="employeesNeeded">0</span> of <span id="employeesCount">2</span>)</h4><div id='employees' class='empList'></div></div>
-            <div class='col-md-8'><h4>Available Employees</h4>
+                    <h4>Employees (<span id="employeesNeeded">0</span> of <span id="employeesCount">2</span>)</h4><div id='employees' class='empList'></div>
+                        
+                    <div>
+                     <button type='button' class='btn btn-info' id='saveEmployees'>Save Changes</button>
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+                </div>
+            <div id="colAvailableEmployees" class='col-md-8'><h4>Available Employees</h4>
                  
                    <table id='employees-tbl' class='table table-responsive table-striped table-hover table-condensed' >
                                <thead><tr>
@@ -26,14 +31,21 @@
                                        <th>Last</th>
                                        <th>Loc</th>
                                        <th>Dist</th>
+                                       <th>Score</th>
                                        <th>Abilities</th>
                                        <th>Notes</th>
                                        <th>Team Leader</th>
                                        <th>Employee</th>
                            </tr></thead>
-                   </table></div> 
-                <div class='col-md-2'><h2>Refine Results</h2>
-                    <p><select id="refine-distance">
+                   </table>
+            <a style='padding: 20px 2px; position: absolute; top: 33%; right: 0; margin-right: -10px;' href='#' id='show-hide-refine' class='btn btn-default'><i class='fa fa-lg fa-arrow-circle-right'></i></a>
+            </div> 
+                
+                <div id='colRefineResults' class='col-md-2'>
+                    
+                    <form id="searchForm" action="/admin/jobs/ajaxRefineEmployeeData" method="post">
+                    <h2>Refine Results</h2>
+                    <p><label for="refine-distance">Distance From Job</label><select name="distance" class="input form-control" id="refine-distance">
                             <option value="999999">All</option>
                             <option value="10">10 mi.</option>
                             <option value="25">25 mi.</option>
@@ -42,11 +54,29 @@
                             <option value="200">200 mi.</option>
                             
                         </select></p>
+                        
+                            <label>Abilities Needed</label>
+                        <div class='scrollPane' style='max-height: 300px;
+overflow-y: scroll;
+border: 2px solid #aaa;
+border-radius: 10px;
+padding: 5px 10px;'>
+                            <?php foreach($abilities as $i => $ability): ?>
+                            <input class='ability-checkbox' type="checkbox" name="abilities-<?= $i; ?>" /> <?= $ability; ?>
+                            <br />
+                            <?php endforeach; ?>
+                        </div>
+                            <p>
+                                <input id='checkAll' type='checkbox' /> Select All Abilities
+                            </p>
+                            <p>
+                                <input type='submit' class='btn btn-success' value='Apply' />
+                            </p>
+                    </form>
                 </div></div></div>
       </div>
       <div class="modal-footer">
-          <button type='button' class='btn btn-info' id='saveEmployees'>Save Changes</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         
       </div>
     </div>
 
@@ -58,6 +88,34 @@
 <?php $this->append('jquery-scripts'); ?>
 
     var currentJob = null;
+    $("#checkAll").change(function () {
+    $(".ability-checkbox").prop('checked', $(this).prop("checked"));
+});
+    $("#show-hide-refine").on('click', function(e) {
+    e.preventDefault();
+    if(!$(this).hasClass('hide-me')) {
+    $("#colRefineResults").fadeOut(300, function() {
+        
+        $("#colAvailableEmployees").addClass('col-md-10');
+        $("#show-hide-refine").addClass('hide-me');
+        $("#colAvailableEmployees").removeClass('col-md-8');
+        $("#show-hide-refine > i").removeClass('fa-arrow-circle-right');
+        $("#show-hide-refine > i").addClass('fa-arrow-circle-left');
+        
+    });
+    }
+    else
+    {
+    
+    $("#colAvailableEmployees").addClass('col-md-8');
+        $("#show-hide-refine").removeClass('hide-me');
+        $("#colAvailableEmployees").removeClass('col-md-10');
+        $("#show-hide-refine > i").addClass('fa-arrow-circle-right');
+        $("#show-hide-refine > i").removeClass('fa-arrow-circle-left');
+        $("#colRefineResults").fadeIn(300);
+    }
+    
+    });
     $("#saveEmployees").on('click', function() {
         var id = $("#jobName").data('id');
         var count = 0;
@@ -65,6 +123,8 @@
                
                    scheduledEvents[id].employees = {teamLeaders : {}, other: {}, needed : neededPrev, employeeCount : 0};
 
+        
+        
         $("#teamLeaders > div").each(function() {
         count++;
         
@@ -80,10 +140,16 @@
      //   updateQuickView();
      $("#availableEmployeesModal").modal('hide');
     });
-    $("#refine-distance").on('change', function() {
-    var newUrl = "/ajax/jobs/scheduleEmployees/" + currentJob + "/distance:" + this.value;
+    $("#searchForm").submit(function(e) {
+            e.preventDefault();
+            var formData = $('#searchForm').serialize();
+            console.log(clickedEvent);
+            var newUrl = "/ajax/jobs/scheduleEmployees/" + currentJob + "/start=" + calendarEvent.start + "&end=" + calendarEvent.end + "&" + formData;
+            console.log(newUrl);
     emptable.ajax.url(newUrl).load();
-    });
+            
+        });
+    
     
     var emptable =  $("#employees-tbl").DataTable({
 
@@ -96,6 +162,7 @@
             },
             {"data": "location"},
             {"data": "distance"},
+            {"data": "score"},
             {"data": "abilities"},
             {"data": "notes"},
             {"data": "team-leader"},

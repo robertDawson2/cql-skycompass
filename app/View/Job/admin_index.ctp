@@ -27,8 +27,11 @@
 			<td><?php echo $cust['Job']['total_balance']; ?></td>
             
 			<td>
-                            <?php if($currentUser['pmArray']['jobs']['admin_edit']): ?>
-				<a role="button" class="btn btn-primary" href="/admin/jobs/edit/<?php echo $cust['Job']['id']; ?>"><i class="fa fa-edit"></i> View/Edit</a>&nbsp;
+                            
+				<a role="button" class="btn btn-primary" href="/admin/jobs/dashboard/<?php echo $cust['Job']['id']; ?>"><i class="fa fa-eye"></i> View</a>&nbsp;
+				
+                                <?php if($currentUser['pmArray']['jobs']['admin_edit']): ?>
+				<a role="button" class="btn btn-primary" href="/admin/jobs/edit/<?php echo $cust['Job']['id']; ?>"><i class="fa fa-edit"></i> Edit</a>&nbsp;
 				<?php endif; ?>
 				<?php if($currentUser['pmArray']['jobs']['admin_delete']): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $cust['Job']['full_name']; ?>" data-object-id="<?php echo $cust['Job']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
                                 
