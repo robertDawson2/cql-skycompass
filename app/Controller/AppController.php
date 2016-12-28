@@ -37,10 +37,46 @@ class AppController extends Controller {
 	public $config = array();
         public $user = array();
 
-        
-        public function _getOpenJobProgress()
+        function _getUpcomingScheduleEvents($count = 3)
         {
-            $jobs = $this->Job->find('all', array('recursive'=>3));
+            $this->loadModel('ScheduleEntry');
+            $entries =  $this->ScheduleEntry->find('all', array('limit' => $count, 'order'=>'ScheduleEntry.start_date ASC', 'conditions' => array(
+                'ScheduleEntry.user_id' => $this->Auth->user('id'),
+                'ScheduleEntry.approved' => "1",
+                'ScheduleEntry.start_date >=' => date("Y-m-d H:i:s")
+            )));
+            return $entries;
+        }
+        
+        public function _getOpenJobProgress($id = null)
+        {
+            if($id === null)
+                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10));
+            else{
+                $this->loadModel('ScheduleEntry');
+                $scheduleEntries = $this->ScheduleEntry->find('list', array(
+                    'fields' => array('ScheduleEntry.id', 'ScheduleEntry.job_id'),
+                    'conditions' => array(
+                        'ScheduleEntry.user_id' => $id,
+                        'ScheduleEntry.approved' => "1"
+                    )
+                ));
+                
+                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit' => 10,
+                    'conditions' => array(
+                        'Job.id' => $scheduleEntries
+                    )));
+                foreach($jobs as $i => $job)
+                {
+                    foreach($job['JobTaskList'] as $j => $list)
+                    {
+                        if(!array_key_exists($list['schedule_entry_id'], $scheduleEntries))
+                                unset($jobs[$i]['JobTaskList'][$j]);
+                    }
+                }
+                
+                        
+            }
             $returnArray = array();
             
             foreach($jobs as $job)

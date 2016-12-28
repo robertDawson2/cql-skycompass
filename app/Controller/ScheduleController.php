@@ -15,10 +15,59 @@
         public $uses = array('User', 'ScheduleEntry');
         
         
+        public function beforeFilter() {
+            parent::beforeFilter();
+            $this->Auth->allow('mySchedule');
+        }
         
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'scheduling');
+        }
+        
+        public function mySchedule($uniqueId)
+        {
+            $this->layout = 'ajax';
+           $schedule = $this->ScheduleEntry->find('all', array(
+                'conditions' => array(
+                    'ScheduleEntry.user_id' => $uniqueId,
+                    'ScheduleEntry.approved' => "1"
+                    
+                ),
+                'recursive' => 2
+            ));
+           
+           $ical = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN";
+           foreach($schedule as $entry):
+$ical.= "\nBEGIN:VEVENT
+UID:" . $entry['ScheduleEntry']['id'] . "
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:" . gmdate('Ymd', strtotime($entry['ScheduleEntry']['start_date'])).'T'. 
+                   gmdate('His', strtotime($entry['ScheduleEntry']['start_date'])) . "Z
+DTEND:" . gmdate('Ymd', strtotime($entry['ScheduleEntry']['end_date'] . " +23 hours")).'T'. 
+                   gmdate('His', strtotime($entry['ScheduleEntry']['end_date'] . " +23 hours")) . "Z\n";
+           
+if($entry['ScheduleEntry']['type'] == "scheduling"):
+$ical .= "LOCATION:" . preg_replace('/([\,;])/','\\\$1', ($entry['Job']['Customer']['bill_addr2'] . ", " . $entry['Job']['Customer']['bill_addr2'] . ", " . $entry['Job']['Customer']['bill_city'] .
+                   ", " . $entry['Job']['Customer']['bill_state'] . " " . $entry['Job']['Customer']['bill_zip'])) . "
+DESCRIPTION:Service Area: " . $entry['Job']['ServiceArea']['name'] . ", Customer: " . $entry['Job']['Customer']['full_name'] . "
+SUMMARY:" . $entry['Job']['name'] . " - " .  " (" .
+                   ucwords(str_replace("_", " ", $entry['ScheduleEntry']['position'])) . ")";
+else:
+    $ical .= "SUMMARY:Time Off (" . ucwords(str_replace("_", " ", $entry['ScheduleEntry']['type'])) . ")";
+endif;
+$ical .= "\nEND:VEVENT";
+               endforeach;
+$ical .= "\n"
+        . "END:VCALENDAR";
+
+//set correct content-type-header
+header('Content-type: text/calendar; charset=utf-8');
+header('Content-Disposition: inline; filename=mySchedule.ics');
+echo $ical;
+exit;
         }
         
         public function admin_requestOff()
@@ -50,6 +99,7 @@
                         'ScheduleEntry.end_date <=' => $this->request->data['Schedule']['start_date']
                         )
                     ),
+                    'ScheduleEntry.user_id' => $employeeId,
                     'ScheduleEntry.type' => 'scheduling',
                     'OR' => array(
                         'ScheduleEntry.approved is null',
@@ -62,8 +112,9 @@
                
                 if(!empty($schedule))
                 {
+                    
                     // this means an overlap was found. oops!
-                    pr($schedule);
+                   // pr($schedule);
                     $error = true;
                     $this->Session->setFlash('You have already been scheduled for at least 1 job within the date range given. Please deny the scheduling event first, or contact an administrator for further details.', 'flash_error');
                 }
@@ -223,6 +274,104 @@
             $this->set('approved',$approved);
         }
         
+            function admin_approveMySchedule()
+        {
+            $denialNotice = array();
+            if(!empty($this->request->data))
+            {
+                
+                $error = false;
+                $approve = null;
+                if($this->request->data['ScheduleEntry']['approveDeny'] === 'approve')
+                    $approve = 1;
+                else
+                    $approve = 0;
+                foreach($this->request->data['ScheduleEntry'] as $i => $d)
+                {
+                    if(isset($d['approved']) && $d['approved'] == 'on')
+                    {
+                    $entry = array('ScheduleEntry' => array(
+                        'id' => $i,
+                        'approved' => $approve,
+                        'denial_message' => $d['denial_message']
+                    ));
+                    
+                    
+                    
+                    if(!$this->ScheduleEntry->saveMany($entry))
+                    {
+                        $error = true;
+                    }
+                    else
+                    {
+                        // Only need this if we were uploading always - only generating bills on pay switch
+//                        if($approve)
+//                            $this->_queueToSave($i);
+                        
+                        $user = $this->ScheduleEntry->findById($i);
+                        
+                        
+                        if($approve == 1)
+                            $this->Notification->queueNotification('scheduler','RequestApprove','/admin/scheduler','Request Approved','%i schedule entries were approved');
+                        else
+                        {
+                            $this->Notification->queueNotification('scheduler','RequestDeny','/admin/scheduler','Request Denied',$user['User']['first_name'] . " " . $user['User']['last_name'] . " denied entry for " .
+                                    $user['Job']['full_name'], 0);
+                            
+                            // queue denial notice email for sending
+                            if(!empty($d['denial_message']))
+                            {
+                                $denialNotice[$user['User']['id']][] = array('notice' => $d["denial_message"],
+                                    'type' => $user['ScheduleEntry']['type'],
+                                    'user_email' => $user['User']['email'],
+                                    'date' => $user['ScheduleEntry']['start_date']);
+                                
+                            }
+                        }
+                    }
+                }
+                
+                    
+            }
+            
+           
+                            
+            if(!$error)
+            {
+                if($approve == 1)
+                            $this->Session->setFlash('All selected items set for approval','flash_success');
+                        else
+                            $this->Session->setFlash('All selected items set for denial','flash_success');
+                    }
+                    else
+                    {
+                        $this->Session->setFlash('An error occurred while saving your request.', 'flash_error');
+                    }
+            
+            
+            //        $this->_sendDenialNotices($denialNotice);
+                    
+            }
+            
+            $entries = $this->ScheduleEntry->find('all', array('conditions' => array(
+                    'ScheduleEntry.user_id' => $this->Auth->user('id'),
+                    'ScheduleEntry.type' => 'scheduling'
+                ,
+                'ScheduleEntry.approved' => null
+            ), 'recursive' => 2));
+            $this->set('entries',$entries);
+            
+            $approved = $this->ScheduleEntry->find('all', array('conditions' => array(
+                'NOT' => array(
+                   
+                    'ScheduleEntry.approved' => null
+                ),
+                 'ScheduleEntry.user_id' => $this->Auth->user('id'),
+                'ScheduleEntry.type' => 'scheduling'
+            )));
+           
+            $this->set('approved',$approved);
+        }
        private function _isValidDate($date) 
        {
            return (bool) strtotime($date);

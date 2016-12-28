@@ -1,6 +1,6 @@
     <!-- PRODUCT LIST -->
           <div class="box box-primary">
-            <div class="box-header with-border">
+            <div class="box-header with-border ui-sortable-handle">
               <h3 class="box-title">Payroll Dates</h3>
 
               <div class="box-tools pull-right">
@@ -15,7 +15,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Pay Period Start
+                    <a href="javascript:void(0)" class="product-title">Pay Period Start</a>
                       
                         <span class="product-description">
                           <?= date('D M-d-Y', strtotime($config['admin.payroll_start'])); ?>
@@ -27,7 +27,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Pay Period End
+                    <a href="javascript:void(0)" class="product-title">Pay Period End</a>
                       
                         <span class="product-description">
                           <?= date('D M-d-Y', strtotime($config['admin.payroll_end'])); ?>
@@ -38,7 +38,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Pay Period Cutoff
+                      <a href="javascript:void(0)" class="product-title">Pay Period Cutoff</a>
                       
                         <span class="product-description">
                           <?= date('D M-d-Y', strtotime($config['admin.payroll_cutoff'])); ?>
@@ -49,7 +49,7 @@
                 <li class="item">
                   
                   <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Pay Date
+                    <a href="javascript:void(0)" class="product-title">Pay Date</a>
                       
                         <span class="product-description">
                           <?= date('D M-d-Y', strtotime($config['admin.pay_date'])); ?>

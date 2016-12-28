@@ -25,6 +25,36 @@
                 </div>
 
               </form>
+                <hr>
+                <h4>Upcoming Jobs</h4>
+                <?php if(!empty($upcoming)): 
+                    foreach($upcoming as $job): ?>
+                <div class='col-md-12 help-block' style='border-bottom: 1px solid #cfcfcf';>
+                    <?php if($job['ScheduleEntry']['type'] == 'scheduling'): ?>
+                    <a href='/admin/jobs/dashboard/<?= $job['Job']['id']; ?>'><?= $job['Job']['full_name']; ?></a>
+                    <?php else: ?>
+                    <strong><em><?= ucwords(str_replace("_", " ", $job['ScheduleEntry']['type'])); ?></em></strong>
+                    <?php endif; ?>
+                    <p>
+                        <?= date("l, F j, Y", strtotime($job['ScheduleEntry']['start_date'])); ?> - 
+                        <?= date("l, F j, Y", strtotime($job['ScheduleEntry']['end_date'])); ?>
+                    </p>
+                </div>
+                <?php endforeach; ?>
+                <p><a class="btn btn-primary btn-sm" href="/admin/schedule/mySchedule"><i class="fa fa-calendar-o"></i> View Full Schedule</a></p>
+                
+                 <?php       else: ?>
+                <p><em>No upcoming jobs scheduled.</em></p>
+                <?php endif; ?>
+            </div>
+            <div class="box-footer">
+                <div class="pull-right">
+                    <a target="_BLANK" href="https://support.office.com/en-us/article/View-and-subscribe-to-Internet-Calendars-f6248506-e144-4508-b658-c838b6067597#bm2"><i class="fa fa-question-circle"></i> How do I use this?</a>
+                </div>
+                <h4>Your personal URL for calendar linking:</h4>
+                <p>
+                    <em><a href="<?= $config['site.url']; ?>/schedule/mySchedule/<?= $updatedUser['User']['id']; ?>"><?= $config['site.url']; ?>/schedule/mySchedule/<?= $updatedUser['User']['id']; ?></a></em>
+                </p>
             </div>
             <!-- /.box-body -->
           </div>

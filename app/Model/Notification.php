@@ -23,7 +23,10 @@ class Notification extends AppModel {
             {
                 if($count == 0)
                     $count =1;
-                
+               $users = ClassRegistry::init('User');
+            $userCheck = $users->findById($userId);
+            
+            if(!empty($userCheck)) {
             $newRecord = array('Notification' => array(
                 'user_id' => $userId,
                 'context' => $context,
@@ -36,6 +39,31 @@ class Notification extends AppModel {
             
             $this->create();
             return $this->save($newRecord);
+            }
+            elseif($userId == 'scheduler')
+            {
+                $return = false;
+                $userCheck = $users->find('all', array('conditions'=> array(
+                    'isScheduler' => 1
+                )));
+                foreach($userCheck as $user)
+                {
+                    $newRecord = array('Notification' => array(
+                'user_id' => $user['User']['id'],
+                'context' => $context,
+                'href' => $href,
+                'title' => $title,
+                'message' => $message,
+                'count' => $count
+                    
+            ));
+            
+            $this->create();
+            $return = $this->save($newRecord);
+                }
+                
+                return $return; 
+            }
             }
             
         }

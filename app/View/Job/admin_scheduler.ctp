@@ -64,7 +64,7 @@ foreach($jobs['open'] as $job): ?>
         <div class='spacer30'>
         </div>
         <div>
-            <a href='#' id='submitInfo' class='btn btn-default btn-lg btn-block'>Submit Changes</a>
+            <a href='#' id='submitInfo' class='btn btn-success btn-lg btn-block'>Submit Changes</a>
         </div>
     </div>
     <div class='col-md-9'>

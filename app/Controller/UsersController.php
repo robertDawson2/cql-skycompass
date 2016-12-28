@@ -587,10 +587,21 @@ class UsersController extends AppController {
 	public function admin_dashboard() {
 		$this->set('section', 'dashboard');
                 $userType = $this->Auth->user('web_user_type');
+                $this->set('upcoming', $this->_getUpcomingScheduleEvents(3));
                 if($userType === 'employee')
+                {
+                    $this->set('jobsProgress', $this->_getOpenJobProgress($this->Auth->user('id')));
                     $this->render('admin_employee_dashboard');
+                    
+                }
+                else
+                {
+                   $this->set('jobsProgress', $this->_getOpenJobProgress()); 
+                }
+               
                 
-                $this->set('jobsProgress', $this->_getOpenJobProgress());
+                
+                
 	}
 	
 	public function admin_login() {

@@ -70,19 +70,16 @@
       <!-- /.row -->
       
       <div class='row'>
-          <div class='col-md-4'>
+          <section class="col-lg-7 connectedSortable">
+                       <?= $this->element('jobs-widget'); ?>     
+               <?= $this->element('scheduling-notes-widget'); ?>
+
+          </section>
+          <section class='col-lg-5 connectedSortable'>
               <?= $this->element('payroll-widget'); ?>
-          </div>
-          <div class='col-md-8' style="">
-            <?= $this->element('jobs-widget'); ?>
-        </div>
+                          <?= $this->element('links-widget'); ?>
+        </section>
       
-          <div class="col-md-4">
-              <?= $this->element('links-widget'); ?>
-          </div>
-          <div class='col-md-4'>
-              <?= $this->element('scheduling-notes-widget'); ?>
-          </div>
       </div>
 
       

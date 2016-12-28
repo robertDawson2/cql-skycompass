@@ -125,6 +125,7 @@
         
         private function _scheduleEvent($data,$event,$eventId)
         {
+            $errorList = array();
             $this->Job->id = $eventId;
             
                 $currJob = $this->Job->read();
@@ -201,7 +202,7 @@
                             // employee is scheduled already in the time frame given... gots a problem dude.                            
                             else if($result == 'error') 
                             {
-                                
+                                $errorList[] = array('jobId' => $eventId, 'employeeId' => $employeeId);
                                
                             }
 
@@ -294,7 +295,38 @@
                                  }
                         }
                     }
+                    
+                    if(empty($errorList))
+                        return true;
+                    else
+                        return $errorList;
                 
+        }
+        
+        private function _canSchedule($userId, $startDate, $endDate, $jobId)
+        {
+            
+            $user = $this->User->findById($userId);
+                foreach($user['ScheduleEntry'] as $entry)
+                {
+                     
+                    if(!(strtotime($entry['start_date']) > strtotime($endDate) || 
+                            strtotime($entry['end_date']) < strtotime($startDate)
+                            ))
+                    {
+                        // overlap
+                       
+                        if($entry['approved'] != "0" && $entry['job_id'] !== $jobId)
+                        {
+                            // not a denied record - must be legitimate overlap
+                            return false;
+                        
+                        }
+                    }
+                        
+                }
+                return true;
+            
         }
         
         function admin_dashboard($id = null) {
@@ -314,6 +346,8 @@
         
         private function _rescheduleEvent($data,$event,$eventId)
         {
+            
+            $errorList = array();
             $this->Job->id = $eventId;
                 $currJob = $this->Job->read();
                 $this->Job->saveField('start_date', $event['start']);
@@ -393,6 +427,7 @@
                             else
                             {
                                 // TODO: handle double booking alert for administrator.
+                                $errorList[] = array('jobId' => $eventId, 'employeeId' => $employeeId);
                             }
                 
                     }
@@ -404,6 +439,11 @@
                     }
                 }
                 }
+                
+                if(empty($errorList))
+                    return true;
+                else
+                    return $errorList;
         }
         
         private function _descheduleEvent($data,$event,$eventId)
@@ -433,6 +473,8 @@
                     {
                         $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', $currJob['Job']['name'] . " has been rescheduled or cancelled.", 0);
                     }
+                    
+                    return true;
         }
         private function _fixEndDate($data) {
             // We are given an end date that is always one too many.. decrement if not the same as start date
@@ -449,9 +491,12 @@
         public function admin_schedule() {
             $data = json_decode($this->request->data, true);
             $data = $this->_fixEndDate($data);
+            $result = null;
+            $errorArray = array();
           //  pr($data); exit();
             foreach($data as $eventId => $event)
             {
+                $result = false;
                 if(!empty($event)) {
                 // Definitely schedule the event, regardless of employees BUT FIRST..
                     
@@ -463,9 +508,9 @@
                 
                 if(($event['start'] == $currJob['Job']['start_date'] && $event['end'] == $currJob['Job']['end_date']) || 
                        ($currJob['Job']['start_date'] == null && $currJob['Job']['end_date'] == null))
-                    $this->_scheduleEvent($data, $event, $eventId);
+                    $result = $this->_scheduleEvent($data, $event, $eventId);
                 else
-                    $this->_rescheduleEvent($data, $event, $eventId);
+                    $result = $this->_rescheduleEvent($data, $event, $eventId);
                 
                 
                 }
@@ -474,11 +519,27 @@
                     // also have to decrement the task list
                 {
                     
-                    $this->_descheduleEvent($data,$event,$eventId);
+                    $result = $this->_descheduleEvent($data,$event,$eventId);
                 }
+                
+                if(is_array($result))
+                   $errorArray = array_merge($errorArray, $result);
             }
             
-              $this->Session->setFlash('All schedulings saved successfully!', 'flash_success');
+             
+            if(empty($errorArray))
+                $this->Session->setFlash('All schedulings saved successfully!', 'flash_success');
+            else
+            {
+                $flashMessage = "The following entries were not saved because of duplicated entries:\n";
+                foreach($errorArray as $entry)
+                {
+                    $j = $this->Job->findById($entry['jobId']);
+                    $u = $this->User->findById($entry['employeeId']);
+                    $flashMessage .= $u['User']['first_name'] . " " . $u['User']['last_name'] . " - " . $j['Job']['full_name'] . ", \n\r";
+                }
+                $this->Session->setFlash($flashMessage, 'flash_error');
+            }
               $this->redirect('/admin/jobs/scheduler');
            
         }
@@ -504,6 +565,13 @@
             if(!empty($entry))
             {
                 $return = $entry['ScheduleEntry']['id'];
+            }
+            else
+            {
+                // Check for other entry in the same range
+                $answer = $this->_canSchedule($userId, $start, $end, $jobId);
+                if(!$answer)
+                    $return = "error";
             }
                 
            
@@ -532,6 +600,7 @@
             
             $this->layout = 'ajax';
             $job = $this->Job->findById($id);
+            
             if(!isset($id))
                 $employeeList = $this->User->find('all');
             else

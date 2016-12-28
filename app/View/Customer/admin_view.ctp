@@ -81,7 +81,7 @@
                
                 <?php foreach($jobs as $job): ?>
                 <tr>
-                    <td><a href='/admin/jobs/view/<?= $job['Job']['id']; ?>' class='btn btn-sm btn-primary'><i class='fa fa-eye'></i> View</a></td>
+                    <td><a href='/admin/jobs/dashboard/<?= $job['Job']['id']; ?>' class='btn btn-sm btn-primary'><i class='fa fa-eye'></i> View</a></td>
                   <td><?php
                   if(isset($job['Job']['start_date']))
                     echo date('m/d/Y', strtotime($job['Job']['start_date'])). " - " . date('m/d/Y', strtotime($job['Job']['end_date'])); 

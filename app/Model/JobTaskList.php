@@ -2,7 +2,9 @@
 
 Class JobTaskList extends AppModel {
     public $hasMany = array(
-        'JobTaskListItem'
+        'JobTaskListItem' => array(
+            'order' => 'sort_order ASC'
+        )
         );
   //  public $belongsTo = array('ScheduleEntry');
 }

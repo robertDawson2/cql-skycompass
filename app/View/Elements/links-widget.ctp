@@ -1,6 +1,6 @@
     <!-- Link LIST -->
           <div class="box box-primary">
-            <div class="box-header with-border">
+            <div class="box-header with-border ui-sortable-handle">
               <h3 class="box-title">Important Links</h3>
 
               <div class="box-tools pull-right">
