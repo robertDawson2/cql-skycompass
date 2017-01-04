@@ -64,7 +64,7 @@
             <li><a href="/admin/jobs"><i class="fa fa-circle-o"></i> View Open Jobs</a></li>
             <li><a href="/admin/jobs/index/past"><i class="fa fa-circle"></i> View Past Jobs</a></li>
             <li><a href="/admin/jobs/add"><i class="fa fa-plus-circle"></i> New Job</a></li>
-            <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
+            
           </ul>
         </li>
         <?php endif; ?>
@@ -131,8 +131,14 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
+              <?php if($currentUser['is_scheduler']): ?>
+            <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
+            <li><a href="/admin/schedule/alertAllUsers" onclick="return confirm('Are you sure you want to send out scheduling emails?');">
+                    <i class="fa fa-envelope"></i> Send Out Schedule Email</a></li>
+            <?php endif; ?>
             <li><a href="/admin/schedule/requestOff"><i class="fa fa-circle-o"></i> Request Time Off</a></li>
             <li><a href="/admin/schedule/mySchedule"><i class="fa fa-circle-o"></i> View Schedule</a></li>
+            <li><a href="/admin/schedule/approveMySchedule"><i class="fa fa-circle-o"></i> Approve/Deny Schedule</a></li>
             <li><a href="/admin/schedule/approveTimeOff"><i class="fa fa-circle-o"></i> Approve/Deny Time Off</a></li>
             <li><a href="/admin/taskListTemplates"><i class="fa fa-circle-o"></i> View Task List Templates</a></li>
             <li><a href="/admin/taskListTemplates/create"><i class="fa fa-circle-o"></i> Add Task List Template</a></li>

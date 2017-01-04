@@ -12,20 +12,21 @@
           
         </div>
         <!-- /.box-header -->
-        <?php echo $this->Form->create('add'); ?>
+        <?php echo $this->Form->create('edit'); ?>
+        <?= $this->Form->hidden('Job.id'); ?>
         <div class="box-body">
           <div class="row">
               <div class="col-md-6">
                   <div class='form-group'>
                       <label>Customer/Job</label>
-                      <select id='customerList' <?php if(isset($customer)) { ?>disabled<?php } ?> data-placeholder='Select a customer or job...' class="form-control <?php if(!isset($customer)) { ?>select2<?php } ?> validation" data-required='required' name='data[Job][customer_id]' style="width: 100%;">
-                   <?php if(!isset($customer)) { ?>
+                      <select id='customerList' data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[Job][customer_id]' style="width: 100%;">
+                  
                           <option></option>
-                   <?php } ?>
+                   
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
-                    if(isset($customer))
-                        if($customer['Customer']['id'] == $p['id'])
+                    
+                        if($this->data['Customer']['id'] == $p['id'])
                             $selected = "selected";
                     ?>
                     <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
@@ -39,7 +40,7 @@
               <div class="col-md-3">
                   <div class='form-group'>
                                        <label># People Served</label>
-                      <input type="tel" name='data[Job][people_served_count]' data-type="number" data-max="1000000"   class='form-control validation' data-required='required' default='0'>
+                      <input type="tel" value='<?= $this->data['Job']['people_served_count']; ?>' name='data[Job][people_served_count]' data-type="number" data-max="1000000"   class='form-control validation' data-required='required' default='0'>
                                    </div>
               </div>
           </div>
@@ -49,7 +50,7 @@
                     <h4>Job Information</h4>
 <div class='form-group'>
                       <label>Job Name</label>
-                     <input type='text' name="data[Job][name]" class='form-control validation' data-type="text" data-required='required' placeholder='Insert Job Name...' />
+                     <input type='text' value='<?= $this->data['Job']['name']; ?>'  name="data[Job][name]" class='form-control validation' data-type="text" data-required='required' placeholder='Insert Job Name...' />
                      
 </div>
                     <div class="form-group">
@@ -58,12 +59,16 @@
                    <option></option>
                    <?php foreach($serviceAreas as $p): ?>
                     <?php $selected = "";
-                    
+                    if($this->data['Job']['service_area_id'] == $p['ServiceArea']['id'])
+                        $selected = "selected";
                     ?>
                     <option class="main-item" value="<?= $p['ServiceArea']['id']; ?>" disabled="disabled" <?= $selected; ?>>
                         <?=$p['ServiceArea']['name']; ?>
                     </option>
-                    <?php foreach($p['Children'] as $c): ?>
+                    <?php foreach($p['Children'] as $c): 
+                        if($this->data['Job']['service_area_id'] == $c['id'])
+                        $selected = "selected";
+                        ?>
                      <option value = "<?= $c['id']; ?>" class="child-item" <?= $selected; ?>>
                         <?=$c['name']; ?>
                     </option>
@@ -78,7 +83,8 @@
       
                    <?php foreach($taskLists as $p): ?>
                     <?php $selected = "";
-                    
+                    if($this->data['Job']['SchedulerTaskList'] == $p['TaskListTemplate']['id'])
+                        $selected = "selected";
                     ?>
                     <option value="<?= $p['TaskListTemplate']['id'];?>" <?= $selected; ?>>
                         <?=$p['TaskListTemplate']['name']; ?>
@@ -91,7 +97,8 @@
       
                    <?php foreach($taskLists as $p): ?>
                     <?php $selected = "";
-                    
+                    if($this->data['Job']['TeamLeaderTaskList'] == $p['TaskListTemplate']['id'])
+                        $selected = "selected";
                     ?>
                     <option value="<?= $p['TaskListTemplate']['id'];?>" <?= $selected; ?>>
                         <?=$p['TaskListTemplate']['name']; ?>
@@ -104,7 +111,8 @@
       
                    <?php foreach($taskLists as $p): ?>
                     <?php $selected = "";
-                    
+                    if($this->data['Job']['EmployeeTaskList'] == $p['TaskListTemplate']['id'])
+                        $selected = "selected";
                     ?>
                     <option value="<?= $p['TaskListTemplate']['id'];?>" <?= $selected; ?>>
                         <?=$p['TaskListTemplate']['name']; ?>
@@ -115,7 +123,7 @@
                   </div> 
                     <div class='form-group'>
                 <label>Job Cost</label>
-                <input name='data[Job][balance]'  data-placeholder='Enter cost with no dollar sign...'  class="form-control validation"  data-required='required' />
+                <input value='<?= $this->data['Job']['balance']; ?>' name='data[Job][balance]'  data-placeholder='Enter cost with no dollar sign...'  class="form-control validation"  data-required='required' />
                     
                 </div>
                  
@@ -125,14 +133,14 @@
                                   
                                    <div class='form-group'>
                                        <label># Team Leaders</label>
-                      <input type="tel" name='data[Job][team_leader_count]' data-type="number" data-max="10"   class='form-control hour-spinner validation' data-required='required' default='0'>
+                      <input value='<?= $this->data['Job']['team_leader_count']; ?>'  type="tel" name='data[Job][team_leader_count]' data-type="number" data-max="10"   class='form-control validation' data-required='required'>
                                    </div>
                               </td>
                               <td style='padding: 5px;'>
                                   
                                    <div class='form-group'>
                                        <label># Regular Employees</label>
-                      <input  type="tel"  name='data[Job][employee_count]' data-type='number' data-max="10" class='form-control minute-spinner validation' data-required='required' default='0'>
+                      <input value='<?= $this->data['Job']['employee_count']; ?>'   type="tel"  name='data[Job][employee_count]' data-type='number' data-max="10" class='form-control validation' data-required='required'>
                                    </div>
                               </td>
                           </tr>
@@ -144,25 +152,25 @@
                 <h4>Optional Fields</h4>
                  <div class='form-group'>
                 <label>IDD or BH</label>
-                <input name='data[Job][IDD_BH]'  data-placeholder='Enter IDD or BH here...'  class="form-control validation" style="width: 100%;" />
+                <input value='<?= $this->data['Job']['IDD_BH']; ?>'  name='data[Job][IDD_BH]'  data-placeholder='Enter IDD or BH here...'  class="form-control validation" style="width: 100%;" />
                     
                 </div>
                  <div class='form-group'>
                 <label>Engagement Fee Paid?</label>
                 <select name='data[Job][eng_fee_paid]' class="form-control validation">
-                    <option value='0'>NO</option>
-                    <option value='1'>YES</option>
+                    <option <?= $this->data['Job']['eng_fee_paid'] === "1" ? "" : "selected"; ?> value='0'>NO</option>
+                    <option <?= $this->data['Job']['eng_fee_paid'] === "0" ? "" : "selected"; ?> value='1'>YES</option>
                 </select>
                 </div>
                  <div class='form-group'>
                 <label>Notes</label>
-                <textarea  name='data[Job][notes]'  class='form-control' rows='5' width='100%'></textarea>
+                <textarea  name='data[Job][notes]'  class='form-control' rows='5' width='100%'><?= $this->data['Job']['notes']; ?></textarea>
               </div>
             </div> 
           </div>
             <div class='row'>
                 <div class='col-md-offset-10 col-md-2'>
-                    <input id='submitButton' type="submit" class='btn btn-primary' value='Create Job' />
+                    <input id='submitButton' type="submit" class='btn btn-primary' value='Update Job' />
                 </div>
             </div>
         </div>

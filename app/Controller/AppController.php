@@ -447,6 +447,23 @@ class AppController extends Controller {
                         $timeEntryApprovals = $this->_getTimeEntryApprovals($this->Auth->user('id'));
                         $expenseApprovals = $this->_getExpenseApprovals($this->Auth->user('id'));
                     }
+                    
+                    // unset any notifications for current view
+                    
+                    $notifications = $this->Notification->find('all', array(
+                        'conditions' => array(
+                            'Notification.user_id' => array($user['id'], $user['web_user_type']),
+                            'Notification.seen' => 0,
+                            'Notification.href' => $this->here
+                        )
+                    ));
+                    if(!empty($notifications)){
+                        foreach($notifications as $unset)
+                    {
+                        $this->Notification->id = $unset['Notification']['id'];
+                        $this->Notification->saveField('seen', 1);
+                    }}
+                    
                      $notifications = $this->Notification->find('all', array(
                         'conditions' => array(
                             'Notification.user_id'=> array($user['id'], $user['web_user_type']),

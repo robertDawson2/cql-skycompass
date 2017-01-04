@@ -73,6 +73,7 @@
           <section class="col-lg-7 connectedSortable">
                        <?= $this->element('jobs-widget'); ?>     
                <?= $this->element('scheduling-notes-widget'); ?>
+              <?= $this->element('quick_email'); ?>
 
           </section>
           <section class='col-lg-5 connectedSortable'>

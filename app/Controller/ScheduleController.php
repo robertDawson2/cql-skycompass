@@ -17,7 +17,7 @@
         
         public function beforeFilter() {
             parent::beforeFilter();
-            $this->Auth->allow('mySchedule');
+            $this->Auth->allow('mySchedule', 'autoApprove');
         }
         
         public function beforeRender() {
@@ -293,6 +293,7 @@ exit;
                     $entry = array('ScheduleEntry' => array(
                         'id' => $i,
                         'approved' => $approve,
+                        'email_alert_delivered' => 1,
                         'denial_message' => $d['denial_message']
                     ));
                     
@@ -312,11 +313,14 @@ exit;
                         
                         
                         if($approve == 1)
-                            $this->Notification->queueNotification('scheduler','RequestApprove','/admin/scheduler','Request Approved','%i schedule entries were approved');
+                        {
+                            foreach(explode("|", $this->config['schedulerIds']) as $scheduler)
+                                $this->Notification->queueNotification($scheduler,'RequestApprove','/admin/jobs/scheduler','Request Approved','%i schedule entries were approved');
+                        }
                         else
                         {
-                            $this->Notification->queueNotification('scheduler','RequestDeny','/admin/scheduler','Request Denied',$user['User']['first_name'] . " " . $user['User']['last_name'] . " denied entry for " .
-                                    $user['Job']['full_name'], 0);
+                            foreach(explode("|", $this->config['schedulerIds']) as $scheduler)
+                                $this->Notification->queueNotification($scheduler,'RequestDeny','/admin/scheduler','Request Denied',$user['User']['first_name'] . " " . $user['User']['last_name'] . " denied entry for " . $user['Job']['full_name'] . "(" . $d['denial_message'] . ")", 0);
                             
                             // queue denial notice email for sending
                             if(!empty($d['denial_message']))
@@ -375,6 +379,81 @@ exit;
        private function _isValidDate($date) 
        {
            return (bool) strtotime($date);
+       }
+       
+       function admin_alertAllUsers()
+       {
+           $a = 1;
+           $b = 0;
+           $c = 1;
+           
+           
+           $this->User->unbindModel(array('hasMany' => array(
+               'TimeEntry', 'Notification', 'ApprovalManager'
+           ),'belongsTo'=> array('Vendor')));
+           $users = $this->User->find('all', array('recursive' => 2));
+           foreach($users as $j => $user)
+           {
+               foreach($user['ScheduleEntry'] as $i => $entry)
+               {
+                   if(!($entry['approved'] === null 
+                           && !$entry['email_alert_delivered'] 
+                           && $entry['type'] ==='scheduling'))
+                   {
+                       unset($user['ScheduleEntry'][$i]);
+                   }
+               }
+               if(!empty($user['ScheduleEntry']))
+               {
+                   
+                   $this->_sendScheduleAlertEmail($user);
+                   foreach($user['ScheduleEntry'] as $setToSent)
+                   {
+                       $this->ScheduleEntry->id = $setToSent['id'];
+                       $this->ScheduleEntry->saveField('email_alert_delivered', 1);
+                   }
+               }
+               else
+               {unset($users[$j]);
+               
+               }
+              
+           }
+           $this->Session->setFlash(count($users) . " notified of scheduling by email!", 'flash_success');
+           $this->redirect('/admin/jobs/scheduler');
+           
+       }
+       
+       function autoApprove($userId, $schedulingId)
+       {
+           $entry = $this->ScheduleEntry->findById($schedulingId);
+          if($entry['ScheduleEntry']['user_id'] === $userId)
+          {
+              $this->ScheduleEntry->id = $schedulingId;
+              $this->ScheduleEntry->saveField('approved', 1);
+              exit('done');
+          }
+          exit('error');
+       }
+       private function _sendScheduleAlertEmail($user)
+       {
+//           pr($user);
+//           exit();
+           $this->loadModel('ServiceArea');
+           $serviceAreas = $this->ServiceArea->find('list', array('fields' => array('id', 'name')));
+           
+           App::uses('CakeEmail', 'Network/Email');
+                            $to = array($user['User']['email']);
+                            
+                            $email = new CakeEmail('smtp');
+                            $email->template('schedule_notification', 'default')
+                            ->emailFormat('html')
+                            ->subject($this->config['site.name'] . ' Schedule Notification System')
+                            ->viewVars(array('description' => 'Scheduling Alert System', 'user' => $user,'config' => $this->config,'serviceAreas' => $serviceAreas))
+                            ->to($to)
+                            ->send();
+                            
+                            return true;
        }
        
        private function _sendDenialNotices($denials = null)

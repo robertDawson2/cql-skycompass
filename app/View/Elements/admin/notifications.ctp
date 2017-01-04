@@ -44,7 +44,7 @@ foreach($notifications as $notification)
                     <?= $this->fetch('notification-list'); ?>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="/admin/notifications">View all</a></li>
             </ul>
           </li>
           
@@ -56,11 +56,7 @@ foreach($notifications as $notification)
                   
                   if($(this).data('newcount') > 0)
                   {
-                  $.ajax(
-                          {
-                              url: "/admin/notifications/ajaxMarkViewed/" + $(this).data('userid')
-                          });
-                          
+ 
                         $('.notification-label').fadeOut('fast');  
                           
                           

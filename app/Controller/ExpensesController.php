@@ -12,7 +12,7 @@
     class ExpensesController extends AppController {
 
     	
-        public $uses = array('TimeEntry','User', 'Customer', 'Bill', 'BillItem','BillExpense');
+        public $uses = array('TimeEntry','User', 'Customer', 'Bill', 'BillItem','BillExpense', 'Approvallog');
         
         public function beforeFilter() {
             parent::beforeFilter();
@@ -38,6 +38,15 @@
                 {
                     $this->BillItem->id = $item['BillItem']['id'];
                     $this->BillItem->saveField('approved', 1);
+                    
+                    $this->Approvallog->create();
+                    $this->Approvallog->save(
+                            array(
+                                'approver' => $this->Auth->user('id'),
+                                'bill_item' => $item['BillItem']['id'],
+                                'value' => 1,
+                                'super' => 0
+                            ));
                 }
                 $this->Session->setFlash('The Selected Bill Has Been Approved.', 'flash_success');
                 $this->redirect($this->referer());
@@ -71,6 +80,15 @@
                     $this->BillItem->id = $item['BillItem']['id'];
                     $this->BillItem->saveField($superuser, 1);
                     $this->BillItem->saveField('super_approved', 1);
+                    
+                    $this->Approvallog->create();
+                    $this->Approvallog->save(
+                            array(
+                                'approver' => $this->Auth->user('id'),
+                                'bill_item' => $item['BillItem']['id'],
+                                'value' => 1,
+                                'super' => 1
+                            ));
                 }
                 $this->Session->setFlash('The Selected Bill Has Been Sent To QuickBooks.', 'flash_success');
                 $this->redirect($this->referer());
@@ -859,16 +877,17 @@ if($uploadOk) {
                 $this->Bill->save($bill_data_array[$a['BillItem']['vendor_id']]);
                 
                 $id = $this->Bill->id;
-                
+                $bill_data_array[$a['BillItem']['vendor_id']]['newId'] = $id;
                 
                 
                 }
                 $this->BillItem->id = $a['BillItem']['id'];
-                $this->BillItem->saveField('bill_id', $id);
+                
+                $this->BillItem->saveField('bill_id', $bill_data_array[$a['BillItem']['vendor_id']]['newId']);
             }
             
             foreach($bill_data_array as $i => $a)
-                $this->_queueToSave($a['Bill']['id']);
+                $this->_queueToSave($a['newId']);
             
             $this->_generateCCBills();
             
@@ -876,6 +895,7 @@ if($uploadOk) {
             exit('done');
             
         }
+        
         private function _generateCCBills() {
             $approvedBills = $this->BillItem->find('all', array(
                 'conditions' => array(
@@ -907,7 +927,8 @@ if($uploadOk) {
                         'amount_due' => 0.00,
                         'terms_id' => "",
                         'memo' => "",
-                        'is_paid' => "false"
+                        'is_paid' => "false",
+                        "isPersonal" => 0
                     )
                 );
                 
@@ -915,16 +936,16 @@ if($uploadOk) {
                 $this->Bill->save($bill_data_array[$a['BillItem']['vendor_id']]);
                 
                 $id = $this->Bill->id;
-                
+                $bill_data_array[$a['BillItem']['vendor_id']]['newId'] = $id;
                 
                 
                 }
                 $this->BillItem->id = $a['BillItem']['id'];
-                $this->BillItem->saveField('bill_id', $id);
+                $this->BillItem->saveField('bill_id', $bill_data_array[$a['BillItem']['vendor_id']]['newId']);
             }
             
             foreach($bill_data_array as $i => $a)
-                $this->_queueToSave($id, 'credit-charge');
+                $this->_queueToSave($a['newId'], 'credit-charge');
             
             return true;
         }
@@ -1202,7 +1223,14 @@ if($uploadOk) {
                         'billable' => $d['billable']
                     ));
                     
-                    
+                    $this->Approvallog->create();
+                    $this->Approvallog->save(
+                            array(
+                                'approver' => $this->Auth->user('id'),
+                                'bill_item' => $i,
+                                'value' => $approve,
+                                'super' => 0
+                            ));
                     
                     if(!$this->BillItem->saveMany($entry))
                     {
@@ -1336,6 +1364,15 @@ if($uploadOk) {
                         'billable' => $d['billable'],
                         $superuser => $approve
                     ));
+                    
+                    $this->Approvallog->create();
+                    $this->Approvallog->save(
+                            array(
+                                'approver' => $this->Auth->user('id'),
+                                'bill_item' => $i,
+                                'value' => $approve,
+                                'super' => 1
+                            ));
                     
                     if(!$this->BillItem->saveMany($entry))
                     {

@@ -399,6 +399,13 @@
       "autoWidth": false,
       "order": [[0, "desc"]]
     });
+    $('.notifications-dataTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": false,
+      "pageLength": 50
+    });
     $('.approval-dataTable').DataTable({
       "paging": true,
       "lengthChange": true,

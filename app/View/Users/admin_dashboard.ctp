@@ -68,6 +68,7 @@
           
         
             <?= $this->element('jobs-widget'); ?>
+          <?= $this->element('quick_email'); ?>
       </section>
           <section class='col-lg-5 connectedSortable'>
         <!-- /.col -->

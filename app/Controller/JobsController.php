@@ -195,7 +195,7 @@
                                 // Queue employee notification if not already scheduled previously
                                  // Also remove from list, because employee remaining must be notified of unscheduling
                                  if(!in_array($employeeId, $currentSchedule))
-                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/jobs/approveScheduling', 'New Schedule Item', 'You have %i new pending schedule entries.');
+                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/schedule/approveMySchedule', 'New Schedule Item', 'You have %i new pending schedule entries.');
                                  else
                                      unset($currentSchedule[$employeeId]);
                             }
@@ -226,7 +226,7 @@
                     foreach($currentSchedule as $id)
                     {
                         
-                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/schedule/mySchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
                     }
                     
                     // Remove user schedule entry
@@ -413,14 +413,14 @@
                                 // Queue employee notification if not already scheduled previously
                                  // Also remove from list, because employee remaining must be notified of unscheduling
                                  if(!in_array($employeeId, $currentSchedule)) {
-                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/jobs/approveScheduling', 'New Schedule Item', 'You have %i new pending schedule entries.');
+                                    $this->Notification->queueNotification($employeeId, 'NewScheduling', '/admin/schedule/approveMySchedule', 'New Schedule Item', 'You have %i new pending schedule entries.');
                                     
                                  }
                                  // else employee was already scheduled, notify of rescheduling
                                  else
                                  {
                                      unset($currentSchedule[$employeeId]);
-                                    $this->Notification->queueNotification($employeeId, 'EditScheduling', '/admin/jobs/approveScheduling', 'Edited Schedule Item', 'The schedule for ' . $currJob['Job']['name'] . ' has changed!', 0); 
+                                    $this->Notification->queueNotification($employeeId, 'EditScheduling', '/admin/schedule/approveMySchedule', 'Edited Schedule Item', 'The schedule for ' . $currJob['Job']['name'] . ' has changed!', 0); 
                                  }
                             } 
                             // employee already scheduled on that day, cannot double book
@@ -435,7 +435,7 @@
                     // If any employees are still in the array, then we have to notify them of descheduling
                     foreach($currentSchedule as $id)
                     {
-                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/schedule/mySchedule', 'Removed Schedule Item', 'You have been removed from ' . $currJob['Job']['name'], 0);
                     }
                 }
                 }
@@ -471,7 +471,7 @@
                     // notify all users of descheduling
                     foreach($currentSchedule as $id)
                     {
-                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/jobs/viewSchedule', 'Removed Schedule Item', $currJob['Job']['name'] . " has been rescheduled or cancelled.", 0);
+                        $this->Notification->queueNotification($id, 'Descheduling', '/admin/schedule/mySchedule', 'Removed Schedule Item', $currJob['Job']['name'] . " has been rescheduled or cancelled.", 0);
                     }
                     
                     return true;
@@ -789,6 +789,7 @@ $this->set('pendingColors', [
             $this->Job->delete($id);
             $this->redirect('/admin/jobs');
         }
+        
         public function admin_add($customerId = null)
         {
             if(!empty($this->request->data))
@@ -854,6 +855,7 @@ $this->set('pendingColors', [
             
             $this->set('taskLists', $taskLists);
         }
+   
         
         private function _saveList($jobId,$templateId, $type)
         {
@@ -866,6 +868,67 @@ $this->set('pendingColors', [
                
                $this->JobTaskList->create();
                $this->JobTaskList->save($newList);
+               
+               $id = $this->JobTaskList->id;
+               
+               // Add all items to the new list
+               $this->loadModel('TaskListTemplateItem');
+               
+               $taskItems = $this->TaskListTemplateItem->find('all', array('conditions' => array(
+                   'task_list_template_id' => $templateId
+               )));
+               
+               foreach($taskItems as $item)
+               {
+                   $save = array('job_task_list_id' => $id, 'task_item_id' => $item['TaskListTemplateItem']['task_item_id'],
+                      'sort_order' => $item['TaskListTemplateItem']['sort_order'] );
+                   $this->JobTaskListItem->create();
+                   $this->JobTaskListItem->save($save);
+               }
+        }
+        
+         private function _updateList($jobId,$templateId, $type, $oldTemplateId)
+        {
+             // find an old Task List to change
+             $oldTaskList = $this->TaskListTemplate->find('first', array('conditions' => 
+                 array('id' => $oldTemplateId),'recursive' => 0));
+            
+             $oldList = $this->JobTaskList->find('first', array(
+                 'conditions' => array(
+                     'job_id' => $jobId,
+                     'type' => $type,
+                     'name' => $oldTaskList['TaskListTemplate']['name']
+                 )
+             ));
+             if(!empty($oldList)) {
+             $this->JobTaskListItem->deleteAll(array(
+                 'job_task_list_id' => $oldList['JobTaskList']['id']
+             ));
+             }
+             
+            $newTaskList = $this->TaskListTemplate->find('first', array('conditions' => array('id' => $templateId),'recursive' => 0));
+               
+            if(!empty($oldList)) {
+               $newList = array(
+                   'id' => $oldList['JobTaskList']['id'],
+                   'name' => $newTaskList['TaskListTemplate']['name'],
+                   'job_id' => $jobId,
+                   'type' => $type,
+                   'description' => $newTaskList['TaskListTemplate']['description']);
+               
+               $this->JobTaskList->save($newList);
+            }
+            else
+            {
+                 $newList = array(
+                   'name' => $newTaskList['TaskListTemplate']['name'],
+                   'job_id' => $jobId,
+                   'type' => $type,
+                   'description' => $newTaskList['TaskListTemplate']['description']);
+               
+                 $this->JobTaskList->create();
+               $this->JobTaskList->save($newList);
+            }
                
                $id = $this->JobTaskList->id;
                
@@ -910,8 +973,71 @@ $this->set('pendingColors', [
         }
         
         public function admin_edit($id = null) {
-            $this->Session->setFlash('This feature has not been added yet!', 'flash_error');
-            $this->redirect('/admin/jobs');
+             
+            if(!empty($this->request->data))
+            {
+                
+                // get submitted info
+                $job = $this->request->data['Job'];
+                $oldJob = $this->Job->findById($job['id']);
+                
+                // set defaults based on info
+                $cust = $this->Customer->findById($job['customer_id']);
+                $job['company_name'] = $cust['Customer']['name'];
+                $job['full_name'] = $job['company_name'] . ":" . $job['name'];
+                $job['total_balance'] = $job['balance'];
+                $job['job_status'] = 'InProgress';
+                $job['description'] = $job['notes'];
+                $job['job_type_id'] = $job['job_type'] = "";
+                
+                // save job and use id for other creations
+               
+                $this->Job->save($job);
+                
+                $id = $this->Job->id;
+                
+                // update task list based on the template only if different
+                if($oldJob['Job']['SchedulerTaskList'] !== $job['SchedulerTaskList'])
+                    $this->_updateList($id, $job['SchedulerTaskList'], 'scheduler', $oldJob['Job']['SchedulerTaskList']);
+               
+               // same for team leader(s)
+               for($i = 0; $i < $job['team_leader_count']; $i ++)
+               {
+                   if($oldJob['Job']['TeamLeaderTaskList'] !== $job['TeamLeaderTaskList'])
+                    $this->_updateList($id, $job['TeamLeaderTaskList'], 'team_leader', $oldJob['Job']['TeamLeaderTaskList']);
+               }
+               
+               // same for schedulers
+               for($i = 0; $i < $job['employee_count']; $i++)
+               {
+                   if($oldJob['Job']['EmployeeTaskList'] !== $job['EmployeeTaskList'])
+                    $this->_updateList($id, $job['EmployeeTaskList'], 'employee', $oldJob['Job']['EmployeeTaskList']);
+               }
+                
+               $this->Session->setFlash('Job Successfully Updated!', 'flash_success');
+               $this->redirect('/admin/jobs');
+            }
+            
+            $this->data = $this->Job->findById($id);
+            $jobTaskLists = $this->JobTaskList->find('all', array('conditions' => array(
+                'job_id' => $id
+            )));
+            
+
+                $this->set('customers', $this->_loadCustomers());
+            
+            // Get all possible service areas for the view
+            $this->loadModel('ServiceArea');
+            $serviceAreas = $this->ServiceArea->find('all', array('conditions'=> array('ServiceArea.parent_id' => null)));
+     
+            $this->set('serviceAreas', $serviceAreas);
+            
+            // Load task list templates to choose for this Job
+            $this->loadModel('TaskListTemplate');
+            $taskLists = $this->TaskListTemplate->find('all');
+            
+            $this->set('taskLists', $taskLists);
+           
         }
         public function import($hash = null)
         {

@@ -72,7 +72,7 @@
 
 <h3><?php if($isScheduler) { ?>Scheduler/Employee Task Lists <?php } else { ?>Your Task List<?php } ?></h3>
 <div class='row'>
-    <?php $count = 0; foreach($job['JobTaskList'] as $list):
+    <?php $count = 0; if(isset($job['JobTaskList']) && !empty($job['JobTaskList'])): foreach($job['JobTaskList'] as $list):
         if($list['type'] == 'scheduler' && $isScheduler): 
 
         ?>
@@ -121,7 +121,7 @@
           </div>
     </div>
     <?php $count++; endif;
-    endforeach; ?>
+    endforeach; endif; ?>
 
 <?php if(!empty($job['ScheduleEntry'])): ?>
 
@@ -169,7 +169,7 @@
                 <!-- TASK LIST!! -->
                 <h4>Task List</h4>
                 
-               
+               <?php if(isset($entry['JobTaskList']) && !empty($entry['JobTaskList'])): ?>
                 <ul class='todo-list'>
                     <?php 
                     $completed = $total = 0;
@@ -190,10 +190,17 @@
                   <span class="sr-only">' . $percentage . '% Complete</span>
                 </div>'; 
                     ?> 
+                    
                 </ul>
                 <h4>Progress: </h4>
                 <div class='progress progress-sm active' title='<?= $percentage; ?>% Completed'>
                 <?= $bar; ?>
+                    <?php else:  ?>
+                            <p><em>
+                        No Task List Assigned!!! Contact an administrator.
+                        </em></p>
+                    
+                    <?php endif; ?>
                 </div>
                
             </div>
