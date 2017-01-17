@@ -26,7 +26,17 @@
             $this->Auth->allow('import','ajax_scheduleEmployees');
         }
         
-        
+        public function admin_changeEngagementFee($jobId, $value = 1)
+        {
+            $this->Job->id = $jobId;
+            $this->Job->saveField('eng_fee_paid', $value);
+            if($value === 1)
+                $this->Session->setFlash('Engagement Fee has been marked as paid.', 'flash_success');
+            else
+                $this->Session->setFlash('Engagement Fee has been marked as unpaid.', 'flash_success');
+            
+            $this->redirect($this->referer("/admin/jobs/dashboard/" .$jobId));
+        }
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'jobs');
@@ -307,8 +317,12 @@
         {
             
             $user = $this->User->findById($userId);
+            if($user['User']['is_active'] === 'false')
+                return false;
+            
                 foreach($user['ScheduleEntry'] as $entry)
                 {
+                    
                      
                     if(!(strtotime($entry['start_date']) > strtotime($endDate) || 
                             strtotime($entry['end_date']) < strtotime($startDate)
@@ -602,7 +616,7 @@
             $job = $this->Job->findById($id);
             
             if(!isset($id))
-                $employeeList = $this->User->find('all');
+                $employeeList = $this->User->find('all', array('conditions' => array('NOT' => array('User.is_active' => 'false'))));
             else
             {
                 if(isset($opts['abilities']) && !empty($opts['abilities'])){
@@ -621,12 +635,13 @@
                             'limit' => 1
                         )),
                         'conditions'=> array(
+                            'NOT' => array('User.is_active'=>'false'),
                         'UserAbility.ability_id' => $opts['abilities']
                             
                     )));
                 }
                 else
-                    $employeeList = $this->User->find('all', array('conditions'=> array()));
+                    $employeeList = $this->User->find('all', array('conditions'=> array('NOT' => array('User.is_active' => 'false'))));
                 
             }
             

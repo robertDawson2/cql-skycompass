@@ -280,6 +280,52 @@ class UsersController extends AppController {
             }
             $this->redirect($this->referer('/admin'));
         }
+        function admin_addNewPermissions($tag = "")
+        {
+            if($tag === "blue42setHIKE")
+            {
+                // Make array here to add
+                $addArray = array(
+                    'jobs' => array(
+                        'admin_scheduler' => 0,
+                        
+                    ),
+                    'schedule' => array(
+                        'admin_alertAllUsers' => 0,
+                        'admin_approveTimeOff' => 0,
+                        'admin_viewServiceAreas' => 0
+                    ),
+                    'taskListTemplates' => array(
+                        'admin_index' => 0,
+                        'admin_create' => 0
+                    ));
+                $users = $this->User->find('all');
+                
+                foreach($users as $user) {
+                   
+                    $oldArray = unserialize($user['User']['permissions']);
+                    if(isset($oldArray['time_entries'])) {
+                    $addArray['timeEntries'] = $oldArray['time_entries'];
+                    unset($oldArray['time_entries']);
+                    }
+                    else
+                    {
+                        $addArray['timeEntries'] = array(
+                    'admin_approve' => 0,
+                        'admin_index' => 0
+                );
+                    }
+                    $oldArray['schedule']['admin_viewServiceAreas'] = 0;
+                    $newArray = $oldArray + $addArray;
+                    $this->User->id = $user['User']['id'];
+                    $this->User->saveField('permissions', serialize($newArray));
+                     
+                }
+                
+                exit("Done");
+            }
+            exit("NICE TRY HAUS");
+        }
         function admin_sendWelcomeEmail($id = null)
         {
             if(isset($id))
@@ -317,6 +363,7 @@ class UsersController extends AppController {
             }
             else
             {
+                set_time_limit(0);
                 App::uses('CakeEmail', 'Network/Email');
                 
                 $users = $this->User->find('all', array('conditions' => array(
@@ -330,7 +377,7 @@ class UsersController extends AppController {
                
                 $count = sizeof($users);
                 foreach($users as $user):
-                            $to = array($user['User']['email']);
+                            $to = array(trim($user['User']['email']));
                             
                             $email = new CakeEmail('smtp');
                             $email->template('welcome', 'default')

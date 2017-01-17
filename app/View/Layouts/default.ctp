@@ -101,7 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			<li style="padding-top: 2px;"><a href="http://ecommunity.c-q-l.org" target="_blank">e-Community</a></li>
 			<li style="padding-top: 2px;"><a href="/contact">Contact Us</a></li>
 			<li style="padding-top: 2px;"><a href="/sitemap">Site Map</a></li>
-			<li style="margin-left: 5px; padding-top: 3px;"><a href="/services/pay-fees" style="font-size: 14px; color: #2d2d2d; background-color: #eaeaea; padding: 3px 8px 3px; font-weight: bold;">Pay Fees</a></li>
+			<li style="margin-left: 5px; padding-top: 3px;"><a href="/payments" style="font-size: 14px; color: #2d2d2d; background-color: #eaeaea; padding: 3px 8px 3px; font-weight: bold;">Pay Fees</a></li>
 			<li style="margin-left: 4px; padding-top: 1px;"><form method="post" action="/content/search"><input style="margin: 0 8px;" id="search" name="data[query]" placeholder="Search..." /></form></li>
 			<li>
 				<a target="_blank" style="padding: 0;" href="http://www.facebook.com/pages/The-Council-on-Quality-and-Leadership/70205137928"><img style="margin-right: 4px;" src="/img/nav/facebook.png" /></a>
@@ -187,6 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    	<?php endforeach; ?>
   	<?php else: ?>
    <main style="margin-top: 124px;">
+           <?php echo $this->Session->flash(); ?>
    	<?php echo $content_for_layout; ?>
    </main>
    <?php endif; ?>

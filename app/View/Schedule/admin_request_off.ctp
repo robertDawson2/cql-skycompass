@@ -6,8 +6,9 @@
 <?php echo $this->Form->input('end_date', array('class' => 'input form-control datepicker', 'div'=>'col-md-2')); ?>
 <?php echo $this->Form->input('type', array('class' => 'input form-control', 'div'=>'col-md-3', 'options' => array(
     'vacation' => 'Vacation',
-    'sick_leave' => 'Sick Leave',
-    'unpaid' => 'Unpaid Personal'
+    'pto' => 'Paid Time Off (PTO)',
+    'unpaid' => 'Unpaid Time Off',
+    'other' => 'Other Unavailable'
 ))); ?>
 <?php echo $this->Form->input('notes', array('class' => 'input form-control', 'div'=>'col-md-5')); ?>
 </div>

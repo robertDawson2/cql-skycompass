@@ -108,13 +108,13 @@
 
             <li><a href="/admin/expenses/viewMyExpenses"><i class="fa fa-list"></i> View My Expenses</a></li>
             <?php } ?>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['time_entries']['admin_approve']): ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['timeEntries']['admin_approve']): ?>
             <li><a href="/admin/timeEntry/approve"><i class="fa fa-clock-o"></i> Approve Employee Time</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['bills']['admin_approve']): ?>
             <li><a href="/admin/expenses/approve"><i class="fa fa-credit-card"></i> Approve Employee Expenses</a></li>
             <?php endif; ?>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['time_entries']['admin_index']): ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['timeEntries']['admin_index']): ?>
             <li><a href="/admin/timeEntry/viewApproved"><i class="fa fa-hourglass-half"></i> Time Log Summary</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['bills']['admin_index']): ?>
@@ -131,17 +131,28 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-              <?php if($currentUser['is_scheduler']): ?>
+              <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['jobs']['admin_scheduler'] === 1)): ?>
             <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
+            <?php endif; ?>
+             <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_alertAllUsers'] === 1)): ?>
             <li><a href="/admin/schedule/alertAllUsers" onclick="return confirm('Are you sure you want to send out scheduling emails?');">
                     <i class="fa fa-envelope"></i> Send Out Schedule Email</a></li>
             <?php endif; ?>
             <li><a href="/admin/schedule/requestOff"><i class="fa fa-circle-o"></i> Request Time Off</a></li>
             <li><a href="/admin/schedule/mySchedule"><i class="fa fa-circle-o"></i> View Schedule</a></li>
             <li><a href="/admin/schedule/approveMySchedule"><i class="fa fa-circle-o"></i> Approve/Deny Schedule</a></li>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_approveTimeOff']): ?>
             <li><a href="/admin/schedule/approveTimeOff"><i class="fa fa-circle-o"></i> Approve/Deny Time Off</a></li>
+            <?php endif; ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['taskListTemplates']['admin_index']): ?>
             <li><a href="/admin/taskListTemplates"><i class="fa fa-circle-o"></i> View Task List Templates</a></li>
+            <?php endif; ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['taskListTemplates']['admin_create']): ?>
             <li><a href="/admin/taskListTemplates/create"><i class="fa fa-circle-o"></i> Add Task List Template</a></li>
+            <?php endif; ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_viewServiceAreas']): ?>
+            <li><a href="/admin/schedule/viewServiceAreas"><i class="fa fa-circle-o"></i> Manage Service Areas</a></li>
+            <?php endif; ?>
           </ul>
         </li>
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['config']['admin_index']): ?>

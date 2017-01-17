@@ -12,12 +12,40 @@
     class ScheduleController extends AppController {
 
     	public $name = 'Schedule';
-        public $uses = array('User', 'ScheduleEntry');
+        public $uses = array('User', 'ScheduleEntry', 'ServiceArea');
         
         
         public function beforeFilter() {
             parent::beforeFilter();
             $this->Auth->allow('mySchedule', 'autoApprove');
+        }
+        
+        public function admin_addServiceArea()
+        {
+            if(!empty($this->request->data))
+            {
+                $this->ServiceArea->create();
+                $this->ServiceArea->save($this->request->data);
+                $this->Session->setFlash("New service area saved!", 'flash_success');
+                $this->redirect("/admin/schedule/viewServiceAreas");
+            }
+            
+            
+        }
+        public function admin_removeServiceArea($id)
+        {
+            $this->ServiceArea->delete($id);
+            $this->Session->setFlash("Service area has been successfully removed", 'flash_success');
+            $this->redirect("/admin/schedule/viewServiceAreas");
+        }
+        public function admin_viewServiceAreas()
+        {
+            $this->set('serviceAreas', $this->ServiceArea->find('threaded'));
+            $possibleParents = $this->ServiceArea->find('list', array('conditions' => array(
+                'parent_id is NULL'
+            ),
+                'fields' => array('id','name')));
+            $this->set('possibleParents', $possibleParents);
         }
         
         public function beforeRender() {
@@ -157,8 +185,15 @@ exit;
                     
             }
         }
+        function admin_cancelTORequest($id)
+        {
+        $this->ScheduleEntry->delete($id);
+        $this->Session->setFlash('Your request has been removed.', 'flash_success');
+        $this->redirect($this->referer('/admin/schedule/mySchedule'));
         
-        function admin_mySchedule()
+        }
+        
+        function admin_mySchedule($full = "")
         {
              $this->set('setColors', [
         "training" => 'pink',
@@ -166,7 +201,9 @@ exit;
         "accreditation"=> 'lightgreen',
         "other" => 'lightgray',
                  "timeoff" => 'tan',
-                 'unapproved' => 'red'
+                 'unapproved' => 'red',
+                 'pending' => 'black',
+                 'employees' => 'darkblue'
     ]);
              $this->User->unbindModel(array('hasMany' => array(
                  'Notification', 'ScheduleEntry', 'TimeEntry'
@@ -176,6 +213,25 @@ exit;
                  'conditions' => array('ScheduleEntry.user_id' => $this->Auth->user('id'))));
             
              $this->set('schedule', $schedule);
+             
+             if(!empty($full)) {
+             $schedule =  $this->ScheduleEntry->find('all', array(
+                 'recursive' => 3,
+                 'conditions' => array(
+                     'ScheduleEntry.start_date >=' => date('Y-m-d H:i:s', strtotime('-1 month')),
+                     'ScheduleEntry.type' => 'scheduling',
+                 //   'ScheduleEntry.approved' => '1',
+                     'NOT' => array(
+                     'ScheduleEntry.user_id' => $this->Auth->user('id'))
+                     )));
+             
+             $this->set('fullSchedule', $schedule);
+             $full = true;
+             }
+             else
+                 $full = false;
+             
+             $this->set('full', $full);
              
         }
         

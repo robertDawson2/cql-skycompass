@@ -93,16 +93,27 @@
 				<?php echo $this->Form->input('User.permissions.users.admin_timeEntries', array('type' => 'checkbox', 'label' => 'View Employee Time Entries')); ?>
 				<?php echo $this->Form->input('User.permissions.users.admin_add', array('type' => 'checkbox', 'label' => 'Create New')); ?>
 				<?php echo $this->Form->input('User.permissions.users.admin_delete', array('type' => 'checkbox', 'label' => 'Delete')); ?>
-				<?php echo $this->Form->input('User.permissions.time_entries.admin_approve', array('type' => 'checkbox', 'label' => 'Approve Time Entries')); ?>
+				<?php echo $this->Form->input('User.permissions.timeEntries.admin_approve', array('type' => 'checkbox', 'label' => 'Approve Time Entries')); ?>
 				<?php echo $this->Form->input('User.permissions.bills.admin_approve', array('type' => 'checkbox', 'label' => 'Approve Expenses')); ?>
 				
 				<?php echo $this->Form->input('User.permissions.users.admin_delete', array('type' => 'checkbox', 'label' => 'Delete')); ?>
 				</div>
 			</div>
+                         <div class="col-md-6 panel panel-info">
+                            <div class="panel-heading">Scheduling</div>
+                            <div class="panel-body">
+				<?php echo $this->Form->input('User.permissions.jobs.admin_scheduler', array('type' => 'checkbox', 'label' => 'View Scheduler Pagex')); ?>
+				<?php echo $this->Form->input('User.permissions.schedule.admin_alertAllUsers', array('type' => 'checkbox', 'label' => 'Send Schedule Mass Email')); ?>
+				<?php echo $this->Form->input('User.permissions.schedule.admin_approveTimeOff', array('type' => 'checkbox', 'label' => 'Approve/Deny Time Off Requests')); ?>
+				<?php echo $this->Form->input('User.permissions.taskListTemplates.admin_index', array('type' => 'checkbox', 'label' => 'Edit Task List Templates')); ?>
+				<?php echo $this->Form->input('User.permissions.taskListTemplates.admin_create', array('type' => 'checkbox', 'label' => 'Create New Task List Templates')); ?>
+                                <?php echo $this->Form->input('User.permissions.schedule.admin_viewServiceAreas', array('type' => 'checkbox', 'label' => 'Manage Service Areas')); ?>
+				</div>
+			</div>
                     <div class="col-md-6 panel panel-info">
                             <div class="panel-heading">Other</div>
                             <div class="panel-body">
-				<?php echo $this->Form->input('User.permissions.time_entries.admin_index', array('type' => 'checkbox', 'label' => 'View All Time Entries')); ?>
+				<?php echo $this->Form->input('User.permissions.timeEntries.admin_index', array('type' => 'checkbox', 'label' => 'View All Time Entries')); ?>
 				<?php echo $this->Form->input('User.permissions.bills.admin_index', array('type' => 'checkbox', 'label' => 'View All Expenses')); ?>
 				<?php echo $this->Form->input('User.permissions.users.resetPassword', array('type' => 'checkbox', 'label' => 'Reset Employee Passwords')); ?>
 				<?php echo $this->Form->input('User.permissions.users.setPermissions', array('type' => 'checkbox', 'label' => 'Set User Permissions/Types')); ?>

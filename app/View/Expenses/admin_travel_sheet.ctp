@@ -1047,7 +1047,7 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             $value = $(this).val();
             if($(this).data('required') === 'required')
             {
-                alert($value);
+                
                 if($value === "" || ($(this).attr('type') == 'checkbox' && !$(this).is(":checked")))
                 {
                     $(this).closest('.form-group').addClass('has-error');

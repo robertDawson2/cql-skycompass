@@ -357,14 +357,19 @@ ORDER BY vendor_id ASC , customer_id ASC , txn_date ASC ');
             $this->layout = "ajax";
             if(!empty($_FILES))
             {
-                pr($_FILES);
+               // pr($_FILES);
                 foreach($_FILES['files']['name'] as $i =>  $filename)
                 {
                     $target_dir = WWW_ROOT . "files/uploads/";
                 $imageFileType = pathinfo($filename,PATHINFO_EXTENSION);
 
+                   
 $uploadOk = 1;
 
+// check file type
+if($imageFileType != "pdf" && $imageFileType != "jpg" && 
+        $imageFileType != "gif" && $imageFileType != "png" && $imageFileType != "jpeg")
+    $uploadOk = 0;
 
     // Check if file already exists
 if (file_exists($filename)) {
@@ -997,8 +1002,17 @@ if($uploadOk) {
                 $target_dir = WWW_ROOT . "files/uploads/";
                 $imageFileType = pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION);
 $target_file = sha1($newRecord['Image']['image']['name'] . time()) . "." . $imageFileType ;
-
+   
 $uploadOk = 1;
+
+// check file type
+if($imageFileType != "pdf" && $imageFileType != "jpg" && 
+        $imageFileType != "gif" && $imageFileType != "png" && $imageFileType != "jpeg")
+{
+    $uploadOk = 0;
+ $this->data = $newRecord;
+    $this->Session->setFlash('File type not allowed.', 'flash_error');   
+}
 
 
     // Check if file already exists
@@ -1096,6 +1110,14 @@ $target_file = sha1($newRecord['Image']['image']['name'] . time()) . "." . $imag
 
 $uploadOk = 1;
 
+// check file type
+if($imageFileType != "pdf" && $imageFileType != "jpg" && 
+        $imageFileType != "gif" && $imageFileType != "png" && $imageFileType != "jpeg")
+{
+    $uploadOk = 0;
+ $this->data = $newRecord;
+    $this->Session->setFlash('File type not allowed.', 'flash_error');   
+}
 
     // Check if file already exists
 if (file_exists($target_file)) {

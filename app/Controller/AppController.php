@@ -439,6 +439,7 @@ class AppController extends Controller {
                     
                     
                     $user['pmArray'] = unserialize($user['permissions']);
+                   // pr($user['pmArray']); exit();
                     $this->set('currentUser', $user);
                    
                     
@@ -481,8 +482,10 @@ class AppController extends Controller {
                     
                 }
                 
+              
                 if(isset($this->user['pmArray'][$this->request['controller']][$this->request['action']]) && !$this->user['pmArray'][$this->request['controller']][$this->request['action']])
                 {
+                    
                     $this->Session->setFlash('You are not authorized to view this section', 'flash_warning');
                     $this->redirect('/admin');
                 }

@@ -712,12 +712,22 @@
 				'full_path' => $_POST['currentPath'] . (!empty($_POST['currentPath']) ? '/' : '') . $_FILES['Filedata']['name']
 			));
 			
+                        $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+$detectedType = exif_imagetype($_FILES['Filedata']['tmp_name']);
+$error = !in_array($detectedType, $allowedTypes);
+
+if(!$error) {
 			// Save physical file
             if (move_uploaded_file($_FILES['Filedata']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $this->CmsFile->id . '_' . $_FILES['Filedata']['name'])) {
                 echo $_POST['currentPath'] . (!empty($_POST['currentPath']) ? '/' : '') . $_FILES['Filedata']['name'];
             } else {
                 echo 'Invalid file type.';
             }
+}
+else
+{
+    echo "The file type is not allowed.";
+}
             exit();
         }
 		
@@ -785,6 +795,11 @@
 
         public function admin_addFeature() {
             if ($this->request->is('post')) {
+                        $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+$detectedType = exif_imagetype($_FILES['Filedata']['tmp_name']);
+$error = !in_array($detectedType, $allowedTypes);
+
+if(!$error) {
                 if (move_uploaded_file($this->request->data['Feature']['image']['tmp_name'], WWW_ROOT . 'images/content/features/' . $this->request->data['Feature']['image']['name'])) {
                     $highestFeature = $this->Feature->find('all', array('limit' => 1, 'order' => 'Feature.order_id DESC'));
                     $this->request->data['Feature']['order_id'] = $highestFeature[0]['Feature']['order_id'] + 1;
@@ -798,6 +813,10 @@
                 } else {
                     exit("Error saving file");
                 }
+}
+else {
+    exit("Error saving file");
+}
             }
         }
         public function admin_removeFeature($id) {

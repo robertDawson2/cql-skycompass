@@ -1,4 +1,22 @@
 <?php $this->assign('title', $job['Job']['full_name'] . " Dashboard"); ?>
+<style>
+    .scheduleList p {
+        font-size: 85%;
+        margin: 0;
+        padding: 5px 10px;
+        min-height: 55px;
+    }
+    .scheduleList p i {
+        margin-right: 10px;
+    }
+    .scheduleList p:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+    .scheduleList p:nth-child(odd) {
+        background-color: #efefef;
+    }
+    
+</style>
 <div class="row">
     <div class="col-sm-12">
  
@@ -40,11 +58,14 @@
                     <div class='col-sm-3'>
                         <h4>Job Information</h4>
                         <p>
+                            <?php if($currentUser['is_scheduler'] || $currentUser['web_user_type'] === 'admin') {?>
                             <strong>Total Balance: </strong>$<?= $job['Job']['total_balance']; ?> <br />
                             
-                            <?php if($job['Job']['eng_fee_paid']) { ?><i style='color: green;' class='fa fa-check green'></i> <?php }
+                            <?php $i=1; if($job['Job']['eng_fee_paid']) { $i=0; ?><i style='color: green;' class='fa fa-check green'></i> <?php }
                              else { ?><i style='color: red;' class='fa fa-remove'></i> <?php } ?>
-                            Engagement Fee Paid?<br />
+                             Engagement Fee Paid? <br /><a href='/admin/jobs/changeEngagementFee/<?= $job['Job']['id'] . "/" . $i; ?>' class='btn btn-sm btn-success'>
+                                 <i class='fa fa-edit'></i> Mark <?= $i === 1 ? "Paid" : "Unpaid"; ?></a><br />
+                                 <?php } ?>
                             # People Served: <?= $job['Job']['people_served_count']; ?><br />
                             Team Leader Count: <?= $job['Job']['team_leader_count']; ?><br />
                             Employee Count: <?= $job['Job']['employee_count']; ?><br />
@@ -53,13 +74,32 @@
                              else { ?><i style='color: red;' class='fa fa-remove red'></i> <?php } ?>
                             Scheduled?<br />
                             <?php if(!empty($job['ScheduleEntry'])) { ?>
-                            <small><em><?= $job['Job']['start_date']; ?> - <?= $job['Job']['end_date']; ?></em><small><?php } ?>
+                            <small><em><?= $job['Job']['start_date']; ?> - <?= $job['Job']['end_date']; ?></em></small><?php } ?>
                         </p>
                     </div>
+                    <?php if(!empty($job['ScheduleEntry'])): ?>
+                    <div class='col-sm-3 scheduleList'>
+                        <h4>Scheduled Employees</h4>
+                        
+                            <?php foreach($job['ScheduleEntry'] as $entry): ?>
+                            <p>
+                                <strong><?= $entry['User']['first_name'] . " " . $entry['User']['last_name']; ?></strong>,
+                                <em><?= ucwords(str_replace("_", " ", $entry['position'])); ?></em><br />
+                                <?= !empty($entry['User']['phone']) ? "<i class='fa fa-phone'></i> " . $entry['User']['phone'] . "<br />" : ""; ?>
+                                <?= !empty($entry['User']['email']) ? "<a href='mailto:". $entry['User']['email'] . "'><i class='fa fa-envelope'></i></a> " . $entry['User']['email'] . "<br />" : ""; ?>
+                            </p>
+                            <?php endforeach; ?>
+                        
+                    </div>
+                    <?php endif; ?>
                     <div class='col-sm-3'>
                         <h4>Notes</h4>
                         <p>
+                            <?php if(!empty($job['Job']['notes'])): ?>
                             <?= $job['Job']['notes']; ?>
+                            <?php else: ?>
+                            <em>No notes listed for this job.</em>
+                            <?php endif; ?>
                         </p>
                     </div>
                 </div>
@@ -132,8 +172,7 @@
         if($entry['approved'] !== "0" && ($entry['user_id'] == $currentUser['id'] || $isScheduler)): 
         
         
-        if($count > 0 && $count%3 == 0)
-            echo "</div><div class='row'>"; 
+        
         $count++;?>
     <div class="col-sm-4">
 <!-- JOBS -->
@@ -195,6 +234,7 @@
                 <h4>Progress: </h4>
                 <div class='progress progress-sm active' title='<?= $percentage; ?>% Completed'>
                 <?= $bar; ?>
+                </div>
                     <?php else:  ?>
                             <p><em>
                         No Task List Assigned!!! Contact an administrator.
@@ -206,7 +246,7 @@
             </div>
             <!-- /.box-body -->
           </div>
-    </div>
+
     <?php endif; endforeach; ?>
 
 <?php else: ?>
@@ -216,7 +256,8 @@
         </p>
     </div>
   <?php  endif; ?>
-
+</div>
+<div class='row'>
     <div class='col-sm-6'>
    <?= $this->element('quick_email'); ?>
     </div>
