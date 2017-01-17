@@ -59,7 +59,7 @@
 			table_advtab: true,
 			table_cell_advtab: true,
 			table_row_advtab: true,
-			file_browser_callback: RoxyFileBrowser,
+			//file_browser_callback: RoxyFileBrowser,
 			<?php if ($this->request->params['controller'] == 'content' && $this->request->params['action'] == 'admin_edit'): ?>
     		save_enablewhendirty: false,
 			save_onsavecallback: function() {
@@ -116,27 +116,7 @@
 			fontsize_formats : "10px 12px 13px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px"
 		};
 
-		function RoxyFileBrowser(field_name, url, type, win) {
-		  var roxyFileman = '/_/plugins/fileman/index.html';
-		  if (roxyFileman.indexOf("?") < 0) {     
-		    roxyFileman += "?type=" + type;   
-		  }
-		  else {
-		    roxyFileman += "&type=" + type;
-		  }
-		  roxyFileman += '&input=' + field_name + '&value=' + document.getElementById(field_name).value;
-		  tinyMCE.activeEditor.windowManager.open({
-		     file: roxyFileman,
-		     title: 'File Mananger',
-		     width: 850, 
-		     height: 650,
-		     resizable: "yes",
-		     plugins: "media",
-		     inline: "yes",
-		     close_previous: "no"  
-		  }, {     window: win,     input: field_name    });
-		  return false; 
-		}
+		
 	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -691,9 +671,7 @@ height = height - 50; // iframe height will need to be even less to account for 
         z-index: 99999 !important;
     }
     </style>
-<div id="galleryManagerCustomPanel" style="display: none;" title="Galleries">
-	<iframe src="/_/plugins/fileman/index.html?integration=custom" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
-</div>
+
 
 
 </body>
