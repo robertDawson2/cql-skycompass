@@ -361,7 +361,7 @@ ORDER BY vendor_id ASC , customer_id ASC , txn_date ASC ');
                 foreach($_FILES['files']['name'] as $i =>  $filename)
                 {
                     $target_dir = WWW_ROOT . "files/uploads/";
-                $imageFileType = pathinfo($filename,PATHINFO_EXTENSION);
+                $imageFileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
 
                    
 $uploadOk = 1;
@@ -406,7 +406,7 @@ if($uploadOk) {
             $target_dir = $path . $filename;
             $fileparts = pathinfo($target_dir);
 		$image = null;
-		switch($fileparts['extension'])
+		switch(strtolower($fileparts['extension']))
 		{
 			case "jpg":
 			$image = imagecreatefromjpeg($target_dir);
@@ -1000,7 +1000,7 @@ if($uploadOk) {
                        
                 // upload the image - fail if it does not upload
                 $target_dir = WWW_ROOT . "files/uploads/";
-                $imageFileType = pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION);
+                $imageFileType = strtolower(pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION));
 $target_file = sha1($newRecord['Image']['image']['name'] . time()) . "." . $imageFileType ;
    
 $uploadOk = 1;
@@ -1031,6 +1031,7 @@ if($uploadOk) {
             $newRecord['BillItem']['image'] = "";
         else
             $newRecord['BillItem']['image'] = $target_file;
+        
         
         $this->_shrinkReceipt($target_file, $target_dir);
         
@@ -1105,7 +1106,7 @@ if($uploadOk) {
                 
                 // upload the image - fail if it does not upload
                 $target_dir = WWW_ROOT . "files/uploads/";
-                $imageFileType = pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION);
+                $imageFileType = strtolower(pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION));
 $target_file = sha1($newRecord['Image']['image']['name'] . time()) . "." . $imageFileType ;
 
 $uploadOk = 1;

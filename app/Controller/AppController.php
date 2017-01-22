@@ -555,7 +555,8 @@ class AppController extends Controller {
             
             foreach($arr as $i => $a)
             {
-                $arr[$i] = $usersToVendors[$a];
+                if(isset($arr[$i]))
+                    $arr[$i] = $usersToVendors[$a];
             }
             return $arr;
         }
@@ -564,7 +565,6 @@ class AppController extends Controller {
             
             $this->Notification->deleteAll(array(
                             'Notification.user_id'=> array($compareId),
- 
                             'Notification.context' => 'Admin_ExpenseApprove'
             ));
             

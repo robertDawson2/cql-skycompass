@@ -8,8 +8,9 @@
         <?php if(isset($currentUser['pmArray']['users']['setPermissions']) && $currentUser['pmArray']['users']['setPermissions']): ?>
 	<li><a href="#web-permissions" data-toggle="tab">Web Content Permissions</a></li>
         <li><a href="#skycompass-permissions" data-toggle="tab">SkyCompass Permissions</a></li>
-        <li><a href="#abilities" data-toggle="tab">Scheduling</a></li>
         <?php endif; ?>
+        <li><a href="#abilities" data-toggle="tab">Scheduling</a></li>
+        
 </ul>
 
  
@@ -146,7 +147,7 @@
                     </div>
                 </div>
     </div>
-    
+    <?php endif; ?>
     <div class="tab-pane" id="abilities">
         <h4>Abilities</h4>
         <div class="row">
@@ -183,7 +184,7 @@
             
 	</div>
 </div>
-<?php endif; ?>
+
 <?php echo $this->Form->hidden('User.id'); ?>
     
 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>

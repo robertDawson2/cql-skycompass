@@ -16,7 +16,11 @@
               
                   <div class="form-group">
                       <span style="font-weight: bold; padding-right: 25px;">From: </span>
+                      <?php if($currentUser['is_scheduler'] || $currentUser['web_user_type'] == 'admin'): ?>
                       <input name="from" value='company' checked type="radio" /> <span style="padding-right: 25px;">CQL &nbsp;</span>
+                      <input name="from" value='accreditation' checked type="radio" /> <span style="padding-right: 25px;">Accreditation &nbsp;</span>
+                      <input name="from" value='training' checked type="radio" /> <span style="padding-right: 25px;">Training &nbsp;</span>
+                      <?php endif; ?>
                       <input name="from" value='me' type="radio" /> Me &nbsp;
                 </div>
                 <div class="form-group">

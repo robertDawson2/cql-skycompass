@@ -252,6 +252,10 @@ class UsersController extends AppController {
                 $from = null;
                 if($this->request->data['from'] == "company")
                     $from = 'noreply@c-q-l.org';
+                elseif($this->request->data['from'] == "accreditation")
+                    $from = 'accreditation@c-q-l.org';
+                elseif($this->request->data['from'] == "training")
+                    $from = 'training@c-q-l.org';
                 else
                     $from = $this->Auth->user('email');
                 
@@ -304,19 +308,12 @@ class UsersController extends AppController {
                 foreach($users as $user) {
                    
                     $oldArray = unserialize($user['User']['permissions']);
-                    if(isset($oldArray['time_entries'])) {
-                    $addArray['timeEntries'] = $oldArray['time_entries'];
-                    unset($oldArray['time_entries']);
-                    }
-                    else
-                    {
-                        $addArray['timeEntries'] = array(
-                    'admin_approve' => 0,
-                        'admin_index' => 0
-                );
-                    }
+                    
                     $oldArray['schedule']['admin_viewServiceAreas'] = 0;
-                    $newArray = $oldArray + $addArray;
+                    $oldArray['schedule']['admin_approveTimeOff'] = 0;
+                    $oldArray['schedule']['admin_alertAllUsers'] = 0;
+                    $oldArray['jobs']['admin_scheduler'] = 0;
+                    $newArray = $oldArray;
                     $this->User->id = $user['User']['id'];
                     $this->User->saveField('permissions', serialize($newArray));
                      
@@ -655,10 +652,21 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->request->data['User'] = $this->request->data['Login'];
 			if ($this->Auth->login()) {
-				$this->User->id = $this->Auth->user('id');
+                                if($this->Auth->user('is_active') == "true")
+                                {
+                                   $this->User->id = $this->Auth->user('id');
 				$this->User->saveField('last_login', date('Y-m-d H:i:s'));
 				$this->User->saveField('last_login_ip', $_SERVER['REMOTE_ADDR']);
-				return $this->redirect('/admin');
+				return $this->redirect('/admin'); 
+                                }
+                                else
+                                {
+                                    $this->Auth->logout();
+                                $this->set('failedLogin', true);
+				$this->request->data['Login']['password'] = '';
+				$this->request->data['User'] = array();
+                                }
+				
 			} else {
 				$this->set('failedLogin', true);
 				$this->request->data['Login']['password'] = '';

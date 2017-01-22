@@ -243,8 +243,9 @@
         	$db = $this->Content->getDataSource();
         	// Prepared statement to handle sanitization and prevent SQL injection
         	if (isset($this->request->data['section'])) {
+                    
 	        	$this->set('results', $db->fetchAll(
-	    			"SELECT id, title, tag, content, MATCH (title,content) AGAINST (?) AS score FROM content WHERE MATCH (title,content) AGAINST (?) and hide_from_search = 0 and status = ? and tag like ?",
+	    			"SELECT id, title, tag, content, MATCH (title,content) AGAINST ('?' IN BOOLEAN MODE) AS score FROM content WHERE MATCH (title,content) AGAINST ('?' IN BOOLEAN MODE) and hide_from_search = 0 and status = ? and tag like ?",
 	    			array($this->request->data['query'], $this->request->data['query'], 'live', $this->request->data['section'] . '%')
 				));
 				$this->set('searchSection', $this->request->data['section']);
@@ -256,12 +257,15 @@
 				$this->set('sidebar', $this->Content->find('threaded', array('conditions' => array('Content.status' => 'live', 'Content.hide_from_sidebar' => false, 'Content.lft >' => $parent['Content']['lft'], 'Content.rght <' => $parent['Content']['rght']), 'order' => 'Content.order_id ASC, Content.name ASC', 'fields' => array('Content.id', 'Content.parent_id', 'Content.tag', 'Content.name', 'Content.title', 'Content.sidebar_title', 'Content.slidedown', 'Content.link'))));
 				$this->set('lineage', $this->_generateLineage($content));
 	        } else {
-	        	$this->set('results', $db->fetchAll(
-    				"SELECT id, title, tag, content, MATCH (title,content) AGAINST (?) AS score FROM content WHERE MATCH (title,content) AGAINST (?) and hide_from_search = 0 and status = ?",
-    				array($this->request->data['query'], $this->request->data['query'], 'live')
+                    
+	        	$this->set('results', $this->Content->query(
+    				"SELECT id, title, tag, content, MATCH (title,content) AGAINST (\"".$this->request->data['query']."\" IN BOOLEAN MODE) AS score FROM content WHERE MATCH (title,content) AGAINST (\"". $this->request->data['query'] . "\" IN BOOLEAN MODE) and hide_from_search = 0 and status = \"live\" HAVING score > 0.5 ORDER BY score DESC"
+    				
 				));
 	        }
-			$this->set('query', $this->request->data['query']);
+//                $log = $db->getLog(false, false);       
+//debug($log); exit();
+			$this->set('query',$this->request->data['query']);
         }
 
         private function _listParents($parentId = null, $depth = 0) {

@@ -10,19 +10,20 @@
             <i class="fa fa-globe"></i> <span>Webpage Management</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
+                   
           <ul class="treeview-menu">
             <li><a href="/admin/content"><i class="fa fa-edit"></i> View/Edit Content</a></li>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['home_page_features'] === 1): ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['home_page_features'] == 1): ?>
             <li><a href="/admin/features"><i class="fa fa-star"></i> View/Edit Features</a></li>
             <?php endif; ?>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['events'] === 1): ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['events'] == 1): ?>
             <li><a href="/admin/events"><i class="fa fa-calendar"></i> View/Edit Events</a></li>
             <?php endif; ?>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['news'] === 1): ?>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['news'] == 1): ?>
             <li><a href="/admin/news"><i class="fa fa-microphone"></i> View/Edit News</a></li>
             <?php endif; ?>
-            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['galleries'] === 1): ?>
-            <li><a href="#" id="galleryManager"><i class="fa fa-image"></i> View/Edit Galleries</a></li>
+            <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['galleries'] == 1): ?>
+            <li><a href="/adminPanel/plugins/filemanager/dialog.php?type=0&editor=mce_0" class="ls-modal"><i class="fa fa-image"></i> View/Edit Galleries</a></li>
             <?php endif; ?>
           </ul>
         </li>

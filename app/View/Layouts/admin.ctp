@@ -49,7 +49,7 @@
 			plugins: [
 				"advlist autolink lists link image charmap print preview anchor textcolor",
 				"searchreplace visualblocks code fullscreen",
-				"insertdatetime media table contextmenu paste colorpicker save"
+				"insertdatetime media table contextmenu paste colorpicker responsivefilemanager save"
 			],
 			toolbar: "<?php if ($this->request->params['controller'] == 'content' && $this->request->params['action'] == 'admin_edit'): ?>save | <?php endif; ?>undo redo | formatselect | fontselect | fontsizeselect | forecolor backcolor | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link image media",
 			relative_urls : false,
@@ -60,6 +60,9 @@
 			table_cell_advtab: true,
 			table_row_advtab: true,
 			//file_browser_callback: RoxyFileBrowser,
+                external_filemanager_path:"/adminPanel/plugins/filemanager/",
+   filemanager_title:"Your Site " ,
+   external_plugins: { "filemanager" : "/adminPanel/plugins/filemanager/plugin.min.js"},
 			<?php if ($this->request->params['controller'] == 'content' && $this->request->params['action'] == 'admin_edit'): ?>
     		save_enablewhendirty: false,
 			save_onsavecallback: function() {
@@ -663,7 +666,12 @@ height = height - 50; // iframe height will need to be even less to account for 
                 });
             });
        
-    
+    $('.ls-modal').fancybox({
+			  'width'	: '90%',
+			  'height'	: '90%',
+			  'type'	: 'iframe',
+			  'autoScale'   : false
+      });
     </script>
 
 <style>

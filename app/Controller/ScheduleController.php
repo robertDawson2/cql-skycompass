@@ -170,12 +170,14 @@ exit;
                 $this->request->data['ScheduleEntry'] = $this->request->data['Schedule'];
                 $this->request->data['ScheduleEntry']['user_id'] = $employeeId;
                 unset($this->request->data['Schedule']);
-              
+                  
+                $user = $this->User->findById($this->Auth->user('id'));
+             
                 if($this->ScheduleEntry->save($this->request->data))
                 {
                     unset($this->request->data['User']);
-                    foreach(explode("|", $this->config['schedulerIds']) as $scheduler)
-                        $this->Notification->queueNotification($scheduler, 'Admin_RequestOff', '/admin/schedule/approveTimeOff', 'Requested Time Off', '%i new requests for time off need approval');
+                    foreach($user['ApprovalManager'] as $scheduler)
+                        $this->Notification->queueNotification($scheduler['manager_id'], 'Admin_RequestOff', '/admin/schedule/approveTimeOff', 'Requested Time Off', '%i new requests for time off need approval');
                     
                     $this->Session->setFlash('Your request has been submitted for approval!', 'flash_success');
                 }
@@ -215,6 +217,15 @@ exit;
              $this->set('schedule', $schedule);
              
              if(!empty($full)) {
+                 $this->loadModel('Customer');
+                 $this->Customer->unbindModel(array('hasMany'=>array('Job')));
+                 $this->loadModel('Job');
+                 $this->Job->unbindModel(array(
+                     'hasMany'=>array('ScheduleEntry')));
+                 $this->loadModel('User');
+                 $this->User->unbindModel(array(
+                     'hasMany'=>array('ScheduleEntry','TimeEntry','Notification','Ability'),'belongsTo'=>array('Vendor')));
+
              $schedule =  $this->ScheduleEntry->find('all', array(
                  'recursive' => 3,
                  'conditions' => array(
@@ -224,7 +235,7 @@ exit;
                      'NOT' => array(
                      'ScheduleEntry.user_id' => $this->Auth->user('id'))
                      )));
-             
+             //pr($schedule); exit();
              $this->set('fullSchedule', $schedule);
              $full = true;
              }
@@ -313,12 +324,27 @@ exit;
                     
             }
             
+            $this->User->unbindModel(array('hasMany' => array('TimeEntry', 'ScheduleEntry')));
             $entries = $this->ScheduleEntry->find('all', array('conditions' => array(
                 'NOT' => array(
                     'ScheduleEntry.type' => 'scheduling'
                 ),
                 'ScheduleEntry.approved' => null
-            )));
+            ), 'recursive' => 2));
+            
+            
+            foreach($entries as $i => $entry)
+            {
+                
+                $allowed = false;
+                foreach($entry['User']['ApprovalManager'] as $manager)
+                    if($manager['manager_id'] == $this->Auth->user('id'))
+                        $allowed = true;
+                    
+                    if(!$allowed)
+                        unset($entries[$i]);
+            }
+            
             $this->set('entries',$entries);
             
             $approved = $this->ScheduleEntry->find('all', array('conditions' => array(
