@@ -56,6 +56,13 @@
             $dest_city = $job['Customer']['bill_city'];
             $dest_state = $job['Customer']['bill_state'];
             
+            // accounts for new specific job address functionality
+            if(!empty($job['Job']['city']) && !empty($job['Job']['state']))
+            {
+                $dest_city = $job['Job']['city'];
+                $dest_state = $job['Job']['state'];
+            }
+            
             
             $origin = array();
             foreach($employees as $user)
@@ -324,8 +331,8 @@
                 {
                     
                      
-                    if(!(strtotime($entry['start_date']) > strtotime($endDate) || 
-                            strtotime($entry['end_date']) < strtotime($startDate)
+                    if(!(strtotime($entry['start_date']) >= strtotime($endDate) || 
+                            strtotime($entry['end_date']) <= strtotime($startDate)
                             ))
                     {
                         // overlap
@@ -703,7 +710,7 @@
                 foreach($user['ScheduleEntry'] as $entry)
                 {
                      
-                    if(!(strtotime($entry['start_date']) > strtotime($end) || 
+                    if(!(strtotime($entry['start_date']) > strtotime($end . " -1 day") || 
                             strtotime($entry['end_date']) < strtotime($start)
                             ))
                     {
@@ -759,17 +766,18 @@
         }
         
         public function admin_scheduler() {
+           
             $this->set('setColors', [
-        "training" => 'pink',
-        "certification"=> 'lightblue',
-        "accreditation"=> 'lightgreen',
-        "other" => 'lightgray'
+        "training" => 'black',
+        "certification"=> 'darkgreen',
+        "accreditation"=> 'saddlebrown',
+        "other" => 'darkslategray'
     ]);
 $this->set('pendingColors', [
-        "training"=> 'purple',
-        "certification" => 'darkblue',
-        "accreditation" => 'darkred',
-        "other" => 'black'
+        "training" => 'blue',
+        "certification"=> 'blueviolet',
+        "accreditation"=> 'brown',
+        "other" => 'cadetblue'
     ]);
             $openJobs = $this->Job->find('all', array('recursive' => 2,  'conditions' => array(
                 'review_start' => null,
@@ -802,6 +810,7 @@ $this->set('pendingColors', [
         public function admin_delete($id)
         {
             $this->Job->delete($id);
+            $this->ScheduleEntry->deleteAll(array('ScheduleEntry.job_id' => $id));
             $this->redirect('/admin/jobs');
         }
         

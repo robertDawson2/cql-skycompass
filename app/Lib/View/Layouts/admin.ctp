@@ -626,7 +626,7 @@
     }
     </style>
 <div id="galleryManagerCustomPanel" style="display: none;" title="Galleries">
-	<iframe src="/_/plugins/fileman/index.html?integration=custom" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
+	<iframe src="/adminPanel/plugins/filemanager/dialog.php?type=0&fldr=" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
 </div>
 
 <?php echo $this->Js->writeBuffer();?>

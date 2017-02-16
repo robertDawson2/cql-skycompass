@@ -308,11 +308,13 @@ class UsersController extends AppController {
                 foreach($users as $user) {
                    
                     $oldArray = unserialize($user['User']['permissions']);
-                    
-                    $oldArray['schedule']['admin_viewServiceAreas'] = 0;
-                    $oldArray['schedule']['admin_approveTimeOff'] = 0;
-                    $oldArray['schedule']['admin_alertAllUsers'] = 0;
-                    $oldArray['jobs']['admin_scheduler'] = 0;
+                    if($user['User']['web_user_type'] == 'admin')
+                        $oldArray['schedule']['admin_scheduleReport'] = 1;
+                        else
+                    $oldArray['schedule']['admin_scheduleReport'] = 0;
+//                    $oldArray['schedule']['admin_approveTimeOff'] = 0;
+//                    $oldArray['schedule']['admin_alertAllUsers'] = 0;
+//                    $oldArray['jobs']['admin_scheduler'] = 0;
                     $newArray = $oldArray;
                     $this->User->id = $user['User']['id'];
                     $this->User->saveField('permissions', serialize($newArray));
@@ -546,7 +548,7 @@ class UsersController extends AppController {
 		// TODO: add security
             $admins = $this->User->find('all', array('conditions' => array('OR' => array(
                 'User.web_user_type' => 'admin',
-                'User.permissions LIKE' => '%s:12:"time_entries";a:2:{s:13:"admin_approve";s:1:"1"%'
+                'User.permissions LIKE' => '%s:11:"timeEntries";a:2:{s:13:"admin_approve";s:1:"1"%'
         )
                 
             ), 'recursive' => -1,
@@ -634,7 +636,11 @@ class UsersController extends AppController {
                 $this->set('upcoming', $this->_getUpcomingScheduleEvents(3));
                 if($userType === 'employee')
                 {
-                    $this->set('jobsProgress', $this->_getOpenJobProgress($this->Auth->user('id')));
+                    if($this->Auth->user('is_scheduler'))
+                        $this->set('jobsProgress', $this->_getOpenJobProgress());
+                    else
+                        $this->set('jobsProgress', $this->_getOpenJobProgress($this->Auth->user('id')));
+                    
                     $this->render('admin_employee_dashboard');
                     
                 }

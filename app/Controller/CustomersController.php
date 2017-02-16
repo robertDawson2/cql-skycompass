@@ -20,6 +20,15 @@
             
         }
         
+        public function ajaxReturnAddress($id) {
+            $this->layout = 'ajax';
+            $cust = $this->Customer->findById($id);
+            if(!empty($cust['Customer']['bill_addr2']))
+                echo json_encode($cust['Customer']);
+            else
+                echo "false";
+            exit();
+        }
         
         public function beforeRender() {
             parent::beforeRender();

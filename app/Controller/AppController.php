@@ -51,7 +51,7 @@ class AppController extends Controller {
         public function _getOpenJobProgress($id = null)
         {
             if($id === null)
-                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10));
+                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10,'order' => 'start_date ASC'));
             else{
                 $this->loadModel('ScheduleEntry');
                 $scheduleEntries = $this->ScheduleEntry->find('list', array(

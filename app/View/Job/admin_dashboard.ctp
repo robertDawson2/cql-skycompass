@@ -38,8 +38,8 @@
                     <div class="col-sm-3">
                         <h4>Address</h4>
                         <p>
-                           <?= $job['Customer']['bill_addr1'] . "<br />" .
-                        $job['Customer']['bill_addr2'] . "<br />" .$job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state'] . " " . $job['Customer']['bill_zip']; ?> 
+                           <?= $job['Job']['addr1'] . "<br />" .
+                        $job['Job']['addr2'] . "<br />" .$job['Job']['city'] . ", " . $job['Job']['state'] . " " . $job['Job']['zip']; ?> 
                         </p>
                     </div>
                     <div class='col-sm-3'>

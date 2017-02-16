@@ -69,7 +69,7 @@
                        
 		</tr>
                <?php }
-               else if ($entry === "1") {
+               else if ($entry['approved'] === "1") {
                    if($entry['type'] !== 'scheduling') { ?>
                 
                 <tr class='approved'>

@@ -23,7 +23,7 @@
             <li><a href="/admin/news"><i class="fa fa-microphone"></i> View/Edit News</a></li>
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['site']['galleries'] == 1): ?>
-            <li><a href="/adminPanel/plugins/filemanager/dialog.php?type=0&editor=mce_0" class="ls-modal"><i class="fa fa-image"></i> View/Edit Galleries</a></li>
+            <li><a href="#" id="galleryManager"><i class="fa fa-image"></i> View/Edit Galleries</a></li>
             <?php endif; ?>
           </ul>
         </li>
@@ -153,6 +153,7 @@
             <?php endif; ?>
             <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_viewServiceAreas']): ?>
             <li><a href="/admin/schedule/viewServiceAreas"><i class="fa fa-circle-o"></i> Manage Service Areas</a></li>
+            <li><a href="/admin/schedule/viewAbilities"><i class="fa fa-circle-o"></i> Manage Abilities</a></li>
             <?php endif; ?>
           </ul>
         </li>
@@ -165,6 +166,19 @@
           <ul class="treeview-menu">
             <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Edit My Profile</a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
+        
+        <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_scheduleReport']): ?>
+        <li class="<?= $section == 'reporting' ? 'active' : ''; ?> treeview">
+          <a href="#">
+            <i class="fa fa-bar-chart-o"></i> <span>Reporting</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/schedule/scheduleReport"><i class="fa fa-circle-o"></i> Approval/Denial Report</a></li>
+            
           </ul>
         </li>
         <?php endif; ?>

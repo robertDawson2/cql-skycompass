@@ -354,7 +354,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!--<script src="/adminPanel/dist/js/pages/dashboard2.js"></script>-->
 <!-- AdminLTE for demo purposes -->
-<!--<script src="/adminPanel/dist/js/demo.js"></script>-->
+<script src="/_/js/modals.js"></script>
 <script src='/plugins/fullcalendar/lib/moment.min.js'></script>
 
 <script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
@@ -439,7 +439,7 @@
         $("#galleryManager").on('click', function(e) {
                         e.preventDefault();
                 
-			$('#galleryManagerCustomPanel').dialog({modal:true, width:800,height:600});
+			$('#galleryManagerCustomPanel').dialog({modal: true, width:1050,height:600});
 			return false;
 		});
                 
@@ -680,6 +680,9 @@ height = height - 50; // iframe height will need to be even less to account for 
     }
     </style>
 
+    <div id="galleryManagerCustomPanel" style="display: none;" title="Galleries">
+	<iframe src="/adminPanel/plugins/filemanager/dialog.php?type=0&relative_url=1&popup=1" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
+</div>
 
 
 </body>

@@ -12,7 +12,8 @@ function closeCustomRoxy2(){
 
 <?php $this->start('jquery-scripts'); ?>
 	$("#bgImageBrowse").on('click', function() {
-		$('#roxyCustomPanel2').dialog({modal:true, width:875,height:600});
+		$('#roxyCustomPanel2').dialog({modal:true, width:1050,height:600});
+                return false;
 	});
 	$("#ContentPhotoGallery").change(function() {
 		if ($(this).val() == '')
@@ -100,6 +101,6 @@ function closeCustomRoxy2(){
 </form>
 
 <div id="roxyCustomPanel2" style="display: none; z-index: 100000;">
-  <iframe src="/_/plugins/fileman/index.html?integration=custom&type=files&txtFieldId=ContentSidebarImage" style="width:100%;height:100%" frameborder="0">
+  <iframe src="/adminPanel/plugins/filemanager/dialog.php?type=1&field_id=ContentSidebarImage" style="width:100%;height:100%" frameborder="0">
   </iframe>
 </div>

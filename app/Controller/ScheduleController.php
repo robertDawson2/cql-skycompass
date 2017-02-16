@@ -12,12 +12,188 @@
     class ScheduleController extends AppController {
 
     	public $name = 'Schedule';
-        public $uses = array('User', 'ScheduleEntry', 'ServiceArea');
+        public $uses = array('User', 'ScheduleEntry', 'ServiceArea', 'Ability');
         
         
         public function beforeFilter() {
             parent::beforeFilter();
             $this->Auth->allow('mySchedule', 'autoApprove');
+        }
+        
+        function admin_scheduleReport() {
+            
+        }
+        
+        function ajax_reportByUser($userId, $start, $end)
+        {
+            $start = date('Y-m-d', strtotime(str_replace("-", "/", $start)));
+            $end = date('Y-m-d', strtotime(str_replace("-", "/", $end)));
+            
+            $data = $this->User->find('first', array('recursive' => 2,  'conditions' => array(
+                'User.id' => $userId
+            )));
+            
+             $return = array('draw' => 1, 'recordsTotal' => sizeof($data['ScheduleEntry']), 'recordsFiltered' => sizeof($data['ScheduleEntry']),
+                'data' => array());
+            foreach($data['ScheduleEntry'] as $i => $entry) {
+                if($entry['type'] !== 'scheduling' || strtotime($entry['start_date']) < strtotime($start) || strtotime($entry['end_date']) > strtotime($end))
+                    unset($data['ScheduleEntry'][$i]);
+                else
+                {
+                    $return['data'][] = array('customer' => $entry['Job']['company_name'], 'job' => $entry['Job']['name'],
+                    'start' => $entry['start_date'], 'end' => $entry['end_date'],
+                        'position' => $entry['position'], 'approved' => $entry['approved'], 'notice' => $entry['denial_message']
+                );
+                }
+            }
+            
+            echo json_encode($return);
+                    exit();
+        }
+        
+        function admin_exportByUser($userId, $start, $end)
+        {
+            $start = date('Y-m-d', strtotime(str_replace("-", "/", $start)));
+            $end = date('Y-m-d', strtotime(str_replace("-", "/", $end)));
+            
+            $data = $this->User->find('first', array('recursive' => 2,  'conditions' => array(
+                'User.id' => $userId
+            )));
+            
+             $return = array('draw' => 1, 'recordsTotal' => sizeof($data['ScheduleEntry']), 'recordsFiltered' => sizeof($data['ScheduleEntry']),
+                'data' => array());
+            foreach($data['ScheduleEntry'] as $i => $entry) {
+                if($entry['type'] !== 'scheduling' || strtotime($entry['start_date']) < strtotime($start) || strtotime($entry['end_date']) > strtotime($end))
+                    unset($data['ScheduleEntry'][$i]);
+                else
+                {
+                    $approved = "Pending";
+                    if($entry['approved'] === "1")
+                        $approved = "Yes";
+                    elseif($entry['approved'] === "0")
+                            $approved = "No";
+                    
+                    $return['data'][] = array('CustomerName' => $entry['Job']['company_name'], 'JobName' => $entry['Job']['name'],
+                    'StartDate' => $entry['start_date'], 'EndDate' => $entry['end_date'],
+                        'Position' => $entry['position'], 'Approved?' => $approved, 'Notice' => $entry['denial_message']
+                );
+                }
+            }
+                      // filename for download
+  $filename = $data['User']['first_name'] ."_" . $data['User']['last_name'] . "_data_" . date('Ymd',strtotime($start)) . "-" . date('Ymd',strtotime($end)) . ".csv";
+
+ // pr($return); exit();
+  header("Content-Disposition: attachment; filename=\"$filename\"");
+  header("Content-Type: text/csv");
+
+  $out = fopen("php://output", 'w');
+
+  $flag = false;
+  foreach($return['data'] as $row) {
+       $stuff = $row;
+    if(!$flag) {
+      // display field/column names as first row
+       
+      fputcsv($out, array_keys($stuff), ',', '"');
+      $flag = true;
+    }
+    
+    fputcsv($out, array_values($stuff), ',', '"');
+  }
+
+  fclose($out);
+         exit();  
+        }
+        
+        function admin_exportByCompany($start, $end)
+        {
+            $start = date('Y-m-d', strtotime(str_replace("-", "/", $start)));
+            $end = date('Y-m-d', strtotime(str_replace("-", "/", $end)));
+
+            $data = $this->ScheduleEntry->find('all', array(
+                'conditions' => array(
+                    'ScheduleEntry.start_date >=' => $start,
+                    'ScheduleEntry.end_date <=' => $end,
+                    'ScheduleEntry.type' => 'scheduling',
+//                    'NOT' => array(
+//                        'ScheduleEntry.approved is NULL'
+//                    )
+                ),
+                'group' => array('User.id'),
+                
+                'fields' => array(
+                    'User.id as UserId',
+                    'User.first_name as FirstName',
+                    'User.last_name as LastName',
+                    'SUM(case when ScheduleEntry.approved = "0" then 1 else 0 end) Denied',
+                    'SUM(case when ScheduleEntry.approved = "1" then 1 else 0 end) Approved',
+                    'SUM(case when ScheduleEntry.approved is null then 1 else 0 end) Pending'
+                )
+            ));
+            
+            
+            
+            // filename for download
+  $filename = "reporting_data_" . date('Ymd',strtotime($start)) . "-" . date('Ymd',strtotime($end)) . ".csv";
+
+  header("Content-Disposition: attachment; filename=\"$filename\"");
+  header("Content-Type: text/csv");
+
+  $out = fopen("php://output", 'w');
+
+  $flag = false;
+  foreach($data as $row) {
+    if(!$flag) {
+      // display field/column names as first row
+        $stuff = array_merge($row['User'], $row[0]);
+      fputcsv($out, array_keys($stuff), ',', '"');
+      $flag = true;
+    }
+    $stuff = array_merge($row['User'], $row[0]);
+
+    fputcsv($out, array_values($stuff), ',', '"');
+  }
+
+  fclose($out);
+         exit();   
+        }
+        
+        function ajax_reportByCompany($start, $end) {
+            $start = date('Y-m-d', strtotime(str_replace("-", "/", $start)));
+            $end = date('Y-m-d', strtotime(str_replace("-", "/", $end)));
+
+            $data = $this->ScheduleEntry->find('all', array(
+                'conditions' => array(
+                    'ScheduleEntry.start_date >=' => $start,
+                    'ScheduleEntry.end_date <=' => $end,
+                    'ScheduleEntry.type' => 'scheduling',
+//                    'NOT' => array(
+//                        'ScheduleEntry.approved is NULL'
+//                    )
+                ),
+                'group' => array('User.id'),
+                
+                'fields' => array(
+                    'User.id',
+                    'User.first_name',
+                    'User.last_name',
+                    'SUM(case when ScheduleEntry.approved = "0" then 1 else 0 end) numDenied',
+                    'SUM(case when ScheduleEntry.approved = "1" then 1 else 0 end) numApproved',
+                    'SUM(case when ScheduleEntry.approved is null then 1 else 0 end) numPending'
+                )
+            ));
+            $return = array('draw' => 1, 'recordsTotal' => sizeof($data), 'recordsFiltered' => sizeof($data),
+                'data' => array());
+            
+            foreach($data as $emp)
+            $return['data'][] = array('first' => $emp['User']['first_name'], 'last' => $emp['User']['last_name'],
+                    'approvals' => $emp[0]['numApproved'], 'denials' => $emp[0]['numDenied'], 'pending' => $emp[0]['numPending'],
+                    'options' => '<a onclick="viewEmployeeDetails(this);" data-id="' . $emp['User']['id'] . '" class="btn btn-info" href="#"><i class="fa fa-info-circle"></i> Details</a>'
+                );
+                       
+                    
+                    echo json_encode($return);
+                    exit();
         }
         
         public function admin_addServiceArea()
@@ -47,10 +223,38 @@
                 'fields' => array('id','name')));
             $this->set('possibleParents', $possibleParents);
         }
-        
+        public function admin_viewAbilities()
+        {
+            $this->set('serviceAreas', $this->Ability->find('all'));
+        }
+         public function admin_addAbility()
+        {
+            if(!empty($this->request->data))
+            {
+                $this->Ability->create();
+              //  pr($this->request->data);
+                
+                if($this->Ability->save($this->request->data))
+                    $this->Session->setFlash("New ability saved!", 'flash_success');
+                else
+                    $this->Session->setFlash("Error Occurred.", 'flash_error');
+                $this->redirect("/admin/schedule/viewAbilities");
+            }
+            
+            
+        }
+        public function admin_removeAbility($id)
+        {
+            $this->Ability->delete($id);
+            $this->Session->setFlash("Ability has been successfully removed", 'flash_success');
+            $this->redirect("/admin/schedule/viewAbilities");
+        }
         public function beforeRender() {
             parent::beforeRender();
-            $this->set('section', 'scheduling');
+            if($this->request['action'] != "admin_scheduleReport")
+                $this->set('section', 'scheduling');
+            else
+                $this->set('section', 'reporting');
         }
         
         public function mySchedule($uniqueId)
@@ -69,6 +273,27 @@
 VERSION:2.0
 PRODID:-//hacksw/handcal//NONSGML v1.0//EN";
            foreach($schedule as $entry):
+               $address = array();
+           if(!empty($entry['Job']['city']) && !empty($entry['Job']['state']))
+           {
+               $address = array(
+                   'addr1'=> $entry['Job']['addr1'],
+                   'addr2'=> $entry['Job']['addr2'],
+                   'city'=> $entry['Job']['city'],
+                   'state'=> $entry['Job']['state'],
+                   'zip'=> $entry['Job']['zip'],
+               );
+           }
+           else
+           {
+               $address = array(
+                   'addr1'=> $entry['Job']['Customer']['bill_addr2'],
+                   'addr2'=> '',
+                   'city'=> $entry['Job']['Customer']['bill_city'],
+                   'state'=> $entry['Job']['Customer']['bill_state'],
+                   'zip'=> $entry['Job']['Customer']['bill_zip'],
+               );
+           }
 $ical.= "\nBEGIN:VEVENT
 UID:" . $entry['ScheduleEntry']['id'] . "
 DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
@@ -78,8 +303,8 @@ DTEND:" . gmdate('Ymd', strtotime($entry['ScheduleEntry']['end_date'] . " +23 ho
                    gmdate('His', strtotime($entry['ScheduleEntry']['end_date'] . " +23 hours")) . "Z\n";
            
 if($entry['ScheduleEntry']['type'] == "scheduling"):
-$ical .= "LOCATION:" . preg_replace('/([\,;])/','\\\$1', ($entry['Job']['Customer']['bill_addr2'] . ", " . $entry['Job']['Customer']['bill_addr2'] . ", " . $entry['Job']['Customer']['bill_city'] .
-                   ", " . $entry['Job']['Customer']['bill_state'] . " " . $entry['Job']['Customer']['bill_zip'])) . "
+$ical .= "LOCATION:" . preg_replace('/([\,;])/','\\\$1', ($address['addr1'] . ", " . $address['addr2'] . ", " . $address['city'] .
+                   ", " . $address['state'] . " " . $address['zip'])) . "
 DESCRIPTION:Service Area: " . $entry['Job']['ServiceArea']['name'] . ", Customer: " . $entry['Job']['Customer']['full_name'] . "
 SUMMARY:" . $entry['Job']['name'] . " - " .  " (" .
                    ucwords(str_replace("_", " ", $entry['ScheduleEntry']['position'])) . ")";
@@ -198,14 +423,14 @@ exit;
         function admin_mySchedule($full = "")
         {
              $this->set('setColors', [
-        "training" => 'pink',
-        "certification"=> 'lightblue',
-        "accreditation"=> 'lightgreen',
-        "other" => 'lightgray',
-                 "timeoff" => 'tan',
-                 'unapproved' => 'red',
-                 'pending' => 'black',
-                 'employees' => 'darkblue'
+        "training" => 'blue',
+        "certification"=> 'blueviolet',
+        "accreditation"=> 'brown',
+        "other" => 'cadetblue',
+                 "timeoff" => 'chocolate',
+                 'unapproved' => 'crimson',
+                 'pending' => 'darkgoldenrod',
+                 'employees' => 'darkolivegreen'
     ]);
              $this->User->unbindModel(array('hasMany' => array(
                  'Notification', 'ScheduleEntry', 'TimeEntry'
@@ -220,13 +445,22 @@ exit;
                  $this->loadModel('Customer');
                  $this->Customer->unbindModel(array('hasMany'=>array('Job')));
                  $this->loadModel('Job');
-                 $this->Job->unbindModel(array(
-                     'hasMany'=>array('ScheduleEntry')));
+//                 $this->Job->unbindModel(array(
+//                     'hasMany'=>array('ScheduleEntry')));
                  $this->loadModel('User');
                  $this->User->unbindModel(array(
                      'hasMany'=>array('ScheduleEntry','TimeEntry','Notification','Ability'),'belongsTo'=>array('Vendor')));
 
-             $schedule =  $this->ScheduleEntry->find('all', array(
+//                 $schedule = $this->Job->find('all', array(
+//                 'recursive' => 2,
+//                 'conditions' => array(
+//                     'Job.start_date >=' => date('Y-m-d H:i:s', strtotime('-1 month')),
+//                     'ScheduleEntry.type' => 'scheduling',
+//                 //   'ScheduleEntry.approved' => '1',
+//                     'NOT' => array(
+//                     'ScheduleEntry.user_id' => $this->Auth->user('id'))
+//                     ), 'order' => array('ScheduleEntry.start_date ASC','User.last_name ASC')));
+             $schedule =  $this->User->ScheduleEntry->find('all', array(
                  'recursive' => 3,
                  'conditions' => array(
                      'ScheduleEntry.start_date >=' => date('Y-m-d H:i:s', strtotime('-1 month')),
@@ -234,8 +468,8 @@ exit;
                  //   'ScheduleEntry.approved' => '1',
                      'NOT' => array(
                      'ScheduleEntry.user_id' => $this->Auth->user('id'))
-                     )));
-             //pr($schedule); exit();
+                     ), 'order' => array('ScheduleEntry.start_date ASC','User.last_name ASC')));
+           //  pr($schedule); exit();
              $this->set('fullSchedule', $schedule);
              $full = true;
              }

@@ -226,7 +226,7 @@ $config = array(
 	// if you don't need a limit set both to 0
 	'image_max_width'                         => 0,
 	'image_max_height'                        => 0,
-	'image_max_mode'                          => 'auto',
+	'image_max_mode'                          => 'exact',
 	/*
 	#  $option:  0 / exact = defined size;
 	#            1 / portrait = keep aspect set height;
@@ -280,7 +280,7 @@ $config = array(
 	// YOU CAN ALSO PASS THIS PARAMETERS USING SESSION VAR => $_SESSION['RF']["VIEW"]=
 	//
 	//******************
-	'default_view'                            => 0,
+	'default_view'                            => 2,
 
 	//set if the filename is truncated when overflow first row
 	'ellipsis_title_after_first_row'          => true,
@@ -352,7 +352,7 @@ $config = array(
 	//The filter and sorter are managed through both javascript and php scripts because if you have a lot of
 	//file in a folder the javascript script can't sort all or filter all, so the filemanager switch to php script.
 	//The plugin automatic swich javascript to php when the current folder exceeds the below limit of files number
-	'file_number_limit_js'                    => 500,
+	'file_number_limit_js'                    => 2000,
 
 	//**********************
 	// Hidden files and folders
@@ -415,7 +415,7 @@ $config = array(
 	#                          3 / auto = auto;
 	#                          4 / crop= resize and crop;
 	*/
-	'relative_image_creation_option'          => array( 'crop', 'crop' ), //set the type of the crop
+	'relative_image_creation_option'          => array( 'exact', 'exact' ), //set the type of the crop
 
 
 	// Remember text filter after close filemanager for future session

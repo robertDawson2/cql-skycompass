@@ -34,12 +34,13 @@
                     
                     <?php endforeach; ?>
                 </select>
-                  </div> 
+                  </div>
+                  
               </div>
               <div class="col-md-3">
                   <div class='form-group'>
                                        <label># People Served</label>
-                      <input type="tel" name='data[Job][people_served_count]' data-type="number" data-max="1000000"   class='form-control validation' data-required='required' default='0'>
+                      <input type="tel" name='data[Job][people_served_count]' data-type="number" data-max="1000000"   class='form-control validation' default='0'>
                                    </div>
               </div>
           </div>
@@ -49,8 +50,44 @@
                     <h4>Job Information</h4>
 <div class='form-group'>
                       <label>Job Name</label>
+                      <div class='col-md-12' style='margin-bottom: 15px;'>
                      <input type='text' name="data[Job][name]" class='form-control validation' data-type="text" data-required='required' placeholder='Insert Job Name...' />
-                     
+                      </div>
+                      
+                      <div class='col-md-12'>
+                     <a href="#" id='autofill' class="btn btn-sm btn-success"><i class='fa fa-star-half-full'></i> Autofill Address</a>
+                      </div>
+                     <?= $this->Form->input('Job.addr1', array(
+                         'label' => 'Address',
+                         'type' => 'text',
+                         'div' =>'col-md-12',
+                         'class' => 'input form-control',
+                         'placeholder' => 'ie. 123 Main St.'
+                     )); ?>
+                      <?= $this->Form->input('Job.addr2', array(
+                         'label' => false,
+                          'type' => 'text',
+                         'div' =>'col-md-12',
+                         'class' => 'input form-control'
+                     )); ?>
+                     <?= $this->Form->input('Job.city', array(
+                         'label' => 'City',
+                         'div' =>'col-md-4',
+                         'class' => 'input form-control',
+                         'placeholder' => 'City'
+                     )); ?>
+                     <?= $this->Form->input('Job.state', array(
+                         'label' => 'State',
+                         'div' =>'col-md-4',
+                         'class' => 'input form-control',
+                         
+                     )); ?>
+                     <?= $this->Form->input('Job.zip', array(
+                         'label' => 'Zip',
+                         'div' =>'col-md-4',
+                         'class' => 'input form-control',
+                         'placeholder' => 'xxxxx-xxxx'
+                     )); ?>
 </div>
                     <div class="form-group">
                 <label>Service Area</label>
@@ -72,7 +109,39 @@
                     <?php endforeach; ?>
                 </select>
               </div>
-                  <div class='form-group'>
+                  
+                    <div class='form-group'>
+                <label>Job Cost</label>
+                <input name='data[Job][balance]'  data-placeholder='Enter cost with no dollar sign...'  class="form-control validation" />
+                    
+                </div>
+                 
+                      
+                  <h4>Employees</h4>
+                      <TABLE><tr><td width='50%' style='padding: 5px;'>
+                                  
+                                   <div class='form-group'>
+                                       <label># Team Leaders</label>
+                      <input type="tel" name='data[Job][team_leader_count]' data-type="number" data-max="10"   class='form-control hour-spinner validation' data-required='required' default='0'>
+                                   </div>
+                              </td>
+                              <td style='padding: 5px;'>
+                                  
+                                   <div class='form-group'>
+                                       <label># Regular Employees</label>
+                      <input  type="tel"  name='data[Job][employee_count]' data-type='number' data-max="10" class='form-control minute-spinner validation' data-required='required' default='0'>
+                                   </div>
+                              </td>
+                          </tr>
+                      </table>
+              </div>
+              
+             
+            <div class="col-md-6">
+                <h4>
+                    Task Lists
+                </h4>
+                <div class='form-group'>
                       <label>Scheduler Task List Template</label>
                       <select id='taskList'  data-placeholder='Select a task list template...' class="form-control validation" data-required='required' name='data[Job][SchedulerTaskList]' style="width: 100%;">
       
@@ -113,34 +182,6 @@
                     <?php endforeach; ?>
                 </select>
                   </div> 
-                    <div class='form-group'>
-                <label>Job Cost</label>
-                <input name='data[Job][balance]'  data-placeholder='Enter cost with no dollar sign...'  class="form-control validation"  data-required='required' />
-                    
-                </div>
-                 
-                      
-                  <h4>Employees</h4>
-                      <TABLE><tr><td width='50%' style='padding: 5px;'>
-                                  
-                                   <div class='form-group'>
-                                       <label># Team Leaders</label>
-                      <input type="tel" name='data[Job][team_leader_count]' data-type="number" data-max="10"   class='form-control hour-spinner validation' data-required='required' default='0'>
-                                   </div>
-                              </td>
-                              <td style='padding: 5px;'>
-                                  
-                                   <div class='form-group'>
-                                       <label># Regular Employees</label>
-                      <input  type="tel"  name='data[Job][employee_count]' data-type='number' data-max="10" class='form-control minute-spinner validation' data-required='required' default='0'>
-                                   </div>
-                              </td>
-                          </tr>
-                      </table>
-              </div>
-              
-             
-            <div class="col-md-6">
                 <h4>Optional Fields</h4>
                  <div class='form-group'>
                 <label>IDD or BH</label>
@@ -172,6 +213,37 @@
 
 <?php $this->append('scripts'); ?>
 <script>
+  $("#autofill").click(function(e) {
+      e.preventDefault();
+      $address = "";
+      $.ajax({
+          'type': 'json',
+          'url': '/customers/ajaxReturnAddress/' + $('#customerList').find(":selected").val()
+            }).done(
+              function(data) {
+                  if(data !== 'false')
+                  {
+                      
+                      $address = JSON.parse(data); 
+                   $("#JobAddr1").val($address['bill_addr2']);
+                   $("#JobAddr2").val("");
+                   $("#JobCity").val($address['bill_city']);
+                   $("#JobState").val($address['bill_state']);
+                   $("#JobZip").val($address['bill_zip']);
+
+                    }
+                    else
+                    {
+                         $("#JobAddr1").val("");
+                         $("#JobAddr2").val("");
+                   $("#JobCity").val("");
+                   $("#JobState").val(0);
+                   $("#JobZip").val("");
+                    }
+              });
+      
+       
+   });
    
    $("#calendar-show").click(function()
    {

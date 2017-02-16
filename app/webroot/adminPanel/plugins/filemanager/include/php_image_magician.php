@@ -318,6 +318,7 @@ class imageLib {
 		#       forceStretch can be applied to options 1,2,3 and 4
 		#
 	{
+            return true;
 
 		// *** We can pass in an array of options to change the crop position
 		$cropPos = 'm';
@@ -364,7 +365,7 @@ class imageLib {
 
 
 		// *** If '4', then crop too
-		if ($option == 4 || $option == 'crop')
+		if (0)//($option == 4 || $option == 'crop')
 		{
 
 			if (($optimalWidth >= $newWidth && $optimalHeight >= $newHeight))

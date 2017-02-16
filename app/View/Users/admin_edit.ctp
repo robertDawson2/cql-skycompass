@@ -119,6 +119,7 @@
 				<?php echo $this->Form->input('User.permissions.users.resetPassword', array('type' => 'checkbox', 'label' => 'Reset Employee Passwords')); ?>
 				<?php echo $this->Form->input('User.permissions.users.setPermissions', array('type' => 'checkbox', 'label' => 'Set User Permissions/Types')); ?>
 				<?php echo $this->Form->input('User.permissions.config.admin_index', array('type' => 'checkbox', 'label' => 'Change Site Configuration Settings')); ?>
+                                <?php echo $this->Form->input('User.permissions.schedule.admin_scheduleReport', array('type' => 'checkbox', 'label' => 'Query Report for Scheduling')); ?>
 				</div>
 			</div>
                     

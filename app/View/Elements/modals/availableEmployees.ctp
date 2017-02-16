@@ -153,7 +153,7 @@ padding: 5px 10px;'>
     
     var emptable =  $("#employees-tbl").DataTable({
 
-        "ajax": "/ajax/jobs/scheduleEmployees",
+        //"ajax": "/ajax/jobs/scheduleEmployees",
         "columns": [
             {
                 "data": "first"},

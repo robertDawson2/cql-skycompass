@@ -22,17 +22,18 @@
     });
         
     });
+
 var setColors = {
-        training: 'pink',
-        certification: 'lightblue',
-        accreditation: 'lightgreen',
-        other: 'lightgray'
+        training: 'black',
+        certification: 'darkgreen',
+        accreditation: 'saddlebrown',
+        other: 'darkslategray'
     };
     var pendingColors = {
-        training: 'purple',
-        certification: 'darkblue',
-        accreditation: 'darkred',
-        other: 'black'
+        training: 'blue',
+        certification: 'blueviolet',
+        accreditation: 'brown',
+        other: 'cadetblue'
     };
     
     function updateColor() {
@@ -264,7 +265,12 @@ var setColors = {
                 $color = strtolower($job['ServiceArea']['Parent']['name']);
             else
                 $color = 'other'; ?>
-    { title: "<?= $job['Job']['company_name']; ?>:\n<?= $job['Job']['name']; ?>\n<?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?>\n<?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?>",
+    { title: "<?= $job['Job']['company_name']; ?>:\n<?= $job['Job']['name']; ?>\n
+    <?php if(!empty($job['Job']['city'])): ?>
+        <?= $job['Job']['city'] . ", " . $job['Job']['state']; ?>
+        <?php else: ?>
+        <?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?>
+    <?php endif; ?>\n<?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?>",
             start: "<?= date("Y-m-d", strtotime($job['Job']['start_date'])); ?>",
             end: "<?= date("Y-m-d", strtotime($job['Job']['end_date'] . " +1 day")); ?>",
             color: "<?php
@@ -335,7 +341,14 @@ var setColors = {
                 }
             },
             nextDayThreshold: "00:00:00",
-    header: {center: 'basicWeek,month,listYear'},
+    header: {center: 'basicWeek,month,threeMonth'},
+    views: {
+        threeMonth: {
+            type: 'basic',
+            duration: { months: 3 },
+            buttonText: '3 Months'
+        }
+    },
     eventDrop: function(event, delta, revertFunc) {
         id = event.id;
        

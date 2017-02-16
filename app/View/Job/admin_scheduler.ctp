@@ -52,7 +52,11 @@ foreach($jobs['open'] as $job): ?>
                  ($job['Job']['team_leader_count'] + $job['Job']['employee_count']); ?>'>
                 <strong><?= $job['Job']['company_name']; ?></strong>:<br />
                  <?= $job['Job']['name']; ?>  <br />
+                 <?php if(!empty($job['Job']['city'])) { ?>
+                 <em><?= $job['Job']['city'] . ", " . $job['Job']['state']; ?></em><br />
+                 <?php } else { ?>
             <em><?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?></em><br />
+                 <?php } ?>
             <small><?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?></small>
             
             </div>

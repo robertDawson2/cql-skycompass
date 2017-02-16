@@ -7,12 +7,12 @@
  */
 
 class Ability extends AppModel {
-     public $hasAndBelongsToMany = array(
-                    'Ability' => array(
-                        'className' => 'Ability',
-                        'joinTable' => 'user_abilities',
-                        'foreignKey' => 'user_id',
-                        'associationForeignKey' => 'ability_id',
-                        'unique' => true
-));
+//     public $hasAndBelongsToMany = array(
+//                    'Ability' => array(
+//                        'className' => 'Ability',
+//                        'joinTable' => 'user_abilities',
+//                        'foreignKey' => 'user_id',
+//                        'associationForeignKey' => 'ability_id',
+//                        'unique' => true
+//));
 }
