@@ -453,7 +453,8 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
         
         
         
-        public function admin_weekly() {
+        public function admin_weekly($dateString = "") {
+            $this->set('dateString', $dateString);
             $payrolls = $this->_loadPayrollItems();
             $this->set('payrolls', $payrolls);
             
@@ -532,10 +533,16 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                                 $newTimeEntry['txn_date'] = date('Y-m-d', strtotime('+'.$j.' day', $date));
                             else
                                 $newTimeEntry['txn_date'] = date('Y-m-d', strtotime('+'.$j.' days', $date));
-                                
+                               
+                            if(isset($d['TimeEntry'][$daysArray[$j]])) {
                             $minutes = $d['TimeEntry'][$daysArray[$j]] * 60;
                             $hours = intval($minutes/60);
                             $minutes = $minutes - ($hours * 60);
+                                }
+                                else
+                                {
+                                    $minutes = $hours = 0;
+                                }
                             $newTimeEntry['notes'] = $d['TimeEntry']['notes'];
                             $newTimeEntry['duration'] = "PT" . $hours . "H" . $minutes . "M";
                             $newTimeEntry['id'] = sha1(serialize($newTimeEntry) . time());
@@ -563,6 +570,69 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                  $this->redirect('/admin/timeEntry/viewMyTime');
                     
             }
+            if(empty($dateString))
+            {
+                $useDate = date('Y-m-d', time());
+            }
+            else
+            {
+                $useDate = $dateString;
+            }
+           $this->set('startingEntries', $this->_getCurrentEntries($useDate));
+
+        }
+        
+       private function x_week_range($date) {
+    $ts = strtotime($date);
+    $start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
+    return array(date('Y-m-d', $start),
+                 date('Y-m-d', strtotime('next saturday', $start)));
+}
+
+function ajax_getCurrentEntries($date) {
+    echo json_encode($this->_getCurrentEntries($date));
+}
+        private function _getCurrentEntries($date) {
+            $range = $this->x_week_range($date);
+            
+            $days = array(
+                'sunday' => $range[0],
+                'monday' => date('Y-m-d', strtotime($range[0] . " +1 day")),
+                'tuesday' => date('Y-m-d', strtotime($range[0] . " +2 days")),
+                'wednesday' => date('Y-m-d', strtotime($range[0] . " +3 days")),
+                'thursday' => date('Y-m-d', strtotime($range[0] . " +4 days")),
+                'friday' => date('Y-m-d', strtotime($range[0] . " +5 days")),
+                'saturday' => $range[1]
+            );
+            $entries = $this->User->TimeEntry->find('all', array('conditions' => array(
+                'User.id' => $this->Auth->user('id'),
+                'TimeEntry.txn_date >=' => $range[0],
+                'TimeEntry.txn_date <=' => $range[1],
+                'OR' => array(
+                'TimeEntry.approved is null',
+                    'TimeEntry.approved' => 1)
+            ),'order' => array('TimeEntry.customer_id','TimeEntry.txn_date')));
+            $edited = array();
+            foreach($entries as $entry) {
+                if(!isset($edited[$entry['TimeEntry']['customer_id']]))
+                    $edited[$entry['TimeEntry']['customer_id']] = array('Dates' => array());
+                unset($entry['User']);
+                unset($entry['Item']);
+                $duration = str_replace('PT', '', str_replace('M', '' , $entry['TimeEntry']['duration']));
+                $durationArray = explode("H", $duration);
+                $duration = $durationArray[0] + ($durationArray[1]/60);
+                if(!isset($edited[$entry['TimeEntry']['customer_id']]['Dates']['total']))
+                    $edited[$entry['TimeEntry']['customer_id']]['Dates']['total'] = 0.00;
+                $edited[$entry['TimeEntry']['customer_id']]['Dates']['total'] += $duration;
+                $edited[$entry['TimeEntry']['customer_id']]['Dates'][strtolower(date('l', strtotime($entry['TimeEntry']['txn_date'])))] = $duration;
+                $edited[$entry['TimeEntry']['customer_id']][] = $entry;
+                
+            }
+            unset($entries);
+            
+            $edited = array_values($edited);
+          //  pr($edited);exit();
+            return $edited;
         }
         public function admin_single() {
             $payrolls = $this->_loadPayrollItems();

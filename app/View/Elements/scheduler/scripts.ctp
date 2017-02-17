@@ -265,12 +265,7 @@ var setColors = {
                 $color = strtolower($job['ServiceArea']['Parent']['name']);
             else
                 $color = 'other'; ?>
-    { title: "<?= $job['Job']['company_name']; ?>:\n<?= $job['Job']['name']; ?>\n
-    <?php if(!empty($job['Job']['city'])): ?>
-        <?= $job['Job']['city'] . ", " . $job['Job']['state']; ?>
-        <?php else: ?>
-        <?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?>
-    <?php endif; ?>\n<?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?>",
+    { title: "<?= $job['Job']['company_name']; ?>:\n<?= $job['Job']['name']; ?>\n<?php if(!empty($job['Job']['city'])): ?><?= $job['Job']['city'] . ", " . $job['Job']['state']; ?><?php else: ?><?= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state']; ?><?php endif; ?>\n<?= $job['Job']['team_leader_count']; ?>X<?= $job['Job']['employee_count']; ?>",
             start: "<?= date("Y-m-d", strtotime($job['Job']['start_date'])); ?>",
             end: "<?= date("Y-m-d", strtotime($job['Job']['end_date'] . " +1 day")); ?>",
             color: "<?php

@@ -357,6 +357,7 @@ ORDER BY vendor_id ASC , customer_id ASC , txn_date ASC ');
             $this->layout = "ajax";
             if(!empty($_FILES))
             {
+                $error = false;
                // pr($_FILES);
                 foreach($_FILES['files']['name'] as $i =>  $filename)
                 {
@@ -387,13 +388,17 @@ if($uploadOk) {
             else
             {
             
-            exit('done with errors.');
+                $error = true;
             }
             
         }
                 }
-        
-        exit('done');
+                
+                
+        if(!$error)
+            exit('done');
+        else
+            exit('error');
             }
             else
             {

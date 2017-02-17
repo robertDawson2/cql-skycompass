@@ -58642,3 +58642,313 @@ Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
 Stack Trace:
 #0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-02-17 13:37:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 13:37:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 13:37:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 13:37:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 14:01:09 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cql.TimeEntry.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(570): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_weekly()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-02-17 14:24:50 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cql.TimeEntry.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(570): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_weekly()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-02-17 14:25:44 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cql.TimeEntry.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(570): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_weekly()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-02-17 14:26:14 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #21 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cql.User.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(570): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_weekly()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-02-17 14:29:42 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cql.TimeEntry.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(569): Model->find('all', Array)
+#7 [internal function]: TimeEntryController->admin_weekly()
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-02-17 14:40:36 Error: Fatal Error (1): Call to undefined function x_week_range() in [/var/www/cql.local/public_html/app/Controller/TimeEntryController.php, line 580]
+2017-02-17 14:40:36 Error: [FatalErrorException] Call to undefined function x_week_range()
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 580)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 580, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 580, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:40:57 Error: Fatal Error (1): Call to undefined function x_week_range() in [/var/www/cql.local/public_html/app/Controller/TimeEntryController.php, line 581]
+2017-02-17 14:40:57 Error: [FatalErrorException] Call to undefined function x_week_range()
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 581)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 581, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 581, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:41:23 Error: Fatal Error (1): Call to undefined function x_week_range() in [/var/www/cql.local/public_html/app/Controller/TimeEntryController.php, line 582]
+2017-02-17 14:41:23 Error: [FatalErrorException] Call to undefined function x_week_range()
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 582)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 582, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 582, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:41:41 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TimeEntry.txndate' in 'where clause'
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `TimeEnt...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `TimeEnt...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `TimeEnt...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(TimeEntry), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(587): Model->find('all', Array)
+#7 /var/www/cql.local/public_html/app/Controller/TimeEntryController.php(567): TimeEntryController->_getCurrentEntries(false)
+#8 [internal function]: TimeEntryController->admin_weekly()
+#9 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(TimeEntryController), Array)
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#11 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(TimeEntryController), Object(CakeRequest))
+#12 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2017-02-17 14:50:13 Error: Fatal Error (4): syntax error, unexpected '}' in [/var/www/cql.local/public_html/app/View/TimeEntry/admin_weekly.ctp, line 52]
+2017-02-17 14:50:13 Error: [FatalErrorException] syntax error, unexpected '}'
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/var/www/cql.lo...', 52)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/var/www/cql.lo...', 52, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/var/www/cql.lo...', 52, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:52:38 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 813]
+2017-02-17 14:52:38 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 813)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 813, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 813, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:53:28 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 472]
+2017-02-17 14:53:28 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 472)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 472, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 472, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:53:59 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 492]
+2017-02-17 14:53:59 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 492)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:55:08 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 537]
+2017-02-17 14:55:08 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 537)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 537, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 537, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:56:25 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 492]
+2017-02-17 14:56:25 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 492)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:58:06 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 557]
+2017-02-17 14:58:06 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 557)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 557, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 557, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:58:42 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 492]
+2017-02-17 14:58:42 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 492)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 492, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 14:59:16 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 483]
+2017-02-17 14:59:16 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 483)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 483, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 483, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 15:44:59 Error: Fatal Error (4): syntax error, unexpected 'else' (T_ELSE) in [/var/www/cql.local/public_html/app/Controller/TimeEntryController.php, line 541]
+2017-02-17 15:44:59 Error: [FatalErrorException] syntax error, unexpected 'else' (T_ELSE)
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/var/www/cql.lo...', 541)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/var/www/cql.lo...', 541, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/var/www/cql.lo...', 541, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 15:59:54 Error: Fatal Error (4): syntax error, unexpected 'endfor' (T_ENDFOR) in [/var/www/cql.local/public_html/app/View/TimeEntry/admin_weekly.ctp, line 173]
+2017-02-17 15:59:54 Error: [FatalErrorException] syntax error, unexpected 'endfor' (T_ENDFOR)
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/var/www/cql.lo...', 173)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/var/www/cql.lo...', 173, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/var/www/cql.lo...', 173, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 16:00:26 Error: Fatal Error (4): syntax error, unexpected 'endfor' (T_ENDFOR) in [/var/www/cql.local/public_html/app/View/TimeEntry/admin_weekly.ctp, line 173]
+2017-02-17 16:00:26 Error: [FatalErrorException] syntax error, unexpected 'endfor' (T_ENDFOR)
+Request URL: /admin/timeEntry/weekly
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/var/www/cql.lo...', 173)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/var/www/cql.lo...', 173, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/var/www/cql.lo...', 173, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-02-17 16:40:55 Error: [MissingControllerException] Controller class TimeEntriesController could not be found.
+Exception Attributes: array (
+  'class' => 'TimeEntriesController',
+  'plugin' => NULL,
+)
+Request URL: /admin/timeEntries/weekly2017-02-01
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 16:40:55 Error: [MissingControllerException] Controller class TimeEntriesController could not be found.
+Exception Attributes: array (
+  'class' => 'TimeEntriesController',
+  'plugin' => NULL,
+)
+Request URL: /admin/timeEntries/weekly2017-02-01
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-02-17 16:41:24 Error: [MissingControllerException] Controller class TimeEntriesController could not be found.
+Exception Attributes: array (
+  'class' => 'TimeEntriesController',
+  'plugin' => NULL,
+)
+Request URL: /admin/timeEntries/weekly/2017-02-01
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

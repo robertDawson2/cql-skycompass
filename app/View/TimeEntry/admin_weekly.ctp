@@ -14,6 +14,7 @@
     margin-bottom: 2px;
   }
      </style>
+  
         <!-- /.box-header -->
         <?php echo $this->Form->create('weekly'); ?>
         
@@ -35,8 +36,13 @@
                       <th class="table-dates"></th>
                       <th>Total</th>
                 </thead>
-                <?php for($i=0;$i<10;$i++): ?>
-                <tr id="input-row-<?= $i; ?>" data-id="<?= $i; ?>" <?php if($i>0){ echo "style='display: none;'"; } else { echo "class='nextrow'"; } ?>>
+                
+                <?php $showrow = true; for($i=0;$i<5;$i++): ?>
+                
+                <tr id="input-row-<?= $i; ?>" data-id="<?= $i; ?>" <?php if(!$showrow) { echo "style='display: none;'"; } else { if(!isset($startingEntries[$i])) { echo "class='nextrow'"; } } ?>>
+                    <?php if(!isset($startingEntries[$i]))
+                        $showrow=false;
+                    ?>
                     <td style="max-width: 250px !important;">
                         <div class="row">
                             <div class="col-md-12">
@@ -46,7 +52,11 @@
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
-                    
+                    if(!empty($startingEntries) && isset($startingEntries[$i]) && $startingEntries[$i][0]['TimeEntry']['customer_id'] === $p['id'])                        
+                    {
+                        $selected = 'selected="selected"';
+
+                    }
                     ?>
                     <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
                         <?=$p['name']; ?>
@@ -63,7 +73,11 @@
                    <option></option>
                    <?php foreach($services as $p): ?>
                     <?php $selected = "";
-                    
+                    if(!empty($startingEntries) && isset($startingEntries[$i]) && $startingEntries[$i][0]['TimeEntry']['item_id'] === $p['id'])                        
+                    {
+                        $selected = 'selected="selected"';
+
+                    }
                     ?>
                     <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
                         <?=$p['name']; ?>
@@ -82,7 +96,11 @@
                     <option></option>
                     <?php foreach($payrolls as $p): ?>
                     <?php $selected = "";
-                    
+                    if(!empty($startingEntries) && isset($startingEntries[$i]) && $startingEntries[$i][0]['TimeEntry']['payroll_item_id'] === $p['id'])                        
+                    {
+                        $selected = 'selected="selected"';
+
+                    }
                     ?>
                     <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
                         <?=$p['name']; ?>
@@ -99,7 +117,11 @@
                     <option></option>
                     <?php foreach($classes as $p): ?>
                     <?php $selected = "";
-                    
+                    if(!empty($startingEntries) && isset($startingEntries[$i]) && $startingEntries[$i][0]['TimeEntry']['class_id'] === $p['id'])                        
+                    {
+                        $selected = 'selected="selected"';
+
+                    }
                     ?>
                     <option class="<?=$p['class']; ?>" value="<?=$p['id'];?>" <?= $selected; ?>>
                         <?=$p['name']; ?>
@@ -115,28 +137,28 @@
                         <textarea  name='data[<?= $i; ?>][TimeEntry][notes]'  class='form-control' style="min-width: 150px; min-height: 140px;" width='100%'></textarea>
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][sunday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['sunday']) ? 'value="'.$startingEntries[$i]['Dates']['sunday'].'" disabled ' : ''; ?> data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][sunday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][monday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['monday']) ? 'value="'.$startingEntries[$i]['Dates']['monday'].'" disabled ' : ''; ?> data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][monday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][tuesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['tuesday']) ? 'value="'.$startingEntries[$i]['Dates']['tuesday'].'" disabled ' : ''; ?> data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][tuesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][wednesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['wednesday']) ? 'value="'.$startingEntries[$i]['Dates']['wednesday'].'" disabled ' : ''; ?> data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][wednesday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][thursday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['thursday']) ? 'value="'.$startingEntries[$i]['Dates']['thursday'].'" disabled ' : ''; ?>data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][thursday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][friday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['friday']) ? 'value="'.$startingEntries[$i]['Dates']['friday'].'" disabled ' : ''; ?>data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][friday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td>
-                        <input data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][saturday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
+                        <input <?= isset($startingEntries[$i]['Dates']['saturday']) ? 'value="'.$startingEntries[$i]['Dates']['saturday'].'" disabled ' : ''; ?>data-id="<?= $i; ?>" type="text" name="data[<?= $i; ?>][TimeEntry][saturday]" class="form-control hour-counter hour-counter-<?= $i; ?>" maxlength="6" />
                     </td>
                     <td class="total-col" id='total-row-<?= $i; ?>'>
-                        0.00
+                        <?= isset($startingEntries[$i]['Dates']['total']) ? number_format($startingEntries[$i]['Dates']['total'], 2) : '0.00'; ?>
                         
                     </td>
                     <td style='width: 6px;'>
@@ -179,7 +201,12 @@
 <script>
    
         var d = new Date();
+        <?php if(!empty($dateString)): ?>
+            var dateString = "<?php $d = explode("-", $dateString); echo $d[1] . "/" . $d[2] . "/" . $d[0]; ?>";
+            <?php else: ?>
         var dateString = "" + (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
+        
+        <?php endif; ?>
         $("#weeklyDatePicker").val(dateString);
         makeChanges();
   
@@ -237,6 +264,7 @@
                 {
                     $(this).closest('.form-group').addClass('has-error');
                     $(this).closest(".form-group").append('<span class="help-block">This field is required.</span>');
+                    console.log("Required field error - " + $(this).val());
                     $return = false;
                 }
                 else
@@ -252,6 +280,7 @@
                 {
                     $(this).closest('.form-group').addClass('has-error');
                     $(this).closest(".form-group").append('<span class="help-block">This field must be a date.</span>');
+                    console.log("Date field error - " + $(this).val());
                     $return = false;
                 }
                 else
@@ -280,6 +309,7 @@
                     $(this).closest('.form-group').addClass('has-error');
                     $(this).closest(".form-group").append('<span class="help-block">This field must be a number.</span>');
                     $return = false;
+                    console.log("Number field error - " + $(this).val());
                 }
                 else
                 {
@@ -381,16 +411,30 @@ $("#weeklyDatePicker").datepicker({
 
 //Get the value of Start and End of Week
 $('#weeklyDatePicker').on('change', function (e) {
-   makeChanges();
+   // makeChanges();
+   value = new Date($("#weeklyDatePicker").val());
+   n = value.getMonth() + 1;
+            month = (n < 10) ? ("0" + n) : n;
+            n = value.getDate();
+            date = (n < 10) ? ("0" + n) : n;
+            fulldate = value.getFullYear() + "-"  + month + "-" + date;
+            window.location = "/admin/timeEntry/weekly/" + fulldate;
+            
+   
    
 });
+function emptyForm() {
+    $(".hour-counter").val("");
+    $(".hour-counter").prop('disabled', false);
+    $(".select2").select2('val', '');
+    }
 function makeChanges() {
   value = new Date($("#weeklyDatePicker").val());
     date1 = (value.getDate() - value.getDay());
     date2 = date1+7;
     firstDate = value;
     lastDate = value;
-    
+            
     firstDate.setDate(date1);
    // lastDate.setDate(date2);
     daysofweek = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -399,6 +443,7 @@ function makeChanges() {
         
        $(this).html(daysofweek[currDate.getDay()] + "<br />" + (currDate.getMonth()+1) + "/" + currDate.getDate());
        currDate.setDate(currDate.getDate()+1);
+       
     });
    
      

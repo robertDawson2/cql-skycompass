@@ -765,6 +765,8 @@ $("#addAdminTravelSheetForm").submit(function(e) {
                type: 'POST',
                success: function(data) {
                console.log(data);
+               if(data === "error")
+                   alert("An error occurred during file upload. Some or all receipt images may not have uploaded.");
     }
                }).done(function()
                {

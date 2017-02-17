@@ -13,6 +13,7 @@
 			<th>Item</th>
 			<th>Class</th>
                         <th>Payroll Item</th>
+                        <th>Notes</th>
                         <th>Billable Status</th>
 			
 		</tr>
@@ -27,6 +28,7 @@
                         <td><?php if(isset($entry['Item']['full_name'])) { echo $entry['Item']['full_name']; } ?></td>
 			<td><?php echo $entry['class_name']; ?></td>
                         <td><?php echo $entry['payroll_item_name']; ?></td>
+                        <td><small><em><?= $entry['notes']; ?></em></small></td>
                         <td><select <?php echo $entry['approved'] ? "disabled" : ""; ?> class="input form-control" selected='<?php echo $entry['billable_status']; ?>' name='data[<?= $entry['id']; ?>][billable_status]'><option value='Billable'>Billable</option><option value='NotBillable'>Not Billable</option><option value='HasBeenBilled'>Billed</option></select></td>
 			
 		</tr>
