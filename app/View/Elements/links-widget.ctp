@@ -12,6 +12,17 @@
             <!-- /.box-header -->
             <div class="box-body">
               <ul class="products-list product-list-in-box">
+<li class="item">
+                  
+                  <div class="product-info">
+                      <a href="/docs/SkyCompass-Staff-Guidance-Manual-2017.pdf" target="_BLANK" class="product-title">SkyCompass Staff Guidance Manual (PDF)</a>
+                      
+                        <span class="product-description">
+                          Download a copy of the SkyCompass Staff Guidance Manual
+                        </span>
+                  </div>
+                </li>
+                <!-- /.item -->
                 <li class="item">
                   
                   <div class="product-info">

@@ -133,7 +133,7 @@ class AppController extends Controller {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
                 'Item.full_name LIKE' => "%Staff Items%"
-            ))); }
+            )));}
             else {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
@@ -141,6 +141,7 @@ class AppController extends Controller {
                 'Item.full_name LIKE' => "%Staff Items%")
             ))); }
             
+	
              $returnArray = array();
             foreach($itemList as $class)
             {
@@ -555,7 +556,7 @@ class AppController extends Controller {
             
             foreach($arr as $i => $a)
             {
-                if(isset($arr[$i]))
+                if(isset($arr[$i]) && isset($usersToVendors[$a]))
                     $arr[$i] = $usersToVendors[$a];
             }
             return $arr;

@@ -20,7 +20,7 @@
 </style>
 <div class='row'>
     <div class='col-md-12'>
-<h1>Your Schedule</h1>
+<h1><?php if(!isset($userName)): ?>Your<?php else: echo $userName; endif;?> Schedule</h1>
 
 <h3>Key</h3>
 <p>

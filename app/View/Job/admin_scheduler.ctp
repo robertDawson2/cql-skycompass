@@ -16,8 +16,14 @@
         margin-left: 10px;
         font-size: 90%;
     }
+    .override-button {
+        position: absolute;
+        z-index: 999;
+        right: 10px;
+        
+    }
 </style>
-
+<div class="override-button"><a href="#" id="override-box" data-override = "<?php echo $dataOverride; ?>"class="btn btn-default"><i class="fa fa-square-o"></i> Turn Override On</a></div>
 <div class='row'>
     <div class='col-md-12'>
         Key:<p><strong>Need Employees: </strong>

@@ -5,11 +5,11 @@
         <form id="populateTable" action="/ajax/schedule/reportByCompany" method="post">
             <div class="col-md-5">
                 <label>Start Date</label>
-                <input class="input form-control datepicker" type='date' id='startDate' required />
+                <input class="input form-control datepicker" type='text' id='startDate' required />
             </div>
             <div class="col-md-5">
                 <label>End Date</label>
-                <input class="input form-control datepicker" type='date' id='endDate' required />
+                <input class="input form-control datepicker" type='text' id='endDate' required />
             </div>
             <div class='col-md-2'>
                 <label> </label>

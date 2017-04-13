@@ -27,7 +27,9 @@
 				<a role="button" class="btn btn-success" href="/admin/users/timeEntries/<?php echo $user['User']['id']; ?>"><i class="fa fa-clock-o"></i> View Time</a>&nbsp;
                                 <a role="button" class="btn btn-success" href="/admin/expenses/userExpenses/<?php echo $user['User']['vendor_id']; ?>"><i class="fa fa-money"></i> View Expenses</a>&nbsp;
 				<?php if(0): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $user['User']['first_name']; ?> <?php echo $user['User']['last_name']; ?>" data-object-id="<?php echo $user['User']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
-                                <p style="padding-top: 5px;">  <a role="button" class="btn btn-info" href="/admin/users/sendWelcomeEmail/<?php echo $user['User']['id']; ?>"><i class="fa fa-envelope-o"></i> Welcome Email</a>&nbsp;</p>
+                                <p style="padding-top: 5px;">  <a role="button" class="btn btn-info" href="/admin/users/sendWelcomeEmail/<?php echo $user['User']['id']; ?>"><i class="fa fa-envelope-o"></i> Welcome Email</a>&nbsp;
+                                <a role="button" class="btn btn-warning" href="/admin/schedule/userSchedule/<?php echo $user['User']['id']; ?>"><i class="fa fa-calendar-o"></i>View Schedule</a>&nbsp;
+                                </p>
 			</td>
 		</tr>
 	<?php } ?>

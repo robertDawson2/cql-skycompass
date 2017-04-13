@@ -467,5 +467,34 @@ var setColors = {
     }
 });
 
+$("#override-box").click(function(e) {
+    e.preventDefault();
+     $btn = $(this);
+    if($(this).data('override') == 'off')
+    {
+       
+        $.ajax('/schedule/ajaxUpdateOverride/1').done(function(data) {
+        if(data == 'ok') {
+        $btn.removeClass('btn-default');
+        $btn.addClass('btn-warning');
+        $btn.html("<i class='fa fa-check-square-o'></i> Turn Override Off");
+        $btn.data('override', 'on');
+        }
+        });
+    }
+    else
+    {
+        $.ajax('/schedule/ajaxUpdateOverride/0').done(function(data) {
+        if(data == 'ok') {
+        $btn.removeClass('btn-warning');
+        $btn.addClass('btn-default');
+        $btn.html("<i class='fa fa-square-o'></i> Turn Override On");
+        $btn.data('override', 'off');
+        }
+        });
+    }
+
+});
+
 
 <?php $this->end(); ?>

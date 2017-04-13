@@ -492,7 +492,9 @@ $Queue = new QuickBooks_WebConnector_Queue($dsn);
                        $first=false;
                         
                         $date = strtotime($d['datepicker']);
-                        $date = strtotime('last sunday, 12am', $date);
+                        if(!(date('w', $date) == 0))
+                            $date = strtotime('last sunday, 12am', $date);
+                       
                     }
                     else
                     {

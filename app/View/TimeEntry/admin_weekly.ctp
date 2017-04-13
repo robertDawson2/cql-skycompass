@@ -6,6 +6,12 @@
         </div>
      
      <style>
+         .red {
+            background-color: red;
+            color: white;
+            
+         }
+         
          .custom-combobox {
     position: relative;
     display: inline-block;
@@ -14,7 +20,10 @@
     margin-bottom: 2px;
   }
      </style>
-  
+     <div style="position: absolute; right: 10px; font-weight: bold; font-size: 16px;">
+     <div>Weekly Total</div>
+     <div id="overallTotal" style="text-align: right;">0.00</div>
+     </div>
         <!-- /.box-header -->
         <?php echo $this->Form->create('weekly'); ?>
         
@@ -209,6 +218,25 @@
         <?php endif; ?>
         $("#weeklyDatePicker").val(dateString);
         makeChanges();
+        setOverallTotal();
+        
+        function setOverallTotal() {
+            $overallTotal = 0.00;
+        $(".total-col").each(function() {
+
+            $overallTotal += parseFloat($(this).text());
+            
+        });
+        $("#overallTotal").text($overallTotal.toFixed(2));
+        if($overallTotal.toFixed(2) > 40.00)
+        {
+            $("#overallTotal").addClass('red');
+        }
+        else
+        {
+             $("#overallTotal").removeClass('red');
+        }
+        }
   
   $(".btn-remove-row").click(function() {
             $(this).closest("tr").fadeOut();
@@ -226,6 +254,8 @@
         });
 
         $("#total-row-" + $id).text($total.toFixed(2));
+        setOverallTotal();
+        
     });
     $(".form-control").change(function() {
         $id = $(this).closest("tr").data('id');

@@ -804,7 +804,7 @@ if($uploadOk) {
             $this->loadModel('Classes');
             $this->loadModel('Item');
             $class = $this->Classes->findById($classId)['Classes']['full_name'];
-            $items = $this->Item->find('all', array('conditions' => array('Item.full_name LIKE' => "%Staff Items:Mileage%"                
+            $items = $this->Item->find('all', array('conditions' => array('Item.full_name LIKE' => "%Mileage%"                
             )));
             $item = array();
             foreach($items as $i)
@@ -952,10 +952,11 @@ if($uploadOk) {
                 }
                 $this->BillItem->id = $a['BillItem']['id'];
                 $this->BillItem->saveField('bill_id', $bill_data_array[$a['BillItem']['vendor_id']]['newId']);
+                $this->_queueToSave($a['BillItem']['id'], 'credit-charge');
             }
             
-            foreach($bill_data_array as $i => $a)
-                $this->_queueToSave($a['newId'], 'credit-charge');
+         //   foreach($bill_data_array as $i => $a)
+         //       $this->_queueToSave($a['newId'], 'credit-charge');
             
             return true;
         }
@@ -1107,8 +1108,8 @@ if($uploadOk) {
                  $newRecord['BillItem']['super_approved'] = null;
                  $newRecord['BillItem']['drew_approved'] = null;
                  $newRecord['BillItem']['mary_approved'] = null;
-               
-                
+            //   pr($newRecord); exit();
+                if(!empty($newRecord['Image']['image']['type'])) {
                 // upload the image - fail if it does not upload
                 $target_dir = WWW_ROOT . "files/uploads/";
                 $imageFileType = strtolower(pathinfo($newRecord['Image']['image']['name'],PATHINFO_EXTENSION));
@@ -1147,7 +1148,7 @@ if($uploadOk) {
            
              // Redirect to either viewMyTime or approval screen based on who edited
                 
-                if($this->Auth->user('id') !== $newRecord['BillItem']['user_id'])
+                if($this->Auth->user('vendor_id') !== $newRecord['BillItem']['vendor_id'])
                     $this->redirect('/admin/expenses/approve');
                 else
                     $this->redirect('/admin/expenses/viewMyExpenses');
@@ -1167,7 +1168,31 @@ if($uploadOk) {
                    
     }
 }
-    
+                }
+                else
+                {
+                    unset($newRecord['BillItem']['image']);
+                    
+                   if($this->BillItem->save($newRecord))
+        {
+             $this->Session->setFlash('Bill item has been saved and sent for approval.', 'flash_success');
+           
+             // Redirect to either viewMyTime or approval screen based on who edited
+                $this->BillItem->id = $newRecord['BillItem']['id'];
+                $newRecord = $this->BillItem->read();
+
+                if($this->Auth->user('vendor_id') !== $newRecord['BillItem']['vendor_id'])
+                    $this->redirect('/admin/expenses/approve');
+                else
+                    $this->redirect('/admin/expenses/viewMyExpenses');
+                    exit();
+        }
+        else
+        {
+           
+            $this->Session->setFlash('An error occurred saving your record', 'flash_error');
+        }
+                } // End If For checking if new image added.
 
             }
             

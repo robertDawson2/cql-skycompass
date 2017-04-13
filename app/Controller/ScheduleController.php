@@ -420,6 +420,76 @@ exit;
         
         }
         
+        function admin_userSchedule($uniqueId)
+        {
+             $this->set('setColors', [
+        "training" => 'blue',
+        "certification"=> 'blueviolet',
+        "accreditation"=> 'brown',
+        "other" => 'cadetblue',
+                 "timeoff" => 'chocolate',
+                 'unapproved' => 'crimson',
+                 'pending' => 'darkgoldenrod',
+                 'employees' => 'darkolivegreen'
+    ]);
+             $this->User->unbindModel(array('hasMany' => array(
+                 'Notification', 'ScheduleEntry', 'TimeEntry'
+             )));
+             $schedule =  $this->ScheduleEntry->find('all', array(
+                 'recursive' => 3,
+                 'conditions' => array('ScheduleEntry.user_id' => $uniqueId)));
+            
+             $this->set('schedule', $schedule);
+             
+             if(!empty($full)) {
+                 $this->loadModel('Customer');
+                 $this->Customer->unbindModel(array('hasMany'=>array('Job')));
+                 $this->loadModel('Job');
+//                 $this->Job->unbindModel(array(
+//                     'hasMany'=>array('ScheduleEntry')));
+                 $this->loadModel('User');
+                 $this->User->unbindModel(array(
+                     'hasMany'=>array('ScheduleEntry','TimeEntry','Notification','Ability'),'belongsTo'=>array('Vendor')));
+
+//                 $schedule = $this->Job->find('all', array(
+//                 'recursive' => 2,
+//                 'conditions' => array(
+//                     'Job.start_date >=' => date('Y-m-d H:i:s', strtotime('-1 month')),
+//                     'ScheduleEntry.type' => 'scheduling',
+//                 //   'ScheduleEntry.approved' => '1',
+//                     'NOT' => array(
+//                     'ScheduleEntry.user_id' => $this->Auth->user('id'))
+//                     ), 'order' => array('ScheduleEntry.start_date ASC','User.last_name ASC')));
+             $schedule =  $this->User->ScheduleEntry->find('all', array(
+                 'recursive' => 3,
+                 'conditions' => array(
+                     'ScheduleEntry.start_date >=' => date('Y-m-d H:i:s', strtotime('-1 month')),
+                     'ScheduleEntry.type' => 'scheduling',
+                 //   'ScheduleEntry.approved' => '1',
+                     'NOT' => array(
+                     'ScheduleEntry.user_id' => $this->Auth->user('id'))
+                     ), 'order' => array('ScheduleEntry.start_date ASC','User.last_name ASC')));
+           //  pr($schedule); exit();
+             $this->set('fullSchedule', $schedule);
+             $full = true;
+             }
+             else
+                 $full = false;
+             
+             $this->set('full', $full);
+             $u = $this->User->findById($uniqueId);
+             $this->set('userName', $u['User']['first_name'] . " " . $u['User']['last_name'] . "'s");
+               $this->render('admin_mySchedule');
+             
+        }
+        function ajaxUpdateOverride($newVal)
+        {
+            $this->loadModel('Config');
+            $this->Config->saveValue('scheduler.override', $newVal);
+            echo "ok";
+            exit();
+        }
+        
         function admin_mySchedule($full = "")
         {
              $this->set('setColors', [
@@ -702,7 +772,7 @@ exit;
            $a = 1;
            $b = 0;
            $c = 1;
-           
+           set_time_limit(0);
            
            $this->User->unbindModel(array('hasMany' => array(
                'TimeEntry', 'Notification', 'ApprovalManager'
@@ -755,6 +825,10 @@ exit;
        {
 //           pr($user);
 //           exit();
+		
+		if(empty($user['User']['email']))
+			return false;
+
            $this->loadModel('ServiceArea');
            $serviceAreas = $this->ServiceArea->find('list', array('fields' => array('id', 'name')));
            

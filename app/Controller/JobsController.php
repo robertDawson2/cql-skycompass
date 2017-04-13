@@ -178,7 +178,13 @@
                         $position = (trim($typeName) == 'teamLeaders' ? 'team_leader' : 'employee'); 
                     
                     foreach($type as $employeeId => $employee) {
+                        
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
+                        //override function to schedule double bookings
+                        if($this->config['scheduler.override'])
+                        {
+                            $result = 'ok';
+                        }
                         if($result == 'ok')
                             {
                             
@@ -403,6 +409,11 @@
                     
                     foreach($type as $employeeId => $employee) {
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
+                        //override function to schedule double bookings
+                        if($this->config['scheduler.override'])
+                        {
+                            $result = 'ok';
+                        }
                         if($result == 'ok')
                             {
                                 // EMPLOYEE not scheduled, free to schedule and queue notification
@@ -667,7 +678,9 @@
             else
                 $end = $start;
             
+            if(!$this->config['scheduler.override']) {
             $employeeList = $this->_removeConflicts($employeeList, $start, $end);
+            }
  
             $return = array('draw' => 1, 'recordsTotal' => sizeof($employeeList), 'recordsFiltered' => sizeof($employeeList),
                 'data' => array());
@@ -704,6 +717,9 @@
         }
         private function _removeConflicts($list, $start, $end)
         {
+            // If override is active, this will not remove conflicting users.
+            if($this->config['scheduler.override'])
+                return $list;
             
             foreach($list as $i => $user)
             {
@@ -766,7 +782,8 @@
         }
         
         public function admin_scheduler() {
-           
+            $override = $this->config['scheduler.override'] == 0 ? 'off' : 'on';
+           $this->set('dataOverride', $override);
             $this->set('setColors', [
         "training" => 'black',
         "certification"=> 'darkgreen',
@@ -974,7 +991,7 @@ $this->set('pendingColors', [
         public function admin_index($past = null) {
             if(isset($past)) {
                 $this->set('jobs', $this->Job->find('all', array('conditions' => array(
-                    'Job.end_date <' => date('m-d-Y'),
+                    'Job.end_date <' => date('Y-m-d'),
                     'NOT' => array(
                         'Job.end_date' => "0000-00-00"
                     )
@@ -985,7 +1002,7 @@ $this->set('pendingColors', [
             else{
                 $this->set('jobs', $this->Job->find('all', array('conditions' => array(
                     'OR' => array(
-                    'Job.end_date >=' => date('m-d-Y'),
+                    'Job.end_date >=' => date('Y-m-d'),
                         'Job.end_date' => "0000-00-00",
                         'Job.end_date' => NULL
                     )
