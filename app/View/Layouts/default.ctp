@@ -79,6 +79,7 @@
 		article, aside { margin-top: 120px; }
 	</style>
 	<![endif]-->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body class="mobile<?php echo $isMobile ? '1' : '0'; ?> tablet<?php echo $isTablet ? '1' : '0'; ?>">

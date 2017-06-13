@@ -655,6 +655,7 @@ class UsersController extends AppController {
 	}
 	
 	public function admin_login() {
+		
 		if ($this->request->is('post')) {
 			$this->request->data['User'] = $this->request->data['Login'];
 			if ($this->Auth->login()) {

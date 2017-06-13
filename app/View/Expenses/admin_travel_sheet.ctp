@@ -755,22 +755,30 @@ $("#addAdminTravelSheetForm").submit(function(e) {
             $("#overlay").fadeIn();
         e.preventDefault();
         filesUploaded = true;
-        
+
         $.ajax({
                url: "/admin/expenses/ajaxUploadReceipts",
                contentType: false,
                data: formData,
                processData: false,
                cache: false,
-               type: 'POST',
-               success: function(data) {
-               console.log(data);
-               if(data === "error")
-                   alert("An error occurred during file upload. Some or all receipt images may not have uploaded.");
-    }
-               }).done(function()
+               type: 'POST'
+              
+               }).done(function(data)
                {
+
+                   console.log(data);
+
+               if(data === "error"){
+                   alert("An error occurred during file upload. Some or all receipt images can not be used. Please refresh your page and try again - this will clear all entries. If this problem persists, please contact an administrator.");
+                   filesUploaded = false;
+                   $("#overlay").fadeOut('fast');
+            $("#submit-all").fadeIn();
+    }
+               else{
+
                    $("#addAdminTravelSheetForm").submit();
+               }
                    });
         }
         else

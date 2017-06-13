@@ -369,8 +369,10 @@ $uploadOk = 1;
 
 // check file type
 if($imageFileType != "pdf" && $imageFileType != "jpg" && 
-        $imageFileType != "gif" && $imageFileType != "png" && $imageFileType != "jpeg")
+        $imageFileType != "gif" && $imageFileType != "png" && $imageFileType != "jpeg") {
     $uploadOk = 0;
+    $error = true;
+           }
 
     // Check if file already exists
 if (file_exists($filename)) {
@@ -392,18 +394,20 @@ if($uploadOk) {
             }
             
         }
+        
                 }
                 
                 
         if(!$error)
-            exit('done');
+            echo 'done';
         else
-            exit('error');
+            echo 'error';
             }
             else
             {
-                exit('no files');
+                echo 'no files';
             }
+            exit();
         }
         
         private function _shrinkReceipt($filename, $path)
@@ -423,6 +427,7 @@ if($uploadOk) {
 
 			case null:
 			break;
+                    
 
 		}
 		

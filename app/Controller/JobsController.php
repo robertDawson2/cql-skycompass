@@ -14,7 +14,22 @@
     	public $name = 'Job';
         public $uses = array('Job', 'User', 'ScheduleEntry', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
 
-        
+        public function admin_ajaxGetEventDetails($eventId) {
+            $this->layout = 'ajax';
+            $job = $this->Job->findById($eventId);
+            $return = "<p>People Served: <em>" . $job['Job']['people_served_count'] . "</em><br />";
+            if(isset($job['Job']['IDD_BH']))
+                $return .= "IDD/BH: <em>" . $job['Job']['IDD_BH'] . "</em><br />";
+            $return .= "Engagement Fee Paid: <em>" . ($job['Job']['eng_fee_paid'] === 0 ? 'No' : 'Yes') . "</em><br />";
+            $return .= "<br />Notes: <br /><em>";
+            if(!empty($job['Job']['notes']))
+                $return .= $job['Job']['notes'] . "</em></p>";
+            else
+                $return .= "--- NO NOTES FOUND ---</em></p>";
+            
+            echo $return; 
+            exit();
+        }
         public function admin_view($id)
         {
             $this->Job->unbindModel(array('belongsTo' => array('Customer')));
@@ -23,7 +38,7 @@
         }
         public function beforeFilter() {
             parent::beforeFilter();
-            $this->Auth->allow('import','ajax_scheduleEmployees');
+            $this->Auth->allow('import','ajax_scheduleEmployees', 'admin_ajaxGetEventDetails');
         }
         
         public function admin_changeEngagementFee($jobId, $value = 1)
@@ -181,10 +196,7 @@
                         
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         //override function to schedule double bookings
-                        if($this->config['scheduler.override'])
-                        {
-                            $result = 'ok';
-                        }
+                        
                         if($result == 'ok')
                             {
                             
@@ -345,7 +357,11 @@
                        
                         if($entry['approved'] != "0" && $entry['job_id'] !== $jobId)
                         {
-                            // not a denied record - must be legitimate overlap
+                            // not a denied record - must be legitimate overlap, but if override is on, return true 
+			if($this->config['scheduler.override'])
+                        {
+                            return true;
+                        }
                             return false;
                         
                         }
@@ -376,6 +392,8 @@
             
             $errorList = array();
             $this->Job->id = $eventId;
+		if(empty($eventId))
+		return true;
                 $currJob = $this->Job->read();
                 $this->Job->saveField('start_date', $event['start']);
                 $this->Job->saveField('end_date', $event['end']);
@@ -410,10 +428,7 @@
                     foreach($type as $employeeId => $employee) {
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         //override function to schedule double bookings
-                        if($this->config['scheduler.override'])
-                        {
-                            $result = 'ok';
-                        }
+                       
                         if($result == 'ok')
                             {
                                 // EMPLOYEE not scheduled, free to schedule and queue notification
@@ -438,8 +453,9 @@
                                      'JobTaskList.type' => $position,
                                      'JobTaskList.schedule_entry_id' => null
                                  )));
+                                 
                                  $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
-                                 $this->JobTaskList->updateField('schedule_entry_id', $this->ScheduleEntry->id);
+                                 $this->JobTaskList->saveField('JobTaskList.schedule_entry_id', $this->ScheduleEntry->id);
                                  
                                 
                                 // Queue employee notification if not already scheduled previously
@@ -780,10 +796,22 @@
             return $score;
            
         }
+	public function admin_toggleWeekends() {
+		if($this->config['scheduler.show_weekends'] == 'false')
+			$this->Config->saveValue('scheduler.show_weekends', 'true');
+		else
+			$this->Config->saveValue('scheduler.show_weekends', 'false');
+
+
+		$this->redirect('/admin/jobs/scheduler');
+	}
         
         public function admin_scheduler() {
             $override = $this->config['scheduler.override'] == 0 ? 'off' : 'on';
+	    $showWeekends = $this->config['scheduler.show_weekends'];
+	
            $this->set('dataOverride', $override);
+		$this->set('showWeekends', $showWeekends);
             $this->set('setColors', [
         "training" => 'black',
         "certification"=> 'darkgreen',
@@ -796,22 +824,26 @@ $this->set('pendingColors', [
         "accreditation"=> 'brown',
         "other" => 'cadetblue'
     ]);
+	$this->Customer->unbindModel(array('hasMany' => array('Job')));
+	$this->Job->unbindModel(array('hasMany' => array('JobTaskList')));
             $openJobs = $this->Job->find('all', array('recursive' => 2,  'conditions' => array(
                 'review_start' => null,
                 'start_date' => null,
                 'end_date' => null
             )));
-            
+           set_time_limit(0);
             foreach($openJobs as  $i => $job) {
                 unset($openJobs[$i]['Customer']['Jobs']);
             }
-            $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'conditions'=> array(
+            $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'order' => 'Job.start_date ASC', 'conditions'=> array(
                 'review_start' => null,
+		'start_date >=' => date('Y-m-d H:i:s', strtotime("-4 weeks")),
                 'NOT' => array(
                     'start_date' => null,
                     'end_date' => null
                 )
             )));
+	
             
             $this->set('jobs', array('open' => $openJobs, 'set' => $scheduledJobs));
             $this->loadModel('Ability');

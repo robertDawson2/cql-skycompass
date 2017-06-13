@@ -378,6 +378,7 @@ exit;
                         'ScheduleEntry.type' => 'scheduling'
                         
                     ),
+                    'ScheduleEntry.user_id' => $this->Auth->user('id'),
                     'ScheduleEntry.start_date' => $this->request->data['Schedule']['start_date'],
                         'ScheduleEntry.end_date' => $this->request->data['Schedule']['end_date']
                     

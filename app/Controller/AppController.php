@@ -51,14 +51,15 @@ class AppController extends Controller {
         public function _getOpenJobProgress($id = null)
         {
             if($id === null)
-                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10,'order' => 'start_date ASC'));
+                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10,'order' => 'start_date ASC', 'conditions' => array('start_date >=' => date('Y-m-d H:i:s'))));
             else{
                 $this->loadModel('ScheduleEntry');
                 $scheduleEntries = $this->ScheduleEntry->find('list', array(
                     'fields' => array('ScheduleEntry.id', 'ScheduleEntry.job_id'),
                     'conditions' => array(
                         'ScheduleEntry.user_id' => $id,
-                        'ScheduleEntry.approved' => "1"
+                        'ScheduleEntry.approved' => "1",
+			'start_date >=' => date('Y-m-d H:i:s')
                     )
                 ));
                 
@@ -117,7 +118,9 @@ class AppController extends Controller {
                 $percent = ($completed / $total)*100;
                 if(!empty($job['JobTaskList']))
                 $returnArray[] = array('jobId' => $job['Job']['id'], 'jobName' => $job['Job']['full_name'],
-                        'percentage' => $percent, 'lastDone' => (isset($mostRecent) && isset($mostRecentItem)) ? $job['JobTaskList'][$mostRecentItem]['JobTaskListItem'][$mostRecent] : array(), 'nextUp' => $job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1]);
+                        'percentage' => $percent, 
+                    'lastDone' => (isset($mostRecent) && isset($mostRecentItem)) ? $job['JobTaskList'][$mostRecentItem]['JobTaskListItem'][$mostRecent] : array(), 
+                    'nextUp' => isset($job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1]) ? $job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1] : null);
             }
             
             
@@ -132,11 +135,13 @@ class AppController extends Controller {
             if($expenses) {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
-                'Item.full_name LIKE' => "%Staff Items%"
+                'Item.full_name LIKE' => "%Staff Items%",
+                'Item.is_active' => 'true'
             )));}
             else {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
+                'Item.is_active' => 'true',
                     'NOT' => array(
                 'Item.full_name LIKE' => "%Staff Items%")
             ))); }
@@ -213,7 +218,7 @@ class AppController extends Controller {
         public function _loadPayrollItems()
         {
             $this->loadModel('PayrollItem');
-            $items = $this->PayrollItem->find('all');
+            $items = $this->PayrollItem->find('all', array('conditions' => array('PayrollItem.is_active' => 'true')));
             
             $returnArray = array();
             foreach($items as $item)
@@ -285,7 +290,7 @@ class AppController extends Controller {
         }
         
 	public function beforeFilter() {	
-		
+		ini_set('memory_limit', '256M');
 
 		date_default_timezone_set('America/New_York');
 		
@@ -367,11 +372,11 @@ class AppController extends Controller {
 	}
 	
 	public function beforeRender() {
-            
+       
              if($this->Auth->user('id') !== null){
                         $updatedUser = $this->User->findById($this->Auth->user('id'));
                          $this->set('updatedUser', $updatedUser);
-                   // pr($updatedUser); exit();
+                    
              }
              
 		$misc = $this->Session->read('Misc');

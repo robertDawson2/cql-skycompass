@@ -8,6 +8,34 @@
         z-index: 9999;
     
     }
+    .deleted {
+        color: #afafaf;
+        background-color: #888;
+        text-decoration: line-through;
+    }
+    .revert-row {
+        float: right;
+        color: green;
+        text-decoration: none;
+        font-size: 12px;
+        cursor: pointer;
+    }
+    .revert-row:hover {
+        color: darkgreen;
+    }
+    .edit-row {
+        float: right;
+        color: blue;
+        text-decoration: none;
+        font-size: 12px;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .edit-row:hover {
+        color: darkblue;
+        
+    }
     .remove-row {
         float: right;
         color: red;
@@ -18,14 +46,14 @@
     .remove-row:hover {
         color: darkred;
     }
-    .phone-row, .customer-row, .address-row, .cert-row, .group-row {
+    .phone-row, .customer-row, .address-row, .cert-row, .group-row, .doc-row {
         width: 400px;
         background-color: #fafafa;
         border-bottom: 1px solid white;
         padding: 5px 15px;
        
     }
-    .phone-row:nth-child(2n), .customer-row:nth-child(2n), .address-row:nth-child(2n), .cert-row:nth-child(2n), .group-row:nth-child(2n)
+    .phone-row:nth-child(2n), .customer-row:nth-child(2n), .doc-row:nth-child(2n), .address-row:nth-child(2n), .cert-row:nth-child(2n), .group-row:nth-child(2n)
     {
         background-color: #efefef;
     }
@@ -61,7 +89,7 @@
           
         </div>
         <!-- /.box-header -->
-        <?php echo $this->Form->create('add'); ?>
+        <?php echo $this->Form->create('edit'); ?>
         <div class="box-body">
       
             <div class="row">
@@ -88,12 +116,19 @@
                 <?= $this->Form->input('Contact.marketing_opt_out', array('type'=>'checkbox', 'label' => 'Opt out of Marketing Emails', 'class'=>'checkbox')); ?>
                 </div>
             </div>
+            <?= $this->Form->hidden('Contact.id'); ?>
            <?= $this->Form->hidden('Phone.list'); ?>
             <?= $this->Form->hidden('Customer.list'); ?>
             <?= $this->Form->hidden('Group.list'); ?>
             <?= $this->Form->hidden('Address.list'); ?> 
             <?= $this->Form->hidden('Cert.list'); ?>
             <?= $this->Form->hidden('Doc.list'); ?>
+            <?= $this->Form->hidden('Phone.removed'); ?>
+            <?= $this->Form->hidden('Customer.removed'); ?>
+            <?= $this->Form->hidden('Group.removed'); ?>
+            <?= $this->Form->hidden('Address.removed'); ?> 
+            <?= $this->Form->hidden('Cert.removed'); ?>
+            <?= $this->Form->hidden('Doc.removed'); ?>
             
         </div>
         
@@ -116,9 +151,24 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul id='customersAddList' class='add-remove-list'>
-                        
+                        <?php
+                       
+                            $emptyCustomers = true;
+                        if(!empty($current['Customer'])) {
+                            $emptyCustomers = false;
+                            foreach($current['Customer'] as $customer):
+                                if($customer['ContactCustomer']['archived'] === NULL):
+                                ?>
+                        <li data-saved-id="<?= $customer['id']; ?>" data-id="<?= $customer['id']; ?>" class="customer-row saved">
+                        <?= $customer['name']; ?> <i onclick="removeRow(this);" class="fa fa-remove remove-row"></i>
+                        <i onclick="revertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i></li>
+
+                        <?php 
+                        endif;
+                            endforeach;
+                        } ?>
                     </ul>
-                    <div class='empty-message'>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No customers linked ---</em></strong>
                     </div>
                 </div>
@@ -168,9 +218,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul id='groupAddList' class='add-remove-list'>
-                        
+                        <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['ContactGroup'])) {
+                            $emptyCustomers = false;
+                            foreach($current['ContactGroup'] as $customer):
+                                ?>
+                        <li data-saved-id='<?=$customer['id']; ?>' data-id="<?= $customer['group_id']; ?>" class="group-row saved">
+                        <?= $groupTypes[$customer['group_id']]; ?> <i onclick="removeRow(this);" class="fa fa-remove remove-row"></i>
+                        <i onclick="revertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i></li>
+
+                        <?php 
+                            endforeach;
+                        } ?>
                     </ul>
-                    <div class='empty-message'>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No groups linked ---</em></strong>
                     </div>
                 </div>
@@ -217,21 +279,40 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul id='addressList' class='add-remove-list'>
-                        
+                    <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['ContactAddress'])) {
+                            $emptyCustomers = false;
+                            foreach($current['ContactAddress'] as $address):
+                                ?>
+                        <li data-saved-id='<?=$address['id']; ?>' data-type="<?= $address['type']; ?>" 
+                            data-addr1="<?= $address['address_1']; ?>" 
+                             data-addr2="<?= $address['address_2']; ?>" 
+                              data-city="<?= $address['city']; ?>" 
+                               data-state="<?= $address['state']; ?>" 
+                            data-zip="<?= $address['zip']; ?>" class="address-row saved">
+                            <strong><?= $addressTypes[$address['type']]; ?></strong><br />
+                            <?= $address['address_1']; ?>
+                            <?php if(!empty($address['address_2'])) { ?>
+                            <br />
+                            <?= $address['address_2']; ?><?php } ?>
+                            <br />
+                            <?= $address['city']; ?>, <?= $address['state']; ?> <?= $address['zip']; ?> <i onclick="removeRow(this);" class="fa fa-remove remove-row"></i> 
+                             <i onclick="editAddressRow(this);" class="fa fa-edit edit-row"></i>
+                        <i onclick="revertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i></li>
+
+                        <?php 
+                            endforeach;
+                        } ?>
                     </ul>
-                    <div class='empty-message'>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No addresses listed ---</em></strong>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="row">
-                <?= $this->Form->input('Address.type', array('div'=>'col-md-6', 'options' => array(
-                    'home' => 'Home',
-                    'work' => 'Work',
-                    'mailing' => 'Mailing',
-                    'other' => 'Other'
-                ), 'required', 'class'=>'input form-control')); ?>
+                <?= $this->Form->input('Address.type', array('div'=>'col-md-6', 'options' => $addressTypes, 'required', 'class'=>'input form-control')); ?>
                
             </div>
             <div class="row">
@@ -267,22 +348,33 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul id='phoneNumberList' class='add-remove-list'>
-                        
+                      <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['ContactPhone'])) {
+                            $emptyCustomers = false;
+                            foreach($current['ContactPhone'] as $phone):
+                                ?>
+                        <li data-saved-id='<?=$phone['id']; ?>' data-type="<?= $phone['type']; ?>" 
+                            data-phone="<?= $phone['phone']; ?>" 
+                            data-ext="<?= $phone['ext']; ?>" class="phone-row saved">
+                            <?= $phone['phone']; ?><?php if(!empty($phone['ext']))
+                                echo " ext. " . $phone['ext']; ?>
+                             (<?= $phoneTypes[$phone['type']]; ?>) <i onclick="removeRow(this);" class="fa fa-remove remove-row"></i> 
+                             <i onclick="editPhoneRow(this);" class="fa fa-edit edit-row"></i>
+                        <i onclick="revertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i></li>
+
+                        <?php 
+                            endforeach;
+                        } ?>
                     </ul>
-                    <div class='empty-message'>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No phone numbers listed ---</em></strong>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="row">
-                <?= $this->Form->input('Phone.type', array('div'=>'col-md-6', 'class'=>'input form-control', 'options' => array(
-                    'home' => 'Home',
-                    'work' => 'Work',
-                    'mobile' => 'Mobile',
-                    'fax' => 'Fax',
-                    'other' => 'Other'
-                ))); ?>
+                <?= $this->Form->input('Phone.type', array('div'=>'col-md-6', 'class'=>'input form-control', 'options' => $phoneTypes)); ?>
                
             </div>
             <div class="row">
@@ -312,7 +404,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <table id='certList' style='display: none;' class='table table-bordered table-responsive table-striped'>
+                    <table id='certList' <?php if(count($current['ContactCertification']) == 0) { ?> style='display: none;' <?php } ?> class='table table-bordered table-responsive table-striped'>
                         <thead>
                         <th>Type</th>
                         <th>Name</th>
@@ -322,11 +414,46 @@
                         <th>Renewal</th>
                         <th>Reliability</th>
                         <th>Notes</th>
-                        <th></th>
+                        <th></th></thead>
+                        <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['ContactCertification'])) {
+                            $emptyCustomers = false;
+                            foreach($current['ContactCertification'] as $cert):
+                                ?>
+                    <tr data-saved-id='<?=$cert['id']; ?>' 
+                        data-type="<?= $cert['certification_id']; ?>" 
+                        data-level="<?= $cert['level']; ?>" 
+                        data-name="<?= $cert['name']; ?>" 
+                        data-renewal_date="<?= $cert['renewal_date']; ?>" 
+                        data-reliability_score="<?= $cert['reliability_score']; ?>" 
+                        data-notes="<?= $cert['notes']; ?>" 
+                        data-start_date="<?= $cert['start_date']; ?>" 
+                        data-recertification_date="<?= $cert['recertification_date']; ?>" 
+                        class="cert-row saved">
+                        <td><?=$certTypes[$cert['certification_id']]; ?></td>
+                        <td><?= $cert['name']; ?></td>
+                        <td><?= $cert['level']; ?></td>
+                        <td><?= $cert['start_date']; ?></td>
+                        <td><?= $cert['recertification_date']; ?></td>
+                        <td><?= $cert['renewal_date']; ?></td>
+                        <td><?= $cert['reliability_score']; ?></td>
+                        <td><?= $cert['notes']; ?></td>
+                        <td>
+                         <i onclick="removeCertRow(this);" class="fa fa-remove remove-row"></i> 
+                             <i onclick="editCertRow(this);" class="fa fa-edit edit-row"></i>
+                        <i onclick="revertCertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i>
+                        </td>
+                    </tr>
+
+                        <?php 
+                            endforeach;
+                        } ?>
+                   
                         
-                        </thead>
                     </table>
-                    <div class='empty-message'>
+                    
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No certifications listed ---</em></strong>
                     </div>
                 </div>
@@ -376,9 +503,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul id='docAddList' class='add-remove-list'>
-                        
+                        <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['ContactFile'])) {
+                            $emptyCustomers = false;
+                            foreach($current['ContactFile'] as $customer):
+                                ?>
+                        <li data-saved-id='<?=$customer['id']; ?>' data-file="<?= $customer['file']; ?>" class="doc-row saved">
+                        <?= $customer['file']; ?> <i onclick="removeRow(this);" class="fa fa-remove remove-row"></i>
+                        <i onclick="revertRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i></li>
+
+                        <?php 
+                            endforeach;
+                        } ?>
                     </ul>
-                    <div class='empty-message'>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
                     <strong><em>--- No linked documents ---</em></strong>
                     </div>
                 </div>
@@ -520,17 +659,80 @@ $("#addDocSubmit").click(function(e) {
         $("#docAddList").parent().children(".empty-message").fadeOut();
     }
 });
+function editPhoneRow(me) {
+    $(me).parent().children('.remove-row').hide();
+    
+    $("#phone_number").val($(me).parent().data('phone'));
+    $("#extension").val($(me).parent().data('ext'));
+    $("#PhoneType").val($(me).parent().data('type'));
+    removeRow(me);
+    $(me).parent().fadeOut('fast');
+}
+function editAddressRow(me) {
+    $(me).parent().children('.remove-row').hide();
+    
+    $("#AddressType").val($(me).parent().data('type'));
+    $("#addr_1").val($(me).parent().data('addr1'));
+    $("#addr_2").val($(me).parent().data('addr2'));
+    $("#city").val($(me).parent().data('city'));
+    $("#state").val($(me).parent().data('state'));
+    $("#zip").val($(me).parent().data('zip'));
+    removeRow(me);
+    $(me).parent().fadeOut('fast');
+}
+function editCertRow(me) {
+    $(me).parent().children('.remove-row').hide();
+    
+    $("#CertificationName").val($(me).parent().parent().data('name'));
+    $("#CertificationType").val($(me).parent().parent().data('type'));
+    $("#CertificationLevel").val($(me).parent().parent().data('level'));
+    $("#CertificationStartDate").val($(me).parent().parent().data('start_date'));
+    $("#CertificationRecertificationDate").val($(me).parent().parent().data('recertification_date'));
+    $("#CertificationRenewalDate").val($(me).parent().parent().data('renewal_date'));
+    $("#CertificationReliabilityScore").val($(me).parent().parent().data('reliability_score'));
+    $("#CertificationNotes").val($(me).parent().parent().data('notes'));
+    removeCertRow(me);
+    $(me).parent().parent().fadeOut('fast');
+}
 function removeCertRow(me) {
+    if(!$(me).parent().parent().hasClass('saved'))
     $(me).parent().parent().fadeOut().delay(500).remove();
+    else
+    {
+        $(me).parent().parent().addClass('deleted');
+        $(me).fadeOut('fast');
+        $(me).parent().children('.edit-row').fadeOut('fast');
+        $(me).parent().children('.revert-row').fadeIn('fast');
+    }
  if($(".cert-row").size() === 0)
     {
         $("#certList").parent().children(".empty-message").fadeIn();
         $("#certList").fadeOut();
     }   
 }
+function revertCertRow(me) {
+    $(me).parent().parent().removeClass('deleted');
+    $(me).fadeOut('fast');
+    $(me).parent().children('.remove-row').fadeIn('fast');
+    $(me).parent().children('.edit-row').fadeIn('fast');
+}
+function revertRow(me) {
+    $(me).parent().removeClass('deleted');
+    $(me).fadeOut('fast');
+    $(me).parent().children('.remove-row').fadeIn('fast');
+    $(me).parent().children('.edit-row').fadeIn('fast');
+}
 function removeRow(me) {
 
-    $(me).parent().fadeOut().delay(500).remove();
+    if(!$(me).parent().hasClass('saved'))
+        $(me).parent().fadeOut().delay(500).remove();
+    else
+    {
+        $(me).parent().addClass('deleted');
+        $(me).fadeOut('fast');
+        $(me).parent().children('.edit-row').fadeOut('fast');
+        $(me).parent().children('.revert-row').fadeIn('fast');
+    }
     if($(".phone-row").size() === 0)
     {
         $("#phoneNumberList").parent().children(".empty-message").fadeIn();
@@ -558,33 +760,51 @@ $("#submitAll").click(function(e) {
     if($(".phone-row").size() > 0)
     {
         $phone = [];
+        $deleted = [];
         $(".phone-row").each(function() {
             $newPhone = {
                 'type' : $(this).data('type'),
                 'phone' : $(this).data('phone'),
                 'ext' : $(this).data('ext')                
         };
-        $phone.push($newPhone);
+        if(!$(this).hasClass('saved'))
+            $phone.push($newPhone);
+        
+        if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
     });
-   
+    
     $("#PhoneList").val(JSON.stringify($phone));
+    $("#PhoneRemoved").val(JSON.stringify($deleted));
     }
     if($(".customer-row").size() > 0)
     {
+        
         $customers = [];
+        $deleted = [];
         $(".customer-row").each(function() {
             $newCust = {
                 'id' : $(this).data('id'),
                 
         };
+        if(!$(this).hasClass('saved'))
         $customers.push($newCust);
+    
+    if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
     });
    
     $("#CustomerList").val(JSON.stringify($customers));
+    $("#CustomerRemoved").val(JSON.stringify($deleted));
     }
     if($(".address-row").size() > 0)
     {
         $phone = [];
+        $deleted = [];
         $(".address-row").each(function() {
             $newPhone = {
                 'type' : $(this).data('type'),
@@ -594,14 +814,22 @@ $("#submitAll").click(function(e) {
                 'state' : $(this).data('state'),
                 'zip' : $(this).data('zip')
         };
+        if(!$(this).hasClass('saved'))
         $phone.push($newPhone);
+    
+    if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
     });
    
     $("#AddressList").val(JSON.stringify($phone));
+    $("#AddressRemoved").val(JSON.stringify($deleted));
     }
     if($(".cert-row").size() > 0)
     {
         $phone = [];
+        $deleted = [];
         $(".cert-row").each(function() {
             $newPhone = {
                 'name' : $(this).data('name'),
@@ -614,38 +842,64 @@ $("#submitAll").click(function(e) {
                 'notes' : $(this).data('notes')
                                
         };
+        if(!$(this).hasClass('saved'))
         $phone.push($newPhone);
+    
+    if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
+    
     });
    
     $("#CertList").val(JSON.stringify($phone));
+    $("#CertRemoved").val(JSON.stringify($deleted));
     }
     if($(".doc-row").size() > 0)
     {
         $phone = [];
+        $deleted = [];
         $(".doc-row").each(function() {
             $newPhone = {
                 'file' : $(this).data('file')              
         };
+        if(!$(this).hasClass('saved'))
         $phone.push($newPhone);
+    
+     if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
+        
     });
    
     $("#DocList").val(JSON.stringify($phone));
+    $("#DocRemoved").val(JSON.stringify($deleted));
+    
     }
     
     if($(".group-row").size() > 0)
     {
         $phone = [];
+        $deleted = [];
         $(".group-row").each(function() {
             $newPhone = {
                 'group_type_id' : $(this).data('id')              
         };
+        if(!$(this).hasClass('saved'))
         $phone.push($newPhone);
+    
+        if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
     });
    
     $("#GroupList").val(JSON.stringify($phone));
+    $("#GroupRemoved").val(JSON.stringify($deleted));
     }
     
-    $("#addAdminAddForm").submit();
+    $("#editAdminEditForm").submit();
     
 });
 </script>
