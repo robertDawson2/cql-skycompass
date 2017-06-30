@@ -11,10 +11,15 @@ App::uses('AppController', 'Controller');
     
     class GroupsController extends AppController {
 
+        public function beforeRender() {
+            parent::beforeRender();
+            $this->set('section', 'crm');
+        }
     	
        public function admin_index()
        {
-           $this->set('groups', $this->Group->find('all'));
+           $this->set('allgroups', $this->Group->find('all'));
+          
        }
        
        public function admin_add()
@@ -25,17 +30,18 @@ App::uses('AppController', 'Controller');
                if($this->Group->save($this->request->data))
                {
                    $this->Session->setFlash("New group successfully created.", 'flash_success');
-                   $this->redirect('/admin/groups');
+                   
                }
                else {
                    $this->Session->setFlash("An error occurred. Please try again.", 'flash_error');
                }
-               
+               $this->redirect('/admin/groups');
                
            }
        }
        public function admin_edit($id)
        {
+           
            if(!empty($this->request->data))
            {
                $this->Group->id = $id;
@@ -48,8 +54,9 @@ App::uses('AppController', 'Controller');
                    $this->Session->setFlash("An error occurred. Please try again.", 'flash_error');
                }
                
-               
+               $this->redirect('/admin/groups');
            }
+           $this->data = $this->Group->findById($id);
        }
        
        public function admin_delete($id)

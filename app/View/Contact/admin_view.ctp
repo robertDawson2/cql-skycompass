@@ -1,4 +1,20 @@
 <style>
+    .red {
+        color: darkred;
+        
+    }
+    .cert {
+        margin-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #afafaf;
+    }
+    .yellow {
+        color: goldenrod;
+        
+    }
+    .green {
+        color: darkgreen;
+    }
     .fieldname {
        
         font-size: 16px;
@@ -15,24 +31,27 @@
         z-index: 9999;
     
     }
-    .remove-row {
+    .edit-row {
         float: right;
-        color: red;
+        color: blue;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 14px;
         cursor: pointer;
+       margin-left: 8px;
     }
-    .remove-row:hover {
-        color: darkred;
+    
+    .edit-row:hover {
+        color: darkblue;
     }
-    .phone-row, .customer-row, .address-row, .cert-row, .group-row {
-        width: 400px;
+    .phone-row, .customer-row, .address-row, .cert-row, .group-row, .file-row {
+        width: 100%;
         background-color: #fafafa;
         border-bottom: 1px solid white;
         padding: 5px 15px;
+        
        
     }
-    .phone-row:nth-child(2n), .customer-row:nth-child(2n), .address-row:nth-child(2n), .cert-row:nth-child(2n), .group-row:nth-child(2n)
+    .phone-row:nth-child(2n), .customer-row:nth-child(2n), .address-row:nth-child(2n), .cert-row:nth-child(2n), .file-row:nth-child(2n)
     {
         background-color: #efefef;
     }
@@ -40,8 +59,45 @@
         list-style-type: none;
         
     }
-    
+    .quickcontact {
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
     </style>
+    <div class='row'><div class='col-md-12'>
+    
+            <div class="box-body box-profile">
+                <div class='col-md-4'>
+                            <h3 class="profile-username text-center"><?= $contact['Contact']['first_name'] . " " . $contact['Contact']['last_name']; ?></h3>
+
+               <a href="/admin/contacts/edit/<?= $contact['Contact']['id']; ?>" class="btn btn-primary btn-block"><i class='fa fa-edit'></i> <b>Edit</b></a>
+                </div>
+<div class='col-md-8' style='background: rgba(255,255,255,0.3);'>
+    <div class='row'>
+        <div class='col-md-6 quickcontact'>
+            <a href='mailto:<?= $contact['Contact']['email'];?>'><i class='fa fa-envelope'></i> <?= $contact['Contact']['email']; ?></a>
+            </div>
+         <div class='col-md-6 quickcontact'>
+             <?php if(!empty($contact['ContactPhone']))
+             { 
+                 
+             foreach($contact['ContactPhone'] as $ph) {
+?>
+             
+             <i class='fa fa-phone'></i> <?= $ph['phone'] . " (" . $ph['type'] . ")"; ?><br />
+             <?php }} ?>
+            </div>
+         
+        </div>
+   
+            </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+      
+    </div>
+   
 <div class="row">
     <div class='col-md-3'>
         <ul class="nav nav-pills nav-stacked">
@@ -244,9 +300,52 @@
 
           
         </div>
+           
         <!-- /.box-header -->
         <div class="box-body">
-         
+         <?php if(!empty($contact['ContactCertification'])):
+             foreach($contact['ContactCertification'] as $cert)
+         {
+             
+             $expiring = "";
+             if(!empty($cert['renewal_date']) && $cert['renewal_date'] !== NULL)
+             {
+             $thirty = strtotime("+30 days");
+             $current = time();
+             $renewal = strtotime($cert['renewal_date']);
+             if($renewal <= $current)
+             {
+                 $expiring = 'red';
+             }
+             else if($renewal <= $thirty) {
+                 $expiring = 'yellow';
+             }
+             else
+             {
+                 $expiring = 'green';
+             }
+             }
+             ?>
+            <div class='cert <?= $expiring; ?>'>
+            <h4><?= $cert['name']; ?></h4>
+            <p>
+                <strong><?= $cert['Certification']['name']; ?></strong><em> (<?= $cert['level']; ?>)</em>
+                <br />
+            <div class='row'>
+            <div class='col-md-6'><strong>Start Date: </strong></div><div class='col-md-6'><?php if(!empty($cert['start_date'])): ?><?= date('m/d/Y', strtotime($cert['start_date'])); ?><?php endif; ?></div>
+            </div><div class='row'>
+            <div class='col-md-6'><strong>Recertification Date: </strong></div><div class='col-md-6'><?php if(!empty($cert['recertification_date'])): ?><?= date('m/d/Y', strtotime($cert['recertification_date'])); ?><?php endif; ?></div>
+            </div><div class='row'>
+            <div class='col-md-6'><strong>Renewal Date: </strong></div><div class='col-md-6'><?php if(!empty($cert['renewal_date'])): ?><?= date('m/d/Y', strtotime($cert['renewal_date'])); ?><?php endif; ?></div>
+            </div>
+            </p>
+            </div>
+            
+            <?php
+             }
+             else: 
+                 echo "<em>--- No Certifications Attached ---</em>";
+         endif; ?>
         </div>
         
         
@@ -262,7 +361,23 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-         
+         <?php if(!empty($contact['ContactFile']))
+         {
+             echo "<ul style='list-style-type: none;'>";
+            foreach($contact['ContactFile'] as $file)
+            {
+                ?>
+            <li class='file-row'><?php $filearray = explode("/", $file['file']); echo $filearray[count($filearray)-1]; ?>
+                <a href='<?= $file['file']; ?>' target='_BLANK' class='edit-row'><i class='fa fa-lg fa-eye'></i></a>
+            <a href='<?= $file['file']; ?>' download class='edit-row'><i class='fa fa-lg fa-download'></i></a></li>
+            <?php
+            }
+            echo "</ul>";
+         } else
+         {
+             echo "<em> --- No Linked Files --- </em>";
+         }
+?>
         </div>
         
         
@@ -544,3 +659,4 @@ $("#submitAll").click(function(e) {
   <iframe src="/_/plugins/fileman/index.html?integration=custom&type=files&txtFieldId=newDoc" style="width:100%;height:100%" frameborder="0">
   </iframe>
 </div>
+ <div style='clear: both;'></div>

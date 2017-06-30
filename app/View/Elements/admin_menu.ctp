@@ -37,11 +37,11 @@
               <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_add']): ?>
             <li><a disabled href="#"><i class="fa fa-plus"></i> Add New Customer</a></li>
             <?php endif; ?>
-            <li><a href="/admin/customers"><i class="fa fa-edit"></i> View Customers</a></li>
+            <li><a href="/admin/customers"><i class="fa fa-eye"></i> View Customers</a></li>
            </ul>
         </li>
         <?php endif; ?>
-        <?php if(0): ?>
+        <?php if(1): ?>
         <li class="<?= $section == 'contacts' ? 'active' : ''; ?> treeview">
           <a href="#">
             <i class="fa fa-users"></i>
@@ -49,8 +49,8 @@
            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-plus"></i> Add New Contacts</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-edit"></i> View Contacts</a></li>
+            <li><a href="/admin/contacts/add"><i class="fa fa-plus"></i> Add New Contact</a></li>
+            <li><a href="/admin/contacts"><i class="fa fa-edit"></i> View Contacts</a></li>
          </ul>
         </li>
       <?php endif; ?>
@@ -158,7 +158,7 @@
           </ul>
         </li>
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['config']['admin_index']): ?>
-        <li class="<?= $section == 'misc' ? 'active' : ''; ?> treeview">
+        <li class="<?= $section == 'misc' ? 'active' : ''; ?><?= $section == 'crm' ? 'active' : ''; ?>  treeview">
           <a href="#">
             <i class="fa fa-gears"></i> <span>Miscellaneous</span>
             <i class="fa fa-angle-left pull-right"></i>
@@ -166,6 +166,16 @@
           <ul class="treeview-menu">
             <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Edit My Profile</a></li>
+            <li class='<?= $section == 'crm' ? 'active' : ''; ?> '>
+              <a href="#"><i class="fa fa-plus-circle"></i> CRM Elements <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="/admin/groups"><i class="fa fa-circle-o"></i> Manage Groups</a></li>
+                <li><a href="/admin/certifications"><i class="fa fa-circle-o"></i> Manage Certs</a></li>
+                <li><a href="/admin/accreditations"><i class="fa fa-circle-o"></i> Manage Accreds</a></li>
+                <li><a href="/admin/contactTypes"><i class="fa fa-circle-o"></i> Manage Contact Types</a></li>
+                <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Customer Types</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <?php endif; ?>

@@ -1,11 +1,15 @@
 <div class="row">
     <div class="col-sm-12">
- 
+        <style>.edit-box {
+                display: inline;
+            margin-left: 30px;
+            }</style>
 <!-- Customer -->
 <div class="box">
             <div class="box-header">
                 <i class="fa fa-eye-slash"></i>
                 <h3 class="box-title"><em><strong><?= $customer['Customer']['name']; ?></strong> Quick Look</em></h3>
+                <div class='edit-box'><a href='/admin/customers/edit/<?= $customer['Customer']['id']; ?>' class='btn btn-sm btn-primary'><i class='fa fa-edit'></i> Edit</a></div>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -55,14 +59,20 @@
     </div>
 </div>
 <div class ="row">
-    <div class="col-sm-6">
+    <div class="col-sm-7">
 <!-- JOBS -->
-<div class="box">
+<div class="box collapsed-box">
             <div class="box-header">
                 <i class="fa fa-cog"></i>
               <h3 class="box-title">Jobs</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    <?php $count = 0;
+if(!empty($jobs))
+    $count = count($jobs);
+?>
+                  <span data-toggle="tooltip" title="" class="badge bg-warning" data-original-title="<?= $count; ?> Jobs"><?= $count; ?></span>
+                  
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                 </button>
                 </button>
               </div>
@@ -121,11 +131,33 @@
             <!-- /.box-body -->
           </div>
     </div>
-    <div class='col-sm-6'>
+    
+    <div class='col-sm-5'>
    <?= $this->element('quick_email'); ?>
     </div>
 </div>
-
+<div class='row'>
+    <div class='col-sm-7'>
+           <?php $contacts = array();
+           if(isset($customer['Contact']))
+            $contacts = $customer['Contact']; ?>
+        <?= $this->element('customers/contacts', array('contacts' => $contacts)); ?>
+    </div>
+    <div class='col-sm-5'>
+<?php $files = array();
+           if(isset($customer['CustomerFile']))
+            $files = $customer['CustomerFile']; ?>
+        <?= $this->element('customers/files', array('files' => $files)); ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm-7'>
+           <?php $accreditations = array();
+           if(isset($customer['CustomerAccreditation']))
+            $accreditations = $customer['CustomerAccreditation']; ?>
+        <?= $this->element('customers/accreditations', array('accreditations' => $accreditations)); ?>
+    </div>
+</div>
 
 <?php $this->append('scripts'); ?>
 <script>

@@ -247,7 +247,7 @@
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-check-square-o"></i></a>
           </li>
         </ul>
       </div>
@@ -324,9 +324,52 @@
 <div id="dialog" style="display: none">
 
 </div>
-  <div id="chat-bar">
-      <div id="chat_div">
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-ordered-tab" data-toggle="tab"><i class="fa fa-calendar-check-o"></i></a></li>
+      <li><a href="#control-sidebar-jobs-tab" data-toggle="tab"><i class="fa fa-building"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Home tab content -->
+      <div class="tab-pane active" id="control-sidebar-ordered-tab">
+          <h3 class='control-sidebar-heading'><i class="fa fa-plus-square-o"></i> Quick Add Item</h3>
+          <textarea class='form-control'></textarea>
+          <hr>
+          <h3 class="control-sidebar-heading"><i class="fa fa-check-square-o"></i> To-Do List Items</h3>
+        <hr>
+
+
+
+
+      </div>
+      <!-- /.tab-pane -->
+
+      
+      
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-jobs-tab">
+        
+          <h3 class="control-sidebar-heading">Job Task Lists</h3>
+          <hr>
+          <?php if(!empty($jobtasklists)) {
+                  foreach($jobtasklists as $tl) {
+                      echo $this->element('jobtasklist', array('entry' => $tl));
+                      echo "<hr>";
+                  }
+          } ?>
+          
+      </div>
+      <!-- /.tab-pane -->
     </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
   </div>
 <!-- ./wrapper -->
 

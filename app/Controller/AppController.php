@@ -48,6 +48,28 @@ class AppController extends Controller {
             return $entries;
         }
         
+        function _getJobTaskLists()
+        {
+            // find approved schedule entries
+            $this->loadModel('ScheduleEntry');
+            $entries = $this->ScheduleEntry->find('list', array(
+                'fields' => array('id', 'job_id'),
+                'conditions' => array('user_id' => $this->Auth->user('id'),
+                                        'approved' => 1,
+                                        'end_date >=' => date('Y-m-d'))
+            ));
+            
+            // grab all linked job lists for schedule entries
+            $this->loadModel('JobTaskList');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry', 'JobTaskList')));
+            $this->JobTaskList->bindModel(array('belongsTo' => array('Job')));
+            $tasklists = $this->JobTaskList->find('all', array(
+                'recursive' => 2,
+                'conditions' => array('JobTaskList.job_id' => $entries,
+                                        'JobTaskList.schedule_entry_id' => array_keys($entries))
+            ));
+            return $tasklists;
+        }
         public function _getOpenJobProgress($id = null)
         {
             if($id === null)
@@ -131,6 +153,7 @@ class AppController extends Controller {
         {
             $this->loadModel('Item');
             
+            $timeEntryList = explode(",", $this->config['time_entry.service_items']);
             
             if($expenses) {
                 $itemList = $this->Item->find('all', array('conditions' => array(
@@ -142,11 +165,13 @@ class AppController extends Controller {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
                 'Item.is_active' => 'true',
+                    'Item.name' => $timeEntryList,
                     'NOT' => array(
                 'Item.full_name LIKE' => "%Staff Items%")
             ))); }
             
-	
+            
+          
              $returnArray = array();
             foreach($itemList as $class)
             {
@@ -159,7 +184,7 @@ class AppController extends Controller {
                     
                 );
                 
-                if(!empty($class['Children']))
+                if(!empty($class['Children']) && $expenses)
                 {
                     foreach($class['Children'] as $job)
                     {
@@ -177,8 +202,9 @@ class AppController extends Controller {
              return $returnArray;
         }
         
+        
         public function _loadClasses() {
-           
+          
             $this->loadModel('Classes');
             $items = $this->Classes->find('all', array('conditions' => array(
                 'Classes.parent_id' => ''
@@ -406,7 +432,8 @@ class AppController extends Controller {
         	//$this->set('navigation', $this->Content->find('threaded', array('fields' => array('Content.id', 'Content.tag', 'Content.parent_id', 'Content.lft', 'Content.rght'), 'conditions' => array('Content.status' => 'live'), 'order' => array('Content.lft ASC'))));
 		}
                 
-               
+               $tl = $this->_getJobTaskLists();
+               $this->set('jobtasklists', $tl);
                 
                 $user = $this->Auth->user();
                 if(!empty($user))
