@@ -17,6 +17,19 @@
     .info-div .red, .red {
         color: red;
     }
+    .green {
+        color: green;
+       
+    }
+    .orange {
+        color: orange;
+    }
+    .yellow {
+        color: gold;
+    }
+    .gray {
+        color: gray;
+    }
     .info-div a.green {
         margin-left: 5px;
         margin-right: 5px;
@@ -88,7 +101,7 @@
           <h3 class="control-sidebar-heading"><i class="fa fa-check-square-o"></i> To-Do List Items</h3>
           
           
-<ul class='todo-list uncategorized-todo-list small'>
+<ul id='quick-todo-list' class='todo-list uncategorized-todo-list small'>
           
                     
                     
@@ -106,7 +119,8 @@ $("#btnQuickAdd").click(function(e) {
     e.preventDefault();
     $.post('/admin/todo/ajaxQuickAdd',
     $("#QuickAddForm").serialize()).done(function(data) {
-     $(".uncategorized-todo-list").html(data);
+     $("#quick-todo-list").html(data);
+     
 });
 });
 

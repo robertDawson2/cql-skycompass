@@ -8,7 +8,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="/adminPanel/bootstrap/css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -40,7 +42,7 @@
   <link href="/adminPanel/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
   
   <link type="text/css" href="/adminPanel/plugins/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
-   
+  <link type="text/css" href="/adminPanel/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" /> 
 
     
   <script type="text/javascript">
@@ -278,8 +280,14 @@
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
+          
         </div>
       </form>
+      <div id="searchResults" data-context='hidden' style="
+           position: absolute; z-index: 9999999; 
+           display: none;">
+          <div class='box-tools'><a role='button'><i class='fa fa-close'></i></a></div>
+          </div>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <?php echo $this->element('admin_menu'); ?>
@@ -345,8 +353,76 @@
       <?= $this->element('todo/jobs', array('jobtaskliksts' => $jobtasklists)); ?>
     </div>
   </aside>
+  <?= $this->element('modals/todoLapsed'); ?>
   <?php $this->append('scripts'); ?>
 <script>
+    
+    // global search
+   function hideQuickSearch() {
+      $("input[name='q']").val(''); 
+      $("#searchResults").fadeOut('fast');
+                $("#searchResults").data('context', 'hidden');
+   }
+function search(force) {
+    var existingString = $("input[name='q']").val();
+    if (!force && existingString.length < 3) 
+    {
+        $("#searchResults").hide();
+                $("#searchResults").data('context', 'hidden');
+            return; //wasn't enter, not > 2 char
+        
+    }
+    $.ajax('/admin/CRM/ajaxSiteSearch/'+encodeURIComponent(existingString) ).done(function(data) {
+            if(data === 'done'){
+                $("#searchResults").hide();
+                $("#searchResults").data('context', 'hidden');
+            }
+            else
+            {
+                if($("#searchResults").data('context') === 'hidden')
+                {
+                    $("#searchResults").slideDown();
+                    $("#searchResults").data('context', 'visible');
+                }
+                $("#searchResults").html(data);
+            }
+                
+        });
+}
+$("input[name='q']").keydown(function(e) {
+    if(e.keyCode == 13)
+        e.preventDefault();
+});
+    $("input[name='q']").keyup(function(e) {
+        
+        clearTimeout($.data(this, 'timer'));
+    if (e.keyCode == 13){
+        e.preventDefault();
+        search(true);
+    }
+      
+    else{
+      $(this).data('timer', setTimeout(search, 500));
+  }
+        
+    });
+    // AJAX loop to check for expired todo list reminders!!!
+    window.onload = function() {
+    setInterval(checkForReminders, 60000); //300000 MS == 5 minutes
+    setTimeout(checkForReminders, 5000);
+    }
+    
+function checkForReminders() {
+    //do your AJAX stuff here
+    $.ajax('/admin/todo/ajaxCheckReminders').done(function(data) {
+        if(data !== "done")
+        {
+            $("#todoLapsed").find('.modal-body').html(data);
+            $("#todoLapsed").modal();
+            
+        }
+    })
+}
 $(".textarea").wysihtml5();
 
 $(".job-todo-list").todolist({
@@ -373,8 +449,12 @@ $(".job-todo-list").todolist({
 <!-- jQuery 2.2.0 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="/adminPanel/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="/adminPanel/bootstrap/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!--DateTimePicker -->
+<script src="/adminPanel/bootstrap-datetimepicker/js/bootstrap-datetime.js"></script>
 <!-- DataTables -->
 <script src="/adminPanel/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/adminPanel/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -395,7 +475,7 @@ $(".job-todo-list").todolist({
 <!--<script src="/adminPanel/dist/js/pages/dashboard2.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="/_/js/modals.js"></script>
-<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
+
 
 <script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
 <script src='/plugins/fullcalendar/scheduler.min.js'></script>
@@ -453,7 +533,7 @@ $(".job-todo-list").todolist({
 	$(function() {
             
             $.ajax('/admin/todo/ajaxGetList').done(function(data) {
-     $(".uncategorized-todo-list").html(data);
+     $("#quick-todo-list").html(data);
 });
             
             //Make the dashboard widgets sortable Using jquery UI

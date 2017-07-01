@@ -3,7 +3,7 @@
 class Todo extends AppModel {
 		
    public $useTable = 'todo';
-        public $belongsTo = array('TodoType');
+        public $belongsTo = array('TodoType','Customer','Contact');
 
 }
 

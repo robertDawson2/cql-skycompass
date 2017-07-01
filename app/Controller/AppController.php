@@ -316,6 +316,8 @@ class AppController extends Controller {
         }
         
 	public function beforeFilter() {	
+            if ($this->request['prefix'] == 'admin' || $this->request['prefix'] == 'ajax')
+			$this->layout = $this->request['prefix'];
 		ini_set('memory_limit', '256M');
 
 		date_default_timezone_set('America/New_York');
@@ -416,8 +418,7 @@ class AppController extends Controller {
 		}
 		 $customers = $this->_loadCustomers();
                 $this->set('customerList', $customers);
-		if ($this->request['prefix'] == 'admin' || $this->request['prefix'] == 'ajax')
-			$this->layout = $this->request['prefix'];
+		
 		
 		$this->set('config', $this->config);
 

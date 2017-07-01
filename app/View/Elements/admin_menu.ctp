@@ -35,7 +35,7 @@
           </a>
           <ul class="treeview-menu">
               <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_add']): ?>
-            <li><a disabled href="#"><i class="fa fa-plus"></i> Add New Customer</a></li>
+            <li><a disabled href="/admin/customers/add"><i class="fa fa-plus"></i> Add New Customer</a></li>
             <?php endif; ?>
             <li><a href="/admin/customers"><i class="fa fa-eye"></i> View Customers</a></li>
            </ul>
