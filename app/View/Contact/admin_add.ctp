@@ -8,6 +8,7 @@
         z-index: 9999;
     
     }
+    
     .remove-row {
         float: right;
         color: red;
@@ -33,6 +34,7 @@
         list-style-type: none;
         
     }
+    
     
     </style>
 <div class="row">
@@ -77,6 +79,12 @@
             <div class="row">
                 <?= $this->Form->input('Contact.email', array('div'=>'col-md-6', 'type'=>'email', 'required', 'class'=>'input form-control')); ?>
                 <?= $this->Form->input('Contact.alt_email', array('div'=>'col-md-6', 'type' => 'email', 'label' => 'Alternate Email', 'class'=>'input form-control')); ?>
+               
+            </div>
+            <div class="row">
+                <?= $this->Form->input('Contact.source', array('div'=>'col-md-6', 'options'=>$sources, 'required', 'class'=>'input form-control')); ?>
+                <?= $this->Form->input('Contact.types', array('div' => 'col-md-6', 'type'=>'select', 'multiple'=>'multiple', 
+                   'class' => 'input form-control', 'label' => 'Customer Type(s)', 'options' => $custTypes)); ?>
                
             </div>
             <h3>Options:</h3>

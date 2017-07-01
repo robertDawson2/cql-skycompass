@@ -283,7 +283,7 @@ class AppController extends Controller {
         
         public function _loadCustomers() {
             $this->loadModel('Customer');
-            $customers = $this->Customer->find('all');
+            $customers = $this->Customer->find('all', array('conditions' => array('Customer.archived is null')));
             
             $returnArray = array();
             foreach($customers as $customer)
@@ -399,6 +399,10 @@ class AppController extends Controller {
 	
 	public function beforeRender() {
        
+               $this->loadModel('TodoType');
+            $this->set('todoTypes', $this->TodoType->find('list'));
+            
+            
              if($this->Auth->user('id') !== null){
                         $updatedUser = $this->User->findById($this->Auth->user('id'));
                          $this->set('updatedUser', $updatedUser);

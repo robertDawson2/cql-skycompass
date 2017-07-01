@@ -22,6 +22,8 @@ class Customer extends AppModel {
 //                'finderQuery' => '',
 //                'with' => ''
         ));
+        
+       
 }
 
 ?>

@@ -24,7 +24,7 @@
 			<td><?php echo $cust['Customer']['contact']; ?></td>
                         <td><?= ucfirst($cust['Customer']['email']); ?></td>
 			<td><?php echo $cust['Customer']['phone']; ?></td>
-                        <td><?= count($cust['Jobs']); ?></td>
+                        <td><?= count($cust['Job']); ?></td>
 			<td><?php echo $cust['Customer']['total_balance']; ?></td>
                         <td><?php echo $cust['Customer']['notes']; ?></td>
 			<td>

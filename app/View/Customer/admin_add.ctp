@@ -1,4 +1,17 @@
 <style>
+    .contact-star {
+        color: lightgray;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: 300ms;
+    }
+    .contact-star:hover {
+        transition: 300ms;
+        text-shadow: -2px 0 goldenrod, 0 2px goldenrod, 2px 0 goldenrod, 0 -2px goldenrod;
+    }
+   .primary-contact, .primary-contact > .contact-star {
+        color: gold;
+    }
     .box {
         float: left;
         position: absolute;
@@ -124,7 +137,7 @@
                         
                     </ul>
                     <div class='empty-message'>
-                    <strong><em>--- No customers linked ---</em></strong>
+                    <strong><em>--- No contacts linked ---</em></strong>
                     </div>
                 </div>
             </div>
@@ -607,6 +620,7 @@ $("#addCustomerSubmit").click(function(e) {
     $html += $("#contactList").val();
     $html += "'";
     $html += " class='customer-row'>";
+        $html += "<i onclick='selectPrimary(this);' title='Assign As Primary Contact' class='fa fa-star contact-star'></i> ";
     $html +=  $("#contactList option:selected").text() + "<i onclick='removeRow(this);' class='fa fa-remove remove-row'></i>";
     $("#customersAddList").append($html);
     if($(".customer-row").size() > 0)
@@ -614,6 +628,18 @@ $("#addCustomerSubmit").click(function(e) {
         $("#customersAddList").parent().children(".empty-message").fadeOut();
     }
 });
+
+function selectPrimary(clicked)
+{
+    if($(clicked).parent().hasClass('primary-contact'))
+    {
+        $(clicked).parent().removeClass('primary-contact');
+        return true;
+    }
+    
+    $(".primary-contact").removeClass('primary-contact');
+    $(clicked).parent().addClass('primary-contact');
+}
 
 $("#addGroupSubmit").click(function(e) {
     e.preventDefault();
@@ -697,14 +723,22 @@ $("#submitAll").click(function(e) {
     {
         $customers = [];
         $(".customer-row").each(function() {
-            $newCust = {
+            if($(this).hasClass('primary-contact'))
+            {
+                $newCust = {
                 'id' : $(this).data('id'),
-                
+                'primary' : true
         };
+    }
+    else {
+         $newCust = {
+                'id' : $(this).data('id')       
+            };
+        }
         $customers.push($newCust);
     });
    
-    $("#CustomerList").val(JSON.stringify($customers));
+    $("#ContactList").val(JSON.stringify($customers));
     }
     if($(".address-row").size() > 0)
     {
@@ -727,7 +761,7 @@ $("#submitAll").click(function(e) {
     {
         $phone = [];
         $(".cert-row").each(function() {
-            console.log($(this).data());
+            
             $newPhone = $(this).data();
             
                                

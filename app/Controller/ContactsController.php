@@ -37,6 +37,9 @@
         function admin_view($id)
         {
             $this->set('contact', $this->Contact->find('first', array('recursive' => 2, 'conditions' => array('Contact.id' => $id))));
+            $this->loadModel('ContactType');
+            $this->set('custTypes', $this->ContactType->find('list'));
+            $this->set('sources', explode("|", $this->config['contact.sources']));
         }
         
         function admin_edit($id = null)
@@ -186,7 +189,9 @@
            
             
             $this->loadModel('Customer');
-            $this->set('customers', $this->Customer->find('list', array('fields'=> array('Customer.id', 'Customer.name'))));
+            $this->set('customers', $this->Customer->find('list', array(
+                'conditions' => array('Customer.archived is null'),
+                'fields'=> array('Customer.id', 'Customer.name'))));
            
             $this->set('certTypes', $this->Certification->find('list', array('fields' => array('Certification.id', 'Certification.name'))));
             $this->set('groupTypes', $this->Group->find('list', array('fields' => array('Group.id', 'Group.name'), 'conditions' => array('Group.is_contact' => 1))));
@@ -208,6 +213,11 @@
                     'mailing' => 'Mailing',
                     'other' => 'Other'
                 ));
+            
+            $this->loadModel('ContactType');
+            $this->set('custTypes', $this->ContactType->find('list'));
+            $this->set('sources', explode("|", $this->config['contact.sources']));
+            
         }
         
         function admin_add() {
@@ -289,11 +299,17 @@
             $this->redirect('/admin/contacts');
             }
             $this->loadModel('Customer');
-            $this->set('customers', $this->Customer->find('list', array('fields'=> array('Customer.id', 'Customer.name'))));
+            $this->set('customers', $this->Customer->find('list', array(
+                'conditions' => array('Customer.archived is null'),
+                'fields'=> array('Customer.id', 'Customer.name'))));
            
             $this->set('certTypes', $this->Certification->find('list', array('fields' => array('Certification.id', 'Certification.name'))));
             $this->set('groupTypes', $this->Group->find('list', array('fields' => array('Group.id', 'Group.name'), 'conditions' => array('Group.is_contact' => 1))));
             $this->set('certLevels', explode("|", $this->config['certification.levels']));
+            
+             $this->loadModel('ContactType');
+            $this->set('custTypes', $this->ContactType->find('list'));
+            $this->set('sources', explode("|", $this->config['contact.sources']));
         }
         private function _removeAttribute($context, $id)
         {
@@ -304,6 +320,10 @@
         private function _saveContact($contact)
         {
             $contact['birthday'] = date('Y-m-d H:i:s', strtotime($contact['birthday']));
+            if(isset($contact['types']) && !empty($contact['types']))
+            {
+                $contact['contact_type'] = implode("|", $contact['types']);
+            }
             if(!isset($contact['id']))
                 $this->Contact->create();
             

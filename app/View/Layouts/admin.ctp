@@ -124,6 +124,9 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <style>
+        .todo-list > li {
+            list-style-type: none;
+        }
         .form-control.checkbox {
             -webkit-appearance: checkbox;
         }
@@ -325,7 +328,7 @@
 
 </div>
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <aside class="control-sidebar control-sidebar-dark" style='z-index: 99999; margin-top: 50px; padding-top: 0; height: 100%;'>
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
       <li><a href="#control-sidebar-ordered-tab" data-toggle="tab"><i class="fa fa-calendar-check-o"></i></a></li>
@@ -334,37 +337,31 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-ordered-tab">
-          <h3 class='control-sidebar-heading'><i class="fa fa-plus-square-o"></i> Quick Add Item</h3>
-          <textarea class='form-control'></textarea>
-          <hr>
-          <h3 class="control-sidebar-heading"><i class="fa fa-check-square-o"></i> To-Do List Items</h3>
-        <hr>
-
-
-
-
-      </div>
-      <!-- /.tab-pane -->
+      <?= $this->element('todo/todo'); ?>
 
       
       
       <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-jobs-tab">
-        
-          <h3 class="control-sidebar-heading">Job Task Lists</h3>
-          <hr>
-          <?php if(!empty($jobtasklists)) {
-                  foreach($jobtasklists as $tl) {
-                      echo $this->element('jobtasklist', array('entry' => $tl));
-                      echo "<hr>";
-                  }
-          } ?>
-          
-      </div>
-      <!-- /.tab-pane -->
+      <?= $this->element('todo/jobs', array('jobtaskliksts' => $jobtasklists)); ?>
     </div>
   </aside>
+  <?php $this->append('scripts'); ?>
+<script>
+$(".textarea").wysihtml5();
+
+$(".job-todo-list").todolist({
+    onCheck: function (ele) {
+      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/1');
+      return ele;
+    },
+    onUncheck: function (ele) {
+      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/0');
+      return ele;
+    }
+  });
+</script>
+<?php $this->end(); ?>
+
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -454,6 +451,10 @@
     });
  
 	$(function() {
+            
+            $.ajax('/admin/todo/ajaxGetList').done(function(data) {
+     $(".uncategorized-todo-list").html(data);
+});
             
             //Make the dashboard widgets sortable Using jquery UI
   $(".connectedSortable").sortable({

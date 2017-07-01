@@ -131,11 +131,23 @@
                 <div class='col-md-6'>
                     <div class='col-md-4 fieldname'>Title:</div><div class='col-md-8'><?= $contact['Contact']['title']; ?></div>
                 </div>
+                 <div class='col-md-6'>
+                     <div class='col-md-4 fieldname'>Source:</div><div class='col-md-8'><?= ucwords($sources[$contact['Contact']['source']]); ?></div>
+                 </div>
              </div>
              <div class='row'>
                 <div class='col-md-6'>
                     <div class='col-md-4 fieldname'>Dept:</div><div class='col-md-8'><?= $contact['Contact']['department']; ?></div>
                 </div>
+                 <?php if(!empty($contact['Contact']['contact_type'])) { ?>
+                 <div class='col-md-6'>
+                     <div class='col-md-4 fieldname'>Contact Type(s):</div><div class='col-md-8'>
+                         <?php foreach(explode("|", $contact['Contact']['contact_type']) as $type): 
+                             echo ucwords($custTypes[$type]) . "<br />";
+                         endforeach; ?>
+                     </div>
+                 </div>
+                 <?php } ?>
             </div>
              <div class='row'>
                 <div class='col-md-6'>

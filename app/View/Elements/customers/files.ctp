@@ -17,9 +17,18 @@ if(!empty($files))
               <!-- /. tools -->
             </div>
     <div class="box-body">
-<?php if (!empty($files)): ?>
-
-<?php else: ?>
+<?php if (!empty($files)): 
+echo "<ul style='list-style-type: none;'>";
+            foreach($files as $file)
+            {
+                ?>
+            <li class='file-row'><?php $filearray = explode("/", $file['file']); echo $filearray[count($filearray)-1]; ?>
+                <a href='<?= $file['file']; ?>' target='_BLANK' class='edit-row'><i class='fa fa-lg fa-eye'></i></a>
+            <a href='<?= $file['file']; ?>' download class='edit-row'><i class='fa fa-lg fa-download'></i></a></li>
+            <?php
+            }
+            echo "</ul>";
+ else: ?>
 <p>There are no files linked to this customer.</p>
 <?php endif; ?>
     </div>

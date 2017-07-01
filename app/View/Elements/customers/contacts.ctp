@@ -1,3 +1,15 @@
+<style>
+    .contact-star {
+        color: lightgray;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: 300ms;
+    }
+    
+   .primary-contact, .primary-contact > .contact-star {
+        color: gold;
+    }
+</style>
 <div class="box box-success collapsed-box">
             <div class="box-header ui-sortable-handle" style="cursor: move;">
               <i class="fa fa-users"></i>
@@ -19,6 +31,7 @@ if(!empty($contacts))
 <table class="table table-striped table-bordered table-hover dataTable" id="contacts-table">
 	<thead>
 		<tr>
+                    <th></th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Phone(s)</th>
@@ -28,6 +41,9 @@ if(!empty($contacts))
 	<tbody>
 	<?php foreach ($contacts as $cust) { ?>
 		<tr>
+                    <td><?php if($cust['id'] === $primary_contact_id) {
+                        echo "<i class='fa fa-lg fa-star contact-star primary-contact'></i>";
+                    } ?></td>
 			<td><a role="button" class="btn btn-primary"
                                href="/admin/contacts/view/<?php echo $cust['id']; ?>">
                                 <i class='fa fa-user'></i> <?php echo $cust['first_name']. " "; 
@@ -46,7 +62,7 @@ if(!empty($contacts))
                         </td>
                         
 		
-		</tr
+                </tr>
 	<?php } ?>
 	</tbody>
 </table>

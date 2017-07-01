@@ -1,6 +1,6 @@
 <h5><?= $entry['Job']['full_name']; ?></h5>
                 
-                <ul class='todo-list small'>
+                <ul class='job-todo-list todo-list small'>
                     <?php 
                     $completed = $total = 0;
                     foreach($entry['JobTaskListItem'] as $item): ?>
