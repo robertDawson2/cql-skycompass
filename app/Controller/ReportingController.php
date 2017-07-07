@@ -16,6 +16,65 @@ App::uses('AppController', 'Controller');
             $this->set('section', 'crmreporting');
            
         }
+        public function admin_ajaxSaveTemplate() {
+            $this->layout = 'ajax';
+            if($this->request->is('post'))
+            {
+                $cond = json_decode($this->request->data['conditions'], true);
+                foreach($cond as $i => $c)
+                {
+                    if($c['data'] === null || empty($c['data']))
+                        unset($cond[$i]);
+                }
+                $this->request->data['condtions'] = json_encode($cond);
+                
+                $this->loadModel('ReportTemplate');
+                $matched = $this->ReportTemplate->find('first', array('conditions' => array(
+                    'name' => $this->request->data['name'],
+                    'context' => $this->request->data['context']
+                )));
+                
+                if(!empty($matched))
+                {
+                    unset($this->request->data['name']);
+                }
+                
+                if(empty($this->request->data['name']))
+                    unset($this->request->data['name']);
+                
+                
+                if(isset($this->request->data['name']) && $this->ReportTemplate->save($this->request->data))
+                {
+                    exit('success');
+                }
+                else
+                {
+                    exit('An error occurred while saving. Check that you have provided a unique template name.');
+                }
+            }
+            exit('Access denied.');
+        }
+        public function admin_ajaxLoadTemplate($id) {
+            $this->loadModel('ReportTemplate');
+            $data = $this->ReportTemplate->findById($id);
+            $data['ReportTemplate']['fields'] = json_decode($data['ReportTemplate']['fields'], true);
+            $data['ReportTemplate']['conditions'] = json_decode($data['ReportTemplate']['conditions'], true);
+            
+            echo json_encode($data['ReportTemplate']);
+            exit();
+        }
+        public function admin_ajaxGetTemplates($context)
+        {
+            $this->layout='ajax';
+            $this->loadModel('ReportTemplate');
+            $templates = $this->ReportTemplate->find('list', array(
+                'conditions' => array(
+                    'context' => $context
+                ),
+                'fields' => array('id','name')
+            ));
+            $this->set('templates', $templates);
+        }
          private function _reportingFields($context)
         {
             
@@ -112,28 +171,42 @@ App::uses('AppController', 'Controller');
                 'conditions' => $this->request->data['conditions']));
             
             $final = array();
+            $returnFields = array();
             $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
             foreach($this->request->data['fields'] as $field)
                {
-                   $fieldArray = explode(".", $field);
-                   if(!isset($innerFieldArray[$fieldArray[0]]))
-                        $innerFieldArray[$fieldArray[0]] = array();
-                   $innerFieldArray[$fieldArray[0]][$fieldArray[1]] = null;
+                   
+                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $returnFields[] = array(
+                       'title' => ucwords(str_replace(".", "<br /> ", str_replace("_", " ", $field))),
+                       'data' => str_replace(".", "-",$field),
+                       'class' =>'show-on-export');
                         
                }
+               
+               $counter =0;
             foreach($results as $result)
             {
                 
-               $final[$result['Customer']['id']] = $innerFieldArray;
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Customer']['id'] . "' />";
                foreach($this->request->data['fields'] as $field)
                {
+                   
                    $fieldArray = explode(".", $field);
                    // if not a multi-array
                    if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
                            !empty($result[$fieldArray[0]]) && 
                            (!isset($result[$fieldArray[0]][0] )||
                            !is_array($result[$fieldArray[0]][0] ))) {
-                        $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] = $result[$fieldArray[0]][$fieldArray[1]];
+                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
                    }
                    // check if first element is another array - this means a multi-dimensional array
                    elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
@@ -143,23 +216,47 @@ App::uses('AppController', 'Controller');
                    {
                        foreach($result[$fieldArray[0]] as $subresult) 
                        {
-                           $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
                            
                        }
                    }
                    else
                    {
-                       $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] = "";
+                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       
                    }
                }
                
+                $counter++;
             }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
             
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
            
            }
            
             $this->set('results', $final);
             $this->set('fields', $this->request->data['fields']);
+           }
+           
+           public function admin_ajaxLoadRecent($id, $data = null)
+           {
+               $this->loadModel('JsonReport');
+               $result = $this->JsonReport->findById($id);
+               if($data === null){
+                   echo $result['JsonReport']['json']; 
+               }
+              else
+              {
+                  $try = json_decode($result['JsonReport']['json']);
+                  echo json_encode($try->data);
+              }
+               exit();
            }
         public function admin_runAccreditationReport($context,$criteria=null, $fields=null,$export=null)
         {
@@ -241,6 +338,7 @@ App::uses('AppController', 'Controller');
                 'context' => 'Customer'
             ))));
             $this->set('fields', $this->_reportingFields('Customer'));
+            $this->set('defaultExportTitle', 'CustomerQuery-' . date("mdY"));
         }
         public function admin_accreditation()
         {

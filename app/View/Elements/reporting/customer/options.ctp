@@ -33,7 +33,7 @@
                  </div>
         </div>
         <hr>
-    <div class="row">
+<!--    <div class="row">
             <div class='col-md-10 col-md-offset-1'>
                 <h4>Export Type</h4>
                 
@@ -61,17 +61,19 @@
             </div>
         </div>
             
-         <hr>
+         <hr>-->
     <div class="row">
             <div class='col-md-8 col-md-offset-2'>
                 <h4>Save As Template...</h4>
-                
+                <div style='display: none;' id='saveTemplateResult' class="alert alert-success" role="alert">
+  <strong>Well done!</strong> You successfully read this important alert message.
+</div>
                 <div class='row' style='margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #fdfdfd; '>
                     <div class='col-md-8'>
                         <input type='textbox' class='input form-control' id='templateName' placeholder='Template Name...' />
                     </div>
                      <div class='col-md-4'>
-                        <a role='button' class='btn btn-info btn-block' data-val='excel'><i class='fa fa-save'></i> Save</a>
+                        <a role='button' class='btn btn-info btn-block' id='btnSaveTemplate'><i class='fa fa-save'></i> Save</a>
                     </div>
                     
                 </div>

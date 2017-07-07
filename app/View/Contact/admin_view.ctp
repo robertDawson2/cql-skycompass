@@ -316,6 +316,11 @@
            
         <!-- /.box-header -->
         <div class="box-body">
+            <strong>Key: </strong><div class='key' style='display: inline; margin-left: 40px;'>
+                  <i class='fa fa-square red'></i> <span class='red'>Expired</span> &nbsp;
+                  <i class='fa fa-square yellow'></i> <span class='yellow'>Expiring Soon</span> &nbsp;
+                  <i class='fa fa-square green'></i> <span class='green'>Current</span> &nbsp;
+              </div>
          <?php if(!empty($contact['ContactCertification'])):
              foreach($contact['ContactCertification'] as $cert)
          {

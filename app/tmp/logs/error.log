@@ -64630,3 +64630,210 @@ Stack Trace:
 #3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-07-07 03:24:35 Error: [MissingControllerException] Controller class CommunicationsController could not be found.
+Exception Attributes: array (
+  'class' => 'CommunicationsController',
+  'plugin' => NULL,
+)
+Request URL: /communications/campaigns
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 10:22:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 10:22:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 10:22:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 10:28:22 Error: [MissingControllerException] Controller class CommunicationsController could not be found.
+Exception Attributes: array (
+  'class' => 'CommunicationsController',
+  'plugin' => NULL,
+)
+Request URL: /communications/campaigns
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 10:29:55 Error: Fatal Error (1): Call to undefined method CS_REST_General::get_campaigns() in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 105]
+2017-07-07 10:29:55 Error: [FatalErrorException] Call to undefined method CS_REST_General::get_campaigns()
+Request URL: /admin/campaignMonitor/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 105)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 10:30:24 Error: Fatal Error (1): Call to undefined method CS_REST_General::get_campaigns() in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 105]
+2017-07-07 10:30:24 Error: [FatalErrorException] Call to undefined method CS_REST_General::get_campaigns()
+Request URL: /admin/campaignMonitor/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 105)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 10:31:18 Error: Fatal Error (1): Call to undefined method CS_REST_General::get_campaigns() in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 105]
+2017-07-07 10:31:18 Error: [FatalErrorException] Call to undefined method CS_REST_General::get_campaigns()
+Request URL: /admin/campaignMonitor/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 105)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 105, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 10:38:26 Error: Fatal Error (1): Cannot use object of type stdClass as array in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 23]
+2017-07-07 10:38:26 Error: [FatalErrorException] Cannot use object of type stdClass as array
+Request URL: /admin/campaignMonitor/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Cannot use obje...', '/var/www/cql.lo...', 23)
+#1 [internal function]: ErrorHandler::handleError(1, 'Cannot use obje...', '/var/www/cql.lo...', 23, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Cannot use obje...', '/var/www/cql.lo...', 23, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 10:41:42 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_index.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_index.ctp',
+)
+Request URL: /admin/campaignMonitor/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-07 14:24:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 14:24:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 14:24:05 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 14:51:09 Error: [MissingActionException] Action ReportingController::admin_sources() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_sources',
+)
+Request URL: /admin/reporting/sources/arrays.txt?_=1499453468442
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-07 15:17:25 Error: Fatal Error (1): Cannot use object of type stdClass as array in [/var/www/cql.local/public_html/app/Controller/ReportingController.php, line 190]
+2017-07-07 15:17:25 Error: [FatalErrorException] Cannot use object of type stdClass as array
+Request URL: /admin/reporting/ajaxLoadRecent/61/data?_=1499455020923
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Cannot use obje...', '/var/www/cql.lo...', 190)
+#1 [internal function]: ErrorHandler::handleError(1, 'Cannot use obje...', '/var/www/cql.lo...', 190, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Cannot use obje...', '/var/www/cql.lo...', 190, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 15:17:26 Error: Fatal Error (1): Cannot use object of type stdClass as array in [/var/www/cql.local/public_html/app/Controller/ReportingController.php, line 190]
+2017-07-07 15:17:26 Error: [FatalErrorException] Cannot use object of type stdClass as array
+Request URL: /admin/reporting/ajaxLoadRecent/61/data?_=1499455020922
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Cannot use obje...', '/var/www/cql.lo...', 190)
+#1 [internal function]: ErrorHandler::handleError(1, 'Cannot use obje...', '/var/www/cql.lo...', 190, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Cannot use obje...', '/var/www/cql.lo...', 190, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-07 17:40:49 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'name' doesn't have a default value
+Request URL: /admin/reporting/ajaxSaveTemplate
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(AppModel), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/ReportingController.php(34): Model->save(Array)
+#5 [internal function]: ReportingController->admin_ajaxSaveTemplate()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-07 17:55:28 Error: [MissingActionException] Action ReportingController::admin_ajaxGetTemplates() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_ajaxGetTemplates',
+)
+Request URL: /admin/reporting/ajaxGetTemplates/Customer
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-07 18:25:14 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 18:25:14 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 18:25:14 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

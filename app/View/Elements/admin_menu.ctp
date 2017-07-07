@@ -167,7 +167,7 @@
           </a>
           <ul class="treeview-menu">
               
-            <li><a href="/communications/campaigns"><i class="fa fa-check-square-o"></i> View Campaign Statistics</a></li>
+            <li><a href="/admin/campaignMonitor"><i class="fa fa-check-square-o"></i> View Campaign Statistics</a></li>
          
             <li><a href="/admin/emailTemplates"><i class="fa fa-list"></i> Manage Email Templates</a></li>
            

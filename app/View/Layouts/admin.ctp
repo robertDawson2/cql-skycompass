@@ -44,6 +44,7 @@
   <link type="text/css" href="/adminPanel/plugins/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
   <link type="text/css" href="/adminPanel/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" /> 
 
+  <link type="text/css" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet" /> 
     
   <script type="text/javascript">
 		tinymceSettings = {
@@ -397,6 +398,58 @@ tinymceEmailSettings = {
     </div>
   </aside>
   <?= $this->element('modals/todoLapsed'); ?>
+
+
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+  </div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.0 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="/adminPanel/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
+<!-- Bootstrap 3.3.6 -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!--DateTimePicker -->
+<script src="/adminPanel/bootstrap-datetimepicker/js/bootstrap-datetime.js"></script>
+<!-- DataTables -->
+<script src="/adminPanel/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/adminPanel/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/adminPanel/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/adminPanel/dist/js/app.min.js"></script>
+<!-- Sparkline -->
+<script src="/adminPanel/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="/adminPanel/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/adminPanel/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="/adminPanel/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="/adminPanel/plugins/chartjs/Chart.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!--<script src="/adminPanel/dist/js/pages/dashboard2.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<script src="/_/js/modals.js"></script>
+
+
+<script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
+<script src='/plugins/fullcalendar/scheduler.min.js'></script>
+
+<!-- bootstrap datepicker -->
+<script src="/adminPanel/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="/adminPanel/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/adminPanel/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+ <script type="text/javascript" src="/adminPanel/plugins/chatbox/jquery.ui.chatbox.js"></script>
+<script src="/adminPanel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
   <?php $this->append('scripts'); ?>
 <script>
     
@@ -480,57 +533,6 @@ $(".job-todo-list").todolist({
   });
 </script>
 <?php $this->end(); ?>
-
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-
-  </div>
-<!-- ./wrapper -->
-
-<!-- jQuery 2.2.0 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="/adminPanel/plugins/jquery-ui/jquery-ui.min.js"></script>
-<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
-<!-- Bootstrap 3.3.6 -->
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!--DateTimePicker -->
-<script src="/adminPanel/bootstrap-datetimepicker/js/bootstrap-datetime.js"></script>
-<!-- DataTables -->
-<script src="/adminPanel/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/adminPanel/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="/adminPanel/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="/adminPanel/dist/js/app.min.js"></script>
-<!-- Sparkline -->
-<script src="/adminPanel/plugins/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="/adminPanel/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/adminPanel/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<script src="/adminPanel/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS 1.0.1 -->
-<script src="/adminPanel/plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!--<script src="/adminPanel/dist/js/pages/dashboard2.js"></script>-->
-<!-- AdminLTE for demo purposes -->
-<script src="/_/js/modals.js"></script>
-
-
-<script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
-<script src='/plugins/fullcalendar/scheduler.min.js'></script>
-
-<!-- bootstrap datepicker -->
-<script src="/adminPanel/plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- Add fancyBox -->
-<link rel="stylesheet" href="/adminPanel/plugins/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-<script type="text/javascript" src="/adminPanel/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
- <script type="text/javascript" src="/adminPanel/plugins/chatbox/jquery.ui.chatbox.js"></script>
-<script src="/adminPanel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <?php echo $this->fetch('scripts'); ?>
 <script type="text/javascript">
     

@@ -1,3 +1,12 @@
+<?php $this->Html->script('https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js ', array('block' => 'scripts')); 
+
+?>
 
 <div class="row">
     <div class="col-sm-12">
@@ -81,7 +90,7 @@
                         )); ?>
                     </div>
                     <div class="col-md-3">
-                        <a role='button' class='btn btn-info btn-block'><i class='fa fa-envelope-o'></i> Load</a>
+                        <a role='button' id='btnLoadFromTemplate' class='btn btn-info btn-block'><i class='fa fa-envelope-o'></i> Load</a>
                     </div>
                     
                 </div>  
@@ -114,18 +123,16 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Results Here</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type='checkbox' /></td>
-                                    <td>Example Record</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
+                        <div style = "float: left; "><a role='button' class='resultCheckAll btn btn-default'><i class='fa fa-check-square'></i> Check All</a> &nbsp;  <a role='button' class='resultUncheckAll btn btn-default'><i class='fa fa-square-o'></i> Uncheck All</a></div>
                     </div>
                 </div>
+                
                 <div class='row'>
                     
                      <div class='col-md-8 col-md-offset-2'>
@@ -145,13 +152,48 @@
           </div>
     </div>
     </div>
-</div>
+
 
 
 
 <?php $this->append('scripts'); ?>
 <script>
-    function getFields()
+    var table = null;
+
+    $(".export-type").click(function() {
+        $(".export-type").removeClass('btn-success').addClass('btn-default');
+        $(this).addClass('btn-success');
+        $(this).removeClass('btn-default');
+        
+    });
+    $('.categoryCheckAll').click(function() {
+    $(this).parent().find('select > option').prop("selected",true);
+
+});   
+
+$('.categoryUncheckAll').click(function() {
+    $(this).parent().find('select > option').prop("selected",false);
+});
+
+$('.resultCheckAll').click(function() {
+    $('.report-select').prop("checked",true);
+
+});   
+
+$('.resultUncheckAll').click(function() {
+    $('.report-select').prop("checked",false);
+});
+
+    $('.deepcategoryCheckAll').click(function() {
+    $(this).parent().parent().find('select > option').prop("selected",true);
+
+});   
+
+$('.deepcategoryUncheckAll').click(function() {
+    $(this).parent().parent().find('select > option').prop("selected",false);
+});
+
+function getFields()
     {
         var fields = [];
         $(".fields > option").each(function() {
@@ -168,6 +210,76 @@
         var parts = startDate.split('/');
         return new Date(parts[2],parts[0]-1, parts[1]);
         
+    }
+    function getConditionsArray() {
+        $conditions = {
+            'GroupGroups' : {
+                type: 'list',
+                data: null
+            },
+            'TypeTypes': {
+                type: 'list',
+                data: null   
+            },
+            'SourceSources': {
+                type: 'list',
+                data: null
+            },
+            'marketingEmailsDropdown' : {
+                type: 'checkbox',
+                data: null
+            },
+            'checkContractExpiration' : {
+                type: 'string',
+                data: null
+            }
+        };
+        
+        if($("#checkGroups").is(":checked"))
+        {
+            $dataArray = [];
+            $("#GroupGroups > option:checked").each(function() {
+                $dataArray.push($(this).val());
+            });
+           $conditions.GroupGroups.data = $dataArray;
+        }
+        
+        // expiring by date
+        if($("#checkTypes").is(":checked"))
+        {
+            $dataArray = [];
+            $("#TypeTypes > option:checked").each(function() {
+                
+                $dataArray.push($(this).val());
+            });
+            $conditions.TypeTypes.data = $dataArray;
+        }
+         if($("#checkSources").is(":checked"))
+        {
+            $dataArray = [];
+            $("#SourceSources > option:checked").each(function() {
+                $dataArray.push($(this).val());
+            });
+           $conditions.SourceSources.data = $dataArray;
+        }
+        if($("#checkMarketingEmails").is(":checked"))
+        {
+            $dataArray = [];
+             $dataArray.push($("#marketingEmailsDropdown option:selected").val()); 
+             $conditions.marketingEmailsDropdown.data = $dataArray;
+        }
+        
+        if($("#checkContractExpiration").is(":checked"))
+        {
+            
+                    $conditions.checkContractExpiration.data = [($("#checkContractExpiration").parent().find('.datepicker').val())];
+            
+                    
+        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
+        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
+        }
+        
+        return $conditions;
     }
     function getConditions()
     {
@@ -235,50 +347,166 @@
        // console.log(conditions);
         return conditions;
     }
-    $("#createReport").click(function(){
+    var defaultFileName = "<?= $defaultExportTitle; ?>";
+    var fileName = "";
+    
+    $("#btnSaveTemplate").on('click', function() {
+        var savedata = {
+            name : $("#templateName").val(),
+            conditions: JSON.stringify(getConditionsArray()),
+            fields: JSON.stringify(getFields()),
+            context: 'Customer'
+        };
+        $.post({
+            url: "/admin/reporting/ajaxSaveTemplate",
+            data: savedata
+        }).done(function(data)
+        {
+            if(data === "success")
+            {
+                $("#saveTemplateResult").html("<strong>Success!</strong> You have successfully saved this template.")
+                        .removeClass('alert-danger')
+                        .addClass('alert-success')
+                        .fadeIn('fast');
+                $.ajax('/admin/reporting/ajaxGetTemplates/Customer').done(function(data) {
+                    $("#loadFromTemplate").html(data);
+    });
+                
+            }
+            else
+            {
+                 $("#saveTemplateResult").html("<strong>Error!</strong> " + data)
+                        .addClass('alert-danger')
+                        .removeClass('alert-success')
+                        .fadeIn('fast');
+                }
+        });
+        
+    });
+    $("#createReport").on('click', function(){
         var fields = getFields();
         var conditions = getConditions();
+        var today = new Date();
         
+        if($("#templateName").val() !== "" && fileName === "")
+            fileName = $("#templateName").val() + (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear();
+        else
+            fileName = defaultFileName;
         var submission = {'fields' : fields,
             'conditions' : conditions
         };
+        var id=null;
        $.ajax({
                 type : 'json',
                 method : 'post',
                url : '/admin/reporting/runCustomerReport/Customer',
-               data : submission}).done(function(data) {
+               data : submission})
+                   .done(function(data) {
+                       console.log(data);
+           id = data;
+           $.ajax('/admin/reporting/ajaxLoadRecent/' + data).done(function(data)
+               {
+                   var json_data = JSON.parse(data);
+                   console.log(json_data.columns);
+           console.log(json_data.data);
+           var textrow = "<tr>";
+           for(var i = 0; i< json_data.columns.length; i++)
+               textrow += "<th></th>";
+           textrow += "</tr>";
+           $("#resultsTable > thead").html(textrow);
+         //  table.destroy();
+           var newTable = $("#resultsTable").DataTable({
+               destroy: true,
+               ajax: '/admin/reporting/ajaxLoadRecent/' + id + '/data',
+               columns: json_data.columns,
+               order: [[1, "desc"]],
+               dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'csvHtml5',
+                title: fileName,
+                exportOptions: {
+                    columns: ['.show-on-export' ]
+                }
+            },
+                    {
+                extend: 'excelHtml5',
+                title: fileName,
+                exportOptions: {
+                   columns: ['.show-on-export' ]
+                }
+            },
+                    {
+                extend: 'pdfHtml5',
+                title: fileName,
+                exportOptions: {
+                    columns: ['.show-on-export' ]
+                }
+            },
+            'copy',
+            'print'
+        ]
+           });
            
-           $("#resultsTable").html(data);
+           //newTable.ajax.reload();
+           
+           
+               });
+               
+            
        
    });
    
     });
-
-    $(".export-type").click(function() {
-        $(".export-type").removeClass('btn-success').addClass('btn-default');
-        $(this).addClass('btn-success');
-        $(this).removeClass('btn-default');
+    
+    $("#btnLoadFromTemplate").click(function() {
+    $.ajax('/admin/reporting/ajaxLoadTemplate/' + $("#loadFromTemplate option:selected").val()).done(
+            function(data){
+               var jsonData = (JSON.parse(data));
+               $(".fields").prop('selected', false);
+                  populateFields(jsonData.fields);
+                //  populateCriteria(jsonData.conditions);
+    });
         
     });
-    $('.categoryCheckAll').click(function() {
-    $(this).parent().find('select > option').prop("selected",true);
-
-});   
-
-$('.categoryUncheckAll').click(function() {
-    $(this).parent().find('select > option').prop("selected",false);
-});
-
-    $('.deepcategoryCheckAll').click(function() {
-    $(this).parent().parent().find('select > option').prop("selected",true);
-
-});   
-
-$('.deepcategoryUncheckAll').click(function() {
-    $(this).parent().parent().find('select > option').prop("selected",false);
-});
+    function inArray(needle, haystack) {
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle) return true;
+    }
+    return false;
+}
+    function populateFields(fields)
+    {
+        $obj = {};
+        fields.forEach(function(element)
+        {
+            $broken = element.split(".");
+            if(!$obj.hasOwnProperty($broken[0]))
+                $obj[$broken[0]] = [];
+            $obj[$broken[0]].push($broken[1]);   
+    });
+    console.log($obj);
+    for (var key in $obj) {
+  if ($obj.hasOwnProperty(key)) {
+       $("select#Category" + key + " > option").each(function() {
+              if(inArray($(this).text(),$obj[key]))
+                  $(this).prop('selected', true);
+    });
+      
+   // console.log(key + " -> " + $obj[key]);
+  }
+}
+    }
 </script>
 <?php $this->end(); ?>
 <?php $this->append('jquery-scripts'); ?>
-$('select.fields option').attr("selected","selected");
+//$('select.fields option').attr("selected","selected");
+
+$.ajax('/admin/reporting/ajaxGetTemplates/Customer').done(function(data) {
+                    $("#loadFromTemplate").html(data);
+    });
+    
+   // table = $("#resultsTable").DataTable();
+
 <?php $this->end(); ?>
