@@ -61,6 +61,23 @@
             </div>
         </div>
             
+         <hr>
+    <div class="row">
+            <div class='col-md-8 col-md-offset-2'>
+                <h4>Save As Template...</h4>
+                
+                <div class='row' style='margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #fdfdfd; '>
+                    <div class='col-md-8'>
+                        <input type='textbox' class='input form-control' id='templateName' placeholder='Template Name...' />
+                    </div>
+                     <div class='col-md-4'>
+                        <a role='button' class='btn btn-info btn-block' data-val='excel'><i class='fa fa-save'></i> Save</a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
 
     </div>
 </div>

@@ -49,7 +49,7 @@
             <div class="box-header">
                 
                 <i class="fa fa-newspaper-o"></i>
-                <h3 class="box-title"><em><strong>Accreditation:</strong> <small>Reporting Options</small></em></h3>
+                <h3 class="box-title"><em><strong>Customer:</strong> <small>Reporting Options</small></em></h3>
                 
                     
                 
@@ -57,17 +57,48 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-               
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box box-info collapsed-box">
+            <div class="box-header ui-sortable-handle" style="cursor: move;">
+              <i class="fa fa-envelope-o"></i>
+
+              <h3 class="box-title">Load From Template</h3>
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                
+              </div>
+              <!-- /. tools -->
+            </div>
+    <div class="box-body">
+       <div class="row">
+                    <div class="col-md-4">
+
+                        <?= $this->Form->input('loadFromTemplate', array(
+                            'class' => 'input form-control',
+                            'options' => array('saved template 1')
+                        )); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <a role='button' class='btn btn-info btn-block'><i class='fa fa-envelope-o'></i> Load</a>
+                    </div>
+                    
+                </div>  
+                    </div>
+                </div>
+                    </div>
+                </div>
                <div class='row'>
     <div class='col-sm-12'>
            
-        <?= $this->element('reporting/accreditation/criteria'); ?>
+        <?= $this->element('reporting/customer/criteria'); ?>
     </div>
     
 </div>
 <div class='row'>
     <div class='col-sm-12'>
-       <?= $this->element('reporting/accreditation/options'); ?>
+       <?= $this->element('reporting/customer/options'); ?>
     </div>
 </div>
                 <div class='row'>
@@ -77,7 +108,7 @@
                 </div>
                 <div class='row'>
                     
-                    <div class='col-md-12'>
+                    <div class='col-md-12' style='padding: 10px; overflow-x: scroll;'>
                         <h4>Results</h4>
                         <table id='resultsTable' class='table table-hover table-responsive table-striped table-condensed'>
                             <thead>
@@ -147,82 +178,61 @@
 //        };
 
         var conditions = "";
+        var current = "";
         // expired first
-        if($("#expired").is(":checked"))
+        if($("#checkGroups").is(":checked"))
         {
-            conditions += "(CustomerAccreditation.expiration_date < '<?= date('Y-m-d H:i:s'); ?>') OR ";
-           // conditions['CustomerAccreditation.expiration_date <'] = "<?= date('Y-m-d H:i:s'); ?>";
+            var groups = [];
+            $("#GroupGroups > option:checked").each(function() {
+                groups.push($(this).val());
+            });
+           current = "(Group.id IN (" + groups.toString() + ")) OR ";
+            conditions += current;
         }
         
         // expiring by date
-        if($("#expiring").is(":checked"))
+        if($("#checkTypes").is(":checked"))
         {
-          conditions += "(CustomerAccreditation.expiration_date < '" + 
-                  convertDate($("#expiring").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') + 
+          var groups = [];
+          var current = "(";
+          $first = true;
+            $("#TypeTypes > option:checked").each(function() {
+                if(!$first)
+                    current += " OR ";
+                $first = false;
+                current += "(Customer.organization_type LIKE '%" + $(this).val() + "%')";
+            });
+            current += ") OR ";
+           
+            conditions += current;
+        }
+         if($("#checkSources").is(":checked"))
+        {
+            var groups = [];
+            $("#SourceSources > option:checked").each(function() {
+                groups.push($(this).val());
+            });
+           current = "(Customer.source IN (" + groups.toString() + ")) OR ";
+            conditions += current;
+        }
+        if($("#checkMarketingEmails").is(":checked"))
+        {
+            conditions += "(Customer.email_opt_out = '" + $("#marketingEmailsDropdown option:selected").val() +
                   "') OR ";
-          //  conditions['CustomerAccreditation.expiration_date <'] = convertDate($("#expiring").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        }
-         if($("#visit2").is(":checked"))
-        {
-            conditions += "(CustomerAccreditation.visit_2_18_mo < '" +
-                    convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') + 
-                    "' AND CustomerAccreditation.visit_2_start_date is null) OR ";
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
-        }
-        if($("#visit3").is(":checked"))
-        {
-            conditions += "(CustomerAccreditation.visit_3_36_mo < '" +
-                    convertDate($("#visit3").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') + 
-                    "' AND CustomerAccreditation.visit_3_start_date is null) OR ";
         //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
         //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
         }
         
-        if($("#9mo").is(":checked"))
+        if($("#checkContractExpiration").is(":checked"))
         {
-            conditions += "(CustomerAccreditation.9_mo_due_date < '" +
-                    convertDate($("#9mo").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') + 
-                    "' AND CustomerAccreditation.9_mo_actual_date is null) OR ";
+            conditions += "(Customer.contract_expiration < '" +
+                    convertDate($("#checkContractExpiration").parent().find('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') +
+                    "')";
         //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
         //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
         }
-        
-        if($("#18mo").is(":checked"))
-        {
-            conditions += "(CustomerAccreditation.18_mo_due_date < '" +
-                    convertDate($("#18mo").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') + 
-                    "' AND CustomerAccreditation.18_mo_actual_date is null) OR ";
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
-        }
-        
-        if($("#notes").is(":checked"))
-        {
-            conditions += "(CustomerAccreditation.notes like '%" +
-                   $("#9mo").parent().children('.form-control').val() + 
-                    "%'";
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
-        }
-        var accredcond = "(";
-        $first = true;
-        $("#accredTypes > option").each(function() {
-            
-       if($(this).is(":checked"))
-       {
-            if(!$first)
-              accredcond += ", ";
-          $first = false;
-          accredcond += "'" + $(this).val() + "'";
-         
-        }
-    });
-    accredcond += ")";
-    var newcond = 'CustomerAccreditation.accreditation_id IN ' + accredcond + " AND (" + conditions + ")";
-    conditions = newcond;
-    
-        console.log(conditions);
+
+       // console.log(conditions);
         return conditions;
     }
     $("#createReport").click(function(){
@@ -231,11 +241,11 @@
         
         var submission = {'fields' : fields,
             'conditions' : conditions
-        }
+        };
        $.ajax({
                 type : 'json',
                 method : 'post',
-               url : '/admin/reporting/runAccreditationReport/CustomerAccreditation',
+               url : '/admin/reporting/runCustomerReport/Customer',
                data : submission}).done(function(data) {
            
            $("#resultsTable").html(data);
@@ -243,26 +253,29 @@
    });
    
     });
-    $("#checkAll").click(function() {
-        $("#accredTypes > option").prop("selected", true);
-    });
-    $("#uncheckAll").click(function() {
-        $("#accredTypes > option").prop("selected", false);
-    });
+
     $(".export-type").click(function() {
         $(".export-type").removeClass('btn-success').addClass('btn-default');
         $(this).addClass('btn-success');
         $(this).removeClass('btn-default');
         
     });
-    
     $('.categoryCheckAll').click(function() {
-    $(this).parent().find('select.fields > option').prop("selected",true);
+    $(this).parent().find('select > option').prop("selected",true);
 
 });   
 
 $('.categoryUncheckAll').click(function() {
-    $(this).parent().find('select.fields > option').prop("selected",false);
+    $(this).parent().find('select > option').prop("selected",false);
+});
+
+    $('.deepcategoryCheckAll').click(function() {
+    $(this).parent().parent().find('select > option').prop("selected",true);
+
+});   
+
+$('.deepcategoryUncheckAll').click(function() {
+    $(this).parent().parent().find('select > option').prop("selected",false);
 });
 </script>
 <?php $this->end(); ?>

@@ -14,7 +14,7 @@ App::uses('AppController', 'Controller');
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'crmreporting');
-            $this->layout = 'admin';
+           
         }
          private function _reportingFields($context)
         {
@@ -28,6 +28,7 @@ App::uses('AppController', 'Controller');
                 unset($defaults['CustomerGroup']);
                 unset($defaults['CustomerAccreditation']);
                 unset($defaults['Customer']['contact']);
+                unset($defaults['CustomerFile']);
                 
             }
             if($context ==='Contact')
@@ -70,18 +71,176 @@ App::uses('AppController', 'Controller');
                        
            
         }
-        public function admin_runReport($context,$criteria=array(), $fields=array(),$export=null)
+        public function admin_runCustomerReport($context,$criteria=null, $fields=null,$export=null)
         {
+            $this->layout = 'ajax';
+           if($this->request->is('post')) {
+             
+               
             $this->loadModel($context);
-            $results = $this->$context->find('all', array('recursive'=> -1));
-            echo "<tr>";
+            $this->$context->unbindModel(array('hasMany' => array('Job')));
             
-            foreach($results[0]['CustomerAccreditation'] as $field => $val) {
-                echo "<td>" . $val . "</td>";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            
+            $results = $this->$context->find('all', array(
+                'joins' => array(
+                    array(
+                    'table' => 'customer_groups',
+                    'alias' => 'CustomerGroup',
+                    'type' => 'LEFT',
+                    'conditions' => '`CustomerGroup`.`customer_id` = `Customer`.`id`'
+                    
+                        ),
+                    array(
+                    'table' => 'groups',
+                    'alias' => 'Group',
+                    'type' => 'LEFT',
+                    'conditions' => '`CustomerGroup`.`group_id` = `Group`.`id`'
+                        ),
+//                    array(
+//                    'table' => 'customer_accreditations',
+//                    'alias' => 'CustomerAccreditation',
+//                    'type' => 'LEFT',
+//                    'conditions' => '`CustomerAccreditation`.`customer_id` = `Customer`.`id`'
+//                        ),
+                    
+                ),
+                //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
+                'conditions' => $this->request->data['conditions']));
+            
+            $final = array();
+            $innerFieldArray = array();
+            foreach($this->request->data['fields'] as $field)
+               {
+                   $fieldArray = explode(".", $field);
+                   if(!isset($innerFieldArray[$fieldArray[0]]))
+                        $innerFieldArray[$fieldArray[0]] = array();
+                   $innerFieldArray[$fieldArray[0]][$fieldArray[1]] = null;
+                        
+               }
+            foreach($results as $result)
+            {
+                
+               $final[$result['Customer']['id']] = $innerFieldArray;
+               foreach($this->request->data['fields'] as $field)
+               {
+                   $fieldArray = explode(".", $field);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$result['Customer']['id']][$fieldArray[0]][$fieldArray[1]] = "";
+                   }
+               }
+               
             }
-            echo "</tr>";
-            exit();
             
+           
+           }
+           
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
+           }
+        public function admin_runAccreditationReport($context,$criteria=null, $fields=null,$export=null)
+        {
+            $this->layout = 'ajax';
+           if($this->request->is('post')) {
+             
+            $this->loadModel($context);
+            if(!in_array($context . ".id",$this->request->data['fields']))
+                $this->request->data['fields'][] = $context . ".id";
+            
+            if($context === 'CustomerAccreditation')
+            {
+                if(!in_array($context . ".customer_id",$this->request->data['fields']))
+                $this->request->data['fields'][] = $context . ".customer_id";
+                
+                if(!in_array($context . ".accreditation_id",$this->request->data['fields']))
+                $this->request->data['fields'][] = $context . ".accreditation_id";
+                
+                $contactFields = array();
+                foreach($this->request->data['fields'] as $i => $field)
+                {
+                    if(substr($field, 0, 7) === "Contact")
+                    {
+                        $contactFields[] = $field;
+                        unset($this->request->data['fields'][$i]);
+                    }
+                }
+            }
+            
+            
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            
+            $results = $this->$context->find('all', array(
+                'conditions' => $this->request->data['conditions'],
+                'fields' => $this->request->data['fields']));
+            
+            if($context === 'CustomerAccreditation' && !empty($contactFields))
+            {
+                $this->loadModel('Customer');
+                foreach($results as $i => $result)
+                {
+                    $customer = $this->Customer->findById($result['CustomerAccreditation']['customer_id']);
+                    if(!empty($customer['Contact']))
+                    {
+                        foreach($customer['Contact'] as $contact)
+                        {
+                            if($contact['id'] === $customer['Customer']['primary_contact_id'])
+                                $results[$i]['Contact'] = $contact;
+                        }
+                        if(empty($results[$i]['Contact']))
+                            $results[$i]['Contact'] = $customer['Contact'][0];
+                        
+                        foreach($results[$i]['Contact'] as $j => $res)
+                        {
+                            if(!in_array('Contact.' . $j, $contactFields))
+                                    unset($results[$i]['Contact'][$j]);
+                        }
+                    }
+                    else
+                        $results[$i]['Contact'] = array();
+                }
+            }
+            
+            $this->set('results', $results);
+            $this->set('fields', array_merge($this->request->data['fields'], $contactFields));
+           }
+           
+            
+        }
+        function admin_customer() {
+            $this->loadModel('Group');
+            $this->set('groups', $this->Group->find('list', array('conditions'=> array('is_customer'=> 1))));
+            $this->loadModel('CustomerType');
+            $this->set('customerTypes', $this->CustomerType->find('list'));
+            $this->set('customerSources', explode("|", $this->config['customer.sources']));
+            $this->loadModel('EmailTemplate');
+            $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
+                'context' => 'Customer'
+            ))));
+            $this->set('fields', $this->_reportingFields('Customer'));
         }
         public function admin_accreditation()
         {

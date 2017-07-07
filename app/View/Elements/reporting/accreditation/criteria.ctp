@@ -18,46 +18,44 @@
 
         <div class='row'>
             <div class='col-md-4'>
-                    <input type='checkbox' id='expired' />
+                    <input class='dateBefore' type='checkbox' id='expired' />
                     Expired Accreditations
+                    <input type='hidden' value='<?= date('Y-m-d H:i:s'); ?>' class='datepicker' />
                     
                 </div> 
                 <div class='col-md-4'>
-                    <input type='checkbox' id='expiring' />
+                    <input class='dateBefore' type='checkbox' id='expiring' />
                     Expiring Accreditations Before:
                     <input type='text' class='input form-control datepicker' />
                 </div>
                 <div class='col-md-4'>
-                    <input type='checkbox' id='visit1' />
-                    Visit 1 Due Before: 
+                    <input class='dateBefore' type='checkbox' id='visit2' />
+                    Visit 2 Due Before: 
                     <input type='text' class='input form-control datepicker' />
                 </div>
         </div>
                 <div class='row'>
                     <div class='col-md-4'>
-                    <input type='checkbox' id='visit2' />
-                    Visit 2 Due Before: 
-                    <input type='text' class='input form-control datepicker' />
-                </div>
-                <div class='col-md-4'>
-                    <input type='checkbox' id='visit3' />
+                    <input class='dateBefore' type='checkbox' id='visit3' />
                     Visit 3 Due Before: 
                     <input type='text' class='input form-control datepicker' />
                 </div>
+                
                 <div class='col-md-4'>
-                    <input type='checkbox' id='9mo' />
+                    <input class='dateBefore' type='checkbox' id='9mo' />
                     9 Month Follow-up Due Before: 
                     <input type='text' class='input form-control datepicker' />
                 </div>
                 </div>
-                <div class='row'>
+                
                     <div class='col-md-4'>
-                    <input type='checkbox' id='18mo' />
+                    <input class='dateBefore' type='checkbox' id='18mo' />
                     18 Month On-site Due Before: 
                     <input type='text' class='input inline form-control datepicker' />
                 </div>
+                <div class='row'>
                 <div class='col-md-4'>
-                    <input type='checkbox' id='notes' />
+                    <input class='textCompare' type='checkbox' id='notes' />
                     Notes contain: 
                     <input type='text' class='input form-control' />
                 </div>

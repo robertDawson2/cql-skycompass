@@ -207,6 +207,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/admin/schedule/scheduleReport"><i class="fa fa-circle-o"></i> Approval/Denial Report</a></li>
+            <li><a href="/admin/reporting/quickReports"><i class="fa fa-circle-o"></i> Quick Reports</a></li>
             <li class='<?= $section == 'crmreporting' ? 'active' : ''; ?> '>
               <a href="#"><i class="fa fa-plus-circle"></i> CRM Reports <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
