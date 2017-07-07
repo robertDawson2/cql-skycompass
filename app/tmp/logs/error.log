@@ -63622,3 +63622,441 @@ Stack Trace:
 #3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-07-05 12:34:13 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-05 12:34:13 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-05 12:34:13 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-05 12:34:15 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-05 12:40:13 Error: Fatal Error (64): require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required 'csrest_campaigns.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php') in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 21]
+2017-07-05 12:40:13 Error: [FatalErrorException] require_once() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required 'csrest_campaigns.php' (include_path='/var/www/cql.local/public_html/lib:.:/usr/share/php')
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'require_once() ...', '/var/www/cql.lo...', 21)
+#1 [internal function]: ErrorHandler::handleError(64, 'require_once() ...', '/var/www/cql.lo...', 21, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'require_once() ...', '/var/www/cql.lo...', 21, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-05 12:54:43 Error: Fatal Error (1): Class 'CS_REST_Clients' not found in [/var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php, line 54]
+2017-07-05 12:54:43 Error: [FatalErrorException] Class 'CS_REST_Clients' not found
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'CS_REST_...', '/var/www/cql.lo...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'CS_REST_...', '/var/www/cql.lo...', 54, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Class 'CS_REST_...', '/var/www/cql.lo...', 54, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-05 12:55:41 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 12:57:39 Error: [CurlException] Error making request with curl_error: Protocol "Array" not supported or disabled in libcurl
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(291): CS_REST_CurlTransport->make_call(Array)
+#1 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(234): CS_REST_Wrapper_Base->_call(Array, 'GET', 'Array://api.cre...')
+#2 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/csrest_general.php(144): CS_REST_Wrapper_Base->get_request('Array://api.cre...')
+#3 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(49): CS_REST_General->get_clients()
+#4 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(17): CampaignMonitorController->_getClients()
+#5 [internal function]: CampaignMonitorController->admin_refreshApiInfo()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(CampaignMonitorController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-05 12:58:07 Error: [CurlException] Error making request with curl_error: Protocol "Array" not supported or disabled in libcurl
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(291): CS_REST_CurlTransport->make_call(Array)
+#1 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(234): CS_REST_Wrapper_Base->_call(Array, 'GET', 'Array://api.cre...')
+#2 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/csrest_general.php(144): CS_REST_Wrapper_Base->get_request('Array://api.cre...')
+#3 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(50): CS_REST_General->get_clients()
+#4 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(17): CampaignMonitorController->_getClients()
+#5 [internal function]: CampaignMonitorController->admin_refreshApiInfo()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(CampaignMonitorController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-05 12:58:31 Error: [CurlException] Error making request with curl_error: Protocol "Array" not supported or disabled in libcurl
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(291): CS_REST_CurlTransport->make_call(Array)
+#1 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/class/base_classes.php(234): CS_REST_Wrapper_Base->_call(Array, 'GET', 'Array://api.cre...')
+#2 /var/www/cql.local/public_html/app/webroot/plugins/campaignmonitor/csrest_general.php(144): CS_REST_Wrapper_Base->get_request('Array://api.cre...')
+#3 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(51): CS_REST_General->get_clients()
+#4 /var/www/cql.local/public_html/app/Controller/CampaignMonitorController.php(17): CampaignMonitorController->_getClients()
+#5 [internal function]: CampaignMonitorController->admin_refreshApiInfo()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(CampaignMonitorController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-05 12:59:06 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 12:59:43 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 13:00:35 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 13:01:13 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 13:01:37 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-05 13:12:59 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/CampaignMonitor/admin_refresh_api_info.ctp',
+)
+Request URL: /admin/campaignMonitor/refreshApiInfo
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(CampaignMonitorController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-06 13:10:42 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:10:42 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:10:42 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:10:44 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:10:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:13:25 Error: [MissingActionException] Action PagesController::admin_examples() could not be found.
+Exception Attributes: array (
+  'controller' => 'PagesController',
+  'action' => 'admin_examples',
+)
+Request URL: /admin/pages/examples/profile.html
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-06 13:42:21 Error: [MissingControllerException] Controller class 700|Oswald:400Controller could not be found.
+Exception Attributes: array (
+  'class' => '700|Oswald:400Controller',
+  'plugin' => NULL,
+)
+Request URL: /admin/700|Oswald:400
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:42:21 Error: [MissingControllerException] Controller class 700Controller could not be found.
+Exception Attributes: array (
+  'class' => '700Controller',
+  'plugin' => NULL,
+)
+Request URL: /admin/700
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:42:21 Error: [MissingControllerException] Controller class 500Controller could not be found.
+Exception Attributes: array (
+  'class' => '500Controller',
+  'plugin' => NULL,
+)
+Request URL: /admin/500
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 13:47:37 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/EmailTemplates/admin_ajax_save.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/EmailTemplates/admin_ajax_save.ctp',
+)
+Request URL: /admin/emailTemplates/ajaxSave
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-06 13:47:52 Error: [MissingViewException] View file "/var/www/cql.local/public_html/app/View/EmailTemplates/admin_ajax_save.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cql.local/public_html/app/View/EmailTemplates/admin_ajax_save.ctp',
+)
+Request URL: /admin/emailTemplates/ajaxSave
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#4 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-07-06 14:00:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 14:00:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 14:00:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 14:00:48 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 14:00:49 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 14:52:30 Error: Fatal Error (1): Call to a member function getColumnTypes() on null in [/var/www/cql.local/public_html/app/Controller/EmailTemplatesController.php, line 59]
+2017-07-06 14:52:30 Error: [FatalErrorException] Call to a member function getColumnTypes() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Customer
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 59)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 59, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 59, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-06 14:52:39 Error: Fatal Error (1): Call to a member function getColumnTypes() on null in [/var/www/cql.local/public_html/app/Controller/EmailTemplatesController.php, line 59]
+2017-07-06 14:52:39 Error: [FatalErrorException] Call to a member function getColumnTypes() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Customer
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 59)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 59, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 59, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-06 15:34:33 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.customer_id' in 'on clause'
+Request URL: /admin/emailTemplates/ajaxAvailableFields/ContactCertification
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Contact...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Contact...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Contact...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(ContactCertification), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('first', Array)
+#6 /var/www/cql.local/public_html/app/Controller/EmailTemplatesController.php(56): Model->find('first')
+#7 [internal function]: EmailTemplatesController->admin_ajaxAvailableFields('ContactCertific...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(EmailTemplatesController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-06 15:34:34 Error: Fatal Error (64): Cannot redeclare class ContactCertification in [/var/www/cql.local/public_html/app/Model/CustomerAccreditation.php, line 0]
+2017-07-06 15:34:34 Error: [FatalErrorException] Cannot redeclare class ContactCertification
+Request URL: /admin/emailTemplates/ajaxAvailableFields/ContactCertification
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/var/www/cql.lo...', 0)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/var/www/cql.lo...', 0, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/var/www/cql.lo...', 0, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-06 15:58:40 Error: [MissingActionException] Action EmailTemplatesController::index() could not be found.
+Exception Attributes: array (
+  'controller' => 'EmailTemplatesController',
+  'action' => 'index',
+)
+Request URL: /emailTemplates
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-06 16:25:13 Error: [MissingControllerException] Controller class EmailTemplateController could not be found.
+Exception Attributes: array (
+  'class' => 'EmailTemplateController',
+  'plugin' => NULL,
+)
+Request URL: /admin/emailTemplate/delete/6
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 17:11:19 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 17:11:19 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 17:11:19 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-06 19:03:33 Error: [MissingActionException] Action ReportingController::admin_runReport() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_runReport',
+)
+Request URL: /admin/reporting/runReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

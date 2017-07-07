@@ -157,6 +157,25 @@
             <?php endif; ?>
           </ul>
         </li>
+        
+        <li class="<?= $section == 'communications' ? 'active' : ''; ?> treeview">
+          <a href="#">
+            <i class="fa fa-send"></i> <span>Communications</span>
+            
+            <i class="fa fa-angle-left pull-right"></i>
+            
+          </a>
+          <ul class="treeview-menu">
+              
+            <li><a href="/communications/campaigns"><i class="fa fa-check-square-o"></i> View Campaign Statistics</a></li>
+         
+            <li><a href="/admin/emailTemplates"><i class="fa fa-list"></i> Manage Email Templates</a></li>
+           
+          </ul>
+        </li>
+        
+        
+
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['config']['admin_index']): ?>
         <li class="<?= $section == 'misc' ? 'active' : ''; ?><?= $section == 'crm' ? 'active' : ''; ?>  treeview">
           <a href="#">
@@ -181,14 +200,23 @@
         <?php endif; ?>
         
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_scheduleReport']): ?>
-        <li class="<?= $section == 'reporting' ? 'active' : ''; ?> treeview">
+        <li class="<?= $section == 'reporting' ? 'active' : ''; ?><?= $section == 'crmreporting' ? 'active' : ''; ?> treeview">
           <a href="#">
             <i class="fa fa-bar-chart-o"></i> <span>Reporting</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
             <li><a href="/admin/schedule/scheduleReport"><i class="fa fa-circle-o"></i> Approval/Denial Report</a></li>
-            
+            <li class='<?= $section == 'crmreporting' ? 'active' : ''; ?> '>
+              <a href="#"><i class="fa fa-plus-circle"></i> CRM Reports <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="/admin/reporting/accreditation"><i class="fa fa-circle-o"></i> Accreditation Reports</a></li>
+                <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Certification Reports</a></li>
+                <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact Reports</a></li>
+                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Customer Reports</a></li>
+                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <?php endif; ?>

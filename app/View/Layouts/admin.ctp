@@ -121,6 +121,49 @@
 			fontsize_formats : "10px 12px 13px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px"
 		};
 
+
+tinymceEmailSettings = {
+			selector: ".tinymce",
+			plugins: [
+				"advlist autolink lists link image charmap print preview anchor textcolor",
+				"searchreplace visualblocks code fullscreen",
+				"insertdatetime media table contextmenu paste colorpicker responsivefilemanager save"
+			],
+			
+			relative_urls : false,
+			toolbar: "undo redo | formatselect | fontselect | fontsizeselect | forecolor backcolor | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link image media",
+			doctype: '<!DOCTYPE html>',
+			image_advtab: true,
+			table_advtab: true,
+			table_cell_advtab: true,
+			table_row_advtab: true,
+			//file_browser_callback: RoxyFileBrowser,
+                external_filemanager_path:"/adminPanel/plugins/filemanager/",
+   filemanager_title:"Your Site " ,
+   external_plugins: { "filemanager" : "/adminPanel/plugins/filemanager/plugin.min.js"},
+			
+			content_css : "/css/templatedemails.css",
+			extended_valid_elements : "img[!src|border:0|alt|title|width|height|style]a[name|href|target|title|onclick]",
+		  	valid_children : "+body[style]",
+		    style_formats: [
+		    {
+		      title: 'Float Left',
+		      selector: 'img', 
+		      classes: 'left'
+		    },
+		    {
+		       title: 'Float Right',
+		       selector: 'img', 
+		       classes: 'right'
+		    }
+		    ],
+		    
+		    block_formats: "Paragraph=p;Pre=pre;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6",
+			browser_spellcheck: true,
+			font_formats: "Arial=arial,helvetica,sans-serif;"+
+		        "Courier New=courier new,courier;",
+			fontsize_formats : "10px 12px 13px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px"
+		};
 		
 	</script>
 </head>
@@ -493,7 +536,7 @@ $(".job-todo-list").todolist({
     
     $('.select2 span').addClass('needsclick');
     
-    $('.dataTable').DataTable({
+    var mainTable = $('.dataTable').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,

@@ -167,7 +167,7 @@ App::uses('AppController', 'Controller');
                    $this->request->data['Todo']['contact_id'] = null;
                     $this->request->data['Todo']['customer_id'] = null;
                }
-               
+               $this->request->data['Todo']['reminder_sent'] = 0;
                unset($this->request->data['Todo']['customer']);
                unset($this->request->data['Todo']['contact']);
                
