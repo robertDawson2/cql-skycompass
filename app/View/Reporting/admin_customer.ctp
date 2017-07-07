@@ -463,12 +463,56 @@ function getFields()
     $.ajax('/admin/reporting/ajaxLoadTemplate/' + $("#loadFromTemplate option:selected").val()).done(
             function(data){
                var jsonData = (JSON.parse(data));
-               $(".fields").prop('selected', false);
+               $(".fields > option").prop('selected', false);
+               $("input").val("");
+               $("input[type='checkbox']").prop('checked', false);
+               $(".box-danger select > option").prop('selected', false);
                   populateFields(jsonData.fields);
-                //  populateCriteria(jsonData.conditions);
+                populateCriteria(jsonData.conditions);
     });
         
     });
+    
+    function populateCriteria(conditions)
+    {
+     console.log(conditions);   
+     for (var key in conditions) {
+  if (conditions.hasOwnProperty(key)) {
+      if(key === "GroupGroups"  && conditions[key].data !== null)
+      {
+          $("#checkGroups").prop('checked', true);
+           $("#" + key).val(conditions[key].data);     
+         }
+         
+         if(key === "TypeTypes" && conditions[key].data !== null)
+      {
+          $("#checkTypes").prop('checked', true);
+          
+           $("#" + key).val(conditions[key].data);     
+         }
+      if(key === "SourceSources" && conditions[key].data !== null)
+      {
+          $("#checkSources").prop('checked', true);
+          
+           $("#" + key).val(conditions[key].data);     
+         }
+         if(key === "marketingEmailsDropdown" && conditions[key].data !== null)
+      {
+          $("#checkMarketingEmails").prop('checked', true);
+          
+           $("#" + key).val(conditions[key].data[0]);     
+         }
+         if(key === "checkContractExpiration" && conditions[key].data !== null)
+      {
+          $("#" + key).prop('checked', true);
+          
+           $("#contractExpiration").val(conditions[key].data[0]);     
+         }
+      
+   // console.log(key + " -> " + $obj[key]);
+  }
+}
+    }
     function inArray(needle, haystack) {
     var length = haystack.length;
     for(var i = 0; i < length; i++) {
@@ -486,7 +530,7 @@ function getFields()
                 $obj[$broken[0]] = [];
             $obj[$broken[0]].push($broken[1]);   
     });
-    console.log($obj);
+   
     for (var key in $obj) {
   if ($obj.hasOwnProperty(key)) {
        $("select#Category" + key + " > option").each(function() {
