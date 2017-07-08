@@ -64837,3 +64837,70 @@ Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
 Stack Trace:
 #0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-07-07 23:59:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 23:59:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 23:59:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 23:59:23 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-07 23:59:24 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-08 00:11:56 Error: [MissingActionException] Action ReportingController::admin_quickReport() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_quickReport',
+)
+Request URL: /admin/reporting/quickReport
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-08 00:57:28 Error: [MissingActionException] Action ReportingController::admin_index() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_index',
+)
+Request URL: /admin/reporting/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

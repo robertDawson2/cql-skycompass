@@ -354,6 +354,7 @@ function getFields()
         var savedata = {
             name : $("#templateName").val(),
             conditions: JSON.stringify(getConditionsArray()),
+            conditions_string: getConditions(),
             fields: JSON.stringify(getFields()),
             context: 'Customer'
         };
@@ -407,8 +408,8 @@ function getFields()
            $.ajax('/admin/reporting/ajaxLoadRecent/' + data).done(function(data)
                {
                    var json_data = JSON.parse(data);
-                   console.log(json_data.columns);
-           console.log(json_data.data);
+        //           console.log(json_data.columns);
+         //  console.log(json_data.data);
            var textrow = "<tr>";
            for(var i = 0; i< json_data.columns.length; i++)
                textrow += "<th></th>";

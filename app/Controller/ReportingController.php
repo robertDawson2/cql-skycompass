@@ -16,6 +16,14 @@ App::uses('AppController', 'Controller');
             $this->set('section', 'crmreporting');
            
         }
+        function admin_quickReports()
+        {
+            $this->loadModel('ReportTemplate');
+            $templates = $this->ReportTemplate->find('all', array(
+                'order' => 'context ASC'
+            ));
+            $this->set('templates', $templates);
+        }
         public function admin_ajaxSaveTemplate() {
             $this->layout = 'ajax';
             if($this->request->is('post'))
