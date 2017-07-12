@@ -216,7 +216,10 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+                'timeout' => (7*24*60*60),
+                'autoRegenerate' => true
+            
 	));
 
 /**

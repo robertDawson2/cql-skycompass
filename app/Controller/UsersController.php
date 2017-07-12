@@ -664,7 +664,8 @@ class UsersController extends AppController {
                                    $this->User->id = $this->Auth->user('id');
 				$this->User->saveField('last_login', date('Y-m-d H:i:s'));
 				$this->User->saveField('last_login_ip', $_SERVER['REMOTE_ADDR']);
-				return $this->redirect('/admin'); 
+				$this->redirect($this->Auth->redirectUrl());
+                                exit();
                                 }
                                 else
                                 {

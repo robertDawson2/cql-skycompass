@@ -105,6 +105,13 @@
     </div>
     
 </div>
+                <div class='row'>
+    <div class='col-sm-12'>
+           
+        <?= $this->element('reporting/certification/certifications'); ?>
+    </div>
+    
+</div>
 <div class='row'>
     <div class='col-sm-12'>
        <?= $this->element('reporting/contact/options'); ?>
@@ -313,6 +320,70 @@ function getFields()
                 conditionSection: 'criteria',
                 extra: null,
                 data: null
+            },
+            'checkCertificationExpired' : {
+                type: 'string',
+                conditionField: 'ContactCertification.recertification_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+            'checkCertificationExpiring' : {
+                type: 'string',
+                conditionField: 'ContactCertification.recertification_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+            'checkCertificationCertifiedBefore' : {
+                type: 'string',
+                conditionField: 'ContactCertification.start_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+            'checkCertificationRenewalBefore' : {
+                type: 'string',
+                conditionField: 'ContactCertification.renewal_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+            'checkCertificationReliabilityGreater' : {
+                type: 'string',
+                conditionField: 'ContactCertification.reliability_score',
+                conditionType: 'greaterThan',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+             'checkCertificationReliabilityLess' : {
+                type: 'string',
+                conditionField: 'ContactCertification.reliability_score',
+                conditionType: 'lessThan',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+             'checkCertificationNotes' : {
+                type: 'string',
+                conditionField: 'ContactCertification.notes',
+                conditionType: 'like',
+                conditionSection: 'certification',
+                extra: null,
+                data: null
+            },
+             'checkCertificationTypes' : {
+                type: 'string',
+                conditionField: 'ContactCertification.certification_id',
+                conditionType: 'array',
+                conditionSection: 'certificationType',
+                extra: null,
+                data: null
             }
         };
         
@@ -415,6 +486,24 @@ function getFields()
                  current += date.toISOString().slice(0, 19).replace('T', ' ');
                                 
                 current += "')";
+                
+                }
+                if(obj.conditionType === 'lessThan')
+                {
+                current += "(" + obj.conditionField + " < "; 
+                current += obj['data'];
+                
+                                
+                current += ")";
+                
+                }
+                if(obj.conditionType === 'greaterThan')
+                {
+                current += "(" + obj.conditionField + " > "; 
+                current += obj['data'];
+                
+                                
+                current += ")";
                 
                 }
                 

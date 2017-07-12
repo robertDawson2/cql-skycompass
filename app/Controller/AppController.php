@@ -331,7 +331,8 @@ class AppController extends Controller {
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => true);
 		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'dashboard', 'admin' => true);
 		$this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'dashboard', 'admin' => true);
-		
+		//$this->Auth->autoRedirect = true;
+                
 		if ($this->uses != null)
 			$this->config = $this->Config->find('list', array('fields' => array('Config.option', 'Config.value')));
 

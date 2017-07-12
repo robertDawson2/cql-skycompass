@@ -3,7 +3,7 @@
             <div class="box-header ui-sortable-handle" style="cursor: move;">
               <i class="fa fa-edit"></i>
 
-              <h3 class="box-title">Accreditation Criteria</h3>
+              <h3 class="box-title">Certification Criteria</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">
                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
@@ -15,7 +15,7 @@
         <div class='row'>
             <div class='col-md-3'>
                 <h4>Comparison for each attribute:</h4>
-                <select id='accreditationAndOr' class='input form-control'>
+                <select id='certificationAndOr' class='input form-control'>
                     <option val='OR'>OR</option>
                     <option val='AND'>AND</option>
                     
@@ -31,9 +31,9 @@
             <div class='col-md-4'>
                 <div class='row'>
                     <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationExpired' />
+                    <input class='dateBefore' type='checkbox' id='checkCertificationExpired' />
                     
-                    Expired Accreditations
+                    Expired Certifications
                     </div>
                     <div class='col-md-12'>
                     <input type='hidden' value='<?= date('Y-m-d H:i:s'); ?>' class='datepicker data' />
@@ -43,8 +43,8 @@
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationExpiring' />
-                    Expiring Accreditations Before:
+                    <input class='dateBefore' type='checkbox' id='checkCertificationExpiring' />
+                    Expiring Certifications Before:
                         </div>
                         <div class='col-md-12'>
                     <input type='text' class='input form-control datepicker data' />
@@ -54,9 +54,9 @@
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationVisit2' />
+                    <input class='dateBefore' type='checkbox' id='checkCertificationCertifiedBefore' />
                         
-                    Visit 2 Due Before: 
+                    Certified Before: 
                     </div>
                         <div class='col-md-12'>
                     <input type='text' class='input form-control datepicker data' />
@@ -68,8 +68,8 @@
                     <div class='col-md-4'>
                         <div class='row'>
                             <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationVisit3' />
-                    Visit 3 Due Before: 
+                    <input class='dateBefore' type='checkbox' id='checkCertificationRenewalBefore' />
+                    Renewal Date Before: 
                             </div>
                             <div class='col-md-12'>
                     <input type='text' class='input form-control datepicker data' />
@@ -78,34 +78,36 @@
                 </div>
                 
                 <div class='col-md-4'>
+                    
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditation9Mo' />
-                    9 Month Follow-up Due Before: 
+                    <input class='dateBefore' type='checkbox' id='checkCertificationReliabilityGreater' />
+                    Reliability Score Greater Than: 
                         </div>
                         <div class='col-md-12'>
                     <input type='text' class='input form-control datepicker data' />
                         </div>
                     </div>
                 </div>
+                    <div class='col-md-4'>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                    <input class='dateBefore' type='checkbox' id='checkCertificationReliabilityLess' />
+                    Reliability Score Less Than: 
+                        </div>
+                        <div class='col-md-12'>
+                    <input type='text' class='input form-control datepicker data' />
+                        </div>
+                    </div>
+                    
+                </div>
                 </div>
                 <div class='row'>
-                    <div class='col-md-4'>
-                        <div class='row'>
-                        <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditation18Mo' />
-                    18 Month On-site Due Before: 
-                        </div>
-                            <div class='col-md-12'>
-                    <input type='text' class='input inline form-control datepicker data' />
-                            </div>
-                        </div>
-                </div>
-                
+                    
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='textCompare' type='checkbox' id='checkAccreditationNotes' />
+                    <input class='textCompare' type='checkbox' id='checkCertificationNotes' />
                     Notes contain: 
                         </div>
                         <div class='col-md-12'>
@@ -119,13 +121,13 @@
             <div class='col-md-4'>
                 <div class='row'>
                     <div class='col-md-12'>
-                <input class='textCompare' type='checkbox' id='checkAccreditationTypes' /> Accreditation Types
+                <input class='textCompare' type='checkbox' id='checkCertificationTypes' /> Certification Types
                     </div>
                     <div class='col-md-12'>
                 <a role='button' class='deepcategoryCheckAll'>Check</a> /&nbsp; <a role='button' class='deepcategoryUncheckAll'>Uncheck</a>
                 <br />
-                <select style="height: 200px;" class='input form-control data' multiple="multiple" id='accredTypes'>
-                    <?php foreach($accredTypes as $i => $type): ?>
+                <select style="height: 200px;" class='input form-control data' multiple="multiple" id='certTypes'>
+                    <?php foreach($certTypes as $i => $type): ?>
                     <option value='<?= $i; ?>'><?= $type; ?></option>
                     
                     <?php endforeach; ?>

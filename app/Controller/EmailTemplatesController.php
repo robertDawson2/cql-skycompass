@@ -94,7 +94,7 @@ App::uses('AppController', 'Controller');
             {
                 unset($defaults['Job']);
                 unset($defaults['CustomerGroup']);
-                unset($defaults['CustomerAccreditation']);
+             //   unset($defaults['CustomerAccreditation']);
                 unset($defaults['Customer']['contact']);
                 
             }
@@ -102,7 +102,7 @@ App::uses('AppController', 'Controller');
             {
                 unset($defaults['Job']);
                 unset($defaults['ContactGroup']);
-                unset($defaults['ContactCertification']);
+            //    unset($defaults['ContactCertification']);
                 unset($defaults['Customer']['contact']);
             }
             if($context === 'User')

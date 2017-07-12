@@ -93,6 +93,21 @@ App::uses('AppController', 'Controller');
                            $this->_logEmail($context, $templateId, $contactId, $id, 'error');
                        }
                    }
+                   else if($context === 'contact')
+                   {
+                       $contactId = $this->_getCustomerContactEmail($id);
+                       $sendResult = $this->_sendEmail($context, $templateId, $id);
+                       if($sendResult)
+                       {
+                           $counterSent++;
+                           $this->_logEmail($context, $templateId, $id);
+                       }
+                       else
+                       {
+                           $counterUnsent++;
+                           $this->_logEmail($context, $templateId, $id, null, 'error');
+                       }
+                   }
                }
                 if($counterUnsent > 0)
                 {
@@ -184,6 +199,57 @@ App::uses('AppController', 'Controller');
             
             return $htmlNewString;
         }
+        
+         private function _getContactHtml($html, $contact)
+        {
+            $i = 0;
+            $htmlArray = preg_split("/([{}])/", $html);
+  
+            $htmlNewString = "";
+            foreach($htmlArray as $entry):
+                if($i == 0 || $i == 2)
+                    $htmlNewString .= $entry;
+                else
+                {
+
+                    $anotherArray = explode(".", $entry);
+                    if(isset($contact[$anotherArray[0]]) && !empty($contact[$anotherArray[0]]))
+                    {
+                        if(isset($contact[$anotherArray[0]][0]) && is_array($contact[$anotherArray[0]][0]))
+                        {
+                            $htmlNewString .= "[";
+                            $first = true;
+                            
+                            foreach($contact[$anotherArray[0]] as $row)
+                            {
+                                if(!$first)
+                                    $htmlNewString .= ", ";
+                                
+                                $first = false;
+                                //check if date, and format.
+                                $newInfo = $row[$anotherArray[1]];
+                                if((bool)strtotime($newInfo))
+                                    $newInfo = date('m/d/Y', strtotime($newInfo));
+                                
+                                $htmlNewString .= $newInfo;
+                            }
+                            $htmlNewString .= "]";
+                                
+                        }
+                        else {
+                        $htmlNewString .= $contact[$anotherArray[0]][$anotherArray[1]];
+                        }
+                    }
+                }
+                
+                if($i==2)
+                    $i = 1;
+                else
+                    $i++;
+            endforeach;
+            
+            return $htmlNewString;
+        }
         private function _sendEmail($context, $templateId, $contactId = null, $customerId = null)
         {
             if($customerId !== null)
@@ -209,6 +275,8 @@ App::uses('AppController', 'Controller');
             switch($context) { 
                 case 'customer': 
                     $emailHtml = $this->_getCustomerHtml($template['EmailTemplate']['content'], $customer,$contactId);
+                case 'contact': 
+                    $emailHtml = $this->_getContactHtml($template['EmailTemplate']['content'],$contact);
                     break;
                 default:
                     break;
@@ -291,7 +359,7 @@ App::uses('AppController', 'Controller');
             {
                 unset($defaults['Job']);
              //   unset($defaults['ContactGroup']);
-                unset($defaults['ContactCertification']);
+             //   unset($defaults['ContactCertification']);
                 unset($defaults['Customer']['contact']);
             }
             if($context === 'User')
@@ -596,72 +664,125 @@ App::uses('AppController', 'Controller');
            }
         public function admin_runAccreditationReport($context,$criteria=null, $fields=null,$export=null)
         {
+            
             $this->layout = 'ajax';
            if($this->request->is('post')) {
              
+               
             $this->loadModel($context);
-            if(!in_array($context . ".id",$this->request->data['fields']))
-                $this->request->data['fields'][] = $context . ".id";
-            
-            if($context === 'CustomerAccreditation')
-            {
-                if(!in_array($context . ".customer_id",$this->request->data['fields']))
-                $this->request->data['fields'][] = $context . ".customer_id";
-                
-                if(!in_array($context . ".accreditation_id",$this->request->data['fields']))
-                $this->request->data['fields'][] = $context . ".accreditation_id";
-                
-                $contactFields = array();
-                foreach($this->request->data['fields'] as $i => $field)
-                {
-                    if(substr($field, 0, 7) === "Contact")
-                    {
-                        $contactFields[] = $field;
-                        unset($this->request->data['fields'][$i]);
-                    }
-                }
-            }
-            
+          //  $this->$context->unbindModel(array('hasMany' => array('Job')));
             
             if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
             
             $results = $this->$context->find('all', array(
-                'conditions' => $this->request->data['conditions'],
-                'fields' => $this->request->data['fields']));
-            
-            if($context === 'CustomerAccreditation' && !empty($contactFields))
-            {
-                $this->loadModel('Customer');
-                foreach($results as $i => $result)
-                {
-                    $customer = $this->Customer->findById($result['CustomerAccreditation']['customer_id']);
-                    if(!empty($customer['Contact']))
-                    {
-                        foreach($customer['Contact'] as $contact)
-                        {
-                            if($contact['id'] === $customer['Customer']['primary_contact_id'])
-                                $results[$i]['Contact'] = $contact;
-                        }
-                        if(empty($results[$i]['Contact']))
-                            $results[$i]['Contact'] = $customer['Contact'][0];
+                'recursive' => 2, 
+               // 'fields' => 'DISTINCT CustomerAccreditation.id, *',
+//                'joins' => array(
+//                    array(
+//                    'table' => 'customer_groups',
+//                    'alias' => 'CustomerGroup',
+//                    'type' => 'LEFT',
+//                    'conditions' => '`CustomerGroup`.`customer_id` = `Customer`.`id`'
+//                    
+//                        ),
+//                    array(
+//                    'table' => 'groups',
+//                    'alias' => 'Group',
+//                    'type' => 'LEFT',
+//                    'conditions' => '`CustomerGroup`.`group_id` = `Group`.`id`'
+//                        ),
+//                    array(
+//                    'table' => 'customer_accreditations',
+//                    'alias' => 'CustomerAccreditation',
+//                    'type' => 'LEFT',
+//                    'conditions' => '`CustomerAccreditation`.`customer_id` = `Customer`.`id`'
+//                        ),
+//                    array(
+//                    'table' => 'accreditations',
+//                    'alias' => 'Accreditation',
+//                    'type' => 'LEFT',
+//                    'conditions' => '`CustomerAccreditation`.`accreditation_id` = `Accreditation`.`id`'
+//                        ),
+//                    
+//                ),
+                //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
+                'conditions' => $this->request->data['conditions']));
+  //          pr($results); exit();
+            $final = array();
+            $returnFields = array();
+            $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
+            foreach($this->request->data['fields'] as $field)
+               {
+                   
+                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $returnFields[] = array(
+                       'title' => ucwords(str_replace(".", "<br />\n\r ", str_replace("_", " ", $field))),
+                       'data' => str_replace(".", "-",$field),
+                       'class' =>'show-on-export');
                         
-                        foreach($results[$i]['Contact'] as $j => $res)
-                        {
-                            if(!in_array('Contact.' . $j, $contactFields))
-                                    unset($results[$i]['Contact'][$j]);
-                        }
-                    }
-                    else
-                        $results[$i]['Contact'] = array();
-                }
+               }
+               
+               $counter =0;
+            foreach($results as $result)
+            {
+                
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Customer']['id'] . "' />";
+               foreach($this->request->data['fields'] as $field)
+               {
+                   
+                   $fieldArray = explode(".", $field);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           
+                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       
+                   }
+               }
+               
+                $counter++;
             }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
             
-            $this->set('results', $results);
-            $this->set('fields', array_merge($this->request->data['fields'], $contactFields));
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
+           
            }
            
-            
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
         }
         function admin_customer() {
             $this->loadModel('Group');
@@ -690,6 +811,8 @@ App::uses('AppController', 'Controller');
             $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
                 'context' => 'Contact'
             ))));
+            $this->loadModel('Certification');
+            $this->set('certTypes', $this->Certification->find('list'));
             $this->set('fields', $this->_reportingFields('Contact'));
             $this->set('defaultExportTitle', 'ContactQuery-' . date("mdY"));
         }
@@ -704,6 +827,7 @@ App::uses('AppController', 'Controller');
             $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
                 'context' => 'CustomerAccreditation'
             ))));
+            $this->set('defaultExportTitle', 'AccreditationQuery-' . date("mdY"));
         }
         public function admin_ajaxSave($id = null)
         {
