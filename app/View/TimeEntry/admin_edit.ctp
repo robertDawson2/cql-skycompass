@@ -41,8 +41,8 @@
           <div class="row">
               <div class="col-md-6">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
-                      <select id='customerList'  data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[TimeEntry][customer_id]' style="width: 100%;">
+                      <label>Organization</label>
+                      <select id='customerList'  data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[TimeEntry][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";

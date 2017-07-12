@@ -11,7 +11,7 @@
                         <th>Title</th>
 			<th>Email</th>
 			<th>Phone(s)</th>
-                        <th>Linked Customers</th>
+                        <th>Linked Organizations</th>
                        
 			<th>Options</th>
 		</tr>

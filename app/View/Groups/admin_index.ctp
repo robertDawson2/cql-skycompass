@@ -7,7 +7,7 @@
             <thead>
             <th>Name</th>
             <th>Contacts?</th>
-            <th>Customers?</th>
+            <th>Organizations?</th>
             <th>Options</th>
             </thead>
             <tbody>

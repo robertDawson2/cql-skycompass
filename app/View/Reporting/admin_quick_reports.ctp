@@ -83,7 +83,7 @@
     <div class="box-body">
        <div class="row">
                     <div class="col-md-3" id='customer'>
-                        <h4>Customers</h4>
+                        <h4>Organizations</h4>
                         <?= $this->Form->input('customerLoadFromTemplate', array(
                             'class' => 'input form-control loadFromTemplate',
                             'options' => array('loading...'),

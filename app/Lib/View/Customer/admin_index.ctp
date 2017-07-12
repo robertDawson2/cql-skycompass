@@ -1,5 +1,5 @@
 <?php $this->set('title_for_layout', 'Manage ' .
-        "Customers"); ?>
+        "Organizations"); ?>
 
 
 <?php if (!empty($customers)): ?>
@@ -38,10 +38,10 @@
 	</tbody>
 </table>
 
-<?php echo $this->element('modals/delete', array('title' => 'Delete Customer', 'text' => 'delete the customer record for <strong>{name}</strong>', 'action' => '/admin/customers/delete/{id}')); ?>
+<?php echo $this->element('modals/delete', array('title' => 'Delete Organization', 'text' => 'delete the organization record for <strong>{name}</strong>', 'action' => '/admin/customers/delete/{id}')); ?>
 
 <?php else: ?>
-<p>There are no customers in your database.</p>
+<p>There are no organizations in your database.</p>
 <?php endif; ?>
 <!--
 <a role="button" href="/admin/users/create" class="btn btn-primary small"><i class="fa fa-plus"></i> Create New User</a>-->

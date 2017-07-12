@@ -29,7 +29,7 @@ echo "<ul style='list-style-type: none;'>";
             }
             echo "</ul>";
  else: ?>
-<p>There are no files linked to this customer.</p>
+<p>There are no files linked to this organization.</p>
 <?php endif; ?>
     </div>
 </div>

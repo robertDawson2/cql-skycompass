@@ -96,7 +96,7 @@
                     <div class='col-sm-7'>
                         <?= $this->Form->input('Todo.search', array(
                             'class' => 'full-search input form-control quick-todo',
-                            'label' => 'Link Customer/Contact Info'
+                            'label' => 'Link Organization/Contact Info'
                         )); ?>
                        
                         <div id="custSearchResults" data-context='hidden' style="

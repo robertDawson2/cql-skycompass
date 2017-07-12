@@ -67,7 +67,7 @@
     <div class='col-md-3'>
         <ul class="nav nav-pills nav-stacked">
   <li class="active"><a data-toggle="pill" href="#general">General Information</a></li>
-  <li><a data-toggle="pill" href="#customers">Linked Customers</a></li>
+  <li><a data-toggle="pill" href="#customers">Linked Organizations</a></li>
   <li><a data-toggle="pill" href="#groups">Groups</a></li>
   <li><a data-toggle="pill" href="#addresses">Addresses</a></li>
   <li><a data-toggle="pill" href="#phones">Phone Numbers</a></li>
@@ -145,7 +145,7 @@
      <div class="tab-pane fade" id="customers">   
        <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-clock-o"></i> Link to Customer(s)
+            <h3 class="box-title"><i class="fa fa-clock-o"></i> Link to Organization(s)
             </h3>
 
           
@@ -175,7 +175,7 @@
                         } ?>
                     </ul>
                     <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
-                    <strong><em>--- No customers linked ---</em></strong>
+                    <strong><em>--- No organizations linked ---</em></strong>
                     </div>
                 </div>
             </div>
@@ -183,8 +183,8 @@
             <div class="row">
                 <div class="col-md-8">
                 <div class='form-group'>
-                      <label>Customer</label>
-                      <select id='customerList'  data-placeholder='Select a customer...' class="form-control select2 validation" data-required='required' name='data[TimeEntry][customer_id]'>
+                      <label>Organization</label>
+                      <select id='customerList'  data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[TimeEntry][customer_id]'>
                    <option></option>
                    <?php foreach($customers as $i => $p): ?>
                     <?php $selected = "";
@@ -199,7 +199,7 @@
                   </div> 
                 </div>
                 <div class="col-md-4" style="padding-top: 20px;">
-                    <a href="#" id='addCustomerSubmit' class="btn btn-primary"><i class="fa fa-plus"></i> Add Customer Link</a>
+                    <a href="#" id='addCustomerSubmit' class="btn btn-primary"><i class="fa fa-plus"></i> Add Organization Link</a>
                      </div>
             </div>
            

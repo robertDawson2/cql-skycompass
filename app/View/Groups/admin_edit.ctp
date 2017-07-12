@@ -21,7 +21,7 @@
     </div>
         
         <div class='col-md-5'>
-            <?= $this->Form->input('Group.is_customer', array('type' => 'checkbox', 'div' => 'checkbox', 'label' => 'Used For Customers?')); ?>
+            <?= $this->Form->input('Group.is_customer', array('type' => 'checkbox', 'div' => 'checkbox', 'label' => 'Used For Organizations?')); ?>
            
         </div>
     </div>

@@ -1,6 +1,6 @@
 <?php $this->Html->script('/_/plugins/tinymce/tinymce.min.js', array('block' => 'scripts')); 
 
-$contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Customers', 'User' => 'Employees');
+$contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Organizations', 'User' => 'Employees');
 ?>
 <style>
     li > .completion-div {
@@ -89,9 +89,10 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
               .insertMe:hover {
                   background: #dedefa;
               }
-              .delete-object {
+              .delete-object, .clone-object {
                   float: right;
                   font-size: 80%;
+                  margin: 0 6px;
               }
               #div-choices {
                   max-height: 550px;
@@ -100,6 +101,11 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
                   color: #424242;
                   border: 1px solid #8a8a8a;
                   border-radius: 5px;
+              }
+              
+              .selected {
+                  background: #87e0ff !important;
+                  font-weight: 800;
               }
           </style>       
     
@@ -150,6 +156,38 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
                           'label' => false,
                           
                           'options' => $contextOptions,
+                          'class' => 'input form-control quick-todo')); ?>
+                  </div>
+                      
+                  </div> 
+                <div class='row'>
+                     
+                          <div class='col-sm-4'>
+                      <?= $this->Form->input('EmailTemplate.subject', array(
+                          'id' => 'EmailTemplateSubject',
+                          'label' => 'Subject', 'placeholder' => 'Email Subject...'
+                          ,
+                          'class' => 'input form-control quick-todo')); ?>
+                  </div>
+                      
+                  <div class='col-sm-4'>
+                      
+                      <?= $this->Form->input('EmailTemplate.email_from', array(
+                          'id' => 'EmailTemplateFrom',
+                          'label' => 'From...',
+                          
+                          'options' => array('no-reply@c-q-l.org' => 'no-reply@c-q-l.org',
+                              'info@c-q-l.org' => 'info@c-q-l.org'),
+                          'class' => 'input form-control quick-todo')); ?>
+                  </div>
+                    <div class='col-sm-4'>
+                      
+                      <?= $this->Form->input('EmailTemplate.reply_to', array(
+                          'id' => 'EmailTemplateReplyTo',
+                          'label' => 'Reply To...',
+                          
+                          'options' => array(
+                              'info@c-q-l.org' => 'info@c-q-l.org'),
                           'class' => 'input form-control quick-todo')); ?>
                   </div>
                       
@@ -290,10 +328,13 @@ $("#btnFullAdd > i").removeClass('fa-edit').addClass('fa-check-square-o');
 $("#box-title-text").text("Add New Template");
 $("#saveError").hide();
 $("#renameError").hide();
+$(".selected").removeClass('selected');
     }
 
-function loadToEdit(id) {
-    
+function loadToEdit(id, clicked) {
+    resetForm();
+
+    $(clicked).parent().addClass('selected');
     //populate form with ajax return
     $.ajax({dataType: "json", 
         url: "/admin/emailTemplates/ajaxLoad/"+id,
@@ -303,7 +344,9 @@ $response = JSON.parse(data.responseText);
 tinymce.get("EmailTemplateContentEditor").setContent($response.EmailTemplate.content);
 $("#EmailTemplateContext").val($response.EmailTemplate.context);
 $("#EmailTemplateName").val($response.EmailTemplate.name);
-
+$("#EmailTemplateSubject").val($response.EmailTemplate.subject);
+$("#EmailTemplateFrom").val($response.EmailTemplate.email_from);
+$("#EmailTemplateReplyTo").val($response.EmailTemplate.reply_to);
 
 $("#EmailTemplateId").val(id);
 
@@ -313,6 +356,31 @@ $("#btnFullAdd").data('context', 'edit');
 $("#btnFullAdd .btn-text").text('Edit');
 $("#btnFullAdd > i").removeClass('fa-check-square-o').addClass('fa-edit');
 $("#box-title-text").text("Edit Template '" + $response.EmailTemplate.name + "'");
+}
+});
+}
+
+function cloneToEdit(id, clicked) {
+    
+   resetForm();
+    //populate form with ajax return
+    $.ajax({dataType: "json", 
+        url: "/admin/emailTemplates/ajaxLoad/"+id,
+complete: function(data){
+$response = JSON.parse(data.responseText);
+
+tinymce.get("EmailTemplateContentEditor").setContent($response.EmailTemplate.content);
+$("#EmailTemplateContext").val($response.EmailTemplate.context);
+$("#EmailTemplateName").val($response.EmailTemplate.name);
+$("#EmailTemplateSubject").val($response.EmailTemplate.subject);
+$("#EmailTemplateFrom").val($response.EmailTemplate.email_from);
+$("#EmailTemplateReplyTo").val($response.EmailTemplate.reply_to);
+
+
+//$("#EmailTemplateId").val();
+
+// Manipulate submit button for edit
+
 }
 });
 }

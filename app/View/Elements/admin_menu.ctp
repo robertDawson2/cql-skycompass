@@ -31,13 +31,13 @@
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_index']): ?>
         <li class="<?= $section == 'customers' ? 'active' : ''; ?> treeview">
           <a href="#">
-            <i class="fa fa-building"></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-building"></i> <span>Organizations</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
               <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_add']): ?>
-            <li><a disabled href="/admin/customers/add"><i class="fa fa-plus"></i> Add New Customer</a></li>
+            <li><a disabled href="/admin/customers/add"><i class="fa fa-plus"></i> Add New Organization</a></li>
             <?php endif; ?>
-            <li><a href="/admin/customers"><i class="fa fa-eye"></i> View Customers</a></li>
+            <li><a href="/admin/customers"><i class="fa fa-eye"></i> View Organizations</a></li>
            </ul>
         </li>
         <?php endif; ?>
@@ -192,7 +192,7 @@
                 <li><a href="/admin/certifications"><i class="fa fa-circle-o"></i> Manage Certs</a></li>
                 <li><a href="/admin/accreditations"><i class="fa fa-circle-o"></i> Manage Accreds</a></li>
                 <li><a href="/admin/contactTypes"><i class="fa fa-circle-o"></i> Manage Contact Types</a></li>
-                <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Customer Types</a></li>
+                <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Organization Types</a></li>
               </ul>
             </li>
           </ul>
@@ -214,7 +214,7 @@
                 <li><a href="/admin/reporting/accreditation"><i class="fa fa-circle-o"></i> Accreditation Reports</a></li>
                 <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Certification Reports</a></li>
                 <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact Reports</a></li>
-                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Customer Reports</a></li>
+                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Organization Reports</a></li>
                 <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>
               </ul>
             </li>

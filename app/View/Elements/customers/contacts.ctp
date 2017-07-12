@@ -17,7 +17,7 @@
 if(!empty($contacts))
     $count = count($contacts);
 ?>
-              <h3 class="box-title">Customer Contacts</h3>
+              <h3 class="box-title">Organization Contacts</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">
                   <span data-toggle="tooltip" title="" class="badge bg-green" data-original-title="<?= $count; ?> Contacts"><?= $count; ?></span>
@@ -68,7 +68,7 @@ if(!empty($contacts))
 </table>
 
 <?php else: ?>
-<p>There are no contacts linked to this customer.</p>
+<p>There are no contacts linked to this organization.</p>
 <?php endif; ?>
     </div>
 </div>

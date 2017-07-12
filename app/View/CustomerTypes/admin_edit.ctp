@@ -2,7 +2,7 @@
     <div class='col-md-8'>
         <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Edit Customer Type</h3>
+              <h3 class="box-title">Edit Organization Type</h3>
 
             </div>
             <!-- /.box-header -->

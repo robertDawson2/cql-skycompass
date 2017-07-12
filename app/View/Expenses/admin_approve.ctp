@@ -11,7 +11,7 @@
                     <th>Vendor</th>
 			<th>Date</th>
                         <th>Amount</th>
-			<th>Customer/Job</th>
+			<th>Organization</th>
 			<th>Item</th>
 			<th>Class</th>
                         <th>Description</th>
@@ -34,7 +34,7 @@
                                 data-vendor="<?=$time['Vendor']['id']; ?>" 
                                 data-customer="<?= $time['Customer']['id']; ?>" 
                                 data-dt="<?= date("Y-m-d",strtotime($entry['txn_date'])); ?>" 
-                                title="View Full Bill For Customer" href="#" class="viewFullBill"><i class="fa fa-list-alt"></i></a></td>
+                                title="View Full Bill For Organization" href="#" class="viewFullBill"><i class="fa fa-list-alt"></i></a></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $time['Classes']['full_name']; ?></td>
                         <td><?php echo $entry['description']; ?></td>

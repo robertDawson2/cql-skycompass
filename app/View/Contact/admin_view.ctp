@@ -157,7 +157,7 @@
             </div>
              <div class='row'>
                 <div class='col-md-12'>
-                    <div class='col-md-4 fieldname'>Linked Customers:</div><div class='col-md-8'>
+                    <div class='col-md-4 fieldname'>Linked Organizations:</div><div class='col-md-8'>
                         <?php if(!empty($contact['Customer'])){
                             $custText = "";
                             foreach($contact['Customer'] as $customer)
@@ -204,7 +204,7 @@
              <?php if(!empty($custText)): ?>
              <div class='row'>
                 <div class='col-md-12'>
-                    <div class='col-md-4 fieldname'>Archived Customers:</div><div class='col-md-8'>
+                    <div class='col-md-4 fieldname'>Archived Organizations:</div><div class='col-md-8'>
                         
                        <?= $custText; ?> 
                     </div>

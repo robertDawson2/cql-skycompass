@@ -3,7 +3,7 @@ The following have been denied by an administrator:
 
 <?php foreach($full as $entry) { ?>
 
-    CUSTOMER: <?= $entry['customer']; ?>
+    ORGANIZATION: <?= $entry['customer']; ?>
     DATE: <?= $entry['date']; ?>
     MESSAGE: <?= $entry['notice']; ?>
     -------------------------------------

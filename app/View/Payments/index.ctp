@@ -3,7 +3,7 @@
     margin-left:auto;
     margin-right:auto;
 
-    max-width: 100%
+    max-width: 100%;
     background: #FFF;
     padding: 30px 30px 20px 30px;
     box-shadow: rgba(187, 187, 187, 1) 0 0px 20px -1px;
@@ -164,7 +164,6 @@
 }
 .basic-grey select {
     background: #FFF url('/img/down-arrow.png') no-repeat right;
-    background: #FFF url('/img/down-arrow.png') no-repeat right);
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance: none;

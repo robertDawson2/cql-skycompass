@@ -10,7 +10,7 @@
 			<th>Date</th>
                         <th>Employee</th>
                         <th>Amount</th>
-			<th>Customer/Job</th>
+			<th>Organization</th>
 			<th>Item</th>
 			<th style='max-width: 100px;'>Class</th>
                         <th>Description</th>

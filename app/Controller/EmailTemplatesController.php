@@ -14,7 +14,15 @@ App::uses('AppController', 'Controller');
         public function beforeRender() {
             parent::beforeRender();
             $this->set('section', 'communications');
-            $this->layout = 'admin';
+         //   $this->layout = 'admin';
+        }
+        
+        public function admin_preview($id)
+        {
+            $this->layout = 'Emails/html/default';
+            $active = $this->EmailTemplate->findById($id);
+            $this->set('active', $active);
+            $this->set('description', $active['EmailTemplate']['subject']);
         }
         
         public function admin_index()
@@ -166,10 +174,11 @@ App::uses('AppController', 'Controller');
             
             foreach($options as $option)
             {
-                $string .= "\n<li onclick='loadToEdit(" . $option['EmailTemplate']['id'] . ")'><div style='display: inline-block;'>" . $option['EmailTemplate']['name'] . "<br /><em>(" . $contextOptions[$option['EmailTemplate']['context']] . ")</em></div>";
+                $string .= "\n<li><div style='display: inline-block;'>" . $option['EmailTemplate']['name'] . "<br /><em>(" . $contextOptions[$option['EmailTemplate']['context']] . ")</em></div>";
                 
-                $string .= '<a role="button" class="btn btn-small btn-danger delete-object" data-toggle="modal" data-object-name="' . $option['EmailTemplate']['name'] . '" data-object-id="' . $option['EmailTemplate']['id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
-                
+                $string .= '<a role="button" class="btn btn-small btn-danger delete-object" data-toggle="modal" data-object-name="' . $option['EmailTemplate']['name'] . '" data-object-id="' . $option['EmailTemplate']['id'] . '"><i class="fa fa-trash-o"></i></a>';
+                $string .= '<a role="button" onclick="cloneToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-small btn-info clone-object"><i class="fa fa-copy"></i></a>';
+                $string .= '<a role="button" onclick="loadToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-small btn-success clone-object"><i class="fa fa-edit"></i></a>';
                 $string .= "</li>";
                 
             }

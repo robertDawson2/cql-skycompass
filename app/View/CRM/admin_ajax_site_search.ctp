@@ -69,7 +69,7 @@
 <?php endif; ?>
 
 <?php if(isset($data['customers']) && !empty($data['customers'])): ?>
-<h4 class="search-header">Customers</h4>
+<h4 class="search-header">Organizations</h4>
 <p>
 <?php foreach($data['customers'] as $info): ?>
 <a class="search-result" href="/admin/customers/view/<?= $info['Customer']['id']; ?>">

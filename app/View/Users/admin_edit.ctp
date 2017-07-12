@@ -64,7 +64,7 @@
 		<div class="row form-group">
                     
 			<div class="col-md-6 panel panel-info">
-                            <div class="panel-heading">Customers</div>
+                            <div class="panel-heading">Organizations</div>
                             <div class="panel-body">
 				<?php echo $this->Form->input('User.permissions.customers.admin_index', array('type' => 'checkbox', 'label' => 'View All')); ?>
 				<?php echo $this->Form->input('User.permissions.customers.admin_edit', array('type' => 'checkbox', 'label' => 'Edit Info')); ?>

@@ -58,7 +58,7 @@
             <div class="box-header">
                 
                 <i class="fa fa-newspaper-o"></i>
-                <h3 class="box-title"><em><strong>Customer:</strong> <small>Reporting Options</small></em></h3>
+                <h3 class="box-title"><em><strong>Organization:</strong> <small>Reporting Options</small></em></h3>
                 
                     
                 
@@ -105,6 +105,13 @@
     </div>
     
 </div>
+                <div class='row'>
+    <div class='col-sm-12'>
+           
+        <?= $this->element('reporting/accreditation/accreditations'); ?>
+    </div>
+    
+</div>
 <div class='row'>
     <div class='col-sm-12'>
        <?= $this->element('reporting/customer/options'); ?>
@@ -136,13 +143,22 @@
                 <div class='row'>
                     
                      <div class='col-md-8 col-md-offset-2'>
+                         <div class="alert alert-danger emptyError" style='display: none;'>
+                             <b>Error!</b> No items selected in the table.
+                         </div>
+                         
+                         <div class="alert alert-danger sendError" style='display: none;'>
+                             <b>Error!</b> One or more emails did not send.
+                         </div>
                          <h4>With Selected:</h4>
-                        <a style='display: inline; margin-right: 15px;' role='button' class='btn btn-warning btn-block generateEmail' data-val='email'><i class='fa fa-send-o'></i> Generate Email</a>
+                        
                         <?= $this->Form->input('EmailTemplate.id', array(
                             'class' => 'input inline',
                             'div' => 'select input inline',
                             'label' => 'Template Name', 'style' => 'margin-left: 10px;',
                             'options'=>$templateOptions)); ?>
+                        <a style='display: inline; margin-left: 15px;' role='button' class='btn btn-success btn-block previewEmail' data-val='email'><i class='fa fa-eye'></i> Preview Template</a>
+                        <a style='display: inline; margin-left: 15px;' role='button' class='btn btn-info btn-block generateEmail' data-val='email'><i class='fa fa-send-o'></i> Generate Email</a>
                     </div>
                 </div>
 
@@ -153,11 +169,56 @@
     </div>
     </div>
 
-
+<?= $this->element('modals/success_send'); ?>
 
 
 <?php $this->append('scripts'); ?>
 <script>
+    $(".previewEmail").click(function() {
+        var id = $("#EmailTemplateId").val();
+       
+         $.fancybox.open({
+        type: 'iframe',
+        autoDimensions: true,
+        autoScale: true,
+        href: '/admin/emailTemplates/preview/' + id
+    });
+    });
+   $(".generateEmail").click(function() {
+       $('.emptyError').fadeOut();
+       $('.sendError').fadeOut();
+       $sendDataArray = [];
+       $(".report-select").each(function() {
+           if($(this).is(':checked'))
+            $sendDataArray.push($(this).data('id'));
+       });
+       $sendData = {
+           idList: $sendDataArray
+       };
+       console.log($sendData);
+       $.ajax({
+           type: 'post',
+           url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/customer',
+           data: $sendData
+           
+       }).done(function(data) {
+           
+           if(data === 'e1')
+           {
+               $('.emptyError').fadeIn();
+           }
+           else if(data === 'e2')
+           {
+               $('.emptyError').fadeIn();
+           }
+           else
+           {
+               $("#num-emails-sent").html("<strong>" + data + "</strong>");
+               $("#confirm-send").modal('show');
+           }
+       });
+   });
+
     var table = null;
 
     $(".export-type").click(function() {
@@ -212,152 +273,325 @@ function getFields()
         
     }
     function getConditionsArray() {
+        
         $conditions = {
-            'GroupGroups' : {
+            'andOr' : {
+                type: 'ignore',
+                accreditation: $("#accreditationAndOr").val(),
+                accreditationType: 'OR',
+                criteria: $("#searchAndOr").val(),
+                overall: $("#overallAndOr").val()
+            },
+            'checkGroups' : {
                 type: 'list',
+                conditionField: 'CustomerGroup.group_id',
+                conditionType: 'array',
+                conditionSection: 'criteria',
+                extra: null,
                 data: null
             },
-            'TypeTypes': {
+            'checkTypes': {
                 type: 'list',
+                conditionField: 'Customer.organization_type',
+                conditionType: 'likeArray',
+                conditionSection: 'criteria',
+                extra: null,
                 data: null   
             },
-            'SourceSources': {
+            'checkSources': {
                 type: 'list',
+                conditionField: 'Customer.source',
+                conditionType: 'array',
+                conditionSection: 'criteria',
+                extra: null,
                 data: null
             },
-            'marketingEmailsDropdown' : {
+            'checkMarketingEmails' : {
                 type: 'checkbox',
+                conditionField: 'Customer.email_opt_out',
+                conditionType: 'equals',
+                conditionSection: 'criteria',
+                extra: null,
                 data: null
             },
             'checkContractExpiration' : {
                 type: 'string',
+                conditionField: 'Customer.contract_expiration',
+                conditionType: 'lessThanDate',
+                conditionSection: 'criteria',
+                extra: null,
+                data: null
+            },
+            'checkAccreditationExpired' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.expiration_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: null,
+                data: null
+            },
+            'checkAccreditationExpiring' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.expiration_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: null,
+                data: null
+            },
+            'checkAccreditationVisit2' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.visit_2_18_mo',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: 'CustomerAccreditation.visit_2_start_date is null',
+                data: null
+            },
+            'checkAccreditationVisit3' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.visit_3_36_mo',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: 'CustomerAccreditation.visit_3_required = "1" AND CustomerAccreditation.visit_3_start_date is null',
+                data: null
+            },
+            'checkAccreditation9Mo' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.9_mo_due_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: 'CustomerAccreditation.9_mo_followup_required = "1" AND CustomerAccreditation.9_mo_actual_date is null',
+                data: null
+            },
+            'checkAccreditation18Mo' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.18_mo_due_date',
+                conditionType: 'lessThanDate',
+                conditionSection: 'accreditation',
+                extra: 'CustomerAccreditation.18_mo_onsite_required = "1" AND CustomerAccreditation.18_mo_actual_date is null',
+                data: null
+            },
+            'checkAccreditationNotes' : {
+                type: 'string',
+                conditionField: 'CustomerAccreditation.notes',
+                conditionType: 'like',
+                conditionSection: 'accreditation',
+                extra: null,
+                data: null
+            },
+            'checkAccreditationTypes' : {
+                type: 'list',
+                conditionField: 'CustomerAccreditation.accreditation_id',
+                conditionType: 'array',
+                conditionSection: 'accreditationType',
+                extra: null,
                 data: null
             }
+            
         };
         
-        if($("#checkGroups").is(":checked"))
+        for(var key in $conditions)
         {
-            $dataArray = [];
-            $("#GroupGroups > option:checked").each(function() {
-                $dataArray.push($(this).val());
-            });
-           $conditions.GroupGroups.data = $dataArray;
-        }
-        
-        // expiring by date
-        if($("#checkTypes").is(":checked"))
-        {
-            $dataArray = [];
-            $("#TypeTypes > option:checked").each(function() {
+            if(!$conditions.hasOwnProperty(key)) continue;
+            
+            var obj = $conditions[key];
+            if($("#" + key).is(':checked'))
+            {
+                // make sure the child data has selections
+                if(obj.type === 'string' && $("#" + key).parent().parent().find('.data').val() === "")
+                    continue;
+                if(obj.type === 'list' && $("#" + key).parent().parent().find('.data').children("option:checked").length === 0)
+                    continue;
                 
+                if(obj.type === 'string')
+                {
+                    $conditions[key].data = $("#" + key).parent().parent().find('.data').val();
+                }
+                if(obj.type === 'list')
+                {
+                    $dataArray = [];
+            
+            $("#" + key).parent().parent().find('.data').children("option:checked").each(function() {
                 $dataArray.push($(this).val());
             });
-            $conditions.TypeTypes.data = $dataArray;
-        }
-         if($("#checkSources").is(":checked"))
+           $conditions[key].data = $dataArray;
+                }
+                if(obj.type === 'checkbox')
         {
             $dataArray = [];
-            $("#SourceSources > option:checked").each(function() {
-                $dataArray.push($(this).val());
-            });
-           $conditions.SourceSources.data = $dataArray;
+             $dataArray.push($("#" + key).parent().parent().find('.data').val()); 
+             $conditions[key].data = $dataArray;
         }
-        if($("#checkMarketingEmails").is(":checked"))
-        {
-            $dataArray = [];
-             $dataArray.push($("#marketingEmailsDropdown option:selected").val()); 
-             $conditions.marketingEmailsDropdown.data = $dataArray;
+                
+                
+            }
+            
         }
         
-        if($("#checkContractExpiration").is(":checked"))
-        {
-            
-                    $conditions.checkContractExpiration.data = [($("#checkContractExpiration").parent().find('.datepicker').val())];
-            
-                    
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
-        }
+       
         
         return $conditions;
     }
-    function getConditions()
+    function getConditions(conditionArray)
     {
-//        var conditions = {
-//            'CustomerAccreditation.expiration_date <' : null,
-//            'CustomerAccreditation.visit_2_18_mo <' : null,
-//            'CustomerAccreditation.visit_2_start_date is null' : null
-//        };
-
         var conditions = "";
+        var conditionsObject = {
+            criteria: "",
+            accreditation: "",
+            accreditationType: ""
+        };
         var current = "";
-        // expired first
-        if($("#checkGroups").is(":checked"))
+        for(var key in conditionArray)
         {
-            var groups = [];
-            $("#GroupGroups > option:checked").each(function() {
-                groups.push($(this).val());
-            });
-           current = "(Group.id IN (" + groups.toString() + ")) OR ";
-            conditions += current;
-        }
-        
-        // expiring by date
-        if($("#checkTypes").is(":checked"))
-        {
-          var groups = [];
-          var current = "(";
-          $first = true;
-            $("#TypeTypes > option:checked").each(function() {
+            
+            current = "";
+            if(!conditionArray.hasOwnProperty(key)) continue;
+            
+            var obj = conditionArray[key];
+            
+            if(obj.data !== null)
+            {
+                
+                if(obj.type === 'ignore')
+                    continue;
+                
+
+                if(obj.conditionType === 'likeArray')
+                {
+                    current += "(";
+                    $first = true;
+                    for (var i=0; i<obj.data.length; i++) {
                 if(!$first)
                     current += " OR ";
                 $first = false;
-                current += "(Customer.organization_type LIKE '%" + $(this).val() + "%')";
-            });
-            current += ") OR ";
-           
-            conditions += current;
-        }
-         if($("#checkSources").is(":checked"))
-        {
-            var groups = [];
-            $("#SourceSources > option:checked").each(function() {
-                groups.push($(this).val());
-            });
-           current = "(Customer.source IN (" + groups.toString() + ")) OR ";
-            conditions += current;
-        }
-        if($("#checkMarketingEmails").is(":checked"))
-        {
-            conditions += "(Customer.email_opt_out = '" + $("#marketingEmailsDropdown option:selected").val() +
-                  "') OR ";
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
+                current += "(" + obj.conditionField + " LIKE '%" + obj.data[i] + "%')";
+            }
+            
+            current += ")";
+                }
+                
+                if(obj.conditionType === 'equals')
+                {
+                current += "(" + obj.conditionField + " = '" + obj.data + "')";
+                }
+                
+                if(obj.conditionType === 'like')
+                {
+                   
+                current += "(" + obj.conditionField + " LIKE '%" + obj.data + "%')";
+                 
+                }
+                
+                if(obj.conditionType === 'lessThanDate')
+                {
+                current += "(" + obj.conditionField + " < '"; 
+                 var date = new Date(obj['data']);
+                 current += date.toISOString().slice(0, 19).replace('T', ' ');
+                                
+                current += "')";
+                
+                }
+                
+                if(obj.conditionType === 'array')
+                {
+                    
+                    var groups = [];
+            for (var i = 0; i < obj['data'].length; i++)
+                groups.push("'" + obj['data'][i] + "'");
+            
+           current = "(" + obj.conditionField + " IN (" + groups.toString() + "))";
+                }
+                
+        if(obj.extra !== null)
+                    {
+                        conditionsObject[obj['conditionSection']] += "(" + obj.extra + " AND (" + current + ")) " + conditionArray.andOr[obj['conditionSection']] + " ";
+                    }
+                    else
+                    {
+                        conditionsObject[obj['conditionSection']] += current + " " + conditionArray.andOr[obj['conditionSection']] + " ";
+                }
+                
+              
+            }
+            
         }
         
-        if($("#checkContractExpiration").is(":checked"))
+        var first = true;
+        for(var key in conditionsObject)
         {
-            conditions += "(Customer.contract_expiration < '" +
-                    convertDate($("#checkContractExpiration").parent().find('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ') +
-                    "')";
-        //    conditions['CustomerAccreditation.visit_2_18_mo <'] = convertDate($("#visit2").parent().children('.datepicker').val()).toISOString().slice(0, 19).replace('T', ' ');
-        //    conditions['CustomerAccreditation.visit_2_18_mo is null'] = 'CustomerAccreditation.visit_2_18_mo is null';
-        }
+            if(!conditionsObject.hasOwnProperty(key)) continue;
+        var compare = conditionsObject[key].substring(conditionsObject[key].length-4).trim();
+        var addOn = conditionsObject[key];
 
-       // console.log(conditions);
+        if(compare === 'AND' || compare === 'OR' || compare === ') OR')
+        {
+            addOn = conditionsObject[key].substring(0,conditionsObject[key].length-4).trim();
+            conditionsObject[key] = addOn;
+
+            }
+        
+        if(addOn !== "")
+        {
+            if(!first)
+            {
+                if(key !== 'accreditationType')
+                    conditions += ") " + conditionArray.andOr.overall + " (";
+               
+                
+            }
+            else
+            {
+            first = false;
+            if(key !== 'accreditationType')
+                conditions += "(";
+            }
+            
+            if(key !== 'accreditationType')
+                conditions += addOn;
+        
+
+            }
+  
+        }
+        
+        var oldConditions = conditions;
+        if(conditions === "")
+            conditions = conditionsObject['accreditationType'];
+        else
+        {
+            
+            var compare = oldConditions.substring(oldConditions.length-3).trim();
+        
+        if(compare === 'AND' || compare === 'OR')
+        {
+            oldConditions = oldConditions.substring(0,oldConditions.length-3).trim();
+            }
+            
+            if(conditionsObject['accreditationType'] !== "")
+                conditions = "(" + oldConditions + ")) AND " + conditionsObject['accreditationType'];
+            else
+                conditions = oldConditions + ")";
+            
+        }
+        
+        
+        
         return conditions;
     }
+    
+    
     var defaultFileName = "<?= $defaultExportTitle; ?>";
     var fileName = "";
     
     $("#btnSaveTemplate").on('click', function() {
+        var condArray = getConditionsArray();
         var savedata = {
             name : $("#templateName").val(),
-            conditions: JSON.stringify(getConditionsArray()),
-            conditions_string: getConditions(),
+            conditions: JSON.stringify(condArray),
+            conditions_string: getConditions(condArray),
             fields: JSON.stringify(getFields()),
             context: 'Customer'
         };
+        
         $.post({
             url: "/admin/reporting/ajaxSaveTemplate",
             data: savedata
@@ -385,8 +619,9 @@ function getFields()
         
     });
     $("#createReport").on('click', function(){
+    var condArray = getConditionsArray();
         var fields = getFields();
-        var conditions = getConditions();
+        var conditions = getConditions(condArray);
         var today = new Date();
         
         if($("#templateName").val() !== "" && fileName === "")
@@ -415,6 +650,19 @@ function getFields()
                textrow += "<th></th>";
            textrow += "</tr>";
            $("#resultsTable > thead").html(textrow);
+           
+           var buttonCommon = {
+        exportOptions: {
+            columns: ['.show-on-export' ],
+            format: {
+                body: function ( data, row, column, node ) {
+                    // Strip $ from salary column to make it numeric
+                    return data.replace( /<br\s*\/?>/ig, "\n" );
+                }
+            }
+        }
+    };
+    
          //  table.destroy();
            var newTable = $("#resultsTable").DataTable({
                destroy: true,
@@ -423,29 +671,22 @@ function getFields()
                order: [[1, "desc"]],
                dom: 'Bfrtip',
         buttons: [
-            {
+            $.extend( true, {}, buttonCommon, {
                 extend: 'csvHtml5',
-                title: fileName,
-                exportOptions: {
-                    columns: ['.show-on-export' ]
-                }
-            },
-                    {
+                title: fileName
+            }),
+            $.extend( true, {}, buttonCommon, {
                 extend: 'excelHtml5',
-                title: fileName,
-                exportOptions: {
-                   columns: ['.show-on-export' ]
-                }
-            },
-                    {
+                title: fileName
+            }),
+            $.extend( true, {}, buttonCommon, {
                 extend: 'pdfHtml5',
-                title: fileName,
-                exportOptions: {
-                    columns: ['.show-on-export' ]
-                }
-            },
+                title: fileName
+            }),
             'copy',
-            'print'
+            $.extend( true, {}, buttonCommon, {
+                extend: 'print'
+            })
         ]
            });
            
@@ -463,7 +704,9 @@ function getFields()
     $("#btnLoadFromTemplate").click(function() {
     $.ajax('/admin/reporting/ajaxLoadTemplate/' + $("#loadFromTemplate option:selected").val()).done(
             function(data){
+              
                var jsonData = (JSON.parse(data));
+            
                $(".fields > option").prop('selected', false);
                $("input").val("");
                $("input[type='checkbox']").prop('checked', false);
@@ -476,39 +719,43 @@ function getFields()
     
     function populateCriteria(conditions)
     {
-     console.log(conditions);   
+     //console.log(conditions);   
      for (var key in conditions) {
   if (conditions.hasOwnProperty(key)) {
-      if(key === "GroupGroups"  && conditions[key].data !== null)
+      
+      if(key === "andOr")
       {
-          $("#checkGroups").prop('checked', true);
-           $("#" + key).val(conditions[key].data);     
+          $("#overallAndOr").val(conditions[key]['overall']);
+           $("#searchAndOr").val(conditions[key]['criteria']);
+            $("#accreditationAndOr").val(conditions[key]['accreditation']);
+           
          }
+         else
+         {
+             if(conditions[key].data !== null)
+             {
+                 obj = conditions[key];
+                 $("#" + key).prop('checked', true);
+                 
+                 if(obj.type === 'list')
+                 {
+                     
+                     $("#" + key).parent().parent().find('.data').val(obj.data);
+                        }
+                        
+                        if(obj.type === 'string') {
+                            $("#" + key).parent().parent().find('.data').val(obj.data);   
+                        }
+                        
+                        if(obj.type === 'checkbox') {
+                            $("#" + key).parent().parent().find('.data').val(obj.data[0]);   
+                        }
+                    }
+             
+             
+                }
          
-         if(key === "TypeTypes" && conditions[key].data !== null)
-      {
-          $("#checkTypes").prop('checked', true);
-          
-           $("#" + key).val(conditions[key].data);     
-         }
-      if(key === "SourceSources" && conditions[key].data !== null)
-      {
-          $("#checkSources").prop('checked', true);
-          
-           $("#" + key).val(conditions[key].data);     
-         }
-         if(key === "marketingEmailsDropdown" && conditions[key].data !== null)
-      {
-          $("#checkMarketingEmails").prop('checked', true);
-          
-           $("#" + key).val(conditions[key].data[0]);     
-         }
-         if(key === "checkContractExpiration" && conditions[key].data !== null)
-      {
-          $("#" + key).prop('checked', true);
-          
-           $("#contractExpiration").val(conditions[key].data[0]);     
-         }
+         
       
    // console.log(key + " -> " + $obj[key]);
   }

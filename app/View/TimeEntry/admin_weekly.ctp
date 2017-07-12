@@ -56,8 +56,8 @@
                         <div class="row">
                             <div class="col-md-12">
                         <div class="form-group inline">
-                            <label>Customer</label>
-                        <select data-placeholder='Select a customer or job...' class="short-box customerList select2 validation" data-required='required' name='data[<?= $i; ?>][TimeEntry][customer_id]' style="width: 100%;">
+                            <label>Organization</label>
+                        <select data-placeholder='Select an organization...' class="short-box customerList select2 validation" data-required='required' name='data[<?= $i; ?>][TimeEntry][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -370,7 +370,7 @@
                   $newAdd += "</option>";
                   $(".customerList").append($newAdd);
               });
-              $(".customerList").data('placeholder', "Select a customer or job...");
+              $(".customerList").data('placeholder', "Select an organization...");
            }
    
     });

@@ -257,7 +257,7 @@ App::uses('AppController', 'Controller');
                             $list .= "<a class='green' href='/admin/contacts/view/" . $item['Todo']['contact_id'] . "'><i class='fa fa-lg fa-user' title='Contact record attached'></i></a>";
                               } 
                               elseif(isset($item['Todo']['customer_id'])) { 
-                            $list .= "<a class='green' href='/admin/customers/view/" . $item['Todo']['customer_id']. "'><i class='fa fa-lg fa-building-o' title='Customer record attached'></i></a>";
+                            $list .= "<a class='green' href='/admin/customers/view/" . $item['Todo']['customer_id']. "'><i class='fa fa-lg fa-building-o' title='Organization record attached'></i></a>";
                               } 
                               else { 
                             $list .= "<i class='fa fa-lg fa-ban grey' title='No Records Assigned'></i>";

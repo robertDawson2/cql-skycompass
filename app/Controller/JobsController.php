@@ -591,7 +591,80 @@
               $this->redirect('/admin/jobs/scheduler');
            
         }
-        
+public function admin_removeDupes()
+{
+$sql = 'select o.*, oc.dupeCount, oc.*
+from schedule_entries o
+inner join (
+    SELECT id, user_id, job_id, start_date, end_date, position, type, approved, created, COUNT(*) AS dupeCount
+    FROM schedule_entries
+    GROUP BY user_id, job_id, start_date, end_date,position, type
+    HAVING COUNT(*) > 1
+) oc on o.user_id = oc.user_id
+AND o.job_id = oc.job_id
+AND o.start_date = oc.start_date
+AND o.end_date = oc.end_date
+AND o.type = oc.type
+AND o.position = oc.position
+AND o.type = "scheduling"
+
+AND (o.approved = null or o.approved = "1")  
+ORDER BY `o`.`created`  ASC';
+$result =  $this->ScheduleEntry->query($sql);
+
+$result = $this->ScheduleEntry->find('all', array('conditions' => array('ScheduleEntry.type' => 'scheduling', 'OR' => array('ScheduleEntry.approved' => '1', 'ScheduleEntry.approved is null')), 'order' => 'ScheduleEntry.created ASC'));
+$deleteArray = array();
+$keepArray = array();
+foreach($result as $r)
+{
+	if(!in_array($r['ScheduleEntry']['id'], $deleteArray)){
+		$keepArray[] = $r['ScheduleEntry']['id'];
+
+	$similar = $this->ScheduleEntry->find('all', array('conditions' => array(
+			'ScheduleEntry.user_id' => $r['ScheduleEntry']['user_id'],
+		'ScheduleEntry.job_id' => $r['ScheduleEntry']['job_id'],
+		'ScheduleEntry.start_date' => $r['ScheduleEntry']['start_date'],
+		'ScheduleEntry.end_date' => $r['ScheduleEntry']['end_date'],
+		'ScheduleEntry.type' => 'scheduling',
+		'ScheduleEntry.position' => $r['ScheduleEntry']['position'],
+		'OR' => array('ScheduleEntry.approved' => "1", 'ScheduleEntry.approved is null'),
+		'NOT' => array('ScheduleEntry.id' => $r['ScheduleEntry']['id'])
+			), 'recursive' => -1));
+	foreach($similar as $s)
+	{
+		if(!in_array($s['ScheduleEntry']['id'], $deleteArray) && !in_array($s['ScheduleEntry']['id'], $keepArray))
+		{
+			$deleteArray[] = $s['ScheduleEntry']['id'];
+		}
+	}
+
+	}
+		
+}
+
+echo ("<pre>");
+echo sizeof($keepArray) . "<br>" . sizeof($deleteArray);
+echo ("</pre>");
+
+$this->ScheduleEntry->deleteAll(array('ScheduleEntry.id' => $deleteArray));
+exit();
+foreach($result as $r) {
+	echo $r['o']['id'] . " => " . $r['oc']['id'];
+$this->ScheduleEntry->deleteAll(array(
+		'ScheduleEntry.user_id' => $r['o']['user_id'],
+		'ScheduleEntry.job_id' => $r['o']['job_id'],
+		'ScheduleEntry.start_date' => $r['o']['start_date'],
+		'ScheduleEntry.end_date' => $r['o']['end_date'],
+		'ScheduleEntry.type' => 'scheduling',
+		'ScheduleEntry.position' => $r['o']['position'],
+		'OR' => array('ScheduleEntry.approved' => "1", 'ScheduleEntry.approved is null'),
+		'NOT' => array('ScheduleEntry.id' => $r['o']['id'])
+));
+}
+exit();
+
+}
+	
         private function _checkEmployees($start, $end, $userId, $jobId, $type = 'employee')
         {
             $return = 'ok';
@@ -837,7 +910,7 @@ $this->set('pendingColors', [
             }
             $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'order' => 'Job.start_date ASC', 'conditions'=> array(
                 'review_start' => null,
-		'start_date >=' => date('Y-m-d H:i:s', strtotime("-4 weeks")),
+		'start_date >=' => date('Y-m-d H:i:s', strtotime("-8 weeks")),
                 'NOT' => array(
                     'start_date' => null,
                     'end_date' => null

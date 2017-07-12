@@ -32,7 +32,7 @@
 <h4>Schedule</h4>
 <table class='entries'>
     <tr>
-        <th>Customer</th>
+        <th>Organization</th>
         <th>Job</th>
         <th>Dates</th>
         <th>Service Area</th>

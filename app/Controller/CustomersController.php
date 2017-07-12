@@ -70,7 +70,7 @@
             // remove jobs to keep DB clean.
             $this->loadModel('Job');
             $this->Job->deleteAll(array('Job.customer_id' => $id));
-            $this->Session->setFlash('Customer has been archived for deletion.', 'flash_success');
+            $this->Session->setFlash('Organization has been archived for deletion.', 'flash_success');
             
             $this->redirect('/admin/customers');
         }
@@ -230,7 +230,7 @@
             
             if(!in_array(true,$error))
             {
-                $this->Session->setFlash('Customer Data Modified Successfully!', 'flash_success');
+                $this->Session->setFlash('Organization Data Modified Successfully!', 'flash_success');
             }
             else
             {
@@ -342,6 +342,8 @@
         private function _saveAccreditation($cert, $id)
         {
             $this->loadModel('CustomerAccreditation');
+           $this->loadModel('Accreditation');
+           $cert['accreditation_name'] = $this->Accreditation->findById($cert['accreditation_id'])['Accreditation']['name'];
            
             $cert['customer_id'] = $id;
             if(empty($cert['expiration_date']))
@@ -514,7 +516,7 @@
             
             if(!in_array(true,$error))
             {
-                $this->Session->setFlash('New Customer Data Saved Successfully!', 'flash_success');
+                $this->Session->setFlash('New Organization Data Saved Successfully!', 'flash_success');
             }
             else
             {

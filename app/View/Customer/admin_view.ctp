@@ -135,7 +135,7 @@
                             <?= date('m/d/Y', strtotime($customer['Customer']['contract_expiration'])); ?><br />
                             <?php endif; ?>
                             <?php if($customer['Customer']['email_opt_out'])
-                                    echo "<br /><strong>This customer does not receive promotional emails.</strong>"; 
+                                    echo "<br /><strong>This organization does not receive promotional emails.</strong>"; 
                             ?>
                         </p>
                     </div>
@@ -225,7 +225,7 @@ if(!empty($jobs))
                <?php endforeach; ?>
               </tbody></table>
                 <?php else: ?>
-                <p><em>No scheduled jobs found for this customer.</em></p>
+                <p><em>No scheduled jobs found for this organization.</em></p>
                 <?php endif; ?>
             </div>
             <!-- /.box-body -->

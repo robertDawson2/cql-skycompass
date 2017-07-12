@@ -79,7 +79,7 @@
                     <i class='fa fa-lg fa-eye'></i> View</a>
                 <?php endif; ?>
                 <?php if($record['Todo']['customer_id'] !== null): ?>
-                <strong>Customer: </strong><br>
+                <strong>Organization: </strong><br>
                 <em><?= $record['Customer']['name']; ?></em><br />
                 <a href='/admin/customers/view/<?= $record['Customer']['id']; ?>' class='btn btn-xs btn-success' role='button'>
                     <i class='fa fa-lg fa-eye'></i> View</a>

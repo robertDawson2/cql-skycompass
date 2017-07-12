@@ -54,7 +54,7 @@
             </div><p></p>
             <div class='row'>
                 <div class='col-md-12'>
-                    <strong>Customer/Contact Link:</strong><br />
+                    <strong>Organization/Contact Link:</strong><br />
                     <?php if($item['Todo']['contact_id'] !== null): ?>
                 <strong>Contact: </strong> 
                 <em><?= $item['Contact']['first_name'] . " " . $item['Contact']['last_name']; ?></em>
@@ -62,7 +62,7 @@
                     <i class='fa fa-lg fa-eye'></i> View</a>
                 <?php endif; ?>
                 <?php if($item['Todo']['customer_id'] !== null): ?>
-                <strong>Customer: </strong> 
+                <strong>Organization: </strong> 
                 <em><?= $item['Customer']['name']; ?></em> 
                 <a href='/admin/customers/view/<?= $item['Customer']['id']; ?>' class='btn btn-xs btn-success' role='button'>
                     <i class='fa fa-lg fa-eye'></i> View</a>

@@ -47,7 +47,7 @@ App::uses('AppController', 'Controller');
                $this->CustomerType->id = $id;
                if($this->CustomerType->save($this->request->data))
                {
-                   $this->Session->setFlash("CustomerType edited successfully.", 'flash_success');
+                   $this->Session->setFlash("Organization Type edited successfully.", 'flash_success');
                    $this->redirect('/admin/customerTypes');
                }
                else {
@@ -63,7 +63,7 @@ App::uses('AppController', 'Controller');
        {
            
          if($this->CustomerType->delete($id))
-             $this->Session->setFlash('CustomerType removed successfully.', 'flash_success');
+             $this->Session->setFlash('Organization Type removed successfully.', 'flash_success');
          else {
              $this->Session->setFlash('An error occurred. Please try again.', 'flash_error');
          }

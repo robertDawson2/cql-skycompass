@@ -1,8 +1,8 @@
-<h1>Manage Customer Types</h1>
+<h1>Manage Organization Types</h1>
 
 <div class='row'>
     <div class='col-md-8'>
-        <h2>Current Customer Types</h2>
+        <h2>Current Organization Types</h2>
         <table class='table table-striped table-hover'>
             <thead>
             <th>Name</th>
@@ -28,7 +28,7 @@
 
     <div class='col-md-4'>
 
-        <h2>Add Customer Type</h2>
+        <h2>Add Organization Type</h2>
 <form action='/admin/customerTypes/add' method='POST'>
     <div class='row'>
     <div class='col-md-12'>
@@ -41,7 +41,7 @@
     
     <div class='row'>
         <div class='col-md-12'>
-             <input style='margin-top: 24px;' type='submit' class='btn btn-success' value='Add Customer Type' />
+             <input style='margin-top: 24px;' type='submit' class='btn btn-success' value='Add Organization Type' />
         </div>
     </div>
     
@@ -51,4 +51,4 @@
     </div>
 </div>
 
-<?php echo $this->element('modals/delete', array('title' => 'Delete Customer Type', 'text' => 'Are you sure you want to delete the customer type <strong>{name}</strong>? This action CANNOT be undone.', 'action' => '/admin/customerTypes/delete/{id}')); ?>
+<?php echo $this->element('modals/delete', array('title' => 'Delete Organization Type', 'text' => 'Are you sure you want to delete the customer type <strong>{name}</strong>? This action CANNOT be undone.', 'action' => '/admin/customerTypes/delete/{id}')); ?>

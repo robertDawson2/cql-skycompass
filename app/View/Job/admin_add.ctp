@@ -17,7 +17,7 @@
           <div class="row">
               <div class="col-md-6">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
+                      <label>Organization</label>
                       <select id='customerList' <?php if(isset($customer)) { ?>disabled<?php } ?> data-placeholder='Select a customer or job...' class="form-control <?php if(!isset($customer)) { ?>select2<?php } ?> validation" data-required='required' name='data[Job][customer_id]' style="width: 100%;">
                    <?php if(!isset($customer)) { ?>
                           <option></option>

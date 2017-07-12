@@ -18,8 +18,8 @@
             <div class="row customer-row odd">
               <div class="col-md-4">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
-                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][1][customer_id]' style="width: 100%;">
+                      <label>Organization</label>
+                      <select data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[BillItem][1][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -92,8 +92,8 @@
                 <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
               <div class="col-md-4">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
-                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][2][customer_id]' style="width: 100%;">
+                      <label>Organization</label>
+                      <select data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[BillItem][2][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -165,8 +165,8 @@
                  <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
               <div class="col-md-4">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
-                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][3][customer_id]' style="width: 100%;">
+                      <label>Organization</label>
+                      <select data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[BillItem][3][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -238,8 +238,8 @@
                  <a style="float: right; color: red; padding: 5px;" href="#" class="close-parent"><i class="fa fa-lg fa-close"></i></a>
               <div class="col-md-4">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
-                      <select data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[BillItem][4][customer_id]' style="width: 100%;">
+                      <label>Organization</label>
+                      <select data-placeholder='Select an organization...' class="form-control select2 validation" data-required='required' name='data[BillItem][4][customer_id]' style="width: 100%;">
                    <option></option>
                    <?php foreach($customers as $p): ?>
                     <?php $selected = "";
@@ -310,7 +310,7 @@
             
 	</fieldset>
       
-      <a href="#" id="customer-add"><i class="fa fa-plus-circle"></i> Add another customer...</a>
+      <a href="#" id="customer-add"><i class="fa fa-plus-circle"></i> Add another organization...</a>
 
   </div>
 <?php echo $this->Form->end(); ?>

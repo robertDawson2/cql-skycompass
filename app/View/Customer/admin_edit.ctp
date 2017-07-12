@@ -89,7 +89,7 @@
   
 </ul>
        
-            <a id="submitAll" style="margin-top: 30px;" href="#" class="btn btn-lg btn-success"><i class="fa fa-floppy-o"></i> Save Customer</a>
+            <a id="submitAll" style="margin-top: 30px;" href="#" class="btn btn-lg btn-success"><i class="fa fa-floppy-o"></i> Save Organization</a>
         
     </div>
     <div class="col-md-9">
@@ -125,7 +125,7 @@
             </div>
             <div class='row'>
                <?= $this->Form->input('Customer.types', array('selected' => explode("|", $current['Customer']['organization_type']), 'div' => 'col-md-6', 'type'=>'select', 'multiple'=>'multiple', 
-                   'class' => 'input form-control', 'label' => 'Customer Type(s)', 'options' => $custTypes)); ?>
+                   'class' => 'input form-control', 'label' => 'Organization Type(s)', 'options' => $custTypes)); ?>
                 <?= $this->Form->input('Customer.notes', array('div' => 'col-md-6', 'class' => 'input form-control')); ?>
             </div>
             <h3>Options:</h3>
