@@ -261,25 +261,8 @@ if(!empty($jobs))
 </div>
 <div class='row'>
     <div class='col-sm-12'>
-        <div class="box box-info collapsed-box">
-            <div class="box-header ui-sortable-handle" style="cursor: move;">
-              <i class="fa fa-send"></i>
-
-              <h3 class="box-title">Communications</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                   
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                
-              </div>
-              <!-- /. tools -->
-            </div>
-        <div class="box-body">
-            <em>--- Coming Soon! ---</em>
-        </div>
-        
-      
- </div>
+        <?= $this->element('customers/communications'); ?>
+       
     </div>
 </div>
 

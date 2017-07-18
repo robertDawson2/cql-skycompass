@@ -39,18 +39,18 @@
     .green {
         color: darkgreen;
     }
-    .quickcontact {
+    .quickcustomer {
         text-align: center;
         padding: 10px 20px;
         font-size: 14px;
     }
         </style>
-<!-- Contact -->
+<!-- Customer -->
 <div class="box">
             <div class="box-header">
                 
                 <i class="fa fa-newspaper-o"></i>
-                <h3 class="box-title"><em><strong>Contact:</strong> <small>Reporting Options</small></em></h3>
+                <h3 class="box-title"><em><strong>Certifications:</strong> <small>Reporting Options</small></em></h3>
                 
                     
                 
@@ -78,7 +78,7 @@
 
                         <?= $this->Form->input('loadFromTemplate', array(
                             'class' => 'input form-control',
-                            'options' => array()
+                            'options' => array('saved template 1')
                         )); ?>
                     </div>
                     <div class="col-md-3">
@@ -90,13 +90,7 @@
                 </div>
                     </div>
                 </div>
-               <div class='row'>
-    <div class='col-sm-12'>
-           
-        <?= $this->element('reporting/contact/criteria'); ?>
-    </div>
-    
-</div>
+               
                 <div class='row'>
     <div class='col-sm-12'>
            
@@ -190,7 +184,7 @@
        console.log($sendData);
        $.ajax({
            type: 'post',
-           url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/contact',
+           url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/certification',
            data: $sendData
            
        }).done(function(data) {
@@ -265,54 +259,16 @@ function getFields()
         
     }
     function getConditionsArray() {
+        
         $conditions = {
             'andOr' : {
                 type: 'ignore',
                 certification: $("#certificationAndOr").val(),
-                certificationType: 'OR',
+                certificationType: 'AND',
                 criteria: $("#searchAndOr").val(),
                 overall: $("#overallAndOr").val()
             },
-            'checkGroups' : {
-                type: 'list',
-                conditionField: 'ContactGroup.group_id',
-                conditionType: 'array',
-                conditionSection: 'criteria',
-                extra: null,
-                data: null
-            },
-            'checkTypes': {
-                type: 'list',
-                conditionField: 'Contact.contact_type',
-                conditionType: 'likeArray',
-                conditionSection: 'criteria',
-                extra: null,
-                data: null   
-            },
-            'checkSources': {
-                type: 'list',
-                conditionField: 'Contact.source',
-                conditionType: 'array',
-                conditionSection: 'criteria',
-                extra: null,
-                data: null
-            },
-            'checkOrgs': {
-                type: 'list',
-                conditionField: 'ContactCustomer.customer_id',
-                conditionType: 'array',
-                conditionSection: 'criteria',
-                extra: 'ContactCustomer.archived is null',
-                data: null
-            },
-            'checkMarketingEmails' : {
-                type: 'checkbox',
-                conditionField: 'Contact.marketing_opt_out',
-                conditionType: 'equals',
-                conditionSection: 'criteria',
-                extra: null,
-                data: null
-            },
+            
             'checkCertificationExpired' : {
                 type: 'string',
                 conditionField: 'ContactCertification.recertification_date',
@@ -377,6 +333,7 @@ function getFields()
                 extra: null,
                 data: null
             }
+            
         };
         
         for(var key in $conditions)
@@ -418,7 +375,7 @@ function getFields()
         }
         
        
-       console.log($conditions);
+        
         return $conditions;
     }
     function getConditions(conditionArray)
@@ -440,6 +397,7 @@ function getFields()
             
             if(obj.data !== null)
             {
+             
                 
                 if(obj.type === 'ignore')
                     continue;
@@ -519,10 +477,10 @@ function getFields()
                 }
                 
               
+               
             }
             
         }
-        console.log(conditionsObject);
         
         var first = true;
         for(var key in conditionsObject)
@@ -582,22 +540,25 @@ function getFields()
             
         }
         
-        console.log(conditions);
+        
         
         return conditions;
     }
+    
+    
     var defaultFileName = "<?= $defaultExportTitle; ?>";
     var fileName = "";
     
     $("#btnSaveTemplate").on('click', function() {
-        var condArr = getConditionsArray();
+        var condArray = getConditionsArray();
         var savedata = {
             name : $("#templateName").val(),
-            conditions: JSON.stringify(condArr),
-            conditions_string: getConditions(condArr),
+            conditions: JSON.stringify(condArray),
+            conditions_string: getConditions(condArray),
             fields: JSON.stringify(getFields()),
-            context: 'Contact'
+            context: 'ContactCertification'
         };
+        
         $.post({
             url: "/admin/reporting/ajaxSaveTemplate",
             data: savedata
@@ -609,7 +570,7 @@ function getFields()
                         .removeClass('alert-danger')
                         .addClass('alert-success')
                         .fadeIn('fast');
-                $.ajax('/admin/reporting/ajaxGetTemplates/Contact').done(function(data) {
+                $.ajax('/admin/reporting/ajaxGetTemplates/ContactCertification').done(function(data) {
                     $("#loadFromTemplate").html(data);
     });
                 
@@ -625,9 +586,9 @@ function getFields()
         
     });
     $("#createReport").on('click', function(){
+    var condArray = getConditionsArray();
         var fields = getFields();
-        var condArr = getConditionsArray();
-        var conditions = getConditions(condArr);
+        var conditions = getConditions(condArray);
         var today = new Date();
         
         if($("#templateName").val() !== "" && fileName === "")
@@ -641,7 +602,7 @@ function getFields()
        $.ajax({
                 type : 'json',
                 method : 'post',
-               url : '/admin/reporting/runContactReport/Contact',
+               url : '/admin/reporting/runCertificationReport/ContactCertification',
                data : submission})
                    .done(function(data) {
                        console.log(data);
@@ -710,7 +671,9 @@ function getFields()
     $("#btnLoadFromTemplate").click(function() {
     $.ajax('/admin/reporting/ajaxLoadTemplate/' + $("#loadFromTemplate option:selected").val()).done(
             function(data){
+              
                var jsonData = (JSON.parse(data));
+            
                $(".fields > option").prop('selected', false);
                $("input").val("");
                $("input[type='checkbox']").prop('checked', false);
@@ -721,7 +684,8 @@ function getFields()
         
     });
     
-    function populateCriteria(conditions){
+    function populateCriteria(conditions)
+    {
      //console.log(conditions);   
      for (var key in conditions) {
   if (conditions.hasOwnProperty(key)) {
@@ -798,7 +762,7 @@ function getFields()
 <?php $this->append('jquery-scripts'); ?>
 //$('select.fields option').attr("selected","selected");
 
-$.ajax('/admin/reporting/ajaxGetTemplates/Contact').done(function(data) {
+$.ajax('/admin/reporting/ajaxGetTemplates/ContactCertification').done(function(data) {
                     $("#loadFromTemplate").html(data);
     });
     

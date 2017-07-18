@@ -105,7 +105,7 @@
                            class='btn btn-info btn-block btnLoadFromTemplate'><i class='fa fa-gears'></i> Generate</a>
                     </div>
            
-           <div class="col-md-3" id='accreditations'>
+           <div class="col-md-3" id='accreditation'>
                         <h4>Accreditations</h4>
                         <?= $this->Form->input('accreditationsLoadFromTemplate', array(
                             'class' => 'input form-control loadFromTemplate',
@@ -116,7 +116,7 @@
                         <a role='button'  data-context='CustomerAccreditation'
                            class='btn btn-info btn-block btnLoadFromTemplate'><i class='fa fa-gears'></i> Generate</a>
                     </div>
-           <div class="col-md-3" id='certifications'>
+           <div class="col-md-3" id='certification'>
                <h4>Certifications</h4>
                         <?= $this->Form->input('certificationsLoadFromTemplate', array(
                             'class' => 'input form-control loadFromTemplate',
@@ -230,6 +230,18 @@ $('.resultUncheckAll').click(function() {
                 if(jsonDetails.context === "Customer")
                 {
                     url += "runCustomerReport/Customer";
+                }
+                if(jsonDetails.context === "Contact")
+                {
+                    url += "runContactReport/Contact";
+                }
+                if(jsonDetails.context === "CustomerAccreditation")
+                {
+                    url += "runAccreditationReport/CustomerAccreditation";
+                }
+                if(jsonDetails.context === "ContactCertification")
+                {
+                    url += "runCertificationReport/ContactCertification";
                 }
                 
                 var submission = {'fields' : jsonDetails['fields'],

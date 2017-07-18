@@ -14,7 +14,34 @@ App::uses('AppController', 'Controller');
     	
         public $uses = array('Group','Certification','Accreditation','Contact','Customer','User');
         
-        
+        public function admin_advancedSettings()
+        {
+            $this->set('section', 'crm');
+            if($this->request->is('post'))
+            {
+                
+                $this->request->data['admin.payroll_start'] = date('Y-m-d 00:00:00', strtotime($this->request->data['admin.payroll_start']));
+                $this->request->data['admin.payroll_end'] = date('Y-m-d 23:59:59', strtotime($this->request->data['admin.payroll_end']));
+                $this->request->data['admin.payroll_cutoff'] = date('Y-m-d 00:00:00', strtotime($this->request->data['admin.payroll_cutoff']));
+                $this->request->data['admin.pay_date'] = date('Y-m-d 00:00:00', strtotime($this->request->data['admin.pay_date']));
+                $primary = $this->User->findById($this->request->data['expenses.primary_approver']);
+                $this->request->data['expenses.primary_approver'] .= ":" . $primary['User']['first_name'];
+                $primary = $this->User->findById($this->request->data['expenses.secondary_approver']);
+                $this->request->data['expenses.secondary_approver'] .= ":" . $primary['User']['first_name'];
+                foreach($this->request->data as $field => $item)
+                {
+                    $this->Config->saveValue($field, $item);
+                }
+                $this->Session->setFlash('All values saved successfully!', 'flash_success');
+                $this->redirect('/admin/CRM/advancedSettings');
+            }
+            $users = $this->User->find('list', array('conditions' => array(
+                'is_active' => 'true'
+            ),
+                'order' => 'User.name ASC',
+                'fields' => array('User.id', 'User.name')));
+            $this->set('users', $users);
+        }
         public function admin_ajaxSiteSearch($searchString = "", $userContext = 'true',$contactContext = 'true', $customerContext = 'true', $jobContext = 'true', $referral="global")
         {
             $this->layout = 'ajax';

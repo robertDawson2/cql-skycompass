@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <?php $this->Html->script('https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js ', array('block' => 'scripts')); 
+
+?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>CQL SkyCompass | <?= $title_for_layout; ?></title>
@@ -168,7 +177,7 @@ tinymceEmailSettings = {
 		
 	</script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="overflow-x: hidden;">
     <style>
         .todo-list > li {
             list-style-type: none;
@@ -537,6 +546,18 @@ $(".job-todo-list").todolist({
 <script type="text/javascript">
     
     $('.select2 span').addClass('needsclick');
+    var buttonCommon1 = {
+        exportOptions: {
+            columns: ['.show-on-export' ],
+            format: {
+                body: function ( data, row, column, node ) {
+                    // Strip $ from salary column to make it numeric
+                    return data.replace( /<br\s*\/?>/ig, "\n" );
+                }
+            }
+        }
+    };
+    var fileName1 = 'CQL-export-table';
     
     var mainTable = $('.dataTable').DataTable({
       "paging": true,
@@ -562,6 +583,35 @@ $(".job-todo-list").todolist({
       "info": true,
       "autoWidth": false,
       "order": [[2,"desc"]]
+    });
+    
+    $(".export-dataTable").DataTable({
+        "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "order": [[0, "desc"]],
+      dom: 'Bfrtip',
+        buttons: [
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'csvHtml5',
+                title: fileName1
+            }),
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'excelHtml5',
+                title: fileName1
+            }),
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'pdfHtml5',
+                title: fileName1
+            }),
+            'copy',
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'print'
+            })
+        ]
     });
     $(".datepicker").datepicker();
     
@@ -852,6 +902,7 @@ height = height - 50; // iframe height will need to be even less to account for 
     <div id="galleryManagerCustomPanel" style="display: none;" title="Galleries">
 	<iframe src="/adminPanel/plugins/filemanager/dialog.php?type=0&relative_url=1&popup=1" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
 </div>
+
 
 
 </body>

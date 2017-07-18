@@ -132,10 +132,10 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-              <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['jobs']['admin_scheduler'] === 1)): ?>
+              <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['jobs']['admin_scheduler'] === "1")): ?>
             <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
             <?php endif; ?>
-             <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_alertAllUsers'] === 1)): ?>
+             <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_alertAllUsers'] === "1")): ?>
             <li><a href="/admin/schedule/alertAllUsers" onclick="return confirm('Are you sure you want to send out scheduling emails?');">
                     <i class="fa fa-envelope"></i> Send Out Schedule Email</a></li>
             <?php endif; ?>
@@ -183,7 +183,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
+            <li><a href="/admin/CRM/advancedSettings"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Edit My Profile</a></li>
             <li class='<?= $section == 'crm' ? 'active' : ''; ?> '>
               <a href="#"><i class="fa fa-plus-circle"></i> CRM Elements <i class="fa fa-angle-left pull-right"></i></a>
@@ -215,7 +215,7 @@
                 <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Certification Reports</a></li>
                 <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact Reports</a></li>
                 <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Organization Reports</a></li>
-                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>
+<!--                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>-->
               </ul>
             </li>
           </ul>

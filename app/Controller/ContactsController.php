@@ -40,6 +40,13 @@
             $this->loadModel('ContactType');
             $this->set('custTypes', $this->ContactType->find('list'));
             $this->set('sources', explode("|", $this->config['contact.sources']));
+            
+             $this->loadModel('Communication');
+            $this->Communication->bindModel(array('belongsTo' => array('Contact')));
+            $internalCommunications = $this->Communication->find('all', array('conditions' => array(
+                'Communication.contact_id' => $id)
+            ));
+            $this->set('internalCommunications', $internalCommunications);
         }
         
         function admin_edit($id = null)

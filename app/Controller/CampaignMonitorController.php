@@ -16,8 +16,65 @@ App::uses('AppController', 'Controller');
             parent::beforeRender();
             $this->set('section', 'communications');
         }
-        function admin_index() {
+        function admin_ajaxGetExternalById($id = null) {
+            $this->layout = 'ajax';
+             $clients = $this->_getClients();
+             
+            $this->clientId = $clients[0]->ClientID;
             
+            $this->loadModel('Contact');
+            $contact = $this->Contact->findById($id);
+            $returnArray = array();
+            
+            $lists = $this->_getLists($contact['Contact']['email']);
+            
+            if(!empty($lists))
+            {
+                $i = 0;
+                foreach($lists as $list)
+                {
+                    $details = $this->_getHistory($contact['Contact']['email'], $list->ListID);
+
+                    if(!empty($details)) {
+                        foreach($details as $detail) {
+                            $i++;
+                    $newAdd = array(
+                        'id' => $i,
+                        'type' => $detail->Type,
+                        'name' => $detail->Name,
+                        'open-count' =>  0,
+                        'link-click' => ""
+                    );
+                    
+                    if(!empty($detail->Actions))
+                    {
+                        foreach($detail->Actions as $action)
+                        {
+                            if($action->Event === 'Open')
+                            {
+                               
+                                $newAdd['open-count']++;
+                            }
+                            if($action->Event === 'Click')
+                            {
+               
+                                
+                                $newAdd['link-click'] .= $action->Detail . "<br />";
+                            }
+                        }
+                    }
+                    
+                    // add to return array
+                    $returnArray[] = $newAdd;
+                    
+                        }
+                    }
+                }
+            }
+    //        pr($returnArray);
+            echo json_encode(array('data' => $returnArray,
+                'columns' => array('ID', 'Type', 'Name', 'Open Count', 'Link Clicks')));
+            exit();
         }
         function admin_ajaxGetCampaigns()
         {

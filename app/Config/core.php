@@ -216,8 +216,12 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php',
-                'timeout' => (7*24*60*60),
+		'defaults' => 'database',
+//            'handler' => array(
+//                'model' => 'CakeSession'
+//            ),
+                'timeout' => (7*24*60*26),
+                'cookieTimeout' => (7*24*60*26),
                 'autoRegenerate' => true
             
 	));

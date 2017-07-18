@@ -67133,3 +67133,867 @@ Stack Trace:
 #1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
 #2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2017-07-12 15:57:50 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 15:57:50 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 15:57:50 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 16:18:09 Error: Fatal Error (1): Call to a member function find() on null in [/var/www/cql.local/public_html/app/Controller/ReportingController.php, line 746]
+2017-07-12 16:18:09 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 746)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 746, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 746, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-12 16:19:17 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.id' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Contact...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Contact...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Contact...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Contact), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(750): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-12 16:19:29 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.id' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Contact...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Contact...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Contact...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Contact), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(750): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-12 16:19:37 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.id' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Contact...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Contact...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Contact...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Contact), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(750): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-12 16:19:56 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Customer.id' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Contact...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Contact...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Contact...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Contact), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(749): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-12 16:43:26 Error: Fatal Error (1): Call to a member function findById() on null in [/var/www/cql.local/public_html/app/Controller/ReportingController.php, line 359]
+2017-07-12 16:43:26 Error: [FatalErrorException] Call to a member function findById() on null
+Request URL: /admin/reporting/ajaxSendEmails/9/accreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 359)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 359, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 359, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-12 16:44:41 Error: Fatal Error (1): Call to a member function findById() on null in [/var/www/cql.local/public_html/app/Controller/ReportingController.php, line 357]
+2017-07-12 16:44:41 Error: [FatalErrorException] Call to a member function findById() on null
+Request URL: /admin/reporting/ajaxSendEmails/9/accreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/var/www/cql.lo...', 357)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/var/www/cql.lo...', 357, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/var/www/cql.lo...', 357, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-12 17:35:34 Error: [MissingActionException] Action EmailTemplatesController::admin_ajaxPreview() could not be found.
+Exception Attributes: array (
+  'controller' => 'EmailTemplatesController',
+  'action' => 'admin_ajaxPreview',
+)
+Request URL: /admin/emailTemplates/ajaxPreview/10
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-12 17:36:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 17:36:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 17:36:43 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-12 18:02:02 Error: [MissingActionException] Action ReportingController::admin_certification() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_certification',
+)
+Request URL: /admin/reporting/certification
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 12:30:32 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:30:32 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:30:32 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:30:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:32:52 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:32:52 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:32:52 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:32:53 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:38:27 Error: Fatal Error (1): Call to undefined method CakeSession::find() in [/var/www/cql.local/public_html/lib/Cake/Model/Datasource/Session/DatabaseSession.php, line 92]
+2017-07-17 12:38:27 Error: [FatalErrorException] Call to undefined method CakeSession::find()
+Request URL: /admin/users
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 92)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 12:38:31 Error: Fatal Error (1): Call to undefined method CakeSession::find() in [/var/www/cql.local/public_html/lib/Cake/Model/Datasource/Session/DatabaseSession.php, line 92]
+2017-07-17 12:38:31 Error: [FatalErrorException] Call to undefined method CakeSession::find()
+Request URL: /admin/todo/ajaxGetList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 92)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 12:38:37 Error: Fatal Error (1): Call to undefined method CakeSession::find() in [/var/www/cql.local/public_html/lib/Cake/Model/Datasource/Session/DatabaseSession.php, line 92]
+2017-07-17 12:38:37 Error: [FatalErrorException] Call to undefined method CakeSession::find()
+Request URL: /admin/todo/ajaxCheckReminders
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/cql.lo...', 92)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/cql.lo...', 92, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 12:39:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:39:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:39:25 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:39:26 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:43:22 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:43:22 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:43:22 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 12:43:23 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 13:06:28 Error: [MissingActionException] Action ReportingController::admin_certification() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_certification',
+)
+Request URL: /admin/reporting/certification
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 13:08:16 Error: [MissingActionException] Action ReportingController::admin_index() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_index',
+)
+Request URL: /admin/reporting/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 13:09:24 Error: [MissingActionException] Action ReportingController::admin_index() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_index',
+)
+Request URL: /admin/reporting/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 13:09:27 Error: [MissingActionException] Action ReportingController::admin_index() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_index',
+)
+Request URL: /admin/reporting/
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 13:11:31 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Organization.id' in 'where clause'
+Request URL: /admin/reporting/runContactReport/Contact
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT DISTINCT...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT DISTINCT...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT DISTINCT...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(Contact), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(689): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runContactReport('Contact')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:08:56 Error: [MissingActionException] Action ReportingController::admin_certification() could not be found.
+Exception Attributes: array (
+  'controller' => 'ReportingController',
+  'action' => 'admin_certification',
+)
+Request URL: /admin/reporting/certification
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 19:14:20 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:23 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:27 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:28 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:28 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:29 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:29 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 19:14:30 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ContactCertification.recertification_date' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('SELECT `Custome...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(666): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1106): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2905): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(2877): Model->_readDataSource('all', Array)
+#6 /var/www/cql.local/public_html/app/Controller/ReportingController.php(908): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#10 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-17 20:24:46 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:25:40 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:29:13 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:31:40 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:34:20 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:37:12 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:37:41 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:40:34 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:40:55 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:42:08 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:44:58 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:49:25 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:57:37 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 20:58:23 Error: [MissingControllerException] Controller class Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Controller',
+  'plugin' => NULL,
+)
+Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:37:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:37:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:37:45 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:37:46 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:37:47 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:41:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:41:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:41:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:41:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:41:36 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:43:33 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:43:33 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:43:33 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:43:34 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:43:35 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 21:59:31 Error: [MissingActionException] Action JobController::admin_pages() could not be found.
+Exception Attributes: array (
+  'controller' => 'JobController',
+  'action' => 'admin_pages',
+)
+Request URL: /admin/jobs/pages/examples/invoice.html
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-17 22:28:45 Error: [MissingControllerException] Controller class CrmController could not be found.
+Exception Attributes: array (
+  'class' => 'CrmController',
+  'plugin' => NULL,
+)
+Request URL: /admin/crm/advancedSettings
+Stack Trace:
+#0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-17 22:29:29 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 544]
+2017-07-17 22:29:29 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/CRM/advancedSettings
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 544)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 544, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 544, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 22:30:09 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 819]
+2017-07-17 22:30:09 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/CRM/advancedSettings
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 819)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 819, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 819, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 22:31:09 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/String.php, line 236]
+2017-07-17 22:31:09 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/CRM/advancedSettings
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 236)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 236, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 236, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-17 22:32:34 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 484]
+2017-07-17 22:32:34 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/CRM/advancedSettings
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 484)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 484, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 484, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

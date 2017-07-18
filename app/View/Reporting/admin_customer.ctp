@@ -1,13 +1,3 @@
-<?php $this->Html->script('https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js', array('block' => 'scripts')); 
-    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js ', array('block' => 'scripts')); 
-
-?>
-
 <div class="row">
     <div class="col-sm-12">
         <style>.edit-box {

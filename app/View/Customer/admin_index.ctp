@@ -3,17 +3,17 @@
 
 
 <?php if (!empty($customers)): ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="customers-table">
+<table class="table table-striped table-bordered table-hover export-dataTable" id="customers-table">
 	<thead>
 		<tr>
-			<th>Name</th>
+			<th class='show-on-export'>Name</th>
 			
-                        <th>Primary Contact</th>
-			<th>Email Address</th>
-			<th>Phone</th>
-                        <th>Current Jobs</th>
-                        <th>Balance</th>
-                        <th>Notes</th>
+                        <th class='show-on-export'>Primary Contact</th>
+			<th class='show-on-export'>Email Address</th>
+			<th class='show-on-export'>Phone</th>
+                        <th class='show-on-export'>Current Jobs</th>
+                        <th class='show-on-export'>Balance</th>
+                        <th class='show-on-export'>Notes</th>
 			<th>Options</th>
 		</tr>
 	</thead>

@@ -69,10 +69,18 @@
                    )                     
                         
                 )));
-                if($this->Auth->user('id') === "80000302-1459626390")
+                $primaryApprover = explode(":", $this->config['expenses.primary_approver']);
+                $secondaryApprover = explode(":", $this->config['expenses.secondary_approver']);
+                if($this->Auth->user('id') === $primaryApprover[0])
                             $superuser = "drew_approved";
-                        else
+                 else if($this->Auth->user('id') === $secondaryApprover[0])
                             $superuser = "mary_approved";
+                 else
+                 {
+                     $this->Session->setFlash('You are not authorized to make these approvals.', 'flash_warning');
+                      $this->redirect($this->referer());
+                      exit(1);
+                 }
                         
                     
                 foreach($data as $item)
@@ -1394,7 +1402,11 @@ if($uploadOk) {
             return false;
         }
         function admin_superApprove() {
-            if(!$this->Auth->user('super_user'))
+            $primaryApprover = explode(":", $this->config['expenses.primary_approver']);
+                $secondaryApprover = explode(":", $this->config['expenses.secondary_approver']);
+            if(!$this->Auth->user('super_user') && 
+                    $this->Auth->user('id') !== $primaryApprover[0] &&
+                    $this->Auth->user('id') !== $secondaryApprover[0])
                 exit("You are not authorized to use this page.");
             
             if(!empty($this->request->data))
@@ -1406,15 +1418,23 @@ if($uploadOk) {
                     $approve = 1;
                 else
                     $approve = 0;
+
+                if($this->Auth->user('id') === $primaryApprover[0])
+                            $superuser = "drew_approved";
+                 else if($this->Auth->user('id') === $secondaryApprover[0])
+                            $superuser = "mary_approved";
+                 else
+                 {
+                     $this->Session->setFlash('You are not authorized to make these approvals.', 'flash_warning');
+                      $this->redirect($this->referer());
+                      exit(1);
+                 }
+                 
                 foreach($this->request->data['entries'] as $i => $d)
                 {
                     if(isset($d['approved']) && $d['approved'] == 'on')
                     {
-                        if($this->Auth->user('id') === "80000302-1459626390")
-                            $superuser = "drew_approved";
-                        else
-                            $superuser = "mary_approved";
-                        
+
                     $entry = array('BillItem' => array(
                         'id' => $i,
                         'super_approved' => $approve,
@@ -1474,7 +1494,7 @@ if($uploadOk) {
             $this->User->unbindModel(array('hasMany' => array('Bill', 'TimeEntry', 'Notification')));
             $this->loadModel('Vendor');
             $this->Vendor->unbindModel(array('hasMany' => array('Bill')));
-            if($this->Auth->user('id') == "80000302-1459626390"){
+            if($this->Auth->user('id') == $primaryApprover[0]){
             $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
                'OR'=>array(
                    'BillItem.drew_approved' => null,
@@ -1482,9 +1502,9 @@ if($uploadOk) {
                    )
             ), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
-            $this->set("super_user", 'drew');
+            $this->set("super_user", 'primary');
             }
-            else
+            elseif($this->Auth->user('id') == $secondaryApprover[0])
             {
             $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
               'OR'=>array(
@@ -1493,9 +1513,22 @@ if($uploadOk) {
                    )
             ), 'recursive' => 3,
                 'order' => 'BillItem.txn_date ASC'));
-            $this->set("super_user", 'mary');
+            $this->set("super_user", 'secondary');
+            }
+            else
+            {
+                $entries = $this->BillItem->find('all', array('conditions'=>array('BillItem.approved'=>'1',  'BillItem.bill_id'=>null, 
+               'OR'=>array(
+                   'BillItem.drew_approved' => null,
+                   'BillItem.mary_approved' => null
+                   )
+            ), 'recursive' => 3,
+                'order' => 'BillItem.txn_date ASC'));
+                $this->set("super_user", "none");
             }
             
+            $this->set('primary', $primaryApprover);
+            $this->set('secondary', $secondaryApprover);
             $this->set('entries',$entries);
             
             

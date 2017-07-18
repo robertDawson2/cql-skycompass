@@ -60,6 +60,14 @@
             $this->set('types', $this->Accreditation->find('list', array('fields' => array('Accreditation.id', 'Accreditation.name'))));
             $custTypes =  $this->CustomerType->find('list', array('fields' => array('CustomerType.id', 'CustomerType.name')));
             $this->set('custTypes', $custTypes);
+            
+            $this->loadModel('Communication');
+            $this->Communication->bindModel(array('belongsTo' => array('Contact')));
+            $internalCommunications = $this->Communication->find('all', array('conditions' => array(
+                'Communication.customer_id' => $id)
+            ));
+            $this->set('internalCommunications', $internalCommunications);
+            
         }
         function admin_delete($id = null)
         { 
