@@ -262,15 +262,37 @@ class UsersController extends AppController {
               
                 if(!$error)
                 {
+                    $this->loadModel('Contact');
+                    $contact = $this->Contact->find('first', array(
+                        'conditions' => array(
+                            'OR' => array(
+                                'email LIKE ' => $this->request->data['to'],
+                                'alt_email LIKE ' => $this->request->data['to']
+                            )
+                        )
+                    ));
+                    $contactId = null;
+                            if(!empty($contact))
+                                $contactId = $contact['Contact']['id'];
+                            
+                    
+                    $communicationId = $this->_logEmail('QuickEmail', null, $contactId, null, $this->request->data['subject'], $this->request->data['from']);
+                    
                     App::uses('CakeEmail', 'Network/Email');
                             $to = $this->request->data['to'];
                             
                             $email = new CakeEmail('smtp');
                             $email->emailFormat('html')
-                            ->subject($this->request->data['subject'])
-                            ->from($from)
-                            ->to($this->request->data['to'])
-                            ->send($this->request->data['message']);
+                                    ->template('comm', 'default')
+                                    ->subject($this->request->data['subject'])
+                                    ->from($from)
+                                    ->to($this->request->data['to'])
+                                    ->viewVars(array('content' => $this->request->data['message'],
+                                        'description' => $this->request->data['subject'],
+                                        'title' =>  $this->request->data['subject'],
+                                        'communicationId' => $communicationId,
+                                        'config' => $this->config))
+                                    ->send();
                     $this->Session->setFlash('Message has been sent to ' . $this->request->data['to'] . ".",
                             'flash_success');
                            
@@ -284,6 +306,27 @@ class UsersController extends AppController {
             }
             $this->redirect($this->referer('/admin'));
         }
+        
+        private function _logEmail($context, $templateId, $contactId = null, $customerId = null, $subject)
+        {
+            $error = 'sent';
+            $this->loadModel('Communication');
+            $newRecord = array('context' => $context,
+                    'email_template_id' => $templateId,
+                    'template_subject' => $subject,
+                    'user_id' => $this->Auth->user('id'));
+            
+           
+            
+                $newRecord['customer_id'] = $customerId;
+                $newRecord['contact_id'] = $contactId;
+                $newRecord['result'] = $error;
+            $this->Communication->create();
+            $this->Communication->save($newRecord);
+            return $this->Communication->id;
+            
+        }
+        
         function admin_addNewPermissions($tag = "")
         {
             if($tag === "blue42setHIKE")

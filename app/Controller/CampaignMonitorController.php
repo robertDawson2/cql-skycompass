@@ -16,6 +16,9 @@ App::uses('AppController', 'Controller');
             parent::beforeRender();
             $this->set('section', 'communications');
         }
+        function admin_index() {
+            
+        }
         function admin_ajaxGetExternalById($id = null) {
             $this->layout = 'ajax';
              $clients = $this->_getClients();

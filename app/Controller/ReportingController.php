@@ -81,61 +81,64 @@ App::uses('AppController', 'Controller');
                    if($context === 'customer')
                    {
                        $contactId = $this->_getCustomerContactEmail($id);
-                       $sendResult = $this->_sendEmail($context, $templateId, $contactId, $id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId, $context, $templateId, $contactId, $id);
                        if($sendResult)
                        {
-                           $counterSent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id);
+                           $counterSent++; 
                        }
                        else
                        {
                            $counterUnsent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id, 'error');
+                           $this->_changeEmailStatus($communicationId, 'error');
                        }
                    }
                    else if($context === 'contact')
                    {
                        $contactId = $this->_getCustomerContactEmail($id);
-                       $sendResult = $this->_sendEmail($context, $templateId, $id);
+                       $communicationId = $this->_logEmail($context, $templateId, $id);
+                       $sendResult = $this->_sendEmail($communicationId, $context, $templateId, $id);
                        if($sendResult)
                        {
                            $counterSent++;
-                           $this->_logEmail($context, $templateId, $id);
+                           
                        }
                        else
                        {
                            $counterUnsent++;
-                           $this->_logEmail($context, $templateId, $id, null, 'error');
+                           $this->_changeEmailStatus($communicationId, 'error');
                        }
                    }
                    else if($context === 'accreditation')
                    {
                        $contactId = $this->_getAccreditationContactEmail($id);
-                       $sendResult = $this->_sendEmail($context, $templateId, $contactId, null, $id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $contactId, null, $id);
                        if($sendResult)
                        {
                            $counterSent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id);
+                           
                        }
                        else
                        {
                            $counterUnsent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id, 'error');
+                           $this->_changeEmailStatus($communicationId, 'error');
                        }
                    }
                    else if($context === 'certification')
                    {
                        $contactId = $this->_getCertificationContactEmail($id);
-                       $sendResult = $this->_sendEmail($context, $templateId, $contactId, null, null, $id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $contactId, null, null, $id);
                        if($sendResult)
                        {
                            $counterSent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id);
+                           
                        }
                        else
                        {
                            $counterUnsent++;
-                           $this->_logEmail($context, $templateId, $contactId, $id, 'error');
+                           $this->_changeEmailStatus($communicationId, 'error');
                        }
                    }
                }
@@ -390,7 +393,7 @@ App::uses('AppController', 'Controller');
             
             return $htmlNewString;
         }
-        private function _sendEmail($context, $templateId, $contactId = null, $customerId = null, $accreditationId = null, $certificationId = null)
+        private function _sendEmail($communicationId,$context, $templateId, $contactId = null, $customerId = null, $accreditationId = null, $certificationId = null)
         {
             if($accreditationId !== null)
             {
@@ -451,7 +454,7 @@ App::uses('AppController', 'Controller');
                             ->emailFormat('html')
                             ->subject($template['EmailTemplate']['subject'])
                             ->viewVars(array('description' => $template['EmailTemplate']['subject'],
-                                'content' => $emailHtml))
+                                'content' => $emailHtml, 'communicationId' => $communicationId, 'config' => $this->config))
                             ->to($to);
                             
                             if($email->send())
@@ -477,8 +480,14 @@ App::uses('AppController', 'Controller');
                 $newRecord['result'] = $error;
             $this->Communication->create();
             $this->Communication->save($newRecord);
-            return true;
+            return $this->Communication->id;
             
+        }
+        private function _changeEmailStatus($emailId, $status) {
+            $this->loadModel('Communication');
+            $this->Communication->findById($emailId);
+            $this->Communication->saveField('result', 'error');
+            return true;
         }
         public function admin_ajaxLoadTemplate($id) {
             $this->loadModel('ReportTemplate');

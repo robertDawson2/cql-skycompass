@@ -93,11 +93,13 @@
 		    table_cell_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Full', value: 'mobile-full'},
-		        {title: 'Mobile Hide', value: 'mobile-hide'}
+		        {title: 'Mobile Hide', value: 'mobile-hide'},
+                        {title: 'Mobile Only', value: 'mobile-only'}
 		    ],
 		    image_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Hide', value: 'mobile-hide'},
+                        {title: 'Mobile Only', value: 'mobile-only'},
 		        {title: 'Mobile Hide / Desktop Float Left', value: 'mobile-hide-left'},
 		        {title: 'Mobile Hide / Desktop Float Right', value: 'mobile-hide-right'}
 		    ],

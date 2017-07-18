@@ -14,6 +14,20 @@ App::uses('AppController', 'Controller');
     	
         public $uses = array('Group','Certification','Accreditation','Contact','Customer','User');
         
+        public function beforeFilter() {
+            parent::beforeFilter();
+            $this->Auth->allow('emailOpened');
+        }
+        public function emailOpened($id = null) {
+            if($id !== null) {
+                $this->loadModel('Communication');
+                $this->Communication->id = $id;
+                $this->Communication->saveField('opened', 1);
+        
+               
+            }
+             exit();
+        }
         public function admin_advancedSettings()
         {
             $this->set('section', 'crm');

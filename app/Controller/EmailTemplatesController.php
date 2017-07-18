@@ -176,9 +176,9 @@ App::uses('AppController', 'Controller');
             {
                 $string .= "\n<li><div style='display: inline-block;'>" . $option['EmailTemplate']['name'] . "<br /><em>(" . $contextOptions[$option['EmailTemplate']['context']] . ")</em></div>";
                 
-                $string .= '<a role="button" class="btn btn-small btn-danger delete-object" data-toggle="modal" data-object-name="' . $option['EmailTemplate']['name'] . '" data-object-id="' . $option['EmailTemplate']['id'] . '"><i class="fa fa-trash-o"></i></a>';
-                $string .= '<a role="button" onclick="cloneToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-small btn-info clone-object"><i class="fa fa-copy"></i></a>';
-                $string .= '<a role="button" onclick="loadToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-small btn-success clone-object"><i class="fa fa-edit"></i></a>';
+                $string .= '<a role="button" class="btn btn-xs btn-danger delete-object" data-toggle="modal" data-object-name="' . $option['EmailTemplate']['name'] . '" data-object-id="' . $option['EmailTemplate']['id'] . '"><i class="fa fa-trash-o"></i></a>';
+                $string .= '<a role="button" onclick="cloneToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-xs btn-info clone-object"><i class="fa fa-copy"></i></a>';
+                $string .= '<a role="button" onclick="loadToEdit(' . $option['EmailTemplate']['id'] . ', this)" class="btn btn-xs btn-success clone-object"><i class="fa fa-edit"></i></a>';
                 $string .= "</li>";
                 
             }
