@@ -1,4 +1,5 @@
 <?php
+/* This is just a comment to show how this works */
 
 App::uses('AppController', 'Controller');
 
