@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
-                        <th>Customer</th>
+                        <th>Organization</th>
                         <th>Start Date</th>
                         <th>Status</th>
 			
@@ -33,6 +33,7 @@
                                 <?php if($currentUser['pmArray']['jobs']['admin_edit']): ?>
 				<a role="button" class="btn btn-primary" href="/admin/jobs/edit/<?php echo $cust['Job']['id']; ?>"><i class="fa fa-edit"></i> Edit</a>&nbsp;
 				<?php endif; ?>
+                                <a role="button" data-id="<?= $cust['Job']['id']; ?>"  class="btn btn-warning attendee-upload" data-toggle="modal" data-target="#uploadAttendeeList"><i class="fa fa-upload"></i> Upload Attendees</a> 
 				<?php if($currentUser['pmArray']['jobs']['admin_delete']): ?><a role="button" class="btn btn-danger delete-object" data-toggle="modal" data-object-name="<?php echo $cust['Job']['full_name']; ?>" data-object-id="<?php echo $cust['Job']['id']; ?>"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;<?php endif; ?>
                                 
 			</td>
@@ -42,9 +43,16 @@
 </table>
 
 <?php echo $this->element('modals/delete', array('title' => 'Delete Job', 'text' => 'delete the job record for <strong>{name}</strong>', 'action' => '/admin/jobs/delete/{id}')); ?>
-
+<?php echo $this->element('modals/upload_attendee_list'); ?>
 <?php else: ?>
 <p>There are no <?= strtolower($past); ?>jobs in your database.</p>
 <?php endif; ?>
 <!--
 <a role="button" href="/admin/users/create" class="btn btn-primary small"><i class="fa fa-plus"></i> Create New User</a>-->
+<?php $this->append('scripts'); ?>
+<script>
+    $(".attendee-upload").click(function() {
+        $("#attendeeJobId").val($(this).data('id'));
+    });
+    </script>
+<?php $this->end(); ?>

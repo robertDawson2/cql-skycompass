@@ -14,7 +14,7 @@
               .close {position:absolute; right: 15px;}
             </style>
            <div class='container' style='width: 100%;'>
-               <h3>Customer Name: <em><span id='custName'></span></em> (<span id="custLoc"></span>)</h3>
+               <h3>Organization Name: <em><span id='custName'></span></em> (<span id="custLoc"></span>)</h3>
             <div class='row'><div class='col-md-2'>
                     <h4>Team Leaders (<span id="teamLeadersNeeded">0</span> of <span id="teamLeadersCount">2</span>)</h4><div id='teamLeaders' class='empList'></div>
                     <h4>Employees (<span id="employeesNeeded">0</span> of <span id="employeesCount">2</span>)</h4><div id='employees' class='empList'></div>

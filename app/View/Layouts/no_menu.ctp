@@ -89,13 +89,15 @@
 		    table_cell_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Full', value: 'mobile-full'},
-		        {title: 'Mobile Hide', value: 'mobile-hide'}
+		        {title: 'Mobile Hide', value: 'mobile-hide'},
+                        {title: 'Mobile Only', value: 'mobile-only'}
 		    ],
 		    image_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Hide', value: 'mobile-hide'},
 		        {title: 'Mobile Hide / Desktop Float Left', value: 'mobile-hide-left'},
-		        {title: 'Mobile Hide / Desktop Float Right', value: 'mobile-hide-right'}
+		        {title: 'Mobile Hide / Desktop Float Right', value: 'mobile-hide-right'},
+                        {title: 'Mobile Only', value: 'mobile-only'}
 		    ],
 		    block_formats: "Paragraph=p;Pre=pre;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6",
 			browser_spellcheck: true,

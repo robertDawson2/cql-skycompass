@@ -29,13 +29,13 @@
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_index']): ?>
         <li class="<?= $section == 'customers' ? 'active' : ''; ?> treeview">
           <a href="#">
-            <i class="fa fa-building"></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-building"></i> <span>Organizations</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
               <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_add']): ?>
-            <li><a disabled href="#"><i class="fa fa-plus"></i> Add New Customer</a></li>
+            <li><a disabled href="#"><i class="fa fa-plus"></i> Add New Organization</a></li>
             <?php endif; ?>
-            <li><a href="/admin/customers"><i class="fa fa-edit"></i> View Customers</a></li>
+            <li><a href="/admin/customers"><i class="fa fa-edit"></i> View Organizations</a></li>
            </ul>
         </li>
         <?php endif; ?>

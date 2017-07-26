@@ -48,17 +48,40 @@ class AppController extends Controller {
             return $entries;
         }
         
+        function _getJobTaskLists()
+        {
+            // find approved schedule entries
+            $this->loadModel('ScheduleEntry');
+            $entries = $this->ScheduleEntry->find('list', array(
+                'fields' => array('id', 'job_id'),
+                'conditions' => array('user_id' => $this->Auth->user('id'),
+                                        'approved' => 1,
+                                        'end_date >=' => date('Y-m-d'))
+            ));
+            
+            // grab all linked job lists for schedule entries
+            $this->loadModel('JobTaskList');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry', 'JobTaskList')));
+            $this->JobTaskList->bindModel(array('belongsTo' => array('Job')));
+            $tasklists = $this->JobTaskList->find('all', array(
+                'recursive' => 2,
+                'conditions' => array('JobTaskList.job_id' => $entries,
+                                        'JobTaskList.schedule_entry_id' => array_keys($entries))
+            ));
+            return $tasklists;
+        }
         public function _getOpenJobProgress($id = null)
         {
             if($id === null)
-                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10,'order' => 'start_date ASC'));
+                $jobs = $this->Job->find('all', array('recursive'=>3, 'limit'=>10,'order' => 'start_date ASC', 'conditions' => array('start_date >=' => date('Y-m-d H:i:s'))));
             else{
                 $this->loadModel('ScheduleEntry');
                 $scheduleEntries = $this->ScheduleEntry->find('list', array(
                     'fields' => array('ScheduleEntry.id', 'ScheduleEntry.job_id'),
                     'conditions' => array(
                         'ScheduleEntry.user_id' => $id,
-                        'ScheduleEntry.approved' => "1"
+                        'ScheduleEntry.approved' => "1",
+			'start_date >=' => date('Y-m-d H:i:s')
                     )
                 ));
                 
@@ -117,7 +140,9 @@ class AppController extends Controller {
                 $percent = ($completed / $total)*100;
                 if(!empty($job['JobTaskList']))
                 $returnArray[] = array('jobId' => $job['Job']['id'], 'jobName' => $job['Job']['full_name'],
-                        'percentage' => $percent, 'lastDone' => (isset($mostRecent) && isset($mostRecentItem)) ? $job['JobTaskList'][$mostRecentItem]['JobTaskListItem'][$mostRecent] : array(), 'nextUp' => $job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1]);
+                        'percentage' => $percent, 
+                    'lastDone' => (isset($mostRecent) && isset($mostRecentItem)) ? $job['JobTaskList'][$mostRecentItem]['JobTaskListItem'][$mostRecent] : array(), 
+                    'nextUp' => isset($job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1]) ? $job['JobTaskList'][$h]['JobTaskListItem'][$mostRecent+1] : null);
             }
             
             
@@ -128,20 +153,25 @@ class AppController extends Controller {
         {
             $this->loadModel('Item');
             
+            $timeEntryList = explode(",", $this->config['time_entry.service_items']);
             
             if($expenses) {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
-                'Item.full_name LIKE' => "%Staff Items%"
+                'Item.full_name LIKE' => "%Staff Items%",
+                'Item.is_active' => 'true'
             )));}
             else {
                 $itemList = $this->Item->find('all', array('conditions' => array(
                 'Item.type' => 'Service',
+                'Item.is_active' => 'true',
+                    'Item.name' => $timeEntryList,
                     'NOT' => array(
                 'Item.full_name LIKE' => "%Staff Items%")
             ))); }
             
-	
+            
+          
              $returnArray = array();
             foreach($itemList as $class)
             {
@@ -154,7 +184,7 @@ class AppController extends Controller {
                     
                 );
                 
-                if(!empty($class['Children']))
+                if(!empty($class['Children']) && $expenses)
                 {
                     foreach($class['Children'] as $job)
                     {
@@ -172,8 +202,9 @@ class AppController extends Controller {
              return $returnArray;
         }
         
+        
         public function _loadClasses() {
-           
+          
             $this->loadModel('Classes');
             $items = $this->Classes->find('all', array('conditions' => array(
                 'Classes.parent_id' => ''
@@ -213,7 +244,7 @@ class AppController extends Controller {
         public function _loadPayrollItems()
         {
             $this->loadModel('PayrollItem');
-            $items = $this->PayrollItem->find('all');
+            $items = $this->PayrollItem->find('all', array('conditions' => array('PayrollItem.is_active' => 'true')));
             
             $returnArray = array();
             foreach($items as $item)
@@ -252,7 +283,7 @@ class AppController extends Controller {
         
         public function _loadCustomers() {
             $this->loadModel('Customer');
-            $customers = $this->Customer->find('all');
+            $customers = $this->Customer->find('all', array('conditions' => array('Customer.archived is null')));
             
             $returnArray = array();
             foreach($customers as $customer)
@@ -285,7 +316,9 @@ class AppController extends Controller {
         }
         
 	public function beforeFilter() {	
-		
+            if ($this->request['prefix'] == 'admin' || $this->request['prefix'] == 'ajax')
+			$this->layout = $this->request['prefix'];
+		ini_set('memory_limit', '256M');
 
 		date_default_timezone_set('America/New_York');
 		
@@ -298,7 +331,8 @@ class AppController extends Controller {
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => true);
 		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'dashboard', 'admin' => true);
 		$this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'dashboard', 'admin' => true);
-		
+		//$this->Auth->autoRedirect = true;
+                
 		if ($this->uses != null)
 			$this->config = $this->Config->find('list', array('fields' => array('Config.option', 'Config.value')));
 
@@ -367,11 +401,15 @@ class AppController extends Controller {
 	}
 	
 	public function beforeRender() {
+       
+               $this->loadModel('TodoType');
+            $this->set('todoTypes', $this->TodoType->find('list'));
+            
             
              if($this->Auth->user('id') !== null){
                         $updatedUser = $this->User->findById($this->Auth->user('id'));
                          $this->set('updatedUser', $updatedUser);
-                   // pr($updatedUser); exit();
+                    
              }
              
 		$misc = $this->Session->read('Misc');
@@ -381,8 +419,7 @@ class AppController extends Controller {
 		}
 		 $customers = $this->_loadCustomers();
                 $this->set('customerList', $customers);
-		if ($this->request['prefix'] == 'admin' || $this->request['prefix'] == 'ajax')
-			$this->layout = $this->request['prefix'];
+		
 		
 		$this->set('config', $this->config);
 
@@ -401,7 +438,8 @@ class AppController extends Controller {
         	//$this->set('navigation', $this->Content->find('threaded', array('fields' => array('Content.id', 'Content.tag', 'Content.parent_id', 'Content.lft', 'Content.rght'), 'conditions' => array('Content.status' => 'live'), 'order' => array('Content.lft ASC'))));
 		}
                 
-               
+               $tl = $this->_getJobTaskLists();
+               $this->set('jobtasklists', $tl);
                 
                 $user = $this->Auth->user();
                 if(!empty($user))
@@ -469,14 +507,27 @@ class AppController extends Controller {
                      $notifications = $this->Notification->find('all', array(
                         'conditions' => array(
                             'Notification.user_id'=> array($user['id'], $user['web_user_type']),
-                   //         'Notification.allowed_admins LIKE' => "%" . $user['id'] . "%"
-                            
+                           'NOT' => array(
+                               'Notification.context like' => "TodoItem%"
+                           )
                         ),
                             'order' => array('Notification.seen' => 'ASC', 'Notification.created' => 'DESC'),
                         'limit' => 10)
                     );
                     $this->user = $user;
                     $this->set('notifications', $notifications);
+                    
+                    $notifications = $this->Notification->find('all', array(
+                        'conditions' => array(
+                            'Notification.user_id'=> array($user['id'], $user['web_user_type']),
+                   //         'Notification.allowed_admins LIKE' => "%" . $user['id'] . "%"
+                            'Notification.context like' => "TodoItem%"
+                            
+                        ),
+                            'order' => array('Notification.seen' => 'ASC', 'Notification.created' => 'DESC'),
+                        'limit' => 10)
+                    );
+                    $this->set('taskalerts', $notifications);
                     
                     $this->set('newEmployees', $this->_newEmployeesSinceLogin($this->Auth->user('last_login')));
                    

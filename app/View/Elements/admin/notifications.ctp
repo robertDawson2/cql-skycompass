@@ -31,7 +31,7 @@ foreach($notifications as $notification)
                data-userid="<?= $currentUser['id']; ?>" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <?php if($newCount > 0) { ?>
-              <span class="label label-warning notification-label"><?= $newCount; ?></span>
+              <span class="label label-warning notificationlist notification-label"><?= $newCount; ?></span>
               <?php } ?>
             </a>
             <ul class="dropdown-menu">
@@ -57,7 +57,7 @@ foreach($notifications as $notification)
                   if($(this).data('newcount') > 0)
                   {
  
-                        $('.notification-label').fadeOut('fast');  
+                        $('.notificationlist.notification-label').fadeOut('fast');  
                           
                           
         }

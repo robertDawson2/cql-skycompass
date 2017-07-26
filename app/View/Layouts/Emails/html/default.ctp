@@ -55,5 +55,6 @@
 		  	
 		</tr>
     </table>
+      <img class="tracking-image" src="<?= $config['site.url'] ?>/CRM/emailOpened<?= isset($communicationId) ? '/' . $communicationId : ''; ?>" style="width: 1px; height: 1px; opacity: 0;"></img>
   </body>
 </html>

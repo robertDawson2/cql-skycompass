@@ -31,17 +31,17 @@
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_index']): ?>
         <li class="<?= $section == 'customers' ? 'active' : ''; ?> treeview">
           <a href="#">
-            <i class="fa fa-building"></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-building"></i> <span>Organizations</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
               <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['customers']['admin_add']): ?>
-            <li><a disabled href="#"><i class="fa fa-plus"></i> Add New Customer</a></li>
+            <li><a disabled href="/admin/customers/add"><i class="fa fa-plus"></i> Add New Organization</a></li>
             <?php endif; ?>
-            <li><a href="/admin/customers"><i class="fa fa-edit"></i> View Customers</a></li>
+            <li><a href="/admin/customers"><i class="fa fa-eye"></i> View Organizations</a></li>
            </ul>
         </li>
         <?php endif; ?>
-        <?php if(0): ?>
+        <?php if(1): ?>
         <li class="<?= $section == 'contacts' ? 'active' : ''; ?> treeview">
           <a href="#">
             <i class="fa fa-users"></i>
@@ -49,8 +49,8 @@
            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-plus"></i> Add New Contacts</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-edit"></i> View Contacts</a></li>
+            <li><a href="/admin/contacts/add"><i class="fa fa-plus"></i> Add New Contact</a></li>
+            <li><a href="/admin/contacts"><i class="fa fa-edit"></i> View Contacts</a></li>
          </ul>
         </li>
       <?php endif; ?>
@@ -132,10 +132,10 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-              <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['jobs']['admin_scheduler'] === 1)): ?>
+              <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['jobs']['admin_scheduler'] === "1")): ?>
             <li><a href='/admin/jobs/scheduler'><i class='fa fa-calendar'></i> Scheduler</a></li>
             <?php endif; ?>
-             <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_alertAllUsers'] === 1)): ?>
+             <?php if($currentUser['is_scheduler'] || (!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_alertAllUsers'] === "1")): ?>
             <li><a href="/admin/schedule/alertAllUsers" onclick="return confirm('Are you sure you want to send out scheduling emails?');">
                     <i class="fa fa-envelope"></i> Send Out Schedule Email</a></li>
             <?php endif; ?>
@@ -157,28 +157,67 @@
             <?php endif; ?>
           </ul>
         </li>
+        
+        <li class="<?= $section == 'communications' ? 'active' : ''; ?> treeview">
+          <a href="#">
+            <i class="fa fa-send"></i> <span>Communications</span>
+            
+            <i class="fa fa-angle-left pull-right"></i>
+            
+          </a>
+          <ul class="treeview-menu">
+              
+            <li><a href="/admin/campaignMonitor"><i class="fa fa-check-square-o"></i> View Campaign Statistics</a></li>
+         
+            <li><a href="/admin/emailTemplates"><i class="fa fa-list"></i> Manage Email Templates</a></li>
+           
+          </ul>
+        </li>
+        
+        
+
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['config']['admin_index']): ?>
-        <li class="<?= $section == 'misc' ? 'active' : ''; ?> treeview">
+        <li class="<?= $section == 'misc' ? 'active' : ''; ?><?= $section == 'crm' ? 'active' : ''; ?>  treeview">
           <a href="#">
             <i class="fa fa-gears"></i> <span>Miscellaneous</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
+            <li><a href="/admin/CRM/advancedSettings"><i class="fa fa-circle-o"></i> Site Advanced Settings</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Edit My Profile</a></li>
+            <li class='<?= $section == 'crm' ? 'active' : ''; ?> '>
+              <a href="#"><i class="fa fa-plus-circle"></i> CRM Elements <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="/admin/groups"><i class="fa fa-circle-o"></i> Manage Groups</a></li>
+                <li><a href="/admin/certifications"><i class="fa fa-circle-o"></i> Manage Certs</a></li>
+                <li><a href="/admin/accreditations"><i class="fa fa-circle-o"></i> Manage Accreds</a></li>
+                <li><a href="/admin/contactTypes"><i class="fa fa-circle-o"></i> Manage Contact Types</a></li>
+                <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Organization Types</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <?php endif; ?>
         
         <?php if(!empty($currentUser['pmArray']) && $currentUser['pmArray']['schedule']['admin_scheduleReport']): ?>
-        <li class="<?= $section == 'reporting' ? 'active' : ''; ?> treeview">
+        <li class="<?= $section == 'reporting' ? 'active' : ''; ?><?= $section == 'crmreporting' ? 'active' : ''; ?> treeview">
           <a href="#">
             <i class="fa fa-bar-chart-o"></i> <span>Reporting</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
             <li><a href="/admin/schedule/scheduleReport"><i class="fa fa-circle-o"></i> Approval/Denial Report</a></li>
-            
+            <li><a href="/admin/reporting/quickReports"><i class="fa fa-circle-o"></i> Quick Reports</a></li>
+            <li class='<?= $section == 'crmreporting' ? 'active' : ''; ?> '>
+              <a href="#"><i class="fa fa-plus-circle"></i> CRM Reports <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="/admin/reporting/accreditation"><i class="fa fa-circle-o"></i> Accreditation Reports</a></li>
+                <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Certification Reports</a></li>
+                <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact Reports</a></li>
+                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Organization Reports</a></li>
+<!--                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>-->
+              </ul>
+            </li>
           </ul>
         </li>
         <?php endif; ?>

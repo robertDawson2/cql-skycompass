@@ -11,7 +11,7 @@
 <p>This message has been generated to notify you of a time or expense denied in SkyCompass. The following have been denied by an administrator:</p>
 <table class='entries'>
     <tr>
-        <th>Customer</th>
+        <th>Organization</th>
         <th>Date</th>
         <th>Denial Message</th>
     </tr>

@@ -17,17 +17,17 @@
 </style>
 <div style="display: none;">
     <small><em>
-            Green: Waiting on Mary Kay --- Yellow: Waiting on Drew</em></small>
+            Green: Waiting on <?= $secondary[1]; ?> --- Yellow: Waiting on <?= $primary[1]; ?></em></small>
 </div>
 <table class="table table-striped table-bordered table-hover approval-dataTable" id="users-table">
 	<thead>
 		<tr>
-                    <th>Drew</th>
-                    <th>Mary Kay</th>
+                    <th><?= $primary[1]; ?></th>
+                    <th><?= $secondary[1]; ?></th>
                     <th>Vendor</th>
 			<th>Date</th>
                         <th>Amount</th>
-			<th>Customer/Job</th>
+			<th>Organization</th>
 			<th>Item</th>
 			<th>Class</th>
                         <th>Description</th>
@@ -43,13 +43,16 @@
                 <tr class='<?php if($entry['super_approved'] && $entry['drew_approved'] && $entry['mary_approved']) { ?> disabled <?php } ?> 
                     
                     '>
-                   <?php if($super_user === 'drew'): ?>
+                   <?php if($super_user === 'primary'): ?>
         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['drew_approved']){ echo "disabled";}  ?> <?php if($entry['drew_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
         <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php echo "disabled"; ?> <?php if($entry['mary_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
-        <?php else: ?>
+        <?php elseif($super_user === 'secondary'): ?>
         <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php { echo "disabled";}  ?> <?php if($entry['drew_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
         <td><input style="width: 15px; height: 15px;" name="data[entries][<?= $entry['id']; ?>][approved]" type="checkbox" <?php if($entry['mary_approved']){ echo "disabled";}  ?> <?php if($entry['mary_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
-        <?php endif; ?>
+         <?php else: ?>
+        <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php { echo "disabled";}  ?> <?php if($entry['drew_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+        <td><input style="width: 15px; height: 15px;" name="ignore" type="checkbox" <?php echo "disabled"; ?> <?php if($entry['mary_approved']) {echo "checked"; } ?> class="input form-control checkbox" /> </td>
+            <?php endif; ?>
                         <td><?= $time['Vendor']['first_name'] . " " . $time['Vendor']['last_name'];?></td>
 			<td><?php echo date("m/d/y", strtotime($entry['txn_date'])); ?></td>
                         <td>$<?= $entry['amount']; ?></td>
@@ -57,7 +60,7 @@
                                 data-vendor="<?=$time['Vendor']['id']; ?>" 
                                 data-customer="<?= $time['Customer']['id']; ?>" 
                                 data-dt="<?= date("Y-m-d",strtotime($entry['txn_date'])); ?>" 
-                                title="View Full Bill For Customer" href="#" class="viewFullBill"><i class="fa fa-list-alt"></i></a></td>
+                                title="View Full Bill For Organization" href="#" class="viewFullBill"><i class="fa fa-list-alt"></i></a></td>
                         <td><?php if(isset($time['Item']['full_name'])) { echo $time['Item']['full_name']; } ?></td>
 			<td><?php echo $time['Classes']['full_name']; ?></td>
                         <td><?php echo $entry['description']; ?></td>

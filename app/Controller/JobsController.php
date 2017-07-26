@@ -14,7 +14,259 @@
     	public $name = 'Job';
         public $uses = array('Job', 'User', 'ScheduleEntry', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
 
+        public function admin_importAttendeeList()
+        {
+            if($this->request->is('post'))
+            {
+                $importMap = array();
+                $importArray = array();
+                $importFormat = array('Contact' => array()
+                    , 'ContactAddress' => array(), 
+                    'Customer' => array());
+                $csv = array_map('str_getcsv', file($_FILES["csvfile"]["tmp_name"]));
+                foreach(array_shift($csv) as $i => $header) {
+                    $headerName = str_replace(" ","_", str_replace("-", "", strtolower($header)));
+                    //decide where in the format it should go
+                    $importMap[$i] = $this->_determineMap($headerName);  
+                }
+                foreach($csv as $contact)
+                {
+                    $newImport = $importFormat;
+                    foreach($contact as $i => $value)
+                    {
+                        if(!empty($importMap[$i]))
+                        {
+                            $fieldArray = explode(".", $importMap[$i]);
+                            $newImport[$fieldArray[0]][$fieldArray[1]] = $value;
+                        }
+                    }
+                    $importArray[] = $newImport;
+                }
+                
+                $totalLinks = $this->_parseArray($importArray, $this->request->data['job_id']);
+               $this->Session->setFlash($totalLinks['imports'] . " new contacts imported, and " . $totalLinks['links'] . " links to job created!", "flash_success");
+               $this->redirect($this->referer('/admin/jobs'));
+               exit();
+            }
+        }
+        private function _parseArray($arr, $jobId)
+        {
+            $return = array('links' => 0, 'imports' => 0);
+            foreach($arr as $contact)
+            {
+                if(isset($contact['Contact']) && !empty($contact['Contact']))
+                {
+                    $this->loadModel('Contact');
+                    $exists = $this->Contact->find('first', array('conditions' => array('Contact.email LIKE ' => $contact['Contact']['email'])));
+                    if(empty($exists))
+                    {
+                        $contact['Contact']['contact_type'] = "";
+                        // Contact doesn't exist - must create a new one
+                        $this->Contact->create();
+                        $this->Contact->save($contact['Contact']);
+                        $contactId = $this->Contact->id;
+                        
+                        $return['imports']++;
+                        
+                        if(!empty($contact['ContactAddress']))
+                        {
+                            $contact['ContactAddress']['contact_id'] = $contactId;
+                            $contact['ContactAddress']['type'] = "home";
+                            $contact['ContactAddress']['state'] = $this->_convertState($contact['ContactAddress']['state']);
+                            $this->loadModel('ContactAddress');
+                            $this->ContactAddress->create();
+                            
+                            if($this->ContactAddress->save($contact['ContactAddress']))
+                                echo "";
+                        }
+                        if(!empty($contact['Customer']))
+                        {
+                            // try to find the customer by name - if we can't, don't worry about it
+                            $this->loadModel('Customer');
+                            $customer = $this->Customer->find('first', array('conditions' => array('Customer.name LIKE ' => "%" . $contact['Customer']['name'] . "%")));
+                            if(!empty($customer)) {
+                                $this->loadModel('ContactCustomer');
+                                $this->ContactCustomer->create();
+                                $this->ContactCustomer->save(array('contact_id' => $contactId, 'customer_id' => $customer['Customer']['id']));
+                            }
+                        }
+                        
+                        $this->Contact->id = $contactId;
+                        $exists = $this->Contact->read();
+                    }
+                    
+                  
+                    $this->loadModel('JobAttendee');
+                    $linkExists = $this->JobAttendee->find('first', array('conditions' => array(
+                        'contact_id' => $exists['Contact']['id'],
+                        'job_id' => $jobId
+                    )));
+
+                    if(empty($linkExists))
+                    {
+                    $this->JobAttendee->create();
+                    $this->JobAttendee->save(array('job_id' => $jobId, 'contact_id' => $exists['Contact']['id']));
+                    // Now we can save the contact link regardless
+                    $return['links']++;
+                    }
+                }
+            }
+            return $return;
+        }
+        private function _convertState($state)
+        {
+            $return = "";
+            $states = array(
+			'' => '',
+			'AL'=>'Alabama', 
+			'AK'=>'Alaska', 
+			'AZ'=>'Arizona', 
+			'AR'=>'Arkansas', 
+			'CA'=>'California', 
+			'CO'=>'Colorado', 
+			'CT'=>'Connecticut', 
+			'DE'=>'Delaware', 
+			'DC'=>'District of Columbia', 
+			'FL'=>'Florida', 
+			'GA'=>'Georgia', 
+			'HI'=>'Hawaii', 
+			'ID'=>'Idaho', 
+			'IL'=>'Illinois', 
+			'IN'=>'Indiana', 
+			'IA'=>'Iowa', 
+			'KS'=>'Kansas', 
+			'KY'=>'Kentucky', 
+			'LA'=>'Louisiana', 
+			'ME'=>'Maine', 
+			'MD'=>'Maryland', 
+			'MA'=>'Massachusetts', 
+			'MI'=>'Michigan', 
+			'MN'=>'Minnesota', 
+			'MS'=>'Mississippi', 
+			'MO'=>'Missouri', 
+			'MT'=>'Montana',
+			'NE'=>'Nebraska',
+			'NV'=>'Nevada',
+			'NH'=>'New Hampshire',
+			'NJ'=>'New Jersey',
+			'NM'=>'New Mexico',
+			'NY'=>'New York',
+			'NC'=>'North Carolina',
+			'ND'=>'North Dakota',
+			'OH'=>'Ohio', 
+			'OK'=>'Oklahoma', 
+			'OR'=>'Oregon', 
+			'PA'=>'Pennsylvania', 
+			'RI'=>'Rhode Island', 
+			'SC'=>'South Carolina', 
+			'SD'=>'South Dakota',
+			'TN'=>'Tennessee', 
+			'TX'=>'Texas', 
+			'UT'=>'Utah', 
+			'VT'=>'Vermont', 
+			'VA'=>'Virginia', 
+			'WA'=>'Washington', 
+			'WV'=>'West Virginia', 
+			'WI'=>'Wisconsin', 
+			'WY'=>'Wyoming'
+                
+		);
+            foreach($states as $code => $st)
+            {
+                if(strtolower($state) === strtolower($st))
+                    return $code;
+            }
+            
+            return $return;
+            
+        }
         
+        private function _determineMap($header)
+        {
+            switch ($header) 
+            {
+                case 'first_name':
+                    return "Contact.first_name";
+                    break;
+                case 'last_name':
+                    return "Contact.last_name";
+                    break;
+                case 'first':
+                    return "Contact.first_name";
+                    break;
+                case 'last':
+                    return "Contact.last_name";
+                    break;
+                case 'email':
+                    return "Contact.email";
+                    break;
+                case 'email_address':
+                    return "Contact.email";
+                    break;
+                case 'address':
+                    return "ContactAddress.address_1";
+                    break;
+                case 'address_1':
+                    return "ContactAddress.address_1";
+                    break;
+                case 'address_2':
+                    return "ContactAddress.address_2";
+                    break;
+                case 'city':
+                    return "ContactAddress.city";
+                    break;
+                case 'state':
+                    return "ContactAddress.state";
+                    break;
+                case 'state/province':
+                    return "ContactAddress.state";
+                    break;
+                case 'zip':
+                    return "ContactAddress.zip";
+                    break;
+                case 'zip_code':
+                    return "ContactAddress.zip";
+                    break;
+                case 'zipcode':
+                    return "ContactAddress.zip";
+                    break;
+                case 'title':
+                    return "Contact.title";
+                    break;
+                case 'job_title':
+                    return "Contact.title";
+                    break;
+                case 'organization':
+                    return "Customer.name";
+                    break;
+                case 'company':
+                    return "Customer.name";
+                    break;
+                case 'company_name':
+                    return "Customer.name";
+                    break;
+                default:
+                    return "";
+                    break;
+                 
+            }
+        }
+        public function admin_ajaxGetEventDetails($eventId) {
+            $this->layout = 'ajax';
+            $job = $this->Job->findById($eventId);
+            $return = "<p>People Served: <em>" . $job['Job']['people_served_count'] . "</em><br />";
+            if(isset($job['Job']['IDD_BH']))
+                $return .= "IDD/BH: <em>" . $job['Job']['IDD_BH'] . "</em><br />";
+            $return .= "Engagement Fee Paid: <em>" . ($job['Job']['eng_fee_paid'] === 0 ? 'No' : 'Yes') . "</em><br />";
+            $return .= "<br />Notes: <br /><em>";
+            if(!empty($job['Job']['notes']))
+                $return .= $job['Job']['notes'] . "</em></p>";
+            else
+                $return .= "--- NO NOTES FOUND ---</em></p>";
+            
+            echo $return; 
+            exit();
+        }
         public function admin_view($id)
         {
             $this->Job->unbindModel(array('belongsTo' => array('Customer')));
@@ -23,7 +275,7 @@
         }
         public function beforeFilter() {
             parent::beforeFilter();
-            $this->Auth->allow('import','ajax_scheduleEmployees');
+            $this->Auth->allow('import','ajax_scheduleEmployees', 'admin_ajaxGetEventDetails');
         }
         
         public function admin_changeEngagementFee($jobId, $value = 1)
@@ -181,10 +433,7 @@
                         
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         //override function to schedule double bookings
-                        if($this->config['scheduler.override'])
-                        {
-                            $result = 'ok';
-                        }
+                        
                         if($result == 'ok')
                             {
                             
@@ -345,7 +594,11 @@
                        
                         if($entry['approved'] != "0" && $entry['job_id'] !== $jobId)
                         {
-                            // not a denied record - must be legitimate overlap
+                            // not a denied record - must be legitimate overlap, but if override is on, return true 
+			if($this->config['scheduler.override'])
+                        {
+                            return true;
+                        }
                             return false;
                         
                         }
@@ -367,7 +620,14 @@
             else
                 $this->set('isScheduler', false);
             
+            $this->loadModel('JobAttendee');
+            $this->JobAttendee->bindModel(array('belongsTo' => array('Contact')));
             
+            $attendees = $this->JobAttendee->find('all', array('recursive' => 2, 
+                'conditions' => array('job_id' => $id)));
+            
+            $this->set('attendees', $attendees);
+          //  pr($attendees); exit();
             
         }
         
@@ -376,6 +636,8 @@
             
             $errorList = array();
             $this->Job->id = $eventId;
+		if(empty($eventId))
+		return true;
                 $currJob = $this->Job->read();
                 $this->Job->saveField('start_date', $event['start']);
                 $this->Job->saveField('end_date', $event['end']);
@@ -410,10 +672,7 @@
                     foreach($type as $employeeId => $employee) {
                         $result = $this->_checkEmployees($event['start'], $event['end'], $employeeId, $eventId, $position);
                         //override function to schedule double bookings
-                        if($this->config['scheduler.override'])
-                        {
-                            $result = 'ok';
-                        }
+                       
                         if($result == 'ok')
                             {
                                 // EMPLOYEE not scheduled, free to schedule and queue notification
@@ -438,8 +697,9 @@
                                      'JobTaskList.type' => $position,
                                      'JobTaskList.schedule_entry_id' => null
                                  )));
+                                 
                                  $this->JobTaskList->id = $newListToLink['JobTaskList']['id'];
-                                 $this->JobTaskList->updateField('schedule_entry_id', $this->ScheduleEntry->id);
+                                 $this->JobTaskList->saveField('JobTaskList.schedule_entry_id', $this->ScheduleEntry->id);
                                  
                                 
                                 // Queue employee notification if not already scheduled previously
@@ -575,7 +835,80 @@
               $this->redirect('/admin/jobs/scheduler');
            
         }
-        
+public function admin_removeDupes()
+{
+$sql = 'select o.*, oc.dupeCount, oc.*
+from schedule_entries o
+inner join (
+    SELECT id, user_id, job_id, start_date, end_date, position, type, approved, created, COUNT(*) AS dupeCount
+    FROM schedule_entries
+    GROUP BY user_id, job_id, start_date, end_date,position, type
+    HAVING COUNT(*) > 1
+) oc on o.user_id = oc.user_id
+AND o.job_id = oc.job_id
+AND o.start_date = oc.start_date
+AND o.end_date = oc.end_date
+AND o.type = oc.type
+AND o.position = oc.position
+AND o.type = "scheduling"
+
+AND (o.approved = null or o.approved = "1")  
+ORDER BY `o`.`created`  ASC';
+$result =  $this->ScheduleEntry->query($sql);
+
+$result = $this->ScheduleEntry->find('all', array('conditions' => array('ScheduleEntry.type' => 'scheduling', 'OR' => array('ScheduleEntry.approved' => '1', 'ScheduleEntry.approved is null')), 'order' => 'ScheduleEntry.created ASC'));
+$deleteArray = array();
+$keepArray = array();
+foreach($result as $r)
+{
+	if(!in_array($r['ScheduleEntry']['id'], $deleteArray)){
+		$keepArray[] = $r['ScheduleEntry']['id'];
+
+	$similar = $this->ScheduleEntry->find('all', array('conditions' => array(
+			'ScheduleEntry.user_id' => $r['ScheduleEntry']['user_id'],
+		'ScheduleEntry.job_id' => $r['ScheduleEntry']['job_id'],
+		'ScheduleEntry.start_date' => $r['ScheduleEntry']['start_date'],
+		'ScheduleEntry.end_date' => $r['ScheduleEntry']['end_date'],
+		'ScheduleEntry.type' => 'scheduling',
+		'ScheduleEntry.position' => $r['ScheduleEntry']['position'],
+		'OR' => array('ScheduleEntry.approved' => "1", 'ScheduleEntry.approved is null'),
+		'NOT' => array('ScheduleEntry.id' => $r['ScheduleEntry']['id'])
+			), 'recursive' => -1));
+	foreach($similar as $s)
+	{
+		if(!in_array($s['ScheduleEntry']['id'], $deleteArray) && !in_array($s['ScheduleEntry']['id'], $keepArray))
+		{
+			$deleteArray[] = $s['ScheduleEntry']['id'];
+		}
+	}
+
+	}
+		
+}
+
+echo ("<pre>");
+echo sizeof($keepArray) . "<br>" . sizeof($deleteArray);
+echo ("</pre>");
+
+$this->ScheduleEntry->deleteAll(array('ScheduleEntry.id' => $deleteArray));
+exit();
+foreach($result as $r) {
+	echo $r['o']['id'] . " => " . $r['oc']['id'];
+$this->ScheduleEntry->deleteAll(array(
+		'ScheduleEntry.user_id' => $r['o']['user_id'],
+		'ScheduleEntry.job_id' => $r['o']['job_id'],
+		'ScheduleEntry.start_date' => $r['o']['start_date'],
+		'ScheduleEntry.end_date' => $r['o']['end_date'],
+		'ScheduleEntry.type' => 'scheduling',
+		'ScheduleEntry.position' => $r['o']['position'],
+		'OR' => array('ScheduleEntry.approved' => "1", 'ScheduleEntry.approved is null'),
+		'NOT' => array('ScheduleEntry.id' => $r['o']['id'])
+));
+}
+exit();
+
+}
+	
         private function _checkEmployees($start, $end, $userId, $jobId, $type = 'employee')
         {
             $return = 'ok';
@@ -780,10 +1113,22 @@
             return $score;
            
         }
+	public function admin_toggleWeekends() {
+		if($this->config['scheduler.show_weekends'] == 'false')
+			$this->Config->saveValue('scheduler.show_weekends', 'true');
+		else
+			$this->Config->saveValue('scheduler.show_weekends', 'false');
+
+
+		$this->redirect('/admin/jobs/scheduler');
+	}
         
         public function admin_scheduler() {
             $override = $this->config['scheduler.override'] == 0 ? 'off' : 'on';
+	    $showWeekends = $this->config['scheduler.show_weekends'];
+	
            $this->set('dataOverride', $override);
+		$this->set('showWeekends', $showWeekends);
             $this->set('setColors', [
         "training" => 'black',
         "certification"=> 'darkgreen',
@@ -796,22 +1141,26 @@ $this->set('pendingColors', [
         "accreditation"=> 'brown',
         "other" => 'cadetblue'
     ]);
+	$this->Customer->unbindModel(array('hasMany' => array('Job')));
+	$this->Job->unbindModel(array('hasMany' => array('JobTaskList')));
             $openJobs = $this->Job->find('all', array('recursive' => 2,  'conditions' => array(
                 'review_start' => null,
                 'start_date' => null,
                 'end_date' => null
             )));
-            
+           set_time_limit(0);
             foreach($openJobs as  $i => $job) {
                 unset($openJobs[$i]['Customer']['Jobs']);
             }
-            $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'conditions'=> array(
+            $scheduledJobs = $this->Job->find('all', array('recursive' => 2, 'order' => 'Job.start_date ASC', 'conditions'=> array(
                 'review_start' => null,
+		'start_date >=' => date('Y-m-d H:i:s', strtotime("-8 weeks")),
                 'NOT' => array(
                     'start_date' => null,
                     'end_date' => null
                 )
             )));
+	
             
             $this->set('jobs', array('open' => $openJobs, 'set' => $scheduledJobs));
             $this->loadModel('Ability');

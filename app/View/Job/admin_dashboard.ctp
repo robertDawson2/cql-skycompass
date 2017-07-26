@@ -108,6 +108,11 @@
           </div>
     </div>
     </div>
+<div class='row'>
+    <div class='col-sm-12'>
+        <?= $this->element('job/attendees'); ?>
+       
+    </div>
 </div>
 
 <h3><?php if($isScheduler) { ?>Scheduler/Employee Task Lists <?php } else { ?>Your Task List<?php } ?></h3>
@@ -130,7 +135,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <ul class='todo-list'>
+                <ul class='todo-list job-todo-list'>
                     <?php 
                     $completed = $total = 0;
                     foreach($list['JobTaskListItem'] as $item): ?>
@@ -209,7 +214,7 @@
                 <h4>Task List</h4>
                 
                <?php if(isset($entry['JobTaskList']) && !empty($entry['JobTaskList'])): ?>
-                <ul class='todo-list'>
+                <ul class='job-todo-list todo-list'>
                     <?php 
                     $completed = $total = 0;
                     foreach($entry['JobTaskList']['JobTaskListItem'] as $item): ?>
@@ -264,19 +269,3 @@
 </div>
 
 
-<?php $this->append('scripts'); ?>
-<script>
-$(".textarea").wysihtml5();
-
-$(".todo-list").todolist({
-    onCheck: function (ele) {
-      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/1');
-      return ele;
-    },
-    onUncheck: function (ele) {
-      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/0');
-      return ele;
-    }
-  });
-</script>
-<?php $this->end(); ?>

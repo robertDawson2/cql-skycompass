@@ -5,10 +5,13 @@
 	a.cal { font-size: 80%; }
 	a.cal:hover { text-decoration: none; }
 	.news-intro p { margin-top: 0; }
+        body .mobile-only {display: none !important; }
 
 	body.mobile1 article { width: 92% !important; }
 	body.mobile1 td.mobile-full { width: 96% !important; padding: 0 !important; }
 	body.mobile1 td.mobile-hide { width: 0% !important; display: none; }
+        body.mobile1 td.mobile-only { display: block !important; }
+        body.mobile1 img.mobile-only { display: inline-block !important; }
 	body.mobile1 img.mobile-hide, body.mobile1 img.mobile-hide-left, body.mobile1 img.mobile-hide-right { display: none; }
 	body.mobile1 iframe {max-width: 10000px;}
 </style>

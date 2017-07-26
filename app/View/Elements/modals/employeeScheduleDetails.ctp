@@ -17,7 +17,7 @@
                  
                    <table id='employees-tbl1' class='table table-responsive table-striped table-hover table-condensed' >
                                <thead><tr>
-                                       <th>Customer</th>
+                                       <th>Organization</th>
                                        <th>Job</th>
                                        <th>Start</th>
                                        <th>End</th>

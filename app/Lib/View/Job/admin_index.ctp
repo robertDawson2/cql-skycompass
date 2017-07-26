@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
-                        <th>Customer</th>
+                        <th>Organization</th>
                         <th>Start Date</th>
                         <th>Status</th>
 			

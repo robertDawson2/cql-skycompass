@@ -35,6 +35,8 @@ var setColors = {
         accreditation: 'brown',
         other: 'cadetblue'
     };
+
+
     
     function updateColor() {
         // update color of the background based on employees chosen
@@ -66,9 +68,9 @@ var setColors = {
         }
     }
     
-    function updateQuickView($eventId) {
+    function updateQuickView(data, $eventId) {
         // update the quick view with employee names
-        $newText = "<h5>Team Leaders</h5>";
+        $newText = "<div style='width: 100%;' class='row'><div style='width: 40%; float: left;' class='col-xs-6'><h5>Team Leaders</h5>";
         $add = "<p>";
         $curr = scheduledEvents[$eventId].employees;
         for (var key in $curr.teamLeaders)
@@ -91,8 +93,20 @@ var setColors = {
         
         if($add == "<p>")
             $add += "<em>{none}</em>";
-        $newText += $add + "</p>";
+        $newText += $add + "</p></div>";
+        
+        $newText += "<div style='width: 40%; float: left;' class='col-xs-6'>";
+        $newText += "<h5>Event Details</h5>";
+        
+       $newText += data;     
+    
+     $newText += "</div>";
+        
+        $newText += "</div>";
+        
         return ($newText);
+      //  $newText += "<p>here they are</p>";
+       
     }
     
     function removeTL(span)
@@ -254,7 +268,7 @@ var setColors = {
 		});
                 
     $('#calendar').fullCalendar({
-    weekends: false,
+    weekends: <?= $showWeekends; ?>,
     defaultView: 'basicWeek',
     forceEventDuration: true,
     editable: true,
@@ -376,13 +390,19 @@ var setColors = {
        
     },
     eventMouseover: function(calEvent, jsEvent, view) {
-    $newText = updateQuickView(calEvent.id);
-    $html = '<div class="popup-text" style="z-index: 999999; background-color: white; color: #333; width: 250px; position: absolute;">' +
-       $newText + '</div>';
-       $(this).append($html);
+    $newText = "";
+    $position = $(this).offset();
+    console.log($position);
+    $.ajax('/admin/jobs/ajaxGetEventDetails/' + calEvent.id).done(function(data) {
+       $newText = updateQuickView(data, calEvent.id);
+       $('.popup-text').html($newText);
+       $('.popup-text').css({top: $position.top+60, left: $position.left});
+       $('.popup-text').fadeIn('fast');
+    });
+    
     },
     eventMouseout: function(calEvent, jsEvent, view) {
-        $(this).children(".popup-text").remove();
+        $(".popup-text").fadeOut('fast');
     },
     eventClick: function(calEvent, jsEvent, view) {
         calendarEvent = calEvent;

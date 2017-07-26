@@ -18,7 +18,7 @@
           <div class="row">
               <div class="col-md-6">
                   <div class='form-group'>
-                      <label>Customer/Job</label>
+                      <label>Organization</label>
                       <select id='customerList' data-placeholder='Select a customer or job...' class="form-control select2 validation" data-required='required' name='data[Job][customer_id]' style="width: 100%;">
                   
                           <option></option>

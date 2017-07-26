@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <?php $this->Html->script('https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js', array('block' => 'scripts')); 
+    $this->Html->script('//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js ', array('block' => 'scripts')); 
+
+?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>CQL SkyCompass | <?= $title_for_layout; ?></title>
@@ -8,7 +17,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="/adminPanel/bootstrap/css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -40,8 +51,9 @@
   <link href="/adminPanel/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
   
   <link type="text/css" href="/adminPanel/plugins/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
-   
+  <link type="text/css" href="/adminPanel/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" /> 
 
+  <link type="text/css" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet" /> 
     
   <script type="text/javascript">
 		tinymceSettings = {
@@ -102,13 +114,15 @@
 		    table_cell_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Full', value: 'mobile-full'},
-		        {title: 'Mobile Hide', value: 'mobile-hide'}
+		        {title: 'Mobile Hide', value: 'mobile-hide'},
+                        {title: 'Mobile Only', value: 'mobile-only'}
 		    ],
 		    image_class_list: [
 		        {title: 'None', value: ''},
 		        {title: 'Mobile Hide', value: 'mobile-hide'},
 		        {title: 'Mobile Hide / Desktop Float Left', value: 'mobile-hide-left'},
-		        {title: 'Mobile Hide / Desktop Float Right', value: 'mobile-hide-right'}
+		        {title: 'Mobile Hide / Desktop Float Right', value: 'mobile-hide-right'},
+                        {title: 'Mobile Only', value: 'mobile-only'}
 		    ],
 		    block_formats: "Paragraph=p;Pre=pre;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6",
 			browser_spellcheck: true,
@@ -119,11 +133,57 @@
 			fontsize_formats : "10px 12px 13px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px"
 		};
 
+
+tinymceEmailSettings = {
+			selector: ".tinymce",
+			plugins: [
+				"advlist autolink lists link image charmap print preview anchor textcolor",
+				"searchreplace visualblocks code fullscreen",
+				"insertdatetime media table contextmenu paste colorpicker responsivefilemanager save"
+			],
+			
+			relative_urls : false,
+			toolbar: "undo redo | formatselect | fontselect | fontsizeselect | forecolor backcolor | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | link image media",
+			doctype: '<!DOCTYPE html>',
+			image_advtab: true,
+			table_advtab: true,
+			table_cell_advtab: true,
+			table_row_advtab: true,
+			//file_browser_callback: RoxyFileBrowser,
+                external_filemanager_path:"/adminPanel/plugins/filemanager/",
+   filemanager_title:"Your Site " ,
+   external_plugins: { "filemanager" : "/adminPanel/plugins/filemanager/plugin.min.js"},
+			
+			content_css : "/css/templatedemails.css",
+			extended_valid_elements : "img[!src|border:0|alt|title|width|height|style]a[name|href|target|title|onclick]",
+		  	valid_children : "+body[style]",
+		    style_formats: [
+		    {
+		      title: 'Float Left',
+		      selector: 'img', 
+		      classes: 'left'
+		    },
+		    {
+		       title: 'Float Right',
+		       selector: 'img', 
+		       classes: 'right'
+		    }
+		    ],
+		    
+		    block_formats: "Paragraph=p;Pre=pre;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6",
+			browser_spellcheck: true,
+			font_formats: "Arial=arial,helvetica,sans-serif;"+
+		        "Courier New=courier new,courier;",
+			fontsize_formats : "10px 12px 13px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px"
+		};
 		
 	</script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="overflow-x: hidden;">
     <style>
+        .todo-list > li {
+            list-style-type: none;
+        }
         .form-control.checkbox {
             -webkit-appearance: checkbox;
         }
@@ -247,7 +307,7 @@
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-check-square-o"></i></a>
           </li>
         </ul>
       </div>
@@ -275,8 +335,14 @@
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
+          
         </div>
       </form>
+      <div id="searchResults" data-context='hidden' style="
+           position: absolute; z-index: 9999999; 
+           display: none;">
+          <div class='box-tools'><a role='button'><i class='fa fa-close'></i></a></div>
+          </div>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <?php echo $this->element('admin_menu'); ?>
@@ -324,19 +390,46 @@
 <div id="dialog" style="display: none">
 
 </div>
-  <div id="chat-bar">
-      <div id="chat_div">
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark" style='z-index: 99999; margin-top: 50px; padding-top: 0; height: 100%;'>
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-ordered-tab" data-toggle="tab"><i class="fa fa-calendar-check-o"></i></a></li>
+      <li><a href="#control-sidebar-jobs-tab" data-toggle="tab"><i class="fa fa-building"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Home tab content -->
+      <?= $this->element('todo/todo'); ?>
+
+      
+      
+      <!-- Settings tab content -->
+      <?= $this->element('todo/jobs', array('jobtaskliksts' => $jobtasklists)); ?>
     </div>
+  </aside>
+  <?= $this->element('modals/todoLapsed'); ?>
+
+
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
   </div>
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.0 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="/adminPanel/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="/adminPanel/bootstrap/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!--DateTimePicker -->
+<script src="/adminPanel/bootstrap-datetimepicker/js/bootstrap-datetime.js"></script>
 <!-- DataTables -->
-<script src="/adminPanel/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/adminPanel/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/adminPanel/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="/adminPanel/plugins/fastclick/fastclick.js"></script>
@@ -355,7 +448,7 @@
 <!--<script src="/adminPanel/dist/js/pages/dashboard2.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="/_/js/modals.js"></script>
-<script src='/plugins/fullcalendar/lib/moment.min.js'></script>
+
 
 <script src='/plugins/fullcalendar/lib/fullcalendar.min.js'></script>
 <script src='/plugins/fullcalendar/scheduler.min.js'></script>
@@ -368,12 +461,107 @@
 
  <script type="text/javascript" src="/adminPanel/plugins/chatbox/jquery.ui.chatbox.js"></script>
 <script src="/adminPanel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+  <?php $this->append('scripts'); ?>
+<script>
+    
+    // global search
+   function hideQuickSearch() {
+      $("input[name='q']").val(''); 
+      $("#searchResults").fadeOut('fast');
+                $("#searchResults").data('context', 'hidden');
+   }
+function search(force) {
+    var existingString = $("input[name='q']").val();
+    if (!force && existingString.length < 3) 
+    {
+        $("#searchResults").hide();
+                $("#searchResults").data('context', 'hidden');
+            return; //wasn't enter, not > 2 char
+        
+    }
+    $.ajax('/admin/CRM/ajaxSiteSearch/'+encodeURIComponent(existingString) ).done(function(data) {
+            if(data === 'done'){
+                $("#searchResults").hide();
+                $("#searchResults").data('context', 'hidden');
+            }
+            else
+            {
+                if($("#searchResults").data('context') === 'hidden')
+                {
+                    $("#searchResults").slideDown();
+                    $("#searchResults").data('context', 'visible');
+                }
+                $("#searchResults").html(data);
+            }
+                
+        });
+}
+$("input[name='q']").keydown(function(e) {
+    if(e.keyCode == 13)
+        e.preventDefault();
+});
+    $("input[name='q']").keyup(function(e) {
+        
+        clearTimeout($.data(this, 'timer'));
+    if (e.keyCode == 13){
+        e.preventDefault();
+        search(true);
+    }
+      
+    else{
+      $(this).data('timer', setTimeout(search, 500));
+  }
+        
+    });
+    // AJAX loop to check for expired todo list reminders!!!
+    window.onload = function() {
+    setInterval(checkForReminders, 60000); //300000 MS == 5 minutes
+    setTimeout(checkForReminders, 5000);
+    }
+    
+function checkForReminders() {
+    //do your AJAX stuff here
+    $.ajax('/admin/todo/ajaxCheckReminders').done(function(data) {
+        if(data !== "done")
+        {
+            $("#todoLapsed").find('.modal-body').html(data);
+            $("#todoLapsed").modal();
+            
+        }
+    })
+}
+$(".textarea").wysihtml5();
+
+$(".job-todo-list").todolist({
+    onCheck: function (ele) {
+      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/1');
+      return ele;
+    },
+    onUncheck: function (ele) {
+      $.ajax('/admin/jobTaskListItems/ajaxChangeItemStatus/' + $(this).data('id') + '/0');
+      return ele;
+    }
+  });
+</script>
+<?php $this->end(); ?>
 <?php echo $this->fetch('scripts'); ?>
 <script type="text/javascript">
     
     $('.select2 span').addClass('needsclick');
+    var buttonCommon1 = {
+        exportOptions: {
+            columns: ['.show-on-export' ],
+            format: {
+                body: function ( data, row, column, node ) {
+                    // Strip $ from salary column to make it numeric
+                    return data.replace( /<br\s*\/?>/ig, "\n" );
+                }
+            }
+        }
+    };
+    var fileName1 = 'CQL-export-table';
     
-    $('.dataTable').DataTable({
+    var mainTable = $('.dataTable').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -398,6 +586,35 @@
       "autoWidth": false,
       "order": [[2,"desc"]]
     });
+    
+    $(".export-dataTable").DataTable({
+        "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "order": [[0, "desc"]],
+      dom: 'Bfrtip',
+        buttons: [
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'csvHtml5',
+                title: fileName1
+            }),
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'excelHtml5',
+                title: fileName1
+            }),
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'pdfHtml5',
+                title: fileName1
+            }),
+            'copy',
+            $.extend( true, {}, buttonCommon1, {
+                extend: 'print'
+            })
+        ]
+    });
     $(".datepicker").datepicker();
     
     $("#expenseReportGenerate").click(function(e) {
@@ -411,6 +628,10 @@
     });
  
 	$(function() {
+            
+            $.ajax('/admin/todo/ajaxGetList').done(function(data) {
+     $("#quick-todo-list").html(data);
+});
             
             //Make the dashboard widgets sortable Using jquery UI
   $(".connectedSortable").sortable({
@@ -683,6 +904,7 @@ height = height - 50; // iframe height will need to be even less to account for 
     <div id="galleryManagerCustomPanel" style="display: none;" title="Galleries">
 	<iframe src="/adminPanel/plugins/filemanager/dialog.php?type=0&relative_url=1&popup=1" style="width:100%;height:100%; z-index: 99999;" frameborder="0"></iframe>
 </div>
+
 
 
 </body>

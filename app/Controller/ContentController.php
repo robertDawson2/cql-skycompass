@@ -244,10 +244,9 @@
         	// Prepared statement to handle sanitization and prevent SQL injection
         	if (isset($this->request->data['section'])) {
                     
-	        	$this->set('results', $db->fetchAll(
-	    			"SELECT id, title, tag, content, MATCH (title,content) AGAINST ('?' IN BOOLEAN MODE) AS score FROM content WHERE MATCH (title,content) AGAINST ('?' IN BOOLEAN MODE) and hide_from_search = 0 and status = ? and tag like ?",
-	    			array($this->request->data['query'], $this->request->data['query'], 'live', $this->request->data['section'] . '%')
-				));
+	        	$this->set('results', $this->Content->query(
+	    			"SELECT id, title, tag, content, MATCH (title,content) AGAINST (\"" . $this->request->data['query'] . "\" IN BOOLEAN MODE) AS score FROM content WHERE MATCH (title,content) AGAINST (\"". $this->request->data['query'] . "\" IN BOOLEAN MODE) and hide_from_search = 0 and status = \"live\" and tag like \"" . $this->request->data['section'] . "%\" HAVING score > 0.5 ORDER BY score DESC"
+	    			));
 				$this->set('searchSection', $this->request->data['section']);
 				$content = $this->Content->find('first', array('conditions' => array('Content.tag' => $this->request->data['section'], 'Content.status' => 'live')));
 				$parent = $this->Content->find('first', array('conditions' => array('Content.id' => $content['Content']['parent_id'], 'Content.status' => 'live')));

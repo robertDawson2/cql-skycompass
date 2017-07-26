@@ -64,7 +64,7 @@
 		<div class="row form-group">
                     
 			<div class="col-md-6 panel panel-info">
-                            <div class="panel-heading">Customers</div>
+                            <div class="panel-heading">Organizations</div>
                             <div class="panel-body">
 				<?php echo $this->Form->input('User.permissions.customers.admin_index', array('type' => 'checkbox', 'label' => 'View All')); ?>
 				<?php echo $this->Form->input('User.permissions.customers.admin_edit', array('type' => 'checkbox', 'label' => 'Edit Info')); ?>
@@ -103,7 +103,7 @@
                          <div class="col-md-6 panel panel-info">
                             <div class="panel-heading">Scheduling</div>
                             <div class="panel-body">
-				<?php echo $this->Form->input('User.permissions.jobs.admin_scheduler', array('type' => 'checkbox', 'label' => 'View Scheduler Pagex')); ?>
+				<?php echo $this->Form->input('User.permissions.jobs.admin_scheduler', array('type' => 'checkbox', 'label' => 'View Scheduler Page')); ?>
 				<?php echo $this->Form->input('User.permissions.schedule.admin_alertAllUsers', array('type' => 'checkbox', 'label' => 'Send Schedule Mass Email')); ?>
 				<?php echo $this->Form->input('User.permissions.schedule.admin_approveTimeOff', array('type' => 'checkbox', 'label' => 'Approve/Deny Time Off Requests')); ?>
 				<?php echo $this->Form->input('User.permissions.taskListTemplates.admin_index', array('type' => 'checkbox', 'label' => 'Edit Task List Templates')); ?>

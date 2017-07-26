@@ -1,73 +1,69 @@
-<li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<?php $this->start('taskalert-list'); ?>
+<?php 
+$newCount = 0;
+
+foreach($taskalerts as $notification)
+{
+    if($notification['Notification']['seen'] == 0)
+        echo "<li>";
+    else
+        echo "<li class='old'>";
+    
+    echo $this->element('notification-list/' . $notification['Notification']['context'], array('data' => $notification));
+    if(!$notification['Notification']['seen'])
+        $newCount += $notification['Notification']['count'];
+    echo "</li>";
+}
+?>
+<?php $this->end(); ?>
+<style>
+    .old {
+        color: #aaa;
+        border: 1px solid #ddd;
+        background: #eee;
+    }
+    .old > a, .old > a > i {
+        color: #aaa !important;
+    }
+    </style>
+    <li class="dropdown notifications-menu">
+            <a href="#" id="display-taskalerts" data-newcount="<?= $newCount; ?>" 
+               data-userid="<?= $currentUser['id']; ?>" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-<!--              <span class="label label-danger">9</span>-->
+              <?php if($newCount > 0) { ?>
+              <span class="label label-danger alerttasks notification-label"><?= $newCount; ?></span>
+              <?php } ?>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have no new tasks</li>
-<!--              <li>
-                 inner menu: contains the actual data 
+                <?php if($newCount == 0) { ?>
+              <li class="header">You have no notifications</li>
+                <?php } ?>
+              <li>
+                <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li> Task item 
-                    <a href="#">
-                      <h3>
-                        CQL - send out welcome packet
-                        <small class="pull-right">0%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 00%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">0% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                   end task item 
-                  <li> Task item 
-                    <a href="#">
-                      <h3>
-                        Another Project - Schedule Employee
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                   end task item 
-                  <li> Task item 
-                    <a href="#">
-                      <h3>
-                        Someone Else - Send Out Paperwork
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                   end task item 
-                  <li> Task item 
-                    <a href="#">
-                      <h3>
-                        Another Project - Do something else
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                   end task item 
+                    <?= $this->fetch('taskalert-list'); ?>
                 </ul>
-              </li>-->
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
+              <li class="footer"><a href="/admin/todo">View all</a></li>
             </ul>
           </li>
+          
+          
+          <?php $this->append('scripts'); ?>
+          <script>
+              $("#display-taskalerts").click(function() {
+                  
+                  
+                  if($(this).data('newcount') > 0)
+                  {
+ 
+                        $('.alerttasks.notification-label').fadeOut('fast');  
+                          
+                          
+        }
+              });
+              
+              
+              </script>
+          
+          <?php $this->end(); ?>

@@ -23,7 +23,10 @@
         
     }
 </style>
-<div class="override-button"><a href="#" id="override-box" data-override = "<?php echo $dataOverride; ?>"class="btn btn-default"><i class="fa fa-square-o"></i> Turn Override On</a></div>
+<div class="override-button">
+<a href="#" id="override-box" data-override = "<?php echo $dataOverride; ?>"class="btn <?php if($dataOverride == 'off'): ?>btn-default<?php else: ?>btn-warning<?php endif; ?>"><i class="fa <?php if($dataOverride == 'off'): ?>fa-square-o<?php else: ?>fa-check-square-o<?php endif; ?>"></i> Turn Override <?= $dataOverride == 'off' ? "On" : "Off"; ?></a><br />
+
+<a href="/admin/jobs/toggleWeekends" id='toggle' class="btn btn-default"><?php if($showWeekends == 'true'): ?><i class="fa fa-check-square-o"><?php else: ?><i class="fa fa-square-o"><?php endif; ?></i> Toggle Weekends</a></div>
 <div class='row'>
     <div class='col-md-12'>
         Key:<p><strong>Need Employees: </strong>
@@ -89,5 +92,6 @@ foreach($jobs['open'] as $job): ?>
         <input type='hidden' id='submitData' name='data' value='' />
     </form>
 </div>
+<div class="popup-text" style="display: none; z-index: 999999; background-color: white; color: #333; width: 330px; position: absolute;"></div>
 <?= $this->element('modals/availableEmployees'); ?>
 <?= $this->element('scheduler/scripts'); ?>

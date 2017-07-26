@@ -10,7 +10,7 @@
 			<th>Date</th>
                         <th>User</th>
                         <th>Duration</th>
-			<th>Customer/Job</th>
+			<th>Organization</th>
 			<th>Item</th>
 			<th>Class</th>
                         <th>Payroll Item</th>

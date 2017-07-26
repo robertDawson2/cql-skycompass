@@ -3,7 +3,7 @@
     margin-left:auto;
     margin-right:auto;
 
-    max-width: 100%
+    max-width: 100%;
     background: #FFF;
     padding: 30px 30px 20px 30px;
     box-shadow: rgba(187, 187, 187, 1) 0 0px 20px -1px;
@@ -164,7 +164,6 @@
 }
 .basic-grey select {
     background: #FFF url('/img/down-arrow.png') no-repeat right;
-    background: #FFF url('/img/down-arrow.png') no-repeat right);
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance: none;
@@ -228,7 +227,7 @@
 </div>
         <div class="row">
     <div class="col-sm-12">
-        <label>Address</label>
+        <label>Billing Address</label>
         <input class="input form-control" name="data[address]" />
     </div>
         </div>
@@ -310,6 +309,11 @@
              <div class='col-md-6'>
                 <label>Card CVV Code *</label>
         <input placeholder='3 or 4 digits' class="input form-control" name="data[card_code]" required />
+            </div>
+        </div>
+<div class='row'>
+<div class='col-md-6' style="padding-top: 20px;">
+                <div class="g-recaptcha" data-sitekey="6LfsZR0UAAAAAC_ZZtJWs8AMi7YDvKyV420BDaHD"></div>
             </div>
         </div>
         <div class='row'>

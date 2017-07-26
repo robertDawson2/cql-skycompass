@@ -1,19 +1,19 @@
 <?php $this->set('title_for_layout', 'Manage ' .
-        "Customers"); ?>
+        "Organizations"); ?>
 
 
 <?php if (!empty($customers)): ?>
-<table class="table table-striped table-bordered table-hover dataTable" id="customers-table">
+<table class="table table-striped table-bordered table-hover export-dataTable" id="customers-table">
 	<thead>
 		<tr>
-			<th>Name</th>
+			<th class='show-on-export'>Name</th>
 			
-                        <th>Primary Contact</th>
-			<th>Email Address</th>
-			<th>Phone</th>
-                        <th>Current Jobs</th>
-                        <th>Balance</th>
-                        <th>Notes</th>
+                        <th class='show-on-export'>Primary Contact</th>
+			<th class='show-on-export'>Email Address</th>
+			<th class='show-on-export'>Phone</th>
+                        <th class='show-on-export'>Current Jobs</th>
+                        <th class='show-on-export'>Balance</th>
+                        <th class='show-on-export'>Notes</th>
 			<th>Options</th>
 		</tr>
 	</thead>
@@ -24,7 +24,7 @@
 			<td><?php echo $cust['Customer']['contact']; ?></td>
                         <td><?= ucfirst($cust['Customer']['email']); ?></td>
 			<td><?php echo $cust['Customer']['phone']; ?></td>
-                        <td><?= count($cust['Jobs']); ?></td>
+                        <td><?= count($cust['Job']); ?></td>
 			<td><?php echo $cust['Customer']['total_balance']; ?></td>
                         <td><?php echo $cust['Customer']['notes']; ?></td>
 			<td>
@@ -43,10 +43,10 @@
 	</tbody>
 </table>
 
-<?php echo $this->element('modals/delete', array('title' => 'Delete Customer', 'text' => 'delete the customer record for <strong>{name}</strong>', 'action' => '/admin/customers/delete/{id}')); ?>
+<?php echo $this->element('modals/delete', array('title' => 'Delete Organization', 'text' => 'delete the organization record for <strong>{name}</strong>', 'action' => '/admin/customers/delete/{id}')); ?>
 
 <?php else: ?>
-<p>There are no customers in your database.</p>
+<p>There are no organizations in your database.</p>
 <?php endif; ?>
 <!--
 <a role="button" href="/admin/users/create" class="btn btn-primary small"><i class="fa fa-plus"></i> Create New User</a>-->

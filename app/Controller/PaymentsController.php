@@ -36,7 +36,27 @@
                         !is_numeric($data['amount']))
                     $error = true;
                 
-               
+               // recaptcha integration
+		$url = "https://www.google.com/recaptcha/api/siteverify";
+		$data1 = array('secret' => '6LfsZR0UAAAAAP97xsWlidgV8VVY3CN0eQI0pjLS',
+				'response' => $this->request->data['g-recaptcha-response'],
+				'remoteip' => $_SERVER['REMOTE_ADDR']);
+		
+		$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method'  => 'POST',
+        'content' => http_build_query($data1)
+    )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+$result = json_decode($result, true);
+if(!$result['success'])
+	$error = true;
+
+unset($data['g-recaptcha-response']);
+
                 $data['exp_date'] = $data['exp_month'] . $data['exp_year'];
                 
                 unset($data['exp_month']);
