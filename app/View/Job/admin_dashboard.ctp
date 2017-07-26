@@ -108,6 +108,11 @@
           </div>
     </div>
     </div>
+<div class='row'>
+    <div class='col-sm-12'>
+        <?= $this->element('job/attendees'); ?>
+       
+    </div>
 </div>
 
 <h3><?php if($isScheduler) { ?>Scheduler/Employee Task Lists <?php } else { ?>Your Task List<?php } ?></h3>

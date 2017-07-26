@@ -14,6 +14,243 @@
     	public $name = 'Job';
         public $uses = array('Job', 'User', 'ScheduleEntry', 'Customer', 'TaskItem', 'TaskListTemplate', 'JobTaskList','JobTaskListItem');
 
+        public function admin_importAttendeeList()
+        {
+            if($this->request->is('post'))
+            {
+                $importMap = array();
+                $importArray = array();
+                $importFormat = array('Contact' => array()
+                    , 'ContactAddress' => array(), 
+                    'Customer' => array());
+                $csv = array_map('str_getcsv', file($_FILES["csvfile"]["tmp_name"]));
+                foreach(array_shift($csv) as $i => $header) {
+                    $headerName = str_replace(" ","_", str_replace("-", "", strtolower($header)));
+                    //decide where in the format it should go
+                    $importMap[$i] = $this->_determineMap($headerName);  
+                }
+                foreach($csv as $contact)
+                {
+                    $newImport = $importFormat;
+                    foreach($contact as $i => $value)
+                    {
+                        if(!empty($importMap[$i]))
+                        {
+                            $fieldArray = explode(".", $importMap[$i]);
+                            $newImport[$fieldArray[0]][$fieldArray[1]] = $value;
+                        }
+                    }
+                    $importArray[] = $newImport;
+                }
+                
+                $totalLinks = $this->_parseArray($importArray, $this->request->data['job_id']);
+               $this->Session->setFlash($totalLinks['imports'] . " new contacts imported, and " . $totalLinks['links'] . " links to job created!", "flash_success");
+               $this->redirect($this->referer('/admin/jobs'));
+               exit();
+            }
+        }
+        private function _parseArray($arr, $jobId)
+        {
+            $return = array('links' => 0, 'imports' => 0);
+            foreach($arr as $contact)
+            {
+                if(isset($contact['Contact']) && !empty($contact['Contact']))
+                {
+                    $this->loadModel('Contact');
+                    $exists = $this->Contact->find('first', array('conditions' => array('Contact.email LIKE ' => $contact['Contact']['email'])));
+                    if(empty($exists))
+                    {
+                        $contact['Contact']['contact_type'] = "";
+                        // Contact doesn't exist - must create a new one
+                        $this->Contact->create();
+                        $this->Contact->save($contact['Contact']);
+                        $contactId = $this->Contact->id;
+                        
+                        $return['imports']++;
+                        
+                        if(!empty($contact['ContactAddress']))
+                        {
+                            $contact['ContactAddress']['contact_id'] = $contactId;
+                            $contact['ContactAddress']['type'] = "home";
+                            $contact['ContactAddress']['state'] = $this->_convertState($contact['ContactAddress']['state']);
+                            $this->loadModel('ContactAddress');
+                            $this->ContactAddress->create();
+                            
+                            if($this->ContactAddress->save($contact['ContactAddress']))
+                                echo "";
+                        }
+                        if(!empty($contact['Customer']))
+                        {
+                            // try to find the customer by name - if we can't, don't worry about it
+                            $this->loadModel('Customer');
+                            $customer = $this->Customer->find('first', array('conditions' => array('Customer.name LIKE ' => "%" . $contact['Customer']['name'] . "%")));
+                            if(!empty($customer)) {
+                                $this->loadModel('ContactCustomer');
+                                $this->ContactCustomer->create();
+                                $this->ContactCustomer->save(array('contact_id' => $contactId, 'customer_id' => $customer['Customer']['id']));
+                            }
+                        }
+                        
+                        $this->Contact->id = $contactId;
+                        $exists = $this->Contact->read();
+                    }
+                    
+                  
+                    $this->loadModel('JobAttendee');
+                    $linkExists = $this->JobAttendee->find('first', array('conditions' => array(
+                        'contact_id' => $exists['Contact']['id'],
+                        'job_id' => $jobId
+                    )));
+
+                    if(empty($linkExists))
+                    {
+                    $this->JobAttendee->create();
+                    $this->JobAttendee->save(array('job_id' => $jobId, 'contact_id' => $exists['Contact']['id']));
+                    // Now we can save the contact link regardless
+                    $return['links']++;
+                    }
+                }
+            }
+            return $return;
+        }
+        private function _convertState($state)
+        {
+            $return = "";
+            $states = array(
+			'' => '',
+			'AL'=>'Alabama', 
+			'AK'=>'Alaska', 
+			'AZ'=>'Arizona', 
+			'AR'=>'Arkansas', 
+			'CA'=>'California', 
+			'CO'=>'Colorado', 
+			'CT'=>'Connecticut', 
+			'DE'=>'Delaware', 
+			'DC'=>'District of Columbia', 
+			'FL'=>'Florida', 
+			'GA'=>'Georgia', 
+			'HI'=>'Hawaii', 
+			'ID'=>'Idaho', 
+			'IL'=>'Illinois', 
+			'IN'=>'Indiana', 
+			'IA'=>'Iowa', 
+			'KS'=>'Kansas', 
+			'KY'=>'Kentucky', 
+			'LA'=>'Louisiana', 
+			'ME'=>'Maine', 
+			'MD'=>'Maryland', 
+			'MA'=>'Massachusetts', 
+			'MI'=>'Michigan', 
+			'MN'=>'Minnesota', 
+			'MS'=>'Mississippi', 
+			'MO'=>'Missouri', 
+			'MT'=>'Montana',
+			'NE'=>'Nebraska',
+			'NV'=>'Nevada',
+			'NH'=>'New Hampshire',
+			'NJ'=>'New Jersey',
+			'NM'=>'New Mexico',
+			'NY'=>'New York',
+			'NC'=>'North Carolina',
+			'ND'=>'North Dakota',
+			'OH'=>'Ohio', 
+			'OK'=>'Oklahoma', 
+			'OR'=>'Oregon', 
+			'PA'=>'Pennsylvania', 
+			'RI'=>'Rhode Island', 
+			'SC'=>'South Carolina', 
+			'SD'=>'South Dakota',
+			'TN'=>'Tennessee', 
+			'TX'=>'Texas', 
+			'UT'=>'Utah', 
+			'VT'=>'Vermont', 
+			'VA'=>'Virginia', 
+			'WA'=>'Washington', 
+			'WV'=>'West Virginia', 
+			'WI'=>'Wisconsin', 
+			'WY'=>'Wyoming'
+                
+		);
+            foreach($states as $code => $st)
+            {
+                if(strtolower($state) === strtolower($st))
+                    return $code;
+            }
+            
+            return $return;
+            
+        }
+        
+        private function _determineMap($header)
+        {
+            switch ($header) 
+            {
+                case 'first_name':
+                    return "Contact.first_name";
+                    break;
+                case 'last_name':
+                    return "Contact.last_name";
+                    break;
+                case 'first':
+                    return "Contact.first_name";
+                    break;
+                case 'last':
+                    return "Contact.last_name";
+                    break;
+                case 'email':
+                    return "Contact.email";
+                    break;
+                case 'email_address':
+                    return "Contact.email";
+                    break;
+                case 'address':
+                    return "ContactAddress.address_1";
+                    break;
+                case 'address_1':
+                    return "ContactAddress.address_1";
+                    break;
+                case 'address_2':
+                    return "ContactAddress.address_2";
+                    break;
+                case 'city':
+                    return "ContactAddress.city";
+                    break;
+                case 'state':
+                    return "ContactAddress.state";
+                    break;
+                case 'state/province':
+                    return "ContactAddress.state";
+                    break;
+                case 'zip':
+                    return "ContactAddress.zip";
+                    break;
+                case 'zip_code':
+                    return "ContactAddress.zip";
+                    break;
+                case 'zipcode':
+                    return "ContactAddress.zip";
+                    break;
+                case 'title':
+                    return "Contact.title";
+                    break;
+                case 'job_title':
+                    return "Contact.title";
+                    break;
+                case 'organization':
+                    return "Customer.name";
+                    break;
+                case 'company':
+                    return "Customer.name";
+                    break;
+                case 'company_name':
+                    return "Customer.name";
+                    break;
+                default:
+                    return "";
+                    break;
+                 
+            }
+        }
         public function admin_ajaxGetEventDetails($eventId) {
             $this->layout = 'ajax';
             $job = $this->Job->findById($eventId);
@@ -383,7 +620,14 @@
             else
                 $this->set('isScheduler', false);
             
+            $this->loadModel('JobAttendee');
+            $this->JobAttendee->bindModel(array('belongsTo' => array('Contact')));
             
+            $attendees = $this->JobAttendee->find('all', array('recursive' => 2, 
+                'conditions' => array('job_id' => $id)));
+            
+            $this->set('attendees', $attendees);
+          //  pr($attendees); exit();
             
         }
         

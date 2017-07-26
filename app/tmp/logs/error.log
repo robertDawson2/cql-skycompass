@@ -68315,3 +68315,137 @@ Request URL: /_/plugins/fileman/js/jquery-1.10.2.min.map
 Stack Trace:
 #0 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-07-19 12:09:44 Error: [MissingActionException] Action JobController::admin_uploadAtendeeList() could not be found.
+Exception Attributes: array (
+  'controller' => 'JobController',
+  'action' => 'admin_uploadAtendeeList',
+)
+Request URL: /admin/jobs/uploadAtendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#2 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-07-19 13:06:45 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'contact_type' doesn't have a default value
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(Contact), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(63): Model->save(Array)
+#5 /var/www/cql.local/public_html/app/Controller/JobsController.php(46): JobsController->_parseArray(Array, 'c6fd24ab4626010...')
+#6 [internal function]: JobsController->admin_importAttendeeList()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-07-19 13:07:30 Error: [PDOException] SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'state' at row 1
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(ContactAddress), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(72): Model->save(Array)
+#5 /var/www/cql.local/public_html/app/Controller/JobsController.php(46): JobsController->_parseArray(Array, 'c6fd24ab4626010...')
+#6 [internal function]: JobsController->admin_importAttendeeList()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-07-19 13:11:55 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'contact_id' doesn't have a default value
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(ContactAddress), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(73): Model->save(Array)
+#5 /var/www/cql.local/public_html/app/Controller/JobsController.php(46): JobsController->_parseArray(Array, 'c6fd24ab4626010...')
+#6 [internal function]: JobsController->admin_importAttendeeList()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-07-19 13:16:11 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'type' doesn't have a default value
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(ContactAddress), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(75): Model->save(Array)
+#5 /var/www/cql.local/public_html/app/Controller/JobsController.php(46): JobsController->_parseArray(Array, 'c6fd24ab4626010...')
+#6 [internal function]: JobsController->admin_importAttendeeList()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-07-19 13:32:38 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'balance' cannot be null
+Request URL: /admin/jobs/add
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(Job), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(1191): Model->save(Array)
+#5 [internal function]: JobsController->admin_add()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-19 13:32:51 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'service_area_id' doesn't have a default value
+Request URL: /admin/jobs/add
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(Job), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(1191): Model->save(Array)
+#5 [internal function]: JobsController->admin_add()
+#6 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#7 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#9 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-07-19 13:52:37 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/String.php, line 241]
+2017-07-19 13:52:37 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/jobs/dashboard/c6fd24ab46260107be12b4a723e193a591a99bb2
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 241)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 241, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 241, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-19 14:12:02 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'address_1' doesn't have a default value
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(458): PDOStatement->execute(Array)
+#1 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(424): DboSource->_execute('INSERT INTO `cq...', Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Model/Datasource/DboSource.php(1012): DboSource->execute('INSERT INTO `cq...')
+#3 /var/www/cql.local/public_html/lib/Cake/Model/Model.php(1834): DboSource->create(Object(ContactAddress), Array, Array)
+#4 /var/www/cql.local/public_html/app/Controller/JobsController.php(79): Model->save(Array)
+#5 /var/www/cql.local/public_html/app/Controller/JobsController.php(46): JobsController->_parseArray(Array, 'c6fd24ab4626010...')
+#6 [internal function]: JobsController->admin_importAttendeeList()
+#7 /var/www/cql.local/public_html/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(JobsController), Array)
+#8 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#9 /var/www/cql.local/public_html/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(JobsController), Object(CakeRequest))
+#10 /var/www/cql.local/public_html/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-07-19 14:14:02 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [/var/www/cql.local/public_html/lib/Cake/Utility/Debugger.php, line 293]
+2017-07-19 14:14:02 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /admin/jobs/importAttendeeList
+Stack Trace:
+#0 /var/www/cql.local/public_html/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Maximum executi...', '/var/www/cql.lo...', 293)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', '/var/www/cql.lo...', 293, Array)
+#2 /var/www/cql.local/public_html/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', '/var/www/cql.lo...', 293, Array)
+#3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
