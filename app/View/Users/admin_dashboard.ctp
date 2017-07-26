@@ -51,7 +51,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">New Members</span>
-              <span class="info-box-number">143</span>
+              <span class="info-box-number">0</span>
             </div>
             <!-- /.info-box-content -->
           </div>
