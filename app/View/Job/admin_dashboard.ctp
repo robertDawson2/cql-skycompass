@@ -70,6 +70,13 @@
                             Team Leader Count: <?= $job['Job']['team_leader_count']; ?><br />
                             Employee Count: <?= $job['Job']['employee_count']; ?><br />
                             Service Area: <?= $job['ServiceArea']['name']; ?><br />
+                            <?php if($job['Job']['training_upsell'] !== null): ?>
+                             Training Upsell: <?php if($job['Job']['training_upsell'] === '1'): ?>
+                             <i class='fa fa-lg fa-check-circle-o' style='color: green;'></i>
+                             <?php else: ?>
+                             <i class='fa fa-lg fa-remove' style='color: red;'></i>
+                             <?php endif; ?><br />
+                             <?php endif; ?>
                             <?php if(!empty($job['ScheduleEntry'])) { ?><i style='color: green;' class='fa fa-check green'></i> <?php }
                              else { ?><i style='color: red;' class='fa fa-remove red'></i> <?php } ?>
                             Scheduled?<br />

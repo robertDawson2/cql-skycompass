@@ -195,9 +195,17 @@
                     <option value='1'>YES</option>
                 </select>
                 </div>
+                <div class='form-group'>
+                <label>Training Upsell?</label>
+                <select name='data[Job][training_upsell]' class="form-control validation">
+                    <option value='null'>N/A</option>
+                    <option value='0'>NO</option>
+                    <option value='1'>YES</option>
+                </select>
+                </div>
                  <div class='form-group'>
                 <label>Notes</label>
-                <textarea  name='data[Job][notes]'  class='form-control' rows='5' width='100%'></textarea>
+                <textarea  name='data[Job][notes]'  class='form-control' rows='3' width='100%'></textarea>
               </div>
             </div> 
           </div>

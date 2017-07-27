@@ -2,7 +2,7 @@
 
 <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-clock-o"></i> New Job Add <?php
+            <h3 class="box-title"><i class="fa fa-clock-o"></i> Job Edit <?php
             if(isset($customer)):
                 echo " - " . $customer['Customer']['name'];
             endif; 
@@ -200,6 +200,14 @@
                 <select name='data[Job][eng_fee_paid]' class="form-control validation">
                     <option <?= $this->data['Job']['eng_fee_paid'] === "1" ? "" : "selected"; ?> value='0'>NO</option>
                     <option <?= $this->data['Job']['eng_fee_paid'] === "0" ? "" : "selected"; ?> value='1'>YES</option>
+                </select>
+                </div>
+                <div class='form-group'>
+                <label>Training Upsell?</label>
+                <select name='data[Job][training_upsell]' class="form-control validation">
+                    <option <?= in_array($this->data['Job']['training_upsell'], ['0','1']) ? "" : "selected"; ?> value=''>N/A</option>
+                    <option <?= $this->data['Job']['training_upsell'] === "0" ? "selected" : ""; ?> value='0'>NO</option>
+                    <option <?= $this->data['Job']['training_upsell'] === "1" ? "selected" : ""; ?> value='1'>YES</option>
                 </select>
                 </div>
                  <div class='form-group'>

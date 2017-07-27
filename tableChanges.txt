@@ -25,3 +25,5 @@ ALTER TABLE `training`
 ALTER TABLE `training`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+ALTER TABLE `jobs` ADD `training_upsell` TINYINT NULL DEFAULT NULL AFTER `zip`;
