@@ -191,6 +191,7 @@
                 <li><a href="/admin/groups"><i class="fa fa-circle-o"></i> Manage Groups</a></li>
                 <li><a href="/admin/certifications"><i class="fa fa-circle-o"></i> Manage Certs</a></li>
                 <li><a href="/admin/accreditations"><i class="fa fa-circle-o"></i> Manage Accreds</a></li>
+                <li><a href="/admin/training"><i class="fa fa-circle-o"></i> Manage Trainings</a></li>
                 <li><a href="/admin/contactTypes"><i class="fa fa-circle-o"></i> Manage Contact Types</a></li>
                 <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Organization Types</a></li>
               </ul>

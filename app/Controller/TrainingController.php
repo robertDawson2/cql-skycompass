@@ -18,7 +18,7 @@ App::uses('AppController', 'Controller');
     	
        public function admin_index()
        {
-           $this->set('certs', $this->Accreditation->find('all'));
+           $this->set('certs', $this->Training->find('all'));
           
        }
        
@@ -26,16 +26,16 @@ App::uses('AppController', 'Controller');
        {
            if(!empty($this->request->data))
            {
-               $this->Accreditation->create();
-               if($this->Accreditation->save($this->request->data))
+               $this->Training->create();
+               if($this->Training->save($this->request->data))
                {
-                   $this->Session->setFlash("New accreditation successfully created.", 'flash_success');
+                   $this->Session->setFlash("New training successfully created.", 'flash_success');
                    
                }
                else {
                    $this->Session->setFlash("An error occurred. Please try again.", 'flash_error');
                }
-               $this->redirect('/admin/accreditations');
+               $this->redirect('/admin/training');
                
            }
        }
@@ -44,31 +44,31 @@ App::uses('AppController', 'Controller');
            
            if(!empty($this->request->data))
            {
-               $this->Accreditation->id = $id;
-               if($this->Accreditation->save($this->request->data))
+               $this->Training->id = $id;
+               if($this->Training->save($this->request->data))
                {
-                   $this->Session->setFlash("Accreditation edited successfully.", 'flash_success');
-                   $this->redirect('/admin/accreditations');
+                   $this->Session->setFlash("Training edited successfully.", 'flash_success');
+                   $this->redirect('/admin/training');
                }
                else {
                    $this->Session->setFlash("An error occurred. Please try again.", 'flash_error');
                }
                
-               $this->redirect('/admin/accreditations');
+               $this->redirect('/admin/training');
            }
-           $this->data = $this->Accreditation->findById($id);
+           $this->data = $this->Training->findById($id);
        }
        
        public function admin_delete($id)
        {
            
-         if($this->Accreditation->delete($id))
-             $this->Session->setFlash('Accreditation removed successfully.', 'flash_success');
+         if($this->Training->delete($id))
+             $this->Session->setFlash('Training removed successfully.', 'flash_success');
          else {
              $this->Session->setFlash('An error occurred. Please try again.', 'flash_error');
          }
          
-         $this->redirect('/admin/accreditations');
+         $this->redirect('/admin/training');
        }
         
         
