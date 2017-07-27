@@ -103,6 +103,7 @@
         <ul class="nav nav-pills nav-stacked">
   <li class="active"><a data-toggle="pill" href="#general">General Information</a></li>
   <li><a data-toggle="pill" href="#certifications">Certifications/Docs</a></li>
+  <li><a data-toggle="pill" href="#trainings">Trainings</a></li>
   <li><a data-toggle="pill" href="#communications">Communications</a></li>
   
 </ul>
@@ -422,6 +423,17 @@
         
       
  </div>
+        </div>
+        
+         <div class="tab-pane fade" id="trainings">   
+         
+        <!-- /.box-header -->
+        
+                    <?= $this->element('training_tab'); ?>
+          
+        
+      
+
         </div>
         
     </div>

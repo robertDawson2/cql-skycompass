@@ -47,6 +47,22 @@
                 'Communication.contact_id' => $id)
             ));
             $this->set('internalCommunications', $internalCommunications);
+            
+            $this->loadModel('JobAttendee');
+            $attended = $this->JobAttendee->find('list', array
+                    (
+                'conditions' => array(
+                    'contact_id' => $id
+                ),
+                'fields'=> array('JobAttendee.id', 'JobAttendee.job_id')
+                    ));
+            
+            $this->loadModel('Job');
+            $trainings = $this->Job->find('all', array('conditions'=> array('Job.id' => $attended,
+                'ServiceArea.parent_id' => 2), 
+                'recursive' => 1, 'order' => 'Job.start_date DESC'));
+           
+            $this->set('trainings', $trainings);
         }
         
         function admin_edit($id = null)

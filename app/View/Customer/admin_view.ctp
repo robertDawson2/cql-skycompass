@@ -261,6 +261,12 @@ if(!empty($jobs))
 </div>
 <div class='row'>
     <div class='col-sm-12'>
+        <?= $this->element('training_tab'); ?>
+       
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm-12'>
         <?= $this->element('customers/communications'); ?>
        
     </div>

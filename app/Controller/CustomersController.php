@@ -44,6 +44,7 @@
 
         }
         public function admin_view($id = null) {
+            
             $customer = $this->Customer->find('first', array('conditions'=>array('Customer.id' => $id),
                 'recursive' => 2));
             foreach($customer['Contact'] as $i => $contact)
@@ -54,8 +55,13 @@
             }
             $this->Job->unbindModel(array('belongsTo' => array('Customer')));
             $jobs = $this->Job->find('all', array('conditions'=> array('Job.customer_id' => $id), 
-                'recursive' => 3, 'order' => 'Job.start_date DESC', 'limit' => 10));
+                'recursive' => 3, 'order' => 'Job.start_date DESC', 'limit' => 20));
             $this->set('jobs', $jobs);
+            $trainings = $this->Job->find('all', array('conditions'=> array('Job.customer_id' => $id,
+                'ServiceArea.parent_id' => 2), 
+                'recursive' => 1, 'order' => 'Job.start_date DESC'));
+           
+            $this->set('trainings', $trainings);
             $this->set('customer', $customer);
             $this->set('types', $this->Accreditation->find('list', array('fields' => array('Accreditation.id', 'Accreditation.name'))));
             $custTypes =  $this->CustomerType->find('list', array('fields' => array('CustomerType.id', 'CustomerType.name')));
