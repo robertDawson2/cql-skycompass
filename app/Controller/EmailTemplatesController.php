@@ -87,9 +87,15 @@ App::uses('AppController', 'Controller');
         public function admin_ajaxAvailableFields($context)
         {
             $return = "";
-            $this->loadModel($context);
+            if($context !== 'Training')
+                $this->loadModel($context);
+            else
+                $this->loadModel('Job');
+            if($context !== 'Training')
+                $defaults = $this->$context->find('first');
+            else
+                $defaults = $this->Job->find('first');
             
-            $defaults = $this->$context->find('first');
             if($context ==='Customer')
             {
                 unset($defaults['Job']);
@@ -105,21 +111,11 @@ App::uses('AppController', 'Controller');
             //    unset($defaults['ContactCertification']);
                 unset($defaults['Customer']['contact']);
             }
-            if($context === 'User')
+            if($context === 'Training')
             {
-                unset($defaults['Vendor']);
-                unset($defaults['ApprovalManager']);
-                unset($defaults['ScheduleEntry']);
-                unset($defaults['TimeEntry']);
-                unset($defaults['Ability']);
-                unset($defaults['Chat']);
-                unset($defaults['Notification']);
-                unset($defaults['User']['password']);
-                unset($defaults['User']['id']);
-                unset($defaults['User']['vendor_id']);
-                unset($defaults['User']['reset_hash']);
-                unset($defaults['User']['scheduling_admin_notes']);
-                unset($defaults['User']['scheduling_employee_notes']);
+                 unset($defaults['ScheduleEntry']);
+                unset($defaults['JobTaskList']);
+                unset($defaults['ServiceArea']);
                
             }
             if($context === 'CustomerAccreditation')
@@ -163,7 +159,7 @@ App::uses('AppController', 'Controller');
         
         private function _templateList()
         {
-            $contextOptions  = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Customers', 'User' => 'Employees');            $string = "";
+            $contextOptions  = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Customers', 'Training' => 'Training');            $string = "";
             $options = $this->EmailTemplate->find('all', array('order' => 'context ASC'));
             if(empty($options))
             {

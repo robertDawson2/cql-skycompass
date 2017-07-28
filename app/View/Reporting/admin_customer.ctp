@@ -102,6 +102,11 @@
     </div>
     
 </div>
+                                <div class='row'>
+    <div class='col-sm-12'>
+       <?= $this->element('reporting/location'); ?>
+    </div>
+</div>
 <div class='row'>
     <div class='col-sm-12'>
        <?= $this->element('reporting/customer/options'); ?>

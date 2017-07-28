@@ -98,11 +98,17 @@
     </div>
     
 </div>
+                                <div class='row'>
+    <div class='col-sm-12'>
+       <?= $this->element('reporting/location'); ?>
+    </div>
+</div>
 <div class='row'>
     <div class='col-sm-12'>
        <?= $this->element('reporting/customer/options'); ?>
     </div>
 </div>
+
                 <div class='row'>
                     <div class='col-sm-4 col-sm-offset-8'>
                         <a role='button' id='createReport' class='btn btn-info btn-block'><i class='fa fa-arrow-circle-right'></i> Go</a>
@@ -181,7 +187,7 @@
        $sendData = {
            idList: $sendDataArray
        };
-       console.log($sendData);
+     //  console.log($sendData);
        $.ajax({
            type: 'post',
            url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/accreditation',
@@ -278,33 +284,34 @@ function getFields()
                 data: null
             },
             'checkAccreditationExpiring' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'CustomerAccreditation.expiration_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'accreditation',
                 extra: null,
                 data: null
             },
             'checkAccreditationVisit2' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'CustomerAccreditation.visit_2_18_mo',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'accreditation',
                 extra: 'CustomerAccreditation.visit_2_start_date is null',
                 data: null
             },
             'checkAccreditationVisit3' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'CustomerAccreditation.visit_3_36_mo',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'accreditation',
                 extra: 'CustomerAccreditation.visit_3_required = "1" AND CustomerAccreditation.visit_3_start_date is null',
                 data: null
             },
+/*
             'checkAccreditation9Mo' : {
                 type: 'string',
                 conditionField: 'CustomerAccreditation.9_mo_due_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'accreditation',
                 extra: 'CustomerAccreditation.9_mo_followup_required = "1" AND CustomerAccreditation.9_mo_actual_date is null',
                 data: null
@@ -312,11 +319,12 @@ function getFields()
             'checkAccreditation18Mo' : {
                 type: 'string',
                 conditionField: 'CustomerAccreditation.18_mo_due_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'accreditation',
                 extra: 'CustomerAccreditation.18_mo_onsite_required = "1" AND CustomerAccreditation.18_mo_actual_date is null',
                 data: null
             },
+*/
             'checkAccreditationNotes' : {
                 type: 'string',
                 conditionField: 'CustomerAccreditation.notes',
@@ -332,7 +340,15 @@ function getFields()
                 conditionSection: 'accreditationType',
                 extra: null,
                 data: null
-            }
+            },
+//            'limitByState' : {
+//                type: 'list',
+//                conditionField: 'CustomerAddress.state',
+//                conditionType: 'array',
+//                conditionSection: 'accreditation',
+//                extra: null,
+//                data: null
+//            }
             
         };
         
@@ -352,6 +368,13 @@ function getFields()
                 if(obj.type === 'string')
                 {
                     $conditions[key].data = $("#" + key).parent().parent().find('.data').val();
+                }
+                if(obj.type === 'double-string')
+                {
+                    $conditions[key].data = $("#" + key).parent().parent().find('.data.start').val();
+                      $conditions[key].data2 = $("#" + key).parent().parent().find('.data.end').val();
+// console.log($("#" + key).parent().parent().find('.data.start').val());
+// console.log($("#" + key).parent().parent().find('.data.end').val());
                 }
                 if(obj.type === 'list')
                 {
@@ -375,7 +398,7 @@ function getFields()
         }
         
        
-        
+       // console.log($conditions);
         return $conditions;
     }
     function getConditions(conditionArray)
@@ -437,6 +460,18 @@ function getFields()
                 current += "')";
                 
                 }
+               // console.log(obj);
+                if(obj.conditionType === 'betweenDate')
+                {
+                
+                current += "(" + obj.conditionField + " BETWEEN '"; 
+                 var date = new Date(obj['data']);
+                 current += date.toISOString().slice(0, 19).replace('T', ' ');
+                 date = new Date(obj['data2']);
+                 current += "' AND '" + date.toISOString().slice(0, 19).replace('T', ' ');
+                current += "')";
+                }
+                
                 
                 if(obj.conditionType === 'array')
                 {
@@ -521,7 +556,7 @@ function getFields()
         }
         
         
-        
+       // console.log(conditions);
         return conditions;
     }
     
@@ -538,6 +573,7 @@ function getFields()
             fields: JSON.stringify(getFields()),
             context: 'CustomerAccreditation'
         };
+
         
         $.post({
             url: "/admin/reporting/ajaxSaveTemplate",
@@ -585,7 +621,7 @@ function getFields()
                url : '/admin/reporting/runAccreditationReport/CustomerAccreditation',
                data : submission})
                    .done(function(data) {
-                       console.log(data);
+                   //    console.log(data);
            id = data;
            $.ajax('/admin/reporting/ajaxLoadRecent/' + data).done(function(data)
                {
@@ -692,6 +728,11 @@ function getFields()
                         
                         if(obj.type === 'string') {
                             $("#" + key).parent().parent().find('.data').val(obj.data);   
+                        }
+
+                        if(obj.type === 'double-string') {
+                            $("#" + key).parent().parent().find('.data.start').val(obj.data); 
+                            $("#" + key).parent().parent().find('.data.end').val(obj.data2); 
                         }
                         
                         if(obj.type === 'checkbox') {

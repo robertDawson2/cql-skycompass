@@ -944,11 +944,11 @@ App::uses('AppController', 'Controller');
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
             if(trim(substr($this->request->data['conditions'],-4)) === "OR")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
-            
+         //   pr($this->request->data['conditions']); exit();
             $results = $this->$context->find('all', array(
-                'recursive' => 1, 
+                'recursive' => 2, 
                 'conditions' => $this->request->data['conditions']));
-           // pr($results); exit();
+         //   pr($results); exit();
             $final = array();
             $returnFields = array();
             $innerFieldArray = array();

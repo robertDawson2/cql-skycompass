@@ -43,23 +43,29 @@
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationExpiring' />
-                    Expiring Accreditations Before:
+                    <input class='dateBetween' type='checkbox' id='checkAccreditationExpiring' />
+                    Expiring Accreditations Between:
                         </div>
-                        <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                    <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
                         </div>
                     </div>
                 </div>
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationVisit2' />
+                    <input class='dateBetween' type='checkbox' id='checkAccreditationVisit2' />
                         
-                    Visit 2 Due Before: 
+                    Visit 2 Due Between: 
                     </div>
-                        <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                    <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
                         </div>
                     </div>
                 </div>
@@ -68,19 +74,22 @@
                     <div class='col-md-4'>
                         <div class='row'>
                             <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditationVisit3' />
-                    Visit 3 Due Before: 
+                    <input class='dateBetween' type='checkbox' id='checkAccreditationVisit3' />
+                    Visit 3 Due Between: 
                             </div>
-                            <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
-                            </div>
+                            <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
+                        </div>
                         </div>
                 </div>
-                
+                <!--
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkAccreditation9Mo' />
+                    <input class='dateBetween' type='checkbox' id='checkAccreditation9Mo' />
                     9 Month Follow-up Due Before: 
                         </div>
                         <div class='col-md-12'>
@@ -101,11 +110,11 @@
                             </div>
                         </div>
                 </div>
-                
+                -->
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='textCompare' type='checkbox' id='checkAccreditationNotes' />
+                    <input class='like' type='checkbox' id='checkAccreditationNotes' />
                     Notes contain: 
                         </div>
                         <div class='col-md-12'>
@@ -115,7 +124,8 @@
                 </div>
                 </div>
                 
-                 </div>
+                
+            </div>
             <div class='col-md-4'>
                 <div class='row'>
                     <div class='col-md-12'>
@@ -133,7 +143,9 @@
                     </div>
                 </div>
                 </div>
-            </div>
+            
+            
+        </div>
         </div>
             
 

@@ -43,23 +43,29 @@
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkCertificationExpiring' />
-                    Expiring Certifications Before:
+                    <input class='dateBetween' type='checkbox' id='checkCertificationExpiring' />
+                    Expiring Certifications Between:
                         </div>
-                        <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
                         </div>
                     </div>
                 </div>
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkCertificationCertifiedBefore' />
+                    <input class='dateBetween' type='checkbox' id='checkCertificationCertifiedBefore' />
                         
-                    Certified Before: 
+                    Certified Between: 
                     </div>
-                        <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
                         </div>
                     </div>
                 </div>
@@ -68,12 +74,15 @@
                     <div class='col-md-4'>
                         <div class='row'>
                             <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkCertificationRenewalBefore' />
-                    Renewal Date Before: 
+                    <input class='dateBeween' type='checkbox' id='checkCertificationRenewalBefore' />
+                    Renewal Date Between: 
                             </div>
-                            <div class='col-md-12'>
-                    <input type='text' class='input form-control datepicker data' />
-                            </div>
+                            <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data start' />
+                        </div>
+                        <div class='col-md-6'>
+                    <input type='text' class='input form-control datepicker data end' />
+                        </div>
                         </div>
                 </div>
                 
@@ -81,7 +90,7 @@
                     
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkCertificationReliabilityGreater' />
+                    <input class='greaterThan' type='checkbox' id='checkCertificationReliabilityGreater' />
                     Reliability Score Greater Than: 
                         </div>
                         <div class='col-md-12'>
@@ -92,7 +101,7 @@
                     <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='dateBefore' type='checkbox' id='checkCertificationReliabilityLess' />
+                    <input class='lessThan' type='checkbox' id='checkCertificationReliabilityLess' />
                     Reliability Score Less Than: 
                         </div>
                         <div class='col-md-12'>
@@ -107,7 +116,7 @@
                 <div class='col-md-4'>
                     <div class='row'>
                         <div class='col-md-12'>
-                    <input class='textCompare' type='checkbox' id='checkCertificationNotes' />
+                    <input class='like' type='checkbox' id='checkCertificationNotes' />
                     Notes contain: 
                         </div>
                         <div class='col-md-12'>

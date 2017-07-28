@@ -96,7 +96,14 @@
            
         <?= $this->element('reporting/certification/certifications'); ?>
     </div>
+                    
     
+    
+</div>
+                                <div class='row'>
+    <div class='col-sm-12'>
+       <?= $this->element('reporting/location'); ?>
+    </div>
 </div>
 <div class='row'>
     <div class='col-sm-12'>
@@ -181,7 +188,7 @@
        $sendData = {
            idList: $sendDataArray
        };
-       console.log($sendData);
+     //  console.log($sendData);
        $.ajax({
            type: 'post',
            url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/certification',
@@ -278,25 +285,25 @@ function getFields()
                 data: null
             },
             'checkCertificationExpiring' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'ContactCertification.recertification_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'certification',
                 extra: null,
                 data: null
             },
             'checkCertificationCertifiedBefore' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'ContactCertification.start_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'certification',
                 extra: null,
                 data: null
             },
             'checkCertificationRenewalBefore' : {
-                type: 'string',
+                type: 'double-string',
                 conditionField: 'ContactCertification.renewal_date',
-                conditionType: 'lessThanDate',
+                conditionType: 'betweenDate',
                 conditionSection: 'certification',
                 extra: null,
                 data: null
@@ -352,6 +359,13 @@ function getFields()
                 if(obj.type === 'string')
                 {
                     $conditions[key].data = $("#" + key).parent().parent().find('.data').val();
+                }
+                if(obj.type === 'double-string')
+                {
+                    $conditions[key].data = $("#" + key).parent().parent().find('.data.start').val();
+                      $conditions[key].data2 = $("#" + key).parent().parent().find('.data.end').val();
+// console.log($("#" + key).parent().parent().find('.data.start').val());
+// console.log($("#" + key).parent().parent().find('.data.end').val());
                 }
                 if(obj.type === 'list')
                 {
@@ -455,6 +469,16 @@ function getFields()
                                 
                 current += ")";
                 
+                }
+                if(obj.conditionType === 'betweenDate')
+                {
+                
+                current += "(" + obj.conditionField + " BETWEEN '"; 
+                 var date = new Date(obj['data']);
+                 current += date.toISOString().slice(0, 19).replace('T', ' ');
+                 date = new Date(obj['data2']);
+                 current += "' AND '" + date.toISOString().slice(0, 19).replace('T', ' ');
+                current += "')";
                 }
                 
                 if(obj.conditionType === 'array')
@@ -712,6 +736,10 @@ function getFields()
                         
                         if(obj.type === 'string') {
                             $("#" + key).parent().parent().find('.data').val(obj.data);   
+                        }
+                         if(obj.type === 'double-string') {
+                            $("#" + key).parent().parent().find('.data.start').val(obj.data); 
+                            $("#" + key).parent().parent().find('.data.end').val(obj.data2); 
                         }
                         
                         if(obj.type === 'checkbox') {

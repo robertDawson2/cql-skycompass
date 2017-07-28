@@ -194,6 +194,7 @@
 <!--                <li><a href="/admin/training"><i class="fa fa-circle-o"></i> Manage Trainings</a></li>-->
                 <li><a href="/admin/contactTypes"><i class="fa fa-circle-o"></i> Manage Contact Types</a></li>
                 <li><a href="/admin/customerTypes"><i class="fa fa-circle-o"></i> Manage Organization Types</a></li>
+                <li><a href="/admin/todoTypes"><i class="fa fa-circle-o"></i> Manage Todo Types</a></li>
               </ul>
             </li>
           </ul>

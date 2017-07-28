@@ -1,4 +1,6 @@
 <?php
+
+phpinfo(); exit();
 /**
  * Web Access Frontend for TestSuite
  *

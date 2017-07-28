@@ -158,7 +158,7 @@ function closeCustomRoxy2(){
                 </div>
                 <div class='col-md-6'>
                     <label>
-                        Time Entry Service Items <small>(Separate with "|", be sure to match name EXACTLY)</small>
+                        Time Entry Service Items <small>(Separate with ",", be sure to match name EXACTLY)</small>
                         
                     </label>
                     <input name="data[time_entry.service_items]" type='text' class='input form-control' value='<?= $config['time_entry.service_items']; ?>' />

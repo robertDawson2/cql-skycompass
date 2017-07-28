@@ -59,7 +59,11 @@
                             <?= $comm['Communication']['template_name']; ?></a>
                         </td>
                         <td>
-                            <?= ucwords($comm['Communication']['result']); ?>
+                            <?php
+                            if($comm['Communication']['opened'] === "1")
+                                echo "Opened";
+                            else
+                                echo ucwords($comm['Communication']['result']); ?>
                         </td>
                     </tr>
                     

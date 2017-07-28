@@ -24,7 +24,9 @@
 <div class="box">
             <div class="box-header">
                 <i class="fa fa-eye-slash"></i>
-                <h3 class="box-title"><em><strong><?= $job['Job']['name']; ?></strong> Quick Look</em></h3>
+                <h3 class="box-title"><em><strong><?= $job['Job']['name']; ?></strong> Quick Look</em> 
+                    <a href="/admin/jobs/edit/<?= $job['Job']['id']; ?>" class="btn btn-sm btn-info" style="margin-left: 15px;">
+                        <i class="fa fa-edit"></i> Edit</a></h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>

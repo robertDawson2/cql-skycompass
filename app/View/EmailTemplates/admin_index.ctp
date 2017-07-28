@@ -1,6 +1,6 @@
 <?php $this->Html->script('/_/plugins/tinymce/tinymce.min.js', array('block' => 'scripts')); 
 
-$contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Organizations', 'User' => 'Employees');
+$contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Organizations', 'Training' => 'Training');
 ?>
 <style>
     li > .completion-div {
@@ -25,7 +25,7 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
               .template-list {
                   background: #fff;
                   color: #424242;
-                  //border: 2px solid #484848;
+                  
                   border-radius: 5px;
                   padding: 0;
                   margin: 0;

@@ -68449,3 +68449,674 @@ Stack Trace:
 #3 /var/www/cql.local/public_html/lib/Cake/Core/App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-07-26 07:50:00 Error: Fatal Error (64): Cannot use 'String' as class name as it is reserved in [/Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Utility/String.php, line 25]
+2017-07-26 07:50:00 Error: [FatalErrorException] Cannot use 'String' as class name as it is reserved
+Stack Trace:
+#0 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25)
+#1 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(929): ErrorHandler::handleError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25, Array)
+#2 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#3 [internal function]: App::shutdown()
+#4 {main}
+2017-07-26 08:01:08 Error: Fatal Error (64): Cannot use 'String' as class name as it is reserved in [/Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Utility/String.php, line 25]
+2017-07-26 08:01:08 Error: [FatalErrorException] Cannot use 'String' as class name as it is reserved
+Stack Trace:
+#0 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25)
+#1 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(929): ErrorHandler::handleError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25, Array)
+#2 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#3 [internal function]: App::shutdown()
+#4 {main}
+2017-07-26 08:01:16 Error: Fatal Error (64): Cannot use 'String' as class name as it is reserved in [/Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Utility/String.php, line 25]
+2017-07-26 08:01:16 Error: [FatalErrorException] Cannot use 'String' as class name as it is reserved
+Stack Trace:
+#0 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25)
+#1 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(929): ErrorHandler::handleError(64, 'Cannot use 'Str...', '/Volumes/HDD2/W...', 25, Array)
+#2 /Volumes/HDD2/Website Data/cql-skycompass/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#3 [internal function]: App::shutdown()
+#4 {main}
+2017-07-26 21:22:07 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse(false)
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:07 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:07 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:08 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:33 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /phpmyadmin
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('phpmyadmin')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:33 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:34 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:37 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /phpmyadmin
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('phpmyadmin')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:37 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:37 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:49 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse(false)
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:50 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:22:50 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 21:55:06 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse(false)
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:19 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse(false)
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:19 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse(false)
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:20 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:20 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:20 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.icon.png
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.icon.p...')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:19:20 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'cql\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /img/cake.power.gif
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(271): Mysql->connect()
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3640): ConnectionManager::getDataSource('default')
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(1162): Model->setDataSource('default')
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('content')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('list', Array)
+#7 /Volumes/HDD2/Websites/cql-skycompass/app/Config/routes.php(36): Model->find('list', Array)
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(1284): include('/Volumes/HDD2/W...')
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Router.php(596): Router::_loadRoutes()
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(219): Router::parse('img/cake.power....')
+#11 [internal function]: Dispatcher->parseParams(Object(CakeEvent))
+#12 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#13 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(147): CakeEventManager->dispatch(Object(CakeEvent))
+#14 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-07-26 22:41:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/bootstrap/js/bootstrap.min.js
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-26 22:41:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/iCheck/icheck.min.js
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-26 22:41:21 Error: [MissingControllerException] Controller class AdminMenuController could not be found.
+Exception Attributes: array (
+  'class' => 'AdminMenuController',
+  'plugin' => NULL,
+)
+Request URL: /adminMenu/plugins/jQuery/jQuery-2.2.0.min.js
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-07-27 23:46:02 Error: [MissingTableException] Table trainings for model Training was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'trainings',
+  'class' => 'Training',
+  'ds' => 'default',
+)
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Training
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('trainings')
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('first', Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php(92): Model->find('first')
+#4 [internal function]: EmailTemplatesController->admin_ajaxAvailableFields('Training')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(EmailTemplatesController), Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#8 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2017-07-27 23:46:17 Error: [MissingTableException] Table trainings for model Training was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'trainings',
+  'class' => 'Training',
+  'ds' => 'default',
+)
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Training
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3667): Model->setSource('trainings')
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): Model->getDataSource()
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('first', Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php(92): Model->find('first')
+#4 [internal function]: EmailTemplatesController->admin_ajaxAvailableFields('Training')
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(EmailTemplatesController), Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(EmailTemplatesController), Object(CakeRequest))
+#8 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2017-07-27 23:48:55 Error: Fatal Error (1): Call to a member function find() on null in [/Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php, line 95]
+2017-07-27 23:48:55 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Training
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Error/ErrorHandler.php(212): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(970): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-27 23:49:03 Error: Fatal Error (1): Call to a member function find() on null in [/Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php, line 95]
+2017-07-27 23:49:03 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Training
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Error/ErrorHandler.php(212): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(970): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-27 23:50:15 Error: Fatal Error (1): Call to a member function find() on null in [/Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php, line 95]
+2017-07-27 23:50:15 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Error/ErrorHandler.php(212): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(970): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-27 23:50:22 Error: Fatal Error (1): Call to a member function find() on null in [/Volumes/HDD2/Websites/cql-skycompass/app/Controller/EmailTemplatesController.php, line 95]
+2017-07-27 23:50:22 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admin/emailTemplates/ajaxAvailableFields/Training
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Error/ErrorHandler.php(212): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(970): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Volumes/HDD2/W...', 95, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Core/App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-07-28 01:13:17 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerAddress.state' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(472): PDOStatement->execute(Array)
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(438): DboSource->_execute('SELECT `Custome...', Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(675): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(1186): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('all', Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/ReportingController.php(950): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-28 01:18:32 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerAddress.state' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(472): PDOStatement->execute(Array)
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(438): DboSource->_execute('SELECT `Custome...', Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(675): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(1186): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('all', Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/ReportingController.php(950): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-28 01:19:05 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerAddress.state' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(472): PDOStatement->execute(Array)
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(438): DboSource->_execute('SELECT `Custome...', Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(675): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(1186): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('all', Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/ReportingController.php(950): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-07-28 01:19:22 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerAddress.state' in 'where clause'
+Request URL: /admin/reporting/runAccreditationReport/CustomerAccreditation
+Stack Trace:
+#0 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(472): PDOStatement->execute(Array)
+#1 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(438): DboSource->_execute('SELECT `Custome...', Array)
+#2 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(675): DboSource->execute('SELECT `Custome...', Array, Array)
+#3 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Datasource/DboSource.php(1186): DboSource->fetchAll('SELECT `Custome...', false)
+#4 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3038): DboSource->read(Object(CustomerAccreditation), Array)
+#5 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Model/Model.php(3010): Model->_readDataSource('all', Array)
+#6 /Volumes/HDD2/Websites/cql-skycompass/app/Controller/ReportingController.php(950): Model->find('all', Array)
+#7 [internal function]: ReportingController->admin_runAccreditationReport('CustomerAccredi...')
+#8 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(ReportingController), Array)
+#9 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 /Volumes/HDD2/Websites/cql-skycompass/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(ReportingController), Object(CakeRequest))
+#11 /Volumes/HDD2/Websites/cql-skycompass/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
