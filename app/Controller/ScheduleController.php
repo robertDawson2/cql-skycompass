@@ -387,7 +387,7 @@ exit;
                 {
                     // this means an overlap was found. oops!
                     $error = true;
-                    $this->Session->setFlash('You have already sent a request for this date range. Please try again.', 'flash_error');
+                    $this->Session->setFlash('You have already sent a request for this date range. Please try again. (err no: ' . $schedule[0]['ScheduleEntry']['id'] . ')', 'flash_error');
                 }
                 
                 // if all ok, you may submit the request to schedulers for approval or denial.
@@ -834,7 +834,7 @@ exit;
            $serviceAreas = $this->ServiceArea->find('list', array('fields' => array('id', 'name')));
            
            App::uses('CakeEmail', 'Network/Email');
-                            $to = array($user['User']['email']);
+                            $to = array(trim($user['User']['email']));
                             
                             $email = new CakeEmail('smtp');
                             $email->template('schedule_notification', 'default')

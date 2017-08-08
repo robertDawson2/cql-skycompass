@@ -448,7 +448,8 @@ App::uses('AppController', 'Controller');
             }
             
             App::uses('CakeEmail', 'Network/Email');
-                            $to = array('bobby@net2sky.com');
+                            $to = array($sendEmail);
+                            //$to = array('bobby@net2sky.com');
                             $email = new CakeEmail('smtp');
                             $email->template('comm', 'default')
                             ->emailFormat('html')
