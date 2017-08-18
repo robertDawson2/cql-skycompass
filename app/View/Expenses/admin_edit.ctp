@@ -91,7 +91,7 @@
                      
                      <div class='col-md-6'>
                      <img id='imagePreview' <?php if(!empty($this->data['BillItem']['image'])) {
-                       echo "src='/files/uploads/" . $this->data['BillItem']['image'] . "'";  
+                       echo "src='/admin/expenses/ajaxImageUploads/" . $this->data['BillItem']['bill_item_image_id'] . "'";  
                      }
                      ?> style='max-height: 120px; '/>
                      </div>

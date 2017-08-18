@@ -43,7 +43,7 @@
                        
                         <td>
                             <?php if(!empty($entry['image'])) { ?>
-                            <a class="btn btn-primary view-attachment" data-src="<?= $entry['image']; ?>" href="#"><i class="fa fa-lg fa-search"></i> View Receipt</a>
+                            <a class="btn btn-primary view-attachment" data-srcid="<?= $entry['bill_item_image_id']; ?>" data-src="<?= $entry['image']; ?>" href="#"><i class="fa fa-lg fa-search"></i> View Receipt</a>
                             <?php } if(!$entry['approved']): ?>
                             
                             <a role="button" class="btn btn-success" href="/admin/expenses/edit/<?= $entry['id']; ?>"><i class='fa fa-edit'></i> Edit</a>
@@ -79,7 +79,7 @@
         var val = $(this).data('src');
 var file_type = val.substr(val.lastIndexOf('.')).toLowerCase();
 if (file_type  === '.pdf') {
-    var url = "/files/uploads/" + $(this).data("src");
+    var url = "/admin/expenses/ajaxPdfUploads/" + $(this).data("srcid");
     $.fancybox({
     autoScale: false,
     // href : $('.fancybox').attr('id'), // don't need this
@@ -96,7 +96,7 @@ if (file_type  === '.pdf') {
         }
         else
         {
-    $content = "<img width='800px' src='/files/uploads/" + $(this).data('src') + "' />";
+    $content = "<img width='800px' src='/admin/expenses/ajaxImageUploads/" + $(this).data('srcid') + "' />";
 
         $.fancybox({
         

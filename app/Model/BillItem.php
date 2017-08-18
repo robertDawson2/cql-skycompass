@@ -8,8 +8,9 @@ class BillItem extends AppModel {
     
     public $belongsTo = array('Customer','Classes' => array(
         'foreignKey' => 'class_id'
-    ),'Item', 'Vendor', 'Bill');
+    ),'Item', 'Vendor', 'Bill', 'BillItemImage');
 
+    
 
 
 }

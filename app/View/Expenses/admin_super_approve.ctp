@@ -67,7 +67,7 @@
                         <td><?php if($entry['company_cc_item']): ?><i style='color: green;' class='fa fa-lg fa-check-circle'></i><?php endif; ?></td>
                         <td>
                             <?php if(!empty($entry['image'])) { ?>
-                            <a class="btn btn-block btn-primary view-attachment" href="#" data-src="<?= $entry['image']; ?>">
+                            <a class="btn btn-block btn-primary view-attachment" href="#"  data-srcid="<?= $entry['bill_item_image_id']; ?>" data-src="<?= $entry['image']; ?>">
                                 <i class="fa fa-lg fa-eye"></i>
                             <?php } ?>
                             </a>
@@ -117,7 +117,7 @@
         var val = $(this).data('src');
 var file_type = val.substr(val.lastIndexOf('.')).toLowerCase();
 if (file_type  === '.pdf') {
-    var url = "/files/uploads/" + $(this).data("src");
+    var url = "/admin/expenses/ajaxPdfUploads/" + $(this).data("srcid");
     $.fancybox({
     autoScale: false,
     // href : $('.fancybox').attr('id'), // don't need this
@@ -134,7 +134,7 @@ if (file_type  === '.pdf') {
         }
         else
         {
-    $content = "<img width='800px' src='/files/uploads/" + $(this).data('src') + "' />";
+    $content = "<img width='800px' src='/admin/expenses/ajaxImageUploads/" + $(this).data('srcid') + "' />";
 
         $.fancybox({
         

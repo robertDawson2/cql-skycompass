@@ -383,23 +383,31 @@ if($imageFileType != "pdf" && $imageFileType != "jpg" &&
            }
 
     // Check if file already exists
-if (file_exists($filename)) {
-            
-    $uploadOk = 0;
-} 
+//if (file_exists($filename)) {
+//            
+//    $uploadOk = 0;
+//} 
 
 
 if($uploadOk) {
     
-    if(move_uploaded_file($_FILES['files']['tmp_name'][$i], $target_dir . $filename)) {
-        $this->_shrinkReceipt($filename, $target_dir);
-        
-            }
-            else
-            {
+    
+            $imageProperties = getimagesize($_FILES['files']['tmp_name'][$i]);
+            $this->loadModel('BillItemImage');
+            $this->BillItemImage->create();
+            $fileData = file_get_contents($_FILES['files']['tmp_name'][$i]);
+           
+            $this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $filename, 'file' => $fileData  ));
             
-                $error = true;
-            }
+//    if(move_uploaded_file($_FILES['files']['tmp_name'][$i], $target_dir . $filename)) {
+//        $this->_shrinkReceipt($filename, $target_dir);
+//        
+//            }
+//            else
+//            {
+//            
+//                $error = true;
+//            }
             
         }
         
@@ -537,6 +545,12 @@ if($uploadOk) {
                         // Add description, don't overwrite
                         $corporateItem['description'] .= $corp['note'];
                         $corporateItem['image'] = $corp['receipt'];
+                        // find matching billitemimage
+                        $this->loadModel('BillItemImage');
+                        $itemImage = $this->BillItemImage->findByName($corp['receipt']);
+                        if(!empty($itemImage))
+                            $corporateItem['bill_item_image_id'] = $itemImage['BillItemImage']['id'];
+                        
                         $corporateItem['item_id'] = $corp['type'];
                         $corporateItem['billable'] = $this->_checkBillableStatus($corp['type']);
                         
@@ -689,7 +703,13 @@ if($uploadOk) {
                         $transItem['description'] .= $trans['taxi-car'] . ": " . $trans['from'] . " => " . $trans['to'];
                         
                         $transItem['image'] = $trans['receipt'];
+                        if(!empty($transItem['image'])) {
+                        $this->loadModel('BillItemImage');
+                        $itemImage = $this->BillItemImage->findByName($trans['receipt']);
+                        if(!empty($itemImage))
+                            $transItem['bill_item_image_id'] = $itemImage['BillItemImage']['id'];
                         
+                        }
                         $transItem['item_id'] = $this->_determineTransportationItem($transItem['class_id']);
                         $transItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
                         $transItem['billable'] = 'NotBillable';
@@ -756,6 +776,15 @@ if($uploadOk) {
                         $otherItem['description'] .= $trans['note'];
                         $otherItem['quantity'] = 1;
                         $otherItem['image'] = $trans['receipt'];
+                        
+                        if(!empty($otherItem['image'])) {
+                        $this->loadModel('BillItemImage');
+                        $itemImage = $this->BillItemImage->findByName($trans['receipt']);
+                        if(!empty($itemImage))
+                            $otherItem['bill_item_image_id'] = $itemImage['BillItemImage']['id'];
+                        
+                        }
+                        
                         $otherItem['item_id'] = $trans['type'];
                         $otherItem['txn_date'] = date('Y-m-d H:i:s', strtotime($trans['date']));
                         $otherItem['billable'] = $this->_checkBillableStatus($trans['type']);
@@ -1035,24 +1064,36 @@ if($imageFileType != "pdf" && $imageFileType != "jpg" &&
 
 
     // Check if file already exists
-if (file_exists($target_file)) {
-    $this->data = $newRecord;
-    $this->Session->setFlash('File already exists!!', 'flash_error');
-                   
-    $uploadOk = 0;
-} 
+//if (file_exists($target_file)) {
+//    $this->data = $newRecord;
+//    $this->Session->setFlash('File already exists!!', 'flash_error');
+//                   
+//    $uploadOk = 0;
+//} 
 
 
 if($uploadOk) {
     
-    if(empty($imageFileType) || move_uploaded_file($newRecord['Image']['image']['tmp_name'], $target_dir . $target_file)) {
+    if(1 
+     //       || move_uploaded_file($newRecord['Image']['image']['tmp_name'], $target_dir . $target_file)
+            ) {
+        
         if(empty($imageFileType))
             $newRecord['BillItem']['image'] = "";
         else
-            $newRecord['BillItem']['image'] = $target_file;
+        {
+            $newRecord['BillItem']['image'] = $target_file; 
+            $imageProperties = getimagesize($newRecord['Image']['image']['tmp_name']);
+            $this->loadModel('BillItemImage');
+            $this->BillItemImage->create();
+            $fileData = file_get_contents($newRecord['Image']['image']['tmp_name']);
+           
+            $this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $target_file, 'file' => $fileData  ));
+            $newRecord['BillItem']['bill_item_image_id'] = $this->BillItemImage->id;
+        }
         
         
-        $this->_shrinkReceipt($target_file, $target_dir);
+      //  $this->_shrinkReceipt($target_file, $target_dir);
         
         $newRecord['BillItem']['id'] = $user['Vendor']['id'] . time();
         
@@ -1081,6 +1122,7 @@ if($uploadOk) {
     
 
             }
+  
             
         }
         
@@ -1140,20 +1182,27 @@ if($imageFileType != "pdf" && $imageFileType != "jpg" &&
 }
 
     // Check if file already exists
-if (file_exists($target_file)) {
-    $this->data = $newRecord;
-    $this->Session->setFlash('File already exists!!', 'flash_error');
-                   
-    $uploadOk = 0;
-} 
+//if (file_exists($target_file)) {
+//    $this->data = $newRecord;
+//    $this->Session->setFlash('File already exists!!', 'flash_error');
+//                   
+//    $uploadOk = 0;
+//} 
 
 
 if($uploadOk) {
     
-    if(empty($imageFileType) || move_uploaded_file($newRecord['Image']['image']['tmp_name'], $target_dir . $target_file)) {
+  //  if(empty($imageFileType) || move_uploaded_file($newRecord['Image']['image']['tmp_name'], $target_dir . $target_file)) {
+    if(1) {
         if(!empty($imageFileType))
             $newRecord['BillItem']['image'] = $target_file;
-        
+            $imageProperties = getimagesize($newRecord['Image']['image']['tmp_name']);
+            $this->loadModel('BillItemImage');
+            $this->BillItemImage->create();
+            $fileData = file_get_contents($newRecord['Image']['image']['tmp_name']);
+           
+            $this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $target_file, 'file' => $fileData  ));
+            $newRecord['BillItem']['bill_item_image_id'] = $this->BillItemImage->id;
 
         if($this->BillItem->save($newRecord))
         {
@@ -1212,6 +1261,54 @@ if($uploadOk) {
             $current = $this->BillItem->findById($id);
             $current['BillItem']['txn_date'] = date("m/d/Y", strtotime($current['BillItem']['txn_date']));
             $this->data = $current;
+            
+        }
+        function admin_switchOverReceipts() {
+            $receipts = $this->BillItem->find('all', array('conditions' => array(
+                'NOT' => array('BillItem.image' => ''),
+                'BillItem.bill_item_image_id is null'
+            )));
+            $count = 0;
+            $missingFiles = 0;
+            $this->loadModel('BillItemImage');
+            foreach($receipts as $receipt) 
+            {
+
+                if(file_exists(WWW_ROOT . DS . "/files/uploads/" . $receipt['BillItem']['image'])) {
+                $imageProperties = getimagesize(WWW_ROOT . DS . "/files/uploads/" . $receipt['BillItem']['image']);
+                
+            $this->BillItemImage->create();
+            $fileData = file_get_contents(WWW_ROOT . DS . "/files/uploads/" . $receipt['BillItem']['image']);
+           
+            $this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $receipt['BillItem']['image'], 'file' => $fileData  ));
+            $imageId = $this->BillItemImage->id;
+            
+            $this->BillItem->id = $receipt['BillItem']['id'];
+            $this->BillItem->saveField('bill_item_image_id', $imageId);
+            $count++;
+               
+                }
+                else
+                    $missingFiles++;
+            }
+            pr($count . " Records Changed<br>" . $missingFiles . " Missing Files"); exit();
+            
+        }
+        function admin_ajaxPdfUploads($id) {
+             $this->layout = 'ajax';
+            $this->loadModel('BillItemImage');
+            $item = $this->BillItemImage->findById($id);
+            echo '<object data="data:application/pdf;base64,'.base64_encode($item['BillItemImage']['file']).'" '
+                    . 'type="application/pdf" style="height: 100%; width: 100%;"></object>';
+            exit();
+        }
+        function admin_ajaxImageUploads($id)
+        {
+            $this->layout = 'empty';
+            $this->loadModel('BillItemImage');
+            $item = $this->BillItemImage->findById($id);
+            header('Content-Type: ' . $item['BillItemImage']['mime']);
+            echo $item['BillItemImage']['file'];
             
         }
         
