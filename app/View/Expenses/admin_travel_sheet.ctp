@@ -317,7 +317,8 @@
 <hr>
 <div class='alert alert-warning alert-dismissable'>
     <button class='close' type="button" data-dismiss="alert" aria-hidden="true">x</button>
-    <small><em><strong><font style='color: darkred;'>IMPORTANT: </font>Receipts that are not in a PDF or valid Image format will be denied by the administrators.</strong></em></small>
+    <small><em><strong><font style='color: darkred;'>IMPORTANT: </font>Receipts that are not in a PDF or valid Image format will be denied by the administrators.<br />
+            Please keep total upload size under 32 MB per travel sheet.</strong></em></small>
 </div>
 <h3>Corporate Card Expenses</h3>
 <div id="total-corporate" style='float: right;padding: 10px;'>
@@ -771,6 +772,12 @@ $("#addAdminTravelSheetForm").submit(function(e) {
 
                if(data === "error"){
                    alert("An error occurred during file upload. Some or all receipt images can not be used. Please refresh your page and try again - this will clear all entries. If this problem persists, please contact an administrator.");
+                   filesUploaded = false;
+                   $("#overlay").fadeOut('fast');
+            $("#submit-all").fadeIn();
+    }
+    else if(data === "savefail"){
+                   alert("An error occurred saving your receipt images. Please refresh your page and try again - this will clear all entries. If this problem persists, please contact an administrator.");
                    filesUploaded = false;
                    $("#overlay").fadeOut('fast');
             $("#submit-all").fadeIn();

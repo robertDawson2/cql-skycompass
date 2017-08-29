@@ -340,9 +340,6 @@ App::uses('AppController', 'Controller');
             
             return $htmlNewString;
         }
-        
-        
-        
          private function _getContactHtml($html, $contact)
         {
             $i = 0;
@@ -513,13 +510,45 @@ App::uses('AppController', 'Controller');
         }
          private function _reportingFields($context)
         {
+            if($context === 'OrganizationTraining')
+            {
+                $this->loadModel('AvailableField');
+                $fields = $this->AvailableField->find('all', array(
+                    'conditions' => array(
+                        'category' => array('Job','Organization','Contact')
+                    ),
+                    'order' => array('AvailableField.category ASC')
+                ));
+                $return = array();
+                foreach($fields as $field)
+                {
+                 if(!isset($return[$field['AvailableField']['category']]))
+                     $return[$field['AvailableField']['category']] = array();
+                 
+                    $return[$field['AvailableField']['category']][] = $field['AvailableField'];
+                }
+                return $return;
+            }
+            else
+                $mainContext = $context;
             
-            $this->loadModel($context);
+            $this->loadModel($mainContext);
             
-            $defaults = $this->$context->find('first');
+            
+            $defaults = $this->$mainContext->find('first');
             if($context ==='Customer')
             {
                 unset($defaults['Job']);
+              //  unset($defaults['CustomerGroup']);
+                
+                unset($defaults['Customer']['contact']);
+                unset($defaults['CustomerFile']);
+                
+                
+            }
+            if($context ==='OrganizationTraining')
+            {
+               // unset($defaults['Job']);
               //  unset($defaults['CustomerGroup']);
                 
                 unset($defaults['Customer']['contact']);
@@ -567,7 +596,192 @@ App::uses('AppController', 'Controller');
                        
            
         }
-        public function admin_runCustomerReport($context,$criteria=null, $fields=null,$export=null)
+        private function _getSearchFields($fields)
+        {
+           
+            
+            $list = array();
+            foreach($fields as $f)
+            {
+                $temp = explode(".", $f);
+                $list[] = $temp[1];
+            }
+            
+            $this->loadModel('AvailableField');
+            $result = $this->AvailableField->find('all', array(
+                'conditions' => array(
+                    'AvailableField.id' => $list
+                )
+            ));
+         
+            $return = array('compact' => array(), 'search' => array(), 'all' => array());
+            foreach($result as $r)
+            {
+                if($r['AvailableField']['compact_field'] === '1')
+                    $return['compact'][] = $r['AvailableField'];
+                else
+                    $return['search'][] = $r['AvailableField']['model_name'] . "." . 
+                        $r['AvailableField']['field_name'];
+                
+                $return['all'][$r['AvailableField']['model_name'] . "." . 
+                        $r['AvailableField']['field_name']] = $r['AvailableField']['pretty_name'];
+            }
+        //    pr($return);
+            return $return;
+            
+        }
+        private function _fetchComplexFieldInfoJob($id, $contextId)
+        {
+            $this->loadModel('Job');
+            $job = $this->Job->findById($contextId);
+           
+            
+            if($id === "10")
+            {
+                // Job Address
+                $string = "";
+                if(!empty($job['Job']['state']))
+                {
+                    // Use actual job address
+                    $string = $job['Job']['addr1'];
+                    if(!empty($job['Job']['addr2']))
+                        $string .= "<br />" . $job['Job']['addr2'];
+                    $string .= "<br />" . $job['Job']['city'] . ", " . $job['Job']['state'] . " " . 
+                            $job['Job']['zip'];
+                }
+                else
+                {
+                    // Use listed address for customer
+                    $string = $job['Customer']['bill_addr1'];
+                    if(!empty($job['Customer']['bill_addr2']))
+                        $string .= "<br />" . $job['Customer']['bill_addr2'];
+                    $string .= "<br />" . $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state'] . " " . 
+                            $job['Customer']['bill_zip'];
+                }
+                
+                return $string;
+                        
+            }
+            
+            
+            return "";
+        }
+        public function admin_runOrganizationTrainingReport($context,$criteria=null, $fields=null,$export=null)
+        {
+            $this->layout = 'ajax';
+            
+           if($this->request->is('post')) {
+             
+             
+            $this->loadModel('Job');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry','JobTaskList')));
+            
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+           
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            $searchable = array_merge(array('Job.id'),$getFields['search']);
+           
+            $results = $this->Job->find('all', array(
+               
+                'fields' => $searchable,
+                
+                //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
+                'conditions' => $this->request->data['conditions']));
+          //  pr($results); exit();
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $this->_fetchComplexFieldInfoJob($compactField['id'], $res['Job']['id']);
+                    }
+                }
+            }
+            
+            $final = array();
+            $returnFields = array();
+            $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
+            foreach($getFields['all'] as $name => $field)
+               {
+                   
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
+                   $returnFields[] = array(
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
+                       'class' =>'show-on-export');
+                        
+               }
+              // pr($innerFieldArray); exit();
+               $counter =0;
+          //  pr($getFields['all']);
+            foreach($results as $result)
+            {
+                
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Job']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
+               {
+                   
+                   $fieldArray = explode(".", $name);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$counter][str_replace(".", "-",$name)] = "";
+                       
+                   }
+               }
+               
+                $counter++;
+            }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
+           // pr($return); exit();
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
+           
+           }
+           
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
+           }
+           
+           public function admin_runCustomerReport($context,$criteria=null, $fields=null,$export=null)
         {
             $this->layout = 'ajax';
            if($this->request->is('post')) {
@@ -1050,6 +1264,24 @@ App::uses('AppController', 'Controller');
             $this->set('results', $final);
             $this->set('fields', $this->request->data['fields']);
         }
+        public function admin_organizationTraining() {
+                 $this->loadModel('Group');
+            $this->set('groups', $this->Group->find('list', array('conditions'=> array('is_customer'=> 1))));
+            $this->loadModel('CustomerType');
+            $this->set('customerTypes', $this->CustomerType->find('list'));
+            $this->set('customerSources', explode("|", $this->config['customer.sources']));
+            $this->loadModel('EmailTemplate');
+            $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
+                'context' => 'OrganizationTraining'
+            ))));
+            $this->loadModel('ServiceArea');
+            $this->set('trainingTypes', $this->ServiceArea->find('list', array('conditions' => array(
+                'parent_id' => 2
+            ))));
+            $this->set('fields', $this->_reportingFields('OrganizationTraining'));
+            $this->set('defaultExportTitle', 'OrganizationTrainingQuery-' . date("mdY"));
+	}
+
         function admin_customer() {
             $this->loadModel('Group');
             $this->set('groups', $this->Group->find('list', array('conditions'=> array('is_customer'=> 1))));

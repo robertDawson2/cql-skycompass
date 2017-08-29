@@ -213,10 +213,12 @@
             <li class='<?= $section == 'crmreporting' ? 'active' : ''; ?> '>
               <a href="#"><i class="fa fa-plus-circle"></i> CRM Reports <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="/admin/reporting/accreditation"><i class="fa fa-circle-o"></i> Accreditation Reports</a></li>
-                <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Certification Reports</a></li>
-                <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact Reports</a></li>
-                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Organization Reports</a></li>
+                  <li><a href="/admin/reporting/contact"><i class="fa fa-circle-o"></i> Contact</a></li>
+                <li><a href="/admin/reporting/customer"><i class="fa fa-circle-o"></i> Organization</a></li>
+                <li><a href="/admin/reporting/accreditation"><i class="fa fa-circle-o"></i> Org Accreditations</a></li>
+                <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Contact Certifications</a></li>
+                <li><a href="/admin/reporting/organizationTraining"><i class="fa fa-circle-o"></i> Org Trainings</a></li>
+                <li><a href="/admin/reporting/contactTraining"><i class="fa fa-circle-o"></i> Contact Trainings</a></li>
 <!--                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>-->
               </ul>
             </li>

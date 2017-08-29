@@ -360,6 +360,18 @@ ORDER BY vendor_id ASC , customer_id ASC , txn_date ASC ');
             pr($this->Bill->findById($id));
             exit();
         }
+        function admin_scanDirForRemoval() 
+        {
+            
+            $test = scandir(WWW_ROOT . DS . "files/_uploads");
+            foreach($test as $t)
+            {
+               if($t !== "." && $t!== "..")
+                   echo $t . "<br />";
+            }
+            
+            exit();
+        }
         function admin_ajaxUploadReceipts() 
         {
             $this->layout = "ajax";
@@ -397,7 +409,10 @@ if($uploadOk) {
             $this->BillItemImage->create();
             $fileData = file_get_contents($_FILES['files']['tmp_name'][$i]);
            
-            $this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $filename, 'file' => $fileData  ));
+            
+            if(!$this->BillItemImage->save(array('mime' => $imageProperties['mime'],'name' => $filename, 'file' => $fileData  ))) {
+                echo "savefail";
+            }
             
 //    if(move_uploaded_file($_FILES['files']['tmp_name'][$i], $target_dir . $filename)) {
 //        $this->_shrinkReceipt($filename, $target_dir);
