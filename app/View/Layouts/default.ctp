@@ -68,6 +68,9 @@
 		header, nav, .container { min-width: 1170px; }
 		.nav-main { min-width: 905px; }
 		.nav-social { min-width: 200px; }
+                body .mobile-only {display: none !important; }
+                body.mobile1 td.mobile-only { display: block !important; }
+        body.mobile1 img.mobile-only { display: inline-block !important; }
 	</style>
 	
 	<meta property='og:type' content='website' />

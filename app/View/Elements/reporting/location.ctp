@@ -65,10 +65,13 @@
             </div>
     <div class="box-body">
             <div class='row form-group'>
+                 <div class="col-md-2">
+                    <input class="like" type="radio" name="stateOrZip" id="noLimit" />Do Not Limit Results
+                </div>
  <div class="col-md-4">
                 <div class='row'>
                     <div class='col-md-12'>
-                <input class='like' type='checkbox' id='limitByState' /> Limit By State
+                <input class='like' type='radio' name="stateOrZip" id='limitByState' /> Limit By State
                     </div>
                     <div class='col-md-12'>
                 <a role='button' class='deepcategoryCheckAll'>Check</a> /&nbsp; <a role='button' class='deepcategoryUncheckAll'>Uncheck</a>
@@ -82,6 +85,35 @@
                     </div>
                 </div>
             </div>
+               <?php if(0): ?>
+                 <div class="col-md-4">
+                <div class='row'>
+                    <div class='col-md-12'>
+                <input class='like' type='radio' name="stateOrZip" id='limitByZip' /> Limit By Zip
+                    </div>
+                    <div class='col-md-12'>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input class="input form-control" type="text" maxlength="11" id="zip" />
+                    </div>
+                    <div class="col-md-6">
+                <select class='input form-control data' id='zipRange'>
+                    <option value="99999">---Any---</option>
+                    <option value='10'>10 Miles</option>
+                    <option value='20'>20 Miles</option>
+                    <option value='30'>30 Miles</option>
+                    <option value='50'>50 Miles</option>
+                    <option value='75'>75 Miles</option>
+                    <option value='100'>100 Miles</option>
+                    <option value='250'>250 Miles</option>
+
+                </select>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+                <?php endif; ?>
                 </div>
     </div>
 </div>

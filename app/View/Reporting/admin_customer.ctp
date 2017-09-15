@@ -95,13 +95,13 @@
     </div>
     
 </div>
-                <div class='row'>
+<!--                <div class='row'>
     <div class='col-sm-12'>
            
-        <?= $this->element('reporting/accreditation/accreditations'); ?>
+        <?php // $this->element('reporting/accreditation/accreditations'); ?>
     </div>
     
-</div>
+</div>-->
                                 <div class='row'>
     <div class='col-sm-12'>
        <?= $this->element('reporting/location'); ?>
@@ -109,7 +109,7 @@
 </div>
 <div class='row'>
     <div class='col-sm-12'>
-       <?= $this->element('reporting/customer/options'); ?>
+       <?= $this->element('reporting/options'); ?>
     </div>
 </div>
                 <div class='row'>
@@ -254,7 +254,7 @@ function getFields()
         var fields = [];
         $(".fields > option").each(function() {
             $category = $(this).parent().data('category');
-            $field = $(this).text();
+            $field = $(this).val();
             if($(this).prop('selected'))
             {
                 fields.push($category + "." + $field);
@@ -272,10 +272,9 @@ function getFields()
         $conditions = {
             'andOr' : {
                 type: 'ignore',
-                accreditation: $("#accreditationAndOr").val(),
-                accreditationType: 'OR',
+               
                 criteria: $("#searchAndOr").val(),
-                overall: $("#overallAndOr").val()
+                
             },
             'checkGroups' : {
                 type: 'list',
@@ -314,70 +313,6 @@ function getFields()
                 conditionField: 'Customer.contract_expiration',
                 conditionType: 'lessThanDate',
                 conditionSection: 'criteria',
-                extra: null,
-                data: null
-            },
-            'checkAccreditationExpired' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.expiration_date',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: null,
-                data: null
-            },
-            'checkAccreditationExpiring' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.expiration_date',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: null,
-                data: null
-            },
-            'checkAccreditationVisit2' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.visit_2_18_mo',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: 'CustomerAccreditation.visit_2_start_date is null',
-                data: null
-            },
-            'checkAccreditationVisit3' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.visit_3_36_mo',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: 'CustomerAccreditation.visit_3_required = "1" AND CustomerAccreditation.visit_3_start_date is null',
-                data: null
-            },
-            'checkAccreditation9Mo' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.9_mo_due_date',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: 'CustomerAccreditation.9_mo_followup_required = "1" AND CustomerAccreditation.9_mo_actual_date is null',
-                data: null
-            },
-            'checkAccreditation18Mo' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.18_mo_due_date',
-                conditionType: 'lessThanDate',
-                conditionSection: 'accreditation',
-                extra: 'CustomerAccreditation.18_mo_onsite_required = "1" AND CustomerAccreditation.18_mo_actual_date is null',
-                data: null
-            },
-            'checkAccreditationNotes' : {
-                type: 'string',
-                conditionField: 'CustomerAccreditation.notes',
-                conditionType: 'like',
-                conditionSection: 'accreditation',
-                extra: null,
-                data: null
-            },
-            'checkAccreditationTypes' : {
-                type: 'list',
-                conditionField: 'CustomerAccreditation.accreditation_id',
-                conditionType: 'array',
-                conditionSection: 'accreditationType',
                 extra: null,
                 data: null
             }
@@ -422,7 +357,7 @@ function getFields()
             
         }
         
-       
+      
         
         return $conditions;
     }
@@ -430,9 +365,8 @@ function getFields()
     {
         var conditions = "";
         var conditionsObject = {
-            criteria: "",
-            accreditation: "",
-            accreditationType: ""
+            criteria: ""
+           
         };
         var current = "";
         for(var key in conditionArray)
@@ -442,7 +376,7 @@ function getFields()
             if(!conditionArray.hasOwnProperty(key)) continue;
             
             var obj = conditionArray[key];
-            
+            console.log(obj);
             if(obj.data !== null)
             {
                 
@@ -510,67 +444,8 @@ function getFields()
             
         }
         
-        var first = true;
-        for(var key in conditionsObject)
-        {
-            if(!conditionsObject.hasOwnProperty(key)) continue;
-        var compare = conditionsObject[key].substring(conditionsObject[key].length-4).trim();
-        var addOn = conditionsObject[key];
-
-        if(compare === 'AND' || compare === 'OR' || compare === ') OR')
-        {
-            addOn = conditionsObject[key].substring(0,conditionsObject[key].length-4).trim();
-            conditionsObject[key] = addOn;
-
-            }
         
-        if(addOn !== "")
-        {
-            if(!first)
-            {
-                if(key !== 'accreditationType')
-                    conditions += ") " + conditionArray.andOr.overall + " (";
-               
-                
-            }
-            else
-            {
-            first = false;
-            if(key !== 'accreditationType')
-                conditions += "(";
-            }
-            
-            if(key !== 'accreditationType')
-                conditions += addOn;
-        
-
-            }
-  
-        }
-        
-        var oldConditions = conditions;
-        if(conditions === "")
-            conditions = conditionsObject['accreditationType'];
-        else
-        {
-            
-            var compare = oldConditions.substring(oldConditions.length-3).trim();
-        
-        if(compare === 'AND' || compare === 'OR')
-        {
-            oldConditions = oldConditions.substring(0,oldConditions.length-3).trim();
-            }
-            
-            if(conditionsObject['accreditationType'] !== "")
-                conditions = "(" + oldConditions + ")) AND " + conditionsObject['accreditationType'];
-            else
-                conditions = oldConditions + ")";
-            
-        }
-        
-        
-        
-        return conditions;
+        return conditionsObject["criteria"];
     }
     
     
@@ -583,6 +458,7 @@ function getFields()
             name : $("#templateName").val(),
             conditions: JSON.stringify(condArray),
             conditions_string: getConditions(condArray),
+            locationLimit: JSON.stringify(getIsLocationLimited()),
             fields: JSON.stringify(getFields()),
             context: 'Customer'
         };
@@ -613,18 +489,33 @@ function getFields()
         });
         
     });
+    
+    function getIsLocationLimited() 
+    {
+        if($("#limitByState").is(':checked'))
+            return {"byState": $("#states").val()};
+        if($("#limitByZip").is(':checked'))
+        {
+            return {"byZip" : $("#zip").val(),
+                    "range" : $("#zipRange").val()};
+        }
+        return false;
+    }
+    
     $("#createReport").on('click', function(){
     var condArray = getConditionsArray();
         var fields = getFields();
         var conditions = getConditions(condArray);
         var today = new Date();
+        var locationLimit = getIsLocationLimited();
         
         if($("#templateName").val() !== "" && fileName === "")
             fileName = $("#templateName").val() + (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear();
         else
             fileName = defaultFileName;
         var submission = {'fields' : fields,
-            'conditions' : conditions
+            'conditions' : conditions,
+            'locationLimit' : locationLimit
         };
         var id=null;
        $.ajax({
@@ -708,9 +599,34 @@ function getFields()
                $(".box-danger select > option").prop('selected', false);
                   populateFields(jsonData.fields);
                 populateCriteria(jsonData.conditions);
+                populateLocation(jsonData.locationLimit);
     });
         
     });
+    
+    function populateLocation(locationLimit)
+    {
+        locationLimit = (JSON.parse(locationLimit));
+        if(locationLimit === false || locationLimit === null)
+            return false;
+
+        if(typeof locationLimit.byState !== "undefined")
+        {
+            $("#limitByState").attr('checked', 'checked');
+            $("#states").val(locationLimit.byState);
+            return true;
+        }
+        
+        if(typeof locationLimit.byZip !== "undefined")
+        {
+            $("#limitByZip").attr("checked", "checked");
+            $('#zip').val(locationLimit.byZip);
+            $('#zipRange').val(locationLimit.range);
+            return true;
+        }
+        
+        return false;
+    }
     
     function populateCriteria(conditions)
     {
@@ -777,7 +693,7 @@ function getFields()
     for (var key in $obj) {
   if ($obj.hasOwnProperty(key)) {
        $("select#Category" + key + " > option").each(function() {
-              if(inArray($(this).text(),$obj[key]))
+              if(inArray($(this).val(),$obj[key]))
                   $(this).prop('selected', true);
     });
       

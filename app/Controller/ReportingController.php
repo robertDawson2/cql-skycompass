@@ -512,10 +512,17 @@ App::uses('AppController', 'Controller');
         {
             if($context === 'OrganizationTraining')
             {
-                $this->loadModel('AvailableField');
+                $category = array('Job','Organization');
+            }
+            if($context === 'Customer')
+            {
+                $category = array('Organization');
+            }
+            
+            $this->loadModel('AvailableField');
                 $fields = $this->AvailableField->find('all', array(
                     'conditions' => array(
-                        'category' => array('Job','Organization','Contact')
+                        'category' => $category
                     ),
                     'order' => array('AvailableField.category ASC')
                 ));
@@ -528,10 +535,11 @@ App::uses('AppController', 'Controller');
                     $return[$field['AvailableField']['category']][] = $field['AvailableField'];
                 }
                 return $return;
-            }
-            else
-                $mainContext = $context;
             
+//            
+//            else
+//                $mainContext = $context;
+//            
             $this->loadModel($mainContext);
             
             
@@ -630,12 +638,138 @@ App::uses('AppController', 'Controller');
             return $return;
             
         }
+        private function _fetchComplexFieldInfoCustomer($id, $contextId)
+        {
+            $this->loadModel('Customer');
+            $customer = $this->Customer->findById($contextId);
+            
+            if($id === "18")
+            {
+                // Customer Primary Contact
+                if(isset($customer['Customer']['primary_contact_id']))
+                {
+                    $this->loadModel('Contact');
+                    $primary = $this->Contact->findById($customer['Customer']['primary_contact_id']);
+                    $returnVal = $primary['Contact']['first_name'] . " " . $primary['Contact']['last_name'] .
+                            "<br />" . $primary['Contact']['email'];
+                    return $returnVal;
+                }
+                else
+                {
+                    return "--- None Listed ---";
+                }
+            }
+            
+            if($id === "19")
+            {
+                // customer addresses
+               
+                $i = 0;
+                $returnVal = "";
+                if(!empty($customer['CustomerAddress']))
+                {
+                    foreach($customer['CustomerAddress'] as $address){
+                if($i>0)
+                    $returnVal .= "<br />-----------------------------<br />";
+                
+                
+                $returnVal .= "(" . ucfirst($address['type']) . ")<br />" . 
+                        $address['address_1'] . "<br />";
+                if(!empty($address['address_2']))
+                {
+                    $returnVal.= $address['address_2'] . "<br />";
+                }
+                $returnVal .= $address['city'] . ", " . $address['state'] . " " . $address['zip'];
+                $i++;
+                
+                    }
+                }
+                else
+                {
+                    $returnVal = "(QuickBooks Billing)<br />" . 
+                            $customer['Customer']['bill_addr1'] . "<br />";
+                    if(!empty($customer['Customer']['bill_addr2']))
+                {
+                    $returnVal.= $customer['Customer']['bill_addr2'] . "<br />";
+                }
+                $returnVal .= $customer['Customer']['bill_city'] . ", " . 
+                        $customer['Customer']['bill_state'] . " " . $customer['Customer']['bill_zip'];
+                    
+                }
+
+                return $returnVal;
+            }
+            if($id === "20")
+            {
+                // customer addresses
+              
+                $i = 0;
+                $returnVal = "";
+                if(!empty($customer['CustomerPhone']))
+                {
+                    foreach($customer['CustomerPhone'] as $phone){
+                if($i>0)
+                    $returnVal .= "<br />-----------------------------<br />";
+                
+                
+                $returnVal .= "(" . ucfirst($phone['type']) . ")<br />" . 
+                        $phone['phone'];
+                if(!empty($phone['ext']))
+                {
+                    $returnVal.= " x" . $phone['ext'];
+                }
+                $i++;
+                    }
+                }
+
+                return $returnVal;
+            }
+            if($id === "21")
+            {
+                // customer groups
+              $this->loadModel('Group');
+                $i = 0;
+                $returnVal = "";
+                if(!empty($customer['CustomerGroup']))
+                {
+                    foreach($customer['CustomerGroup'] as $group){
+                if($i>0)
+                    $returnVal .= ", ";
+                
+                $realGroup = $this->Group->findById($group['group_id']);
+                
+                $returnVal .= $realGroup['Group']['name'];
+                $i++;
+                    }
+                }
+
+                return $returnVal;
+            }
+            if($id === "22")
+            {
+                // customer source
+              $this->loadModel('Source');
+                $i = 0;
+                $returnVal = "";
+                if(!empty($customer['Customer']['source']))
+                {
+               
+                $realGroup = $this->Source->findById($customer['Customer']['source']);
+                
+                $returnVal .= $realGroup['Source']['name'];
+                
+                    
+                }
+
+                return $returnVal;
+            }
+        }
         private function _fetchComplexFieldInfoJob($id, $contextId)
         {
             $this->loadModel('Job');
             $job = $this->Job->findById($contextId);
            
-            
+           
             if($id === "10")
             {
                 // Job Address
@@ -643,19 +777,19 @@ App::uses('AppController', 'Controller');
                 if(!empty($job['Job']['state']))
                 {
                     // Use actual job address
-                    $string = $job['Job']['addr1'];
+                    $string = $job['Job']['addr1']. "<br />";
                     if(!empty($job['Job']['addr2']))
-                        $string .= "<br />" . $job['Job']['addr2'];
-                    $string .= "<br />" . $job['Job']['city'] . ", " . $job['Job']['state'] . " " . 
+                        $string .= $job['Job']['addr2'] . "<br />";
+                    $string .= $job['Job']['city'] . ", " . $job['Job']['state'] . " " . 
                             $job['Job']['zip'];
                 }
                 else
                 {
                     // Use listed address for customer
-                    $string = $job['Customer']['bill_addr1'];
+                    $string = $job['Customer']['bill_addr1'] . "<br />";
                     if(!empty($job['Customer']['bill_addr2']))
-                        $string .= "<br />" . $job['Customer']['bill_addr2'];
-                    $string .= "<br />" . $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state'] . " " . 
+                        $string .= $job['Customer']['bill_addr2']. "<br />";
+                    $string .= $job['Customer']['bill_city'] . ", " . $job['Customer']['bill_state'] . " " . 
                             $job['Customer']['bill_zip'];
                 }
                 
@@ -664,15 +798,16 @@ App::uses('AppController', 'Controller');
             }
             
             
-            return "";
+            return false;
         }
         public function admin_runOrganizationTrainingReport($context,$criteria=null, $fields=null,$export=null)
         {
             $this->layout = 'ajax';
             
            if($this->request->is('post')) {
-             
-             
+            
+           $locationLimit = $this->request->data['locationLimit'];
+           
             $this->loadModel('Job');
             $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry','JobTaskList')));
             
@@ -682,8 +817,35 @@ App::uses('AppController', 'Controller');
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
            
             $getFields = $this->_getSearchFields($this->request->data['fields']);
-            $searchable = array_merge(array('Job.id'),$getFields['search']);
+            if($locationLimit !== false)
+            {
+                $searchable = array_merge(array('Job.id',
+                    'Job.customer_id', 'Job.state', 
+                    'Job.zip','Customer.bill_state',
+                    'Customer.bill_zip','ServiceArea.parent_id'), $getFields['search']);
+            }
+            else
+            {
+            $searchable = array_merge(array('Job.id', 'Job.customer_id','ServiceArea.parent_id'),$getFields['search']);
+            }
+           if(isset($locationLimit['byState']))
+           {
+               if(!empty($this->request->data['conditions']))
+                   $this->request->data['conditions'] .= " AND ";
+               $this->request->data['conditions'] .= "("
+                       . "(Job.state IN (\"" .
+                       implode('","', $locationLimit['byState']) . "\")) OR "
+                       . "(Job.state = \"\" AND Customer.bill_state IN (\""
+                   . implode('","', $locationLimit['byState']) . "\")"
+                       . "))";
+           }
            
+           if(!empty($this->request->data['conditions']))
+           {
+               $this->request->data['conditions'] .= " AND ";
+           }
+           $this->request->data['conditions'] .= "(ServiceArea.parent_id = 2)";
+       //   pr($this->request->data); exit();
             $results = $this->Job->find('all', array(
                
                 'fields' => $searchable,
@@ -700,8 +862,13 @@ App::uses('AppController', 'Controller');
                     if(!isset($results[$i][$compactField['model_name']]))
                         $results[$i][$compactField['model_name']] = array();
                     
+                    $complexValue = $this->_fetchComplexFieldInfoJob($compactField['id'], $res['Job']['id']);
+                    if(!$complexValue)
+                    {
+                       $complexValue = $this->_fetchComplexFieldInfoCustomer($compactField['id'], $res['Job']['customer_id']);
+                    }
                       $results[$i][$compactField['model_name']][$compactField['field_name']] = 
-                              $this->_fetchComplexFieldInfoJob($compactField['id'], $res['Job']['id']);
+                              $complexValue;
                     }
                 }
             }
@@ -768,7 +935,7 @@ App::uses('AppController', 'Controller');
                 $counter++;
             }
             $return = array('data' => array('data' => $final), 'columns' => $returnFields);
-           // pr($return); exit();
+          //  pr($return); exit();
             $this->loadModel('JsonReport');
             $this->JsonReport->create();
             $this->JsonReport->save(array('json' => json_encode($return)));
@@ -780,23 +947,70 @@ App::uses('AppController', 'Controller');
             $this->set('results', $final);
             $this->set('fields', $this->request->data['fields']);
            }
+           private function _limitCustomersByState($results = array(), $states = array())
+           {
+               foreach($results as $i => $result)
+               {
+                   $safe = false;
+                   // Customer addresses populated, ignore quickbooks
+                   if(!empty($result['CustomerAddress']))
+                   {
+                       foreach($result['CustomerAddress'] as $addy)
+                       {
+                           if(in_array($addy['state'], $states))
+                           {
+                               $safe = true;
+                           }
+                       }
+                   }
+                   else
+                   {
+                       // use QB data
+                       if(in_array($result['Customer']['bill_state'], $states))
+                               $safe = true;
+                   }
+                   
+                   if(!$safe)
+                   {
+                       unset($results[$i]);
+                   }
+               }
+               return $results;
+           }
            
            public function admin_runCustomerReport($context,$criteria=null, $fields=null,$export=null)
         {
             $this->layout = 'ajax';
            if($this->request->is('post')) {
-             
+            
+               // always necessary fields
+              $normalFields = array('DISTINCT Customer.id','Customer.source', 'Customer.archived', 'Customer.bill_state', 'Customer.bill_zip');
+               
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
                
             $this->loadModel($context);
-            $this->$context->unbindModel(array('hasMany' => array('Job')));
+            $this->$context->unbindModel(array('hasMany' => array('Job', 'CustomerAccreditation'),
+                'hasAndBelongsToMany' => array('Contact')));
             
             if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
             if(trim(substr($this->request->data['conditions'],-4)) === "OR")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
             
+            // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            
+                $searchable = array_merge($normalFields, $getFields['search']);
+           
+
             $results = $this->$context->find('all', array(
-                'fields' => 'DISTINCT Customer.id, *',
+                'fields' => $searchable,
+                
                 'joins' => array(
                     array(
                     'table' => 'customer_groups',
@@ -810,24 +1024,37 @@ App::uses('AppController', 'Controller');
                     'alias' => 'Group',
                     'type' => 'LEFT',
                     'conditions' => '`CustomerGroup`.`group_id` = `Group`.`id`'
-                        ),
-                    array(
-                    'table' => 'customer_accreditations',
-                    'alias' => 'CustomerAccreditation',
-                    'type' => 'LEFT',
-                    'conditions' => '`CustomerAccreditation`.`customer_id` = `Customer`.`id`'
-                        ),
-                    array(
-                    'table' => 'accreditations',
-                    'alias' => 'Accreditation',
-                    'type' => 'LEFT',
-                    'conditions' => '`CustomerAccreditation`.`accreditation_id` = `Accreditation`.`id`'
-                        ),
+                        )
                     
                 ),
                 //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
                 'conditions' => $this->request->data['conditions']));
-           // pr($results); exit();
+          
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitCustomersByState($results, $locationLimit['byState']);
+            }
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    
+                       $complexValue = $this->_fetchComplexFieldInfoCustomer($compactField['id'], $res['Customer']['id']);
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+      
             $final = array();
             $returnFields = array();
             $innerFieldArray = array();
@@ -838,33 +1065,33 @@ App::uses('AppController', 'Controller');
                        
                        'searchable' => false,
                        'data' => 'select-box');
-            foreach($this->request->data['fields'] as $field)
+            foreach($getFields['all'] as $name => $field)
                {
                    
-                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
                    $returnFields[] = array(
-                       'title' => ucwords(str_replace(".", "<br />\n\r ", str_replace("_", " ", $field))),
-                       'data' => str_replace(".", "-",$field),
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
                        'class' =>'show-on-export');
                         
                }
-               
+              
                $counter =0;
             foreach($results as $result)
             {
                 
                $final[$counter] = $innerFieldArray;
               $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Customer']['id'] . "' />";
-               foreach($this->request->data['fields'] as $field)
+               foreach($getFields['all'] as  $name => $field)
                {
                    
-                   $fieldArray = explode(".", $field);
+                   $fieldArray = explode(".", $name);
                    // if not a multi-array
                    if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
                            !empty($result[$fieldArray[0]]) && 
                            (!isset($result[$fieldArray[0]][0] )||
                            !is_array($result[$fieldArray[0]][0] ))) {
-                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
                    }
                    // check if first element is another array - this means a multi-dimensional array
                    elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
@@ -875,13 +1102,13 @@ App::uses('AppController', 'Controller');
                        foreach($result[$fieldArray[0]] as $subresult) 
                        {
                            
-                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
                            
                        }
                    }
                    else
                    {
-                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       $final[$counter][str_replace(".", "-",$name)] = "";
                        
                    }
                }

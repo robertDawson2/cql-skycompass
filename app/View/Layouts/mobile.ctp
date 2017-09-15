@@ -68,6 +68,9 @@
 		img, iframe { max-width: 96%; float: none !important; margin: 0 !important; }
 		article img.left { float: none; margin: 0; }
 		article img.right { float: none; margin: 0; }
+                body .mobile-only {display: none !important; }
+                body.mobile1 td.mobile-only { display: block !important; }
+        body.mobile1 img.mobile-only { display: inline-block !important; }
 	</style>
 </head>
 

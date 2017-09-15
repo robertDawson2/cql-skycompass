@@ -491,6 +491,7 @@ function getFields()
             name : $("#templateName").val(),
             conditions: JSON.stringify(condArray),
             conditions_string: getConditions(condArray),
+            locationLimit: JSON.stringify(getIsLocationLimited()),
             fields: JSON.stringify(getFields()),
             context: 'OrganizationTraining'
         };
@@ -522,18 +523,32 @@ function getFields()
         });
         
     });
+    function getIsLocationLimited() 
+    {
+        if($("#limitByState").is(':checked'))
+            return {"byState": $("#states").val()};
+        if($("#limitByZip").is(':checked'))
+        {
+            return {"byZip" : $("#zip").val(),
+                    "range" : $("#zipRange").val()};
+        }
+        return false;
+    }
+    
     $("#createReport").on('click', function(){
     var condArray = getConditionsArray();
         var fields = getFields();
         var conditions = getConditions(condArray);
         var today = new Date();
+        var locationLimit = getIsLocationLimited();
         
         if($("#templateName").val() !== "" && fileName === "")
             fileName = $("#templateName").val() + (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear();
         else
             fileName = defaultFileName;
         var submission = {'fields' : fields,
-            'conditions' : conditions
+            'conditions' : conditions,
+            'locationLimit' : locationLimit
         };
         console.log(submission);
         var id=null;
@@ -618,10 +633,34 @@ function getFields()
                $(".box-danger select > option").prop('selected', false);
                   populateFields(jsonData.fields);
                 populateCriteria(jsonData.conditions);
+               
+                populateLocation(jsonData.locationLimit);
     });
         
     });
-    
+    function populateLocation(locationLimit)
+    {
+        locationLimit = (JSON.parse(locationLimit));
+        if(locationLimit === false || locationLimit === null)
+            return false;
+
+        if(typeof locationLimit.byState !== "undefined")
+        {
+            $("#limitByState").attr('checked', 'checked');
+            $("#states").val(locationLimit.byState);
+            return true;
+        }
+        
+        if(typeof locationLimit.byZip !== "undefined")
+        {
+            $("#limitByZip").attr("checked", "checked");
+            $('#zip').val(locationLimit.byZip);
+            $('#zipRange').val(locationLimit.range);
+            return true;
+        }
+        
+        return false;
+    }
     function populateCriteria(conditions)
     {
      //console.log(conditions);   
