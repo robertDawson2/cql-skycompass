@@ -13,14 +13,7 @@
             </div>
     <div class="box-body">
        <div class='row'>
-           <div class='col-md-3'>
-                <h4>Comparison By Section:</h4>
-                <select id='overallAndOr' class='input form-control'>
-                    <option val='AND'>AND</option>
-                    <option val='OR'>OR</option>
-                </select>
-                   
-            </div>
+           
             <div class='col-md-3'>
                 <h4>Comparison for each general search attribute:</h4>
                 <select id='searchAndOr' class='input form-control'>

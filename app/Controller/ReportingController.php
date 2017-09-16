@@ -519,6 +519,14 @@ App::uses('AppController', 'Controller');
                 $category = array('Organization');
             }
             
+            if($context === 'Contact') {
+                $category = array('Contact');
+            }
+            if($context === "CustomerAccreditation" || $context === "Accreditation")
+            {
+                $category = array('Accreditation', 'Organization');
+            }
+            
             $this->loadModel('AvailableField');
                 $fields = $this->AvailableField->find('all', array(
                     'conditions' => array(
@@ -642,6 +650,8 @@ App::uses('AppController', 'Controller');
         {
             $this->loadModel('Customer');
             $customer = $this->Customer->findById($contextId);
+            if(empty($customer))
+                return false;
             
             if($id === "18")
             {
@@ -761,6 +771,154 @@ App::uses('AppController', 'Controller');
                     
                 }
 
+                return $returnVal;
+            }
+        }
+         private function _fetchComplexFieldInfoContact($id, $contextId)
+        {
+             
+            $this->loadModel('Contact');
+            $contact = $this->Contact->findById($contextId);
+           // pr($contact);
+            if($id === "32")
+            {
+                // Contact Type
+                if(!empty($contact['Contact']['contact_type']))
+                {
+                    $this->loadModel('ContactType');
+                    $types = explode("|", $contact['Contact']['contact_type']);
+                    $list = $this->ContactType->find('list', array(
+                        'conditions' => array(
+                            'ContactType.id' => $types
+                        ),
+                        'fields' => array('ContactType.id', 'ContactType.name')
+                    ));
+                    $returnVal = implode(", ", $list);
+                    return $returnVal;
+                }
+                else
+                {
+                    return "--- None Listed ---";
+                }
+            }
+            
+            if($id === "39")
+            {
+                // customer addresses
+               
+                $i = 0;
+                $returnVal = "";
+                if(!empty($contact['ContactAddress']))
+                {
+                    foreach($contact['ContactAddress'] as $address){
+                if($i>0)
+                    $returnVal .= "<br />-----------------------------<br />";
+                
+                
+                $returnVal .= "(" . ucfirst($address['type']) . ")<br />" . 
+                        $address['address_1'] . "<br />";
+                if(!empty($address['address_2']))
+                {
+                    $returnVal.= $address['address_2'] . "<br />";
+                }
+                $returnVal .= $address['city'] . ", " . $address['state'] . " " . $address['zip'];
+                $i++;
+                
+                    }
+                }
+                else
+                {
+                    $returnVal = "--- None Listed ---";
+                    
+                }
+
+                return $returnVal;
+            }
+            if($id === "38")
+            {
+                // contact phone
+              
+                $i = 0;
+                $returnVal = "";
+                if(!empty($contact['ContactPhone']))
+                {
+                    foreach($contact['ContactPhone'] as $phone){
+                if($i>0)
+                    $returnVal .= "<br />-----------------------------<br />";
+                
+                
+                $returnVal .= "(" . ucfirst($phone['type']) . ")<br />" . 
+                        $phone['phone'];
+                if(!empty($phone['ext']))
+                {
+                    $returnVal.= " x" . $phone['ext'];
+                }
+                $i++;
+                    }
+                }
+                else
+                {
+                    $returnVal = "--- None Listed ---";
+                }
+
+                return $returnVal;
+            }
+            if($id === "40")
+            {
+                // Contact groups
+              $this->loadModel('Group');
+                $i = 0;
+                $returnVal = "";
+                if(!empty($contact['ContactGroup']))
+                {
+                    foreach($contact['ContactGroup'] as $group){
+                if($i>0)
+                    $returnVal .= ", ";
+                
+                $realGroup = $this->Group->findById($group['group_id']);
+                
+                $returnVal .= $realGroup['Group']['name'];
+                $i++;
+                    }
+                }
+
+                return $returnVal;
+            }
+            if($id === "36")
+            {
+                // contact source
+              $this->loadModel('Source');
+                $i = 0;
+                $returnVal = "";
+                if(!empty($contact['Contact']['source']))
+                {
+               
+                $realGroup = $this->Source->findById($contact['Contact']['source']);
+                
+                $returnVal .= $realGroup['Source']['name'];
+                
+                    
+                }
+
+                return $returnVal;
+            }
+            
+            if($id === "37")
+            {
+                $returnVal = "";
+                // Linked Customers
+                if(!empty($contact['Customer']))
+                {
+                    foreach($contact['Customer'] as $customer)
+                    {
+                        $returnVal .= $customer['name'] . "<br />";
+                    }
+                   
+                }
+                else
+                {
+                    $returnVal = "--- None Listed ---";
+                }
                 return $returnVal;
             }
         }
@@ -947,6 +1105,38 @@ App::uses('AppController', 'Controller');
             $this->set('results', $final);
             $this->set('fields', $this->request->data['fields']);
            }
+           
+           private function _limitAccreditationsByState($results = array(), $states = array())
+           {
+               foreach($results as $i => $result)
+               {
+                   $safe = false;
+                   // Customer addresses populated, ignore quickbooks
+                   if(!empty($result['Customer']['CustomerAddress']))
+                   {
+                       foreach($result['Customer']['CustomerAddress'] as $addy)
+                       {
+                           if(in_array($addy['state'], $states))
+                           {
+                               $safe = true;
+                           }
+                       }
+                   }
+                   else
+                   {
+                       // use QB data
+                       if(in_array($result['Customer']['bill_state'], $states))
+                               $safe = true;
+                   }
+                   
+                   if(!$safe)
+                   {
+                       unset($results[$i]);
+                   }
+               }
+               return $results;
+           }
+           
            private function _limitCustomersByState($results = array(), $states = array())
            {
                foreach($results as $i => $result)
@@ -978,6 +1168,31 @@ App::uses('AppController', 'Controller');
                return $results;
            }
            
+           private function _limitContactsByState($results = array(), $states = array())
+           {
+               foreach($results as $i => $result)
+               {
+                   $safe = false;
+                   // Customer addresses populated
+                   if(!empty($result['ContactAddress']))
+                   {
+                       foreach($result['ContactAddress'] as $addy)
+                       {
+                           if(in_array($addy['state'], $states))
+                           {
+                               $safe = true;
+                           }
+                       }
+                   }
+                   
+                   
+                   if(!$safe)
+                   {
+                       unset($results[$i]);
+                   }
+               }
+               return $results;
+           }
            public function admin_runCustomerReport($context,$criteria=null, $fields=null,$export=null)
         {
             $this->layout = 'ajax';
@@ -1132,16 +1347,31 @@ App::uses('AppController', 'Controller');
         {
             $this->layout = 'ajax';
            if($this->request->is('post')) {
-             
+            
+               // always necessary fields
+              $normalFields = array('DISTINCT Contact.id','ContactCustomer.archived', 'Contact.source', 'Contact.contact_type');
+               
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
                
             $this->loadModel($context);
-            $this->$context->unbindModel(array('hasMany' => array('Job')));
+            $this->$context->unbindModel(array('hasMany' => array('Job', 'CustomerAccreditation'),
+                'hasAndBelongsToMany' => array('Contact')));
             
             if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
             if(trim(substr($this->request->data['conditions'],-4)) === "OR")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
             
+            // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            
+                $searchable = array_merge($normalFields, $getFields['search']);
+           
             if(empty($this->request->data['conditions']))
                 $this->request->data['conditions'] = "(ContactCustomer.archived is null)";
             else
@@ -1149,7 +1379,7 @@ App::uses('AppController', 'Controller');
 
             $results = $this->$context->find('all', array(
                 //'recursive' => -1,
-                'fields' => array('DISTINCT Contact.id','*'),
+                'fields' => $searchable,
                 'joins' => array(
                     array(
                     'table' => 'contact_groups',
@@ -1175,18 +1405,38 @@ App::uses('AppController', 'Controller');
                     'alias' => 'Customer',
                     'type' => 'LEFT',
                     'conditions' => '`ContactCustomer`.`customer_id` = `Customer`.`id`'
-                        ),
-                    array(
-                    'table' => 'contact_certifications',
-                    'alias' => 'ContactCertification',
-                    'type' => 'LEFT',
-                    'conditions' => '`ContactCertification`.`contact_id` = `Contact`.`id`'
                         )
                     
                 ),
                 //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
                 'conditions' => $this->request->data['conditions']));
          //   pr($results); exit();
+            
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitContactsByState($results, $locationLimit['byState']);
+            }
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    $complexValue = $this->_fetchComplexFieldInfoContact($compactField['id'], $res['Contact']['id']);
+                       
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
             $final = array();
             $returnFields = array();
             $innerFieldArray = array();
@@ -1197,33 +1447,33 @@ App::uses('AppController', 'Controller');
                        
                        'searchable' => false,
                        'data' => 'select-box');
-            foreach($this->request->data['fields'] as $field)
+            foreach($getFields['all'] as $name => $field)
                {
                    
-                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
                    $returnFields[] = array(
-                       'title' => ucwords(str_replace(".", "<br />\n\r ", str_replace("_", " ", $field))),
-                       'data' => str_replace(".", "-",$field),
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
                        'class' =>'show-on-export');
                         
                }
-               
+              
                $counter =0;
             foreach($results as $result)
             {
                 
                $final[$counter] = $innerFieldArray;
               $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Contact']['id'] . "' />";
-               foreach($this->request->data['fields'] as $field)
+               foreach($getFields['all'] as  $name => $field)
                {
                    
-                   $fieldArray = explode(".", $field);
+                   $fieldArray = explode(".", $name);
                    // if not a multi-array
                    if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
                            !empty($result[$fieldArray[0]]) && 
                            (!isset($result[$fieldArray[0]][0] )||
                            !is_array($result[$fieldArray[0]][0] ))) {
-                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
                    }
                    // check if first element is another array - this means a multi-dimensional array
                    elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
@@ -1234,13 +1484,13 @@ App::uses('AppController', 'Controller');
                        foreach($result[$fieldArray[0]] as $subresult) 
                        {
                            
-                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
                            
                        }
                    }
                    else
                    {
-                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       $final[$counter][str_replace(".", "-",$name)] = "";
                        
                    }
                }
@@ -1248,7 +1498,7 @@ App::uses('AppController', 'Controller');
                 $counter++;
             }
             $return = array('data' => array('data' => $final), 'columns' => $returnFields);
-     //     pr($final); exit();
+         // pr($return); exit();
             $this->loadModel('JsonReport');
             $this->JsonReport->create();
             $this->JsonReport->save(array('json' => json_encode($return)));
@@ -1378,6 +1628,9 @@ App::uses('AppController', 'Controller');
             $this->layout = 'ajax';
            if($this->request->is('post')) {
              
+              
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
                
             $this->loadModel($context);
           //  $this->$context->unbindModel(array('hasMany' => array('Job')));
@@ -1386,11 +1639,45 @@ App::uses('AppController', 'Controller');
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
             if(trim(substr($this->request->data['conditions'],-4)) === "OR")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
-         //   pr($this->request->data['conditions']); exit();
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
+                 
+              // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            
+ // pr($this->request->data['conditions']); exit();
             $results = $this->$context->find('all', array(
                 'recursive' => 2, 
                 'conditions' => $this->request->data['conditions']));
-         //   pr($results); exit();
+
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitAccreditationsByState($results, $locationLimit['byState']);
+            }
+ 
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    
+                       $complexValue = $this->_fetchComplexFieldInfoCustomer($compactField['id'], $res['Customer']['id']);
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
             $final = array();
             $returnFields = array();
             $innerFieldArray = array();
@@ -1401,60 +1688,33 @@ App::uses('AppController', 'Controller');
                        
                        'searchable' => false,
                        'data' => 'select-box');
-            $contactNeeded = false;
-            if(in_array('Contact', array_keys($this->request->data['fields'])))
-            {
-                $contactNeeded = true;
-            }
-            foreach($this->request->data['fields'] as $field)
+            foreach($getFields['all'] as $name => $field)
                {
                    
-                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
                    $returnFields[] = array(
-                       'title' => ucwords(str_replace(".", "<br />\n\r ", str_replace("_", " ", $field))),
-                       'data' => str_replace(".", "-",$field),
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
                        'class' =>'show-on-export');
                         
                }
-               
+              
                $counter =0;
             foreach($results as $result)
             {
-                $contact = null;
-                $primary = null;
-                if($contactNeeded)
-                {
-                    $this->loadModel('Contact');
-                    $contact = $this->Contact->find('all', array(
-                        'Customer.id' => $result['Customer']['id']
-                    ));
-                    foreach($contact as $c)
-                    {
-                        if($c['Contact']['id'] === $result['Customer']['primary_contact_id'])
-                        {
-                            $primary = $c;
-                        }
-                    }
-                    if($primary === null && !empty($contact))
-                        $primary = $contact[0];
-                    
-                    if($primary !== null)
-                        $result['Contact'] = $primary['Contact'];
-                    unset($primary);
-                    unset($contact);
-                }
+                
                $final[$counter] = $innerFieldArray;
-              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['CustomerAccreditation']['id'] . "' />";
-               foreach($this->request->data['fields'] as $field)
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Customer']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
                {
                    
-                   $fieldArray = explode(".", $field);
+                   $fieldArray = explode(".", $name);
                    // if not a multi-array
                    if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
                            !empty($result[$fieldArray[0]]) && 
                            (!isset($result[$fieldArray[0]][0] )||
                            !is_array($result[$fieldArray[0]][0] ))) {
-                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
                    }
                    // check if first element is another array - this means a multi-dimensional array
                    elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
@@ -1465,13 +1725,13 @@ App::uses('AppController', 'Controller');
                        foreach($result[$fieldArray[0]] as $subresult) 
                        {
                            
-                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
                            
                        }
                    }
                    else
                    {
-                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       $final[$counter][str_replace(".", "-",$name)] = "";
                        
                    }
                }

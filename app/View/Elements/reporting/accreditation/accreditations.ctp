@@ -15,7 +15,7 @@
         <div class='row'>
             <div class='col-md-3'>
                 <h4>Comparison for each attribute:</h4>
-                <select id='accreditationAndOr' class='input form-control'>
+                <select id='extraAndOr' class='input form-control'>
                     <option val='OR'>OR</option>
                     <option val='AND'>AND</option>
                     
