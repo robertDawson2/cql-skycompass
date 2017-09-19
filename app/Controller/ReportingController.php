@@ -514,6 +514,10 @@ App::uses('AppController', 'Controller');
             {
                 $category = array('Job','Organization');
             }
+            if($context === 'ContactTraining')
+            {
+                $category = array('Job','Contact');
+            }
             if($context === 'Customer')
             {
                 $category = array('Organization');
@@ -525,6 +529,11 @@ App::uses('AppController', 'Controller');
             if($context === "CustomerAccreditation" || $context === "Accreditation")
             {
                 $category = array('Accreditation', 'Organization');
+            }
+            
+            if($context === "ContactCertification" || $context === "Certification")
+            {
+                $category = array('Certification', 'Contact');
             }
             
             $this->loadModel('AvailableField');
@@ -1106,6 +1115,165 @@ App::uses('AppController', 'Controller');
             $this->set('fields', $this->request->data['fields']);
            }
            
+           public function admin_runContactTrainingReport($context,$criteria=null, $fields=null,$export=null)
+        {
+            $this->layout = 'ajax';
+            
+           if($this->request->is('post')) {
+            
+           $locationLimit = $this->request->data['locationLimit'];
+           
+            $this->loadModel('Job');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry','JobTaskList'),
+                'belongsTo' => array('Customer')));
+            $this->Job->bindModel(array('hasMany' => array(
+                'JobAttendee'
+            )));
+            $this->loadModel('JobAttendee');
+            $this->JobAttendee->bindModel(array('belongsTo' => array(
+                'Contact', 'Job'
+            )));
+            
+            $this->loadModel('ServiceArea');
+            $trainingServices = $this->ServiceArea->find('list', array('conditions'=>array(
+                'parent_id' => "2"
+            ),
+                'fields' => array('id', 'name')));
+            
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+           
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            if($locationLimit !== false)
+            {
+                $searchable = array_merge(array('Job.id',
+                    'Job.customer_id', 'Job.state', 
+                    'Job.zip','ServiceArea.parent_id'), $getFields['search']);
+            }
+            else
+            {
+            $searchable = array_merge(array('Job.id', 'Job.customer_id','Job.service_area_id'),$getFields['search']);
+            }
+           if(isset($locationLimit['byState']))
+           {
+               if(!empty($this->request->data['conditions']))
+                   $this->request->data['conditions'] .= " AND ";
+               $this->request->data['conditions'] .= "("
+                       . "(Job.state IN (\"" .
+                       implode('","', $locationLimit['byState']) . "\")))";
+                       
+           }
+           
+           if(!empty($this->request->data['conditions']))
+           {
+               $this->request->data['conditions'] .= " AND ";
+           }
+           $this->request->data['conditions'] .= "(Job.service_area_id IN (\"" .
+                   implode('","', array_keys($trainingServices)) . "\"))";
+       //   pr($this->request->data); exit();
+            $results = $this->JobAttendee->find('all', array(
+               'recursive' => 1,
+               
+                //'conditions' => 'CustomerAccreditation.expiration_date < "2017-07-04 00:00:00"'));
+                'conditions' => $this->request->data['conditions']));
+          //  pr($results); exit();
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    $complexValue = $this->_fetchComplexFieldInfoJob($compactField['id'], $res['Job']['id']);
+                    if(!$complexValue)
+                    {
+                       $complexValue = $this->_fetchComplexFieldInfoContact($compactField['id'], $res['Contact']['id']);
+                    }
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
+            $final = array();
+            $returnFields = array();
+            $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
+            foreach($getFields['all'] as $name => $field)
+               {
+                   
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
+                   $returnFields[] = array(
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
+                       'class' =>'show-on-export');
+                        
+               }
+              // pr($innerFieldArray); exit();
+               $counter =0;
+          //  pr($getFields['all']);
+            foreach($results as $result)
+            {
+                
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Contact']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
+               {
+                   
+                   $fieldArray = explode(".", $name);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$counter][str_replace(".", "-",$name)] = "";
+                       
+                   }
+               }
+               
+                $counter++;
+            }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
+          //  pr($return); exit();
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
+           
+           }
+           
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
+           }
+           
            private function _limitAccreditationsByState($results = array(), $states = array())
            {
                foreach($results as $i => $result)
@@ -1134,6 +1302,37 @@ App::uses('AppController', 'Controller');
                        unset($results[$i]);
                    }
                }
+               return $results;
+           }
+           
+           private function _limitCertificationsByState($results = array(), $states = array())
+           {
+             //  pr($states);
+               foreach($results as $i => $result)
+               {
+                  // pr($result);
+                   
+                   $safe = false;
+                   // Contact addresses populated, ignore quickbooks
+                   if(!empty($result['Contact']['ContactAddress']))
+                   {
+                       foreach($result['Contact']['ContactAddress'] as $addy)
+                       {
+                          // pr($addy['state']);
+                           if(in_array($addy['state'], $states))
+                           {
+                               $safe = true;
+                           }
+                       }
+                   }
+                   
+                   if(!$safe)
+                   {
+                       unset($results[$i]);
+                   }
+               }
+             //  pr($results);
+              // exit();
                return $results;
            }
            
@@ -1528,12 +1727,15 @@ App::uses('AppController', 'Controller');
                exit();
            }
            
-            public function admin_runCertificationReport($context,$criteria=null, $fields=null,$export=null)
+           public function admin_runCertificationReport($context,$criteria=null, $fields=null,$export=null)
         {
             
             $this->layout = 'ajax';
            if($this->request->is('post')) {
              
+              
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
                
             $this->loadModel($context);
           //  $this->$context->unbindModel(array('hasMany' => array('Job')));
@@ -1542,11 +1744,45 @@ App::uses('AppController', 'Controller');
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
             if(trim(substr($this->request->data['conditions'],-4)) === "OR")
                     $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
+                 
+              // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
             
+ // pr($this->request->data['conditions']); exit();
             $results = $this->$context->find('all', array(
-                'recursive' => 1, 
+                'recursive' => 2, 
                 'conditions' => $this->request->data['conditions']));
-           // pr($results); exit();
+//pr($results); exit();
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitCertificationsByState($results, $locationLimit['byState']);
+            }
+ 
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    
+                       $complexValue = $this->_fetchComplexFieldInfoContact($compactField['id'], $res['Contact']['id']);
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
             $final = array();
             $returnFields = array();
             $innerFieldArray = array();
@@ -1557,34 +1793,33 @@ App::uses('AppController', 'Controller');
                        
                        'searchable' => false,
                        'data' => 'select-box');
-           
-            foreach($this->request->data['fields'] as $field)
+            foreach($getFields['all'] as $name => $field)
                {
                    
-                   $innerFieldArray[str_replace(".", "-",$field)] = null;
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
                    $returnFields[] = array(
-                       'title' => ucwords(str_replace(".", "<br />\n\r ", str_replace("_", " ", $field))),
-                       'data' => str_replace(".", "-",$field),
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
                        'class' =>'show-on-export');
                         
                }
-               
+              
                $counter =0;
             foreach($results as $result)
             {
                 
                $final[$counter] = $innerFieldArray;
-              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['ContactCertification']['id'] . "' />";
-               foreach($this->request->data['fields'] as $field)
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Contact']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
                {
                    
-                   $fieldArray = explode(".", $field);
+                   $fieldArray = explode(".", $name);
                    // if not a multi-array
                    if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
                            !empty($result[$fieldArray[0]]) && 
                            (!isset($result[$fieldArray[0]][0] )||
                            !is_array($result[$fieldArray[0]][0] ))) {
-                        $final[$counter][str_replace(".", "-",$field)] = $result[$fieldArray[0]][$fieldArray[1]];
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
                    }
                    // check if first element is another array - this means a multi-dimensional array
                    elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
@@ -1595,13 +1830,13 @@ App::uses('AppController', 'Controller');
                        foreach($result[$fieldArray[0]] as $subresult) 
                        {
                            
-                           $final[$counter][str_replace(".", "-",$field)] .= $subresult[$fieldArray[1]] . "<br />";
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
                            
                        }
                    }
                    else
                    {
-                       $final[$counter][str_replace(".", "-",$field)] = "";
+                       $final[$counter][str_replace(".", "-",$name)] = "";
                        
                    }
                }
@@ -1621,6 +1856,8 @@ App::uses('AppController', 'Controller');
             $this->set('results', $final);
             $this->set('fields', $this->request->data['fields']);
         }
+            
+        
         
         public function admin_runAccreditationReport($context,$criteria=null, $fields=null,$export=null)
         {
@@ -1767,6 +2004,20 @@ App::uses('AppController', 'Controller');
             ))));
             $this->set('fields', $this->_reportingFields('OrganizationTraining'));
             $this->set('defaultExportTitle', 'OrganizationTrainingQuery-' . date("mdY"));
+	}
+        
+         public function admin_contactTraining() {
+                
+            $this->loadModel('EmailTemplate');
+            $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
+                'context' => 'ContactTraining'
+            ))));
+            $this->loadModel('ServiceArea');
+            $this->set('trainingTypes', $this->ServiceArea->find('list', array('conditions' => array(
+                'parent_id' => 2
+            ))));
+            $this->set('fields', $this->_reportingFields('ContactTraining'));
+            $this->set('defaultExportTitle', 'ContactTrainingQuery-' . date("mdY"));
 	}
 
         function admin_customer() {
