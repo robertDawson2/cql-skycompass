@@ -54,7 +54,7 @@
                     <div class='row'>
                         <div class='col-md-12'>
                     <input class='like' type='checkbox' id='trainingNotes' />
-                    Notes contain: 
+                    Notes contain <small>(separated by comma)</small>: 
                         </div>
                         <div class='col-md-12'>
                     <input type='text' class='input form-control data' />

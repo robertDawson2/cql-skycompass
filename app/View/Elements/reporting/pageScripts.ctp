@@ -22,6 +22,8 @@
            idList: $sendDataArray
        };
        console.log($sendData);
+       console.log("<?= $endUrl; ?>");
+       
        $.ajax({
            type: 'post',
            url: '/admin/reporting/ajaxSendEmails/' + $("#EmailTemplateId").val() + '/<?= $endUrl; ?>',
@@ -208,7 +210,7 @@ function getFields()
                 if(obj.conditionType === 'like')
                 {
                    
-                current += "(" + obj.conditionField + " LIKE '%" + obj.data + "%')";
+                current += "(" + obj.conditionField + " LIKE '%" + obj.data.replace(/,/gi, '%') + "%')";
                  
                 }
                 

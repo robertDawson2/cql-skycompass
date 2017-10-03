@@ -28,6 +28,24 @@ App::uses('AppController', 'Controller');
         public function admin_index()
         {
             $templates = $this->EmailTemplate->find('all');
+            $contextOptions  = array('CustomerAccreditation'=> 'Accreditation',
+                'ContactCertification' => 'Certification', 
+                'Contact'=>'Contacts', 'Customer' => 'Customers', 
+                'OrganizationTraining' => 'Organization Training',
+                'ContactTraining' => 'Contact Training');            
+            $this->set('contextOptions', $contextOptions);
+            $fromEmails = explode(",", $this->config['reporting.from_emails']);
+            $replyToEmails = explode(",", $this->config['reporting.reply_to_emails']);
+            foreach($fromEmails as $i => $e)
+            {
+                $fromEmails[$i] = trim($e);
+            }
+            foreach($replyToEmails as $i => $e)
+            {
+                $replyToEmails[$i] = trim($e);
+            }
+            $this->set('fromEmails', $fromEmails);
+            $this->set('replyToEmails', $replyToEmails);
         }
         public function admin_ajaxSave($id = null)
         {
@@ -84,58 +102,65 @@ App::uses('AppController', 'Controller');
             exit();
         }
         
+        private function _reportingFields($context)
+        {
+            if($context === 'OrganizationTraining')
+            {
+                $category = array('Job','Organization');
+            }
+            if($context === 'ContactTraining')
+            {
+                $category = array('Job','Contact');
+            }
+            if($context === 'Customer')
+            {
+                $category = array('Organization');
+            }
+            
+            if($context === 'Contact') {
+                $category = array('Contact');
+            }
+            if($context === "CustomerAccreditation" || $context === "Accreditation")
+            {
+                $category = array('Accreditation', 'Organization');
+            }
+            
+            if($context === "ContactCertification" || $context === "Certification")
+            {
+                $category = array('Certification', 'Contact');
+            }
+            
+            $this->loadModel('AvailableField');
+                $fields = $this->AvailableField->find('all', array(
+                    'conditions' => array(
+                        'category' => $category
+                    ),
+                    'order' => array('AvailableField.category ASC')
+                ));
+                $return = array();
+                foreach($fields as $field)
+                {
+                 if(!isset($return[$field['AvailableField']['category']]))
+                     $return[$field['AvailableField']['category']] = array();
+                 
+                    $return[$field['AvailableField']['category']][] = $field['AvailableField'];
+                }
+                return $return;
+        }
+        
         public function admin_ajaxAvailableFields($context)
         {
             $return = "";
-            if($context !== 'Training')
-                $this->loadModel($context);
-            else
-                $this->loadModel('Job');
-            if($context !== 'Training')
-                $defaults = $this->$context->find('first');
-            else
-                $defaults = $this->Job->find('first');
-            
-            if($context ==='Customer')
-            {
-                unset($defaults['Job']);
-                unset($defaults['CustomerGroup']);
-             //   unset($defaults['CustomerAccreditation']);
-                unset($defaults['Customer']['contact']);
-                
-            }
-            if($context ==='Contact')
-            {
-                unset($defaults['Job']);
-                unset($defaults['ContactGroup']);
-            //    unset($defaults['ContactCertification']);
-                unset($defaults['Customer']['contact']);
-            }
-            if($context === 'Training')
-            {
-                 unset($defaults['ScheduleEntry']);
-                unset($defaults['JobTaskList']);
-                unset($defaults['ServiceArea']);
-               
-            }
-            if($context === 'CustomerAccreditation')
-            {
-                $defaults['Contact'] = array();
-            }
-            
-
-            foreach($defaults as $i => $e)
-            {
-                $this->loadModel($i);
-                $fields[$i] = array_keys($this->$i->getColumnTypes());
-                
-            }
+            $fields = $this->_reportingFields($context);
+           
+           
                 foreach($fields as $a => $d){
                     foreach($d as $e)
-                      $return .= "<span class='insertMe' onclick='insertText(this);'>{" . $a . "." . $e . "}</span>, ";
+                      $return .= "<span class='insertMe' data-val='" .
+                            $e['id'] . "' onclick='insertText(this);'>{" . $e['pretty_name'] . "}</span>, \n";
                 }
             
-            $return = substr($return, 0,-2);
+            $return = substr($return, 0,-4);
             echo $return;
             exit();
                        
@@ -159,7 +184,13 @@ App::uses('AppController', 'Controller');
         
         private function _templateList()
         {
-            $contextOptions  = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Customers', 'Training' => 'Training');            $string = "";
+            $contextOptions  = array('CustomerAccreditation'=> 'Accreditation',
+                'ContactCertification' => 'Certification', 
+                'Contact'=>'Contacts', 'Customer' => 'Customers', 
+                'OrganizationTraining' => 'Organization Training',
+                'ContactTraining' => 'Contact Training');            
+            
+            $string = "";
             $options = $this->EmailTemplate->find('all', array('order' => 'context ASC'));
             if(empty($options))
             {

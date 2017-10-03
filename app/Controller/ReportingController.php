@@ -82,7 +82,7 @@ App::uses('AppController', 'Controller');
                    {
                        $contactId = $this->_getCustomerContactEmail($id);
                        $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
-                       $sendResult = $this->_sendEmail($communicationId, $context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId, $context, $templateId, $id);
                        if($sendResult)
                        {
                            $counterSent++; 
@@ -113,7 +113,7 @@ App::uses('AppController', 'Controller');
                    {
                        $contactId = $this->_getAccreditationContactEmail($id);
                        $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
-                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $contactId, null, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
                        if($sendResult)
                        {
                            $counterSent++;
@@ -129,7 +129,7 @@ App::uses('AppController', 'Controller');
                    {
                        $contactId = $this->_getCertificationContactEmail($id);
                        $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
-                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $contactId, null, null, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
                        if($sendResult)
                        {
                            $counterSent++;
@@ -140,6 +140,53 @@ App::uses('AppController', 'Controller');
                            $counterUnsent++;
                            $this->_changeEmailStatus($communicationId, 'error');
                        }
+                   }
+                   else if($context === 'organization-training')
+                   {
+                       $contactId = $this->_getOrganizationTrainingContactEmail($id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
+                       if($sendResult)
+                       {
+                           $counterSent++;
+                           
+                       }
+                       else
+                       {
+                           $counterUnsent++;
+                           $this->_changeEmailStatus($communicationId, 'error');
+                       }
+                   }
+                   else if($context === 'contact-training')
+                   {
+                       $this->loadModel('Job');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry','JobTaskList'),
+                'belongsTo' => array('Customer')));
+            $this->Job->bindModel(array('hasMany' => array(
+                'JobAttendee'
+            )));
+            $this->loadModel('JobAttendee');
+            $this->JobAttendee->bindModel(array('belongsTo' => array(
+                'Contact', 'Job'
+            )));
+                       $contactId = $this->_getContactTrainingContactEmail($id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
+                       if($sendResult)
+                       {
+                           $counterSent++;
+                           
+                       }
+                       else
+                       {
+                           $counterUnsent++;
+                           $this->_changeEmailStatus($communicationId, 'error');
+                       }
+                   }
+                   else
+                   {
+                       pr($context);
+                       exit();
                    }
                }
                 if($counterUnsent > 0)
@@ -177,6 +224,25 @@ App::uses('AppController', 'Controller');
  
         }
         
+        private function _getOrganizationTrainingContactEmail($id)
+        {
+            
+            $this->loadModel('Job');
+            $training = $this->Job->findById($id);
+            
+            return $this->_getCustomerContactEmail($training['Customer']['id']);
+ 
+        }
+        
+        private function _getContactTrainingContactEmail($id)
+        {
+            
+            
+            $training = $this->JobAttendee->findById($id);
+            
+            return $training['JobAttendee']['contact_id'];
+ 
+        }
         
         
         private function _getCertificationContactEmail($certId)
@@ -340,46 +406,55 @@ App::uses('AppController', 'Controller');
             
             return $htmlNewString;
         }
-         private function _getContactHtml($html, $contact)
+        private function _getHtml($html, $context)
         {
+           
+            $this->loadModel('AvailableField');
             $i = 0;
             $htmlArray = preg_split("/([{}])/", $html);
   
             $htmlNewString = "";
+           
             foreach($htmlArray as $entry):
                 if($i == 0 || $i == 2)
                     $htmlNewString .= $entry;
                 else
                 {
 
-                    $anotherArray = explode(".", $entry);
-                    if(isset($contact[$anotherArray[0]]) && !empty($contact[$anotherArray[0]]))
+                    $field = $this->AvailableField->findByPrettyName($entry);
+                    
+                    if($field['AvailableField']['compact_field'] === "0")
                     {
-                        if(isset($contact[$anotherArray[0]][0]) && is_array($contact[$anotherArray[0]][0]))
+                        $htmlNewString .= $context[$field['AvailableField']['model_name']]
+                                [$field['AvailableField']['field_name']];
+                    }
+                    else
+                    {
+                       
+                        switch($field['AvailableField']['category'])
                         {
-                            $htmlNewString .= "[";
-                            $first = true;
-                            
-                            foreach($contact[$anotherArray[0]] as $row)
-                            {
-                                if(!$first)
-                                    $htmlNewString .= ", ";
-                                
-                                $first = false;
-                                //check if date, and format.
-                                $newInfo = $row[$anotherArray[1]];
-                                if((bool)strtotime($newInfo))
-                                    $newInfo = date('m/d/Y', strtotime($newInfo));
-                                
-                                $htmlNewString .= $newInfo;
-                            }
-                            $htmlNewString .= "]";
-                                
-                        }
-                        else {
-                        $htmlNewString .= $contact[$anotherArray[0]][$anotherArray[1]];
+                            case "Contact":
+                                $htmlNewString .= $this->_fetchComplexFieldInfoContact(
+                                        $field['AvailableField']['id'],
+                                        $context['Contact']['id'] 
+                                );
+                                break;
+                            case "Organization":
+                                $htmlNewString .= $this->_fetchComplexFieldInfoCustomer(
+                                        $field['AvailableField']['id'],
+                                        $context['Customer']['id']
+                                );
+                                break;
+                            case "Job":
+                                $htmlNewString .= $this->_fetchComplexFieldInfoJob(
+                                        $field['AvailableField']['id'],
+                                        $context['Job']['id']
+                                );
+                                break;
                         }
                     }
+                    
+                    
                 }
                 
                 if($i==2)
@@ -390,32 +465,75 @@ App::uses('AppController', 'Controller');
             
             return $htmlNewString;
         }
-        private function _sendEmail($communicationId,$context, $templateId, $contactId = null, $customerId = null, $accreditationId = null, $certificationId = null)
+         
+        private function _sendEmail($communicationId,$context, $templateId, $id = null)
         {
-            if($accreditationId !== null)
-            {
-                $this->loadModel('CustomerAccreditation');
-                $accreditation = $this->CustomerAccreditation->findById($accreditationId);
-                
-                $customerId = $accreditation['CustomerAccreditation']['customer_id'];
+            
+           
+            
+            $this->loadModel('EmailTemplate');
+            $template = $this->EmailTemplate->findById($templateId);
+            $contactId = null;
+            $emailHtml = "";
+           
+            switch($context) { 
+                case 'customer': 
+                    $this->loadModel('Customer');
+                    $customer = $this->Customer->findById($id);
+                    $contactId = $this->_getCustomerContactEmail($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'], $customer);
+                    break;
+                case 'contact': 
+                    $this->loadModel('Contact');
+                    $contactId = $id;
+                    $contact = $this->Contact->findById($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'],$contact);
+                    break;
+                case 'accreditation':
+                    $this->loadModel('CustomerAccreditation');
+                    $accreditation = $this->CustomerAccreditation->findById($id);
+                    $contactId = $this->_getAccreditationContactEmail($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'],$accreditation);
+                    break;
+                case 'certification':
+                    $this->loadModel('ContactCertification');
+                    $certification = $this->ContactCertification->findById($id);
+                    $contactId = $certification['Contact']['id'];
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'], $certification);
+                    break;
+                case 'organization-training':
+                    $this->loadModel('Job');
+                    $training = $this->Job->findById($id);
+                    $contactId = $this->_getOrganizationTrainingContactEmail($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'],$training);
+                    break;
+                case 'contact-training':
+                    $this->loadModel('Job');
+            $this->Job->unbindModel(array('hasMany' => array('ScheduleEntry','JobTaskList'),
+                'belongsTo' => array('Customer')));
+            $this->Job->bindModel(array('hasMany' => array(
+                'JobAttendee'
+            )));
+            $this->loadModel('JobAttendee');
+            $this->JobAttendee->bindModel(array('belongsTo' => array(
+                'Contact', 'Job'
+            )));
+                $training = $this->JobAttendee->findById($id);
+                $contactId = $this->_getContactTrainingContactEmail($id);
+                $emailHtml = $this->_getHtml($template['EmailTemplate']['content'],$training);
+                break;
+            
+                default:
+                    break;
             }
-             if($certificationId !== null)
-            {
-                $this->loadModel('ContactCertification');
-                $certification = $this->ContactCertification->findById($certificationId);
-                
-               
+            
+             $sendEmail = null;
+            if($contactId === null) {
+                if(isset($customer))
+                    $sendEmail = $customer['Customer']['email'];
+                if(isset($accreditation))
+                    $sendEmail = $accreditation['Customer']['email'];
             }
-            if($customerId !== null)
-                $customer = $this->Customer->findById($customerId);
-            
-            
-            if($contactId === null && ($customerId === null || (isset($customer) && empty($customer['Customer']['email']))))
-                return false;
-            
-            $sendEmail = null;
-            if($contactId === null)
-                $sendEmail = $customer['Customer']['email'];
             else
             {
                 $this->loadModel('Contact');
@@ -423,30 +541,10 @@ App::uses('AppController', 'Controller');
                 $sendEmail = $contact['Contact']['email'];
             }
             
-            $this->loadModel('EmailTemplate');
-            $template = $this->EmailTemplate->findById($templateId);
-            
-            $emailHtml = "";
-            switch($context) { 
-                case 'customer': 
-                    $emailHtml = $this->_getCustomerHtml($template['EmailTemplate']['content'], $customer,$contactId);
-                    break;
-                case 'contact': 
-                    $emailHtml = $this->_getContactHtml($template['EmailTemplate']['content'],$contact);
-                    break;
-                case 'accreditation':
-                    $emailHtml = $this->_getAccreditationHtml($template['EmailTemplate']['content'],$accreditation, $contactId);
-                    break;
-                case 'certification':
-                    $emailHtml = $this->_getContactHtml($template['EmailTemplate']['content'], $certification);
-                    break;
-                default:
-                    break;
-            }
             
             App::uses('CakeEmail', 'Network/Email');
                             $to = array($sendEmail);
-                            //$to = array('bobby@net2sky.com');
+                            $to = array('bobby@net2sky.com');
                             $email = new CakeEmail('smtp');
                             $email->template('comm', 'default')
                             ->emailFormat('html')
@@ -788,6 +886,7 @@ App::uses('AppController', 'Controller');
              
             $this->loadModel('Contact');
             $contact = $this->Contact->findById($contextId);
+            
            // pr($contact);
             if($id === "32")
             {
@@ -874,6 +973,8 @@ App::uses('AppController', 'Controller');
             }
             if($id === "40")
             {
+                
+               
                 // Contact groups
               $this->loadModel('Group');
                 $i = 0;
@@ -889,7 +990,10 @@ App::uses('AppController', 'Controller');
                 $returnVal .= $realGroup['Group']['name'];
                 $i++;
                     }
+                    
                 }
+                else
+                    $returnVal = "--- None Listed ---";
 
                 return $returnVal;
             }
@@ -929,6 +1033,8 @@ App::uses('AppController', 'Controller');
                     $returnVal = "--- None Listed ---";
                 }
                 return $returnVal;
+                
+                
             }
         }
         private function _fetchComplexFieldInfoJob($id, $contextId)
@@ -1224,9 +1330,9 @@ App::uses('AppController', 'Controller');
           //  pr($getFields['all']);
             foreach($results as $result)
             {
-                
+            //    pr($result); exit();
                $final[$counter] = $innerFieldArray;
-              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Contact']['id'] . "' />";
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['JobAttendee']['id'] . "' />";
                foreach($getFields['all'] as  $name => $field)
                {
                    
@@ -1809,7 +1915,7 @@ App::uses('AppController', 'Controller');
             {
                 
                $final[$counter] = $innerFieldArray;
-              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Contact']['id'] . "' />";
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['ContactCertification']['id'] . "' />";
                foreach($getFields['all'] as  $name => $field)
                {
                    
@@ -1941,7 +2047,7 @@ App::uses('AppController', 'Controller');
             {
                 
                $final[$counter] = $innerFieldArray;
-              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Customer']['id'] . "' />";
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['CustomerAccreditation']['id'] . "' />";
                foreach($getFields['all'] as  $name => $field)
                {
                    

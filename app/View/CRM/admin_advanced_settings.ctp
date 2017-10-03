@@ -192,6 +192,25 @@ function closeCustomRoxy2(){
                 </div>
                 
             </div>
+            
+            <hr>
+            <h4>Reporting Emails</h4>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <label>
+                        "From" Emails <small>(Separate with "," no spaces)</small>
+                        
+                    </label>
+                    <input name="data[reporting.from_emails]" type='text' class='input form-control' value='<?= $config['reporting.from_emails']; ?>' />
+                </div>
+                <div class='col-md-6'>
+                    <label>
+                        "Reply To" Emails <small>(Separate with "," no spaces)</small>
+                        
+                    </label>
+                    <input name="data[reporting.reply_to_emails]" type='text' class='input form-control' value='<?= $config['reporting.reply_to_emails']; ?>' />
+                </div>
+            </div>
             <input class="btn btn-primary btn-lg" type="submit" />
         
             </form>

@@ -7,6 +7,7 @@
 		<tr>
 			<th>Name</th>
                         <th>Organization</th>
+                        <th>Job Type</th>
                         <th>Start Date</th>
                         <th>Status</th>
 			
@@ -21,6 +22,10 @@
 			<td><?php echo $cust['Job']['name']; ?></td>
                         <td><a href="/admin/customers/view/<?= $cust['Customer']['id']; ?>">
                             <?php echo $cust['Customer']['full_name']; ?></a></td>
+                        <td>
+                            <?= isset($serviceArea[$cust['Job']['service_area_id']]) ? 
+                            $serviceArea[$cust['Job']['service_area_id']] : ""; ?>
+                        </td>
                         <td><?= $cust['Job']['start_date']; ?></td>
                         <td><?= $cust['Job']['job_status']; ?></td>
                         

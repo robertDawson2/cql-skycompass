@@ -15,4 +15,7 @@ Class ServiceArea extends AppModel {
             'foreignKey' => 'parent_id'
         )
     );
+    
+   
+   
 }

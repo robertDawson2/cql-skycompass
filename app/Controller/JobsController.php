@@ -44,14 +44,40 @@
                 }
                 
                 $totalLinks = $this->_parseArray($importArray, $this->request->data['job_id']);
-               $this->Session->setFlash($totalLinks['imports'] . " new contacts imported, and " . $totalLinks['links'] . " links to job created!", "flash_success");
+               $this->Session->setFlash($totalLinks['imports'] . " new contacts imported, " . 
+                       $totalLinks['customers'] .
+                       " new customers imported, and "
+                       . $totalLinks['links'] . " links to job created!", "flash_success");
+               
                $this->redirect($this->referer('/admin/jobs'));
                exit();
             }
         }
+        private function _createNewCustomer($customerName, $contactId)
+        {
+            $id = sha1("NAME" . time() . rand(0,1000));
+            $newCust = array(
+                                    'Customer' => array(
+                                        'id' => $id,
+                                        'name' => $customerName,
+                                        'full_name' => $customerName,
+                                        'company_name' => "",
+                                        'first_name' => "",
+                                        'middle_name' => "",
+                                        'last_name' => "",
+                                        'contact' => "",
+                                        'ship_note' => "",
+                                        'bill_note' => "",
+                                        'primary_contact_id' => $contactId
+                                    )
+                                );
+            $this->loadModel('Customer');
+           // $this->Customer->create();
+            $this->Customer->save($newCust);
+        }
         private function _parseArray($arr, $jobId)
         {
-            $return = array('links' => 0, 'imports' => 0);
+            $return = array('links' => 0, 'imports' => 0, 'customers' => 0);
             foreach($arr as $contact)
             {
                 if(isset($contact['Contact']) && !empty($contact['Contact']))
@@ -84,6 +110,12 @@
                             // try to find the customer by name - if we can't, don't worry about it
                             $this->loadModel('Customer');
                             $customer = $this->Customer->find('first', array('conditions' => array('Customer.name LIKE ' => "%" . $contact['Customer']['name'] . "%")));
+                            if(empty($customer))
+                            {
+                                $this->Customer->id = $this->_createNewCustomer($contact['Customer']['name'], $contactId);
+                                $customer = $this->Customer->read();
+                                $return['customers']++;
+                            }
                             if(!empty($customer)) {
                                 $this->loadModel('ContactCustomer');
                                 $this->ContactCustomer->create();
@@ -94,6 +126,43 @@
                         $this->Contact->id = $contactId;
                         $exists = $this->Contact->read();
                     }
+ else {
+     $contactId = $exists['Contact']['id'];
+     // contact exists, but lets make sure we have their address.
+     if(empty($exists['ContactAddress'])) {
+     if(!empty($contact['ContactAddress']))
+                        {
+                            $contact['ContactAddress']['contact_id'] = $contactId;
+                            $contact['ContactAddress']['type'] = "home";
+                            $contact['ContactAddress']['state'] = $this->_convertState($contact['ContactAddress']['state']);
+                            $this->loadModel('ContactAddress');
+                            $this->ContactAddress->create();
+                            
+                            if($this->ContactAddress->save($contact['ContactAddress']))
+                                echo "";
+                        }
+     }
+     if(empty($exists['Customer'])) {
+                        if(!empty($contact['Customer']))
+                        {
+                            // try to find the customer by name - if we can't, don't worry about it
+                            $this->loadModel('Customer');
+                            $customer = $this->Customer->find('first', array('conditions' => array('Customer.name LIKE ' => "%" . $contact['Customer']['name'] . "%")));
+                             if(empty($customer))
+                            {
+                                $this->Customer->id = $this->_createNewCustomer($contact['Customer']['name'], $contactId);
+                                $customer = $this->Customer->read();
+                                $return['customers']++;
+                            }
+                            if(!empty($customer)) {
+                                $this->loadModel('ContactCustomer');
+                                $this->ContactCustomer->create();
+                                $this->ContactCustomer->save(array('contact_id' => $contactId, 'customer_id' => $customer['Customer']['id']));
+                            }
+                        }
+     }
+     
+ }
                     
                   
                     $this->loadModel('JobAttendee');
@@ -1338,6 +1407,19 @@ $this->set('pendingColors', [
                }
         }
         public function admin_index($past = null) {
+            $this->loadModel('ServiceArea');
+            $areas = $this->ServiceArea->find('all', array(
+               
+            ));
+            $serviceAreas = array();
+            foreach($areas as $a)
+            {
+                $serviceAreas[$a['ServiceArea']['id']] = $a['ServiceArea']['name'];
+                
+                      $serviceAreas[$a['ServiceArea']['id']] .=
+                              empty($a['Parent']['name']) ? "" : " (" . $a['Parent']['name'] . ")";
+            }
+            $this->set('serviceArea', $serviceAreas);
             if(isset($past)) {
                 $this->set('jobs', $this->Job->find('all', array('conditions' => array(
                     'Job.end_date <' => date('Y-m-d'),

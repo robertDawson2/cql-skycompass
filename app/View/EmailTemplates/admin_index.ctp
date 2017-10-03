@@ -1,6 +1,6 @@
 <?php $this->Html->script('/_/plugins/tinymce/tinymce.min.js', array('block' => 'scripts')); 
 
-$contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertification' => 'Certification', 'Contact'=>'Contacts', 'Customer' => 'Organizations', 'Training' => 'Training');
+
 ?>
 <style>
     li > .completion-div {
@@ -176,8 +176,7 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
                           'id' => 'EmailTemplateFrom',
                           'label' => 'From...',
                           
-                          'options' => array('no-reply@c-q-l.org' => 'no-reply@c-q-l.org',
-                              'info@c-q-l.org' => 'info@c-q-l.org'),
+                          'options' => $fromEmails,
                           'class' => 'input form-control quick-todo')); ?>
                   </div>
                     <div class='col-sm-4'>
@@ -186,8 +185,7 @@ $contextOptions = array('CustomerAccreditation'=> 'Accreditation','ContactCertif
                           'id' => 'EmailTemplateReplyTo',
                           'label' => 'Reply To...',
                           
-                          'options' => array(
-                              'info@c-q-l.org' => 'info@c-q-l.org'),
+                          'options' => $replyToEmails,
                           'class' => 'input form-control quick-todo')); ?>
                   </div>
                       
