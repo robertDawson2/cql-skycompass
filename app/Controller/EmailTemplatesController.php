@@ -32,7 +32,9 @@ App::uses('AppController', 'Controller');
                 'ContactCertification' => 'Certification', 
                 'Contact'=>'Contacts', 'Customer' => 'Customers', 
                 'OrganizationTraining' => 'Organization Training',
-                'ContactTraining' => 'Contact Training');            
+                'ContactTraining' => 'Contact Training',
+                'ContactPortal' => 'Contact Portal',
+                'OrganizationPortal' => 'Organization Portal');            
             $this->set('contextOptions', $contextOptions);
             $fromEmails = explode(",", $this->config['reporting.from_emails']);
             $replyToEmails = explode(",", $this->config['reporting.reply_to_emails']);
@@ -104,6 +106,14 @@ App::uses('AppController', 'Controller');
         
         private function _reportingFields($context)
         {
+             if($context === 'OrganizationPortal')
+            {
+                $category = array('Portal','Organization');
+            }
+            if($context === 'ContactPortal')
+            {
+                $category = array('Portal','Contact');
+            }
             if($context === 'OrganizationTraining')
             {
                 $category = array('Job','Organization');
@@ -188,7 +198,10 @@ App::uses('AppController', 'Controller');
                 'ContactCertification' => 'Certification', 
                 'Contact'=>'Contacts', 'Customer' => 'Customers', 
                 'OrganizationTraining' => 'Organization Training',
-                'ContactTraining' => 'Contact Training');            
+                'ContactTraining' => 'Contact Training',
+                'ContactPortal' => 'Contact Portal',
+                'OrganizationPortal' => 'Organization Portal'
+                );            
             
             $string = "";
             $options = $this->EmailTemplate->find('all', array('order' => 'context ASC'));

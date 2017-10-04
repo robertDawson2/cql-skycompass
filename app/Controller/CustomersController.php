@@ -74,6 +74,8 @@
             ));
             $this->set('internalCommunications', $internalCommunications);
             
+            $this->set('portalSubscriptions', $customer['Portal']);
+            
         }
         function admin_delete($id = null)
         { 
@@ -136,6 +138,15 @@
                 if(!$this->_removeAttribute('CustomerPhone', $rid))
                 {
                     $error['remove_phone'] = true;
+                }
+            }
+            
+            $newData = json_decode($this->request->data['Portal']['removed'], true);
+            if(!empty($newData))
+                foreach($newData as $rid) {
+                if(!$this->_removeAttribute('Portal', $rid))
+                {
+                    $error['remove_portal'] = true;
                 }
             }
             
@@ -231,6 +242,16 @@
                     $error['accred'] = true;
                 }
             }
+            
+            $newData = json_decode($this->request->data['Portal']['list'], true);
+                if(!empty($newData))
+                foreach($newData as $row) {
+                if(!$this->_savePortal($row, $id))
+                {
+                    $error['portal'] = true;
+                }
+            }
+            
             $newData = json_decode($this->request->data['Doc']['list'], true);
             if(!empty($newData))
                 foreach($newData as $row) {
@@ -275,6 +296,27 @@
             $this->set('sources' , explode("|",$this->config['customer.sources']));
             $this->set('custTypes', $custTypes);
             $this->set('accredTerms', explode("|", $this->config['accreditation.terms']));
+            $this->set('accessTypes', explode("|", $this->config['portal.access_types']));
+        }
+        private function _savePortal($cert, $id)
+        {
+            $this->loadModel('Portal');
+            
+            $cert['customer_id'] = $id;
+            if(empty($cert['start_date']))
+                unset($cert['start_date']);
+            else
+                $cert['start_date'] = date('Y-m-d H:i:s', strtotime($cert['start_date']));
+            
+            if(empty($cert['end_date']))
+                unset($cert['end_date']);
+            else
+                $cert['end_date'] = date('Y-m-d H:i:s', strtotime($cert['end_date']));
+            
+            
+            $this->Portal->create();
+            return $this->Portal->save($cert);
+            
         }
         
         private function _removeAttribute($context, $id)
@@ -517,6 +559,16 @@
                     $error['cert'] = true;
                 }
             }
+            
+            $newData = json_decode($this->request->data['Portal']['list'], true);
+                if(!empty($newData))
+                foreach($newData as $row) {
+                if(!$this->_savePortal($row, $id))
+                {
+                    $error['portal'] = true;
+                }
+            }
+            
             $newData = json_decode($this->request->data['Doc']['list'], true);
             if(!empty($newData))
                 foreach($newData as $row) {
@@ -553,6 +605,7 @@
             $this->set('sources' , explode("|",$this->config['customer.sources']));
             $this->set('custTypes', $custTypes);
             $this->set('accredTerms', explode("|", $this->config['accreditation.terms']));
+            $this->set('accessTypes', explode("|", $this->config['portal.access_types']));
         }
         public function import($hash = null)
         {

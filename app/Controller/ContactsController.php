@@ -36,7 +36,8 @@
         
         function admin_view($id)
         {
-            $this->set('contact', $this->Contact->find('first', array('recursive' => 2, 'conditions' => array('Contact.id' => $id))));
+            $contact = $this->Contact->find('first', array('recursive' => 2, 'conditions' => array('Contact.id' => $id)));
+            $this->set('contact', $contact);
             $this->loadModel('ContactType');
             $this->set('custTypes', $this->ContactType->find('list'));
             $this->set('sources', explode("|", $this->config['contact.sources']));
@@ -63,13 +64,14 @@
                 'recursive' => 1, 'order' => 'Job.start_date DESC'));
            
             $this->set('trainings', $trainings);
+            $this->set('portalSubscriptions', $contact['Portal']);
         }
         
         function admin_edit($id = null)
         {
             if(!empty($this->request->data))
             {
-               
+             //pr($this->request->data); exit();  
                 // remove all deleted attributes
             $newData = json_decode($this->request->data['Doc']['removed'], true);
             if(!empty($newData))
@@ -86,6 +88,15 @@
                 if(!$this->_removeAttribute('ContactCertification', $rid))
                 {
                     $error['remove_cert'] = true;
+                }
+            }
+            
+            $newData = json_decode($this->request->data['Portal']['removed'], true);
+            if(!empty($newData))
+                foreach($newData as $rid) {
+                if(!$this->_removeAttribute('Portal', $rid))
+                {
+                    $error['remove_portal'] = true;
                 }
             }
             
@@ -131,7 +142,8 @@
             
             // continue just like add
             $data = $this->request->data;
-                $error = array('phone' => false, 'customer' => false, 'group' => false, 'address' => false, 'cert' => false, 'doc' => false);
+                $error = array('phone' => false, 'customer' => false, 'group' => false, 
+                    'address' => false, 'cert' => false, 'doc' => false, 'portal' => false);
                 
                 $id = $this->_saveContact($data['Contact']);
 
@@ -178,6 +190,16 @@
                     $error['cert'] = true;
                 }
             }
+            
+            $newData = json_decode($this->request->data['Portal']['list'], true);
+                if(!empty($newData))
+                foreach($newData as $row) {
+                if(!$this->_savePortal($row, $id))
+                {
+                    $error['portal'] = true;
+                }
+            }
+            
             $newData = json_decode($this->request->data['Doc']['list'], true);
             if(!empty($newData))
                 foreach($newData as $row) {
@@ -240,6 +262,7 @@
             $this->loadModel('ContactType');
             $this->set('custTypes', $this->ContactType->find('list'));
             $this->set('sources', explode("|", $this->config['contact.sources']));
+            $this->set('accessTypes', explode("|", $this->config['portal.access_types']));
             
         }
         
@@ -247,7 +270,8 @@
             if(!empty($this->request->data))
             {
                 $data = $this->request->data;
-                $error = array('phone' => false, 'customer' => false, 'group' => false, 'address' => false, 'cert' => false, 'doc' => false);
+                $error = array('phone' => false, 'customer' => false, 'group' => false, 
+                    'address' => false, 'cert' => false, 'doc' => false, 'portal' => false);
                 
                 $id = $this->_saveContact($data['Contact']);
 
@@ -294,6 +318,16 @@
                     $error['cert'] = true;
                 }
             }
+            
+            $newData = json_decode($this->request->data['Portal']['list'], true);
+                if(!empty($newData))
+                foreach($newData as $row) {
+                if(!$this->_savePortal($row, $id))
+                {
+                    $error['portal'] = true;
+                }
+            }
+            
             $newData = json_decode($this->request->data['Doc']['list'], true);
             if(!empty($newData))
                 foreach($newData as $row) {
@@ -333,6 +367,7 @@
              $this->loadModel('ContactType');
             $this->set('custTypes', $this->ContactType->find('list'));
             $this->set('sources', explode("|", $this->config['contact.sources']));
+            $this->set('accessTypes', explode("|", $this->config['portal.access_types']));
         }
         private function _removeAttribute($context, $id)
         {
@@ -411,6 +446,26 @@
             
             $this->ContactCertification->create();
             return $this->ContactCertification->save($cert);
+            
+        }
+        private function _savePortal($cert, $id)
+        {
+            $this->loadModel('Portal');
+            
+            $cert['contact_id'] = $id;
+            if(empty($cert['start_date']))
+                unset($cert['start_date']);
+            else
+                $cert['start_date'] = date('Y-m-d H:i:s', strtotime($cert['start_date']));
+            
+            if(empty($cert['end_date']))
+                unset($cert['end_date']);
+            else
+                $cert['end_date'] = date('Y-m-d H:i:s', strtotime($cert['end_date']));
+            
+            
+            $this->Portal->create();
+            return $this->Portal->save($cert);
             
         }
         private function _saveLinkedDoc($doc, $id)

@@ -6,7 +6,7 @@ class Contact extends AppModel {
     public $useTable = 'contacts';
   //  public $actsAs = array('Containable');
 
-        public $hasMany = array('ContactAddress', 'ContactFile', 'ContactPhone','ContactGroup','ContactCertification');
+        public $hasMany = array('Portal','ContactAddress', 'ContactFile', 'ContactPhone','ContactGroup','ContactCertification');
         public $hasAndBelongsToMany = array('Customer' => array(
             'className' => 'Customer',
                 'joinTable' => 'contact_customers',

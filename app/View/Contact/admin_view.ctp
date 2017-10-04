@@ -104,6 +104,7 @@
   <li class="active"><a data-toggle="pill" href="#general">General Information</a></li>
   <li><a data-toggle="pill" href="#certifications">Certifications/Docs</a></li>
   <li><a data-toggle="pill" href="#trainings">Trainings</a></li>
+  <li><a data-toggle="pill" href="#portal">Portal Subscriptions</a></li>
   <li><a data-toggle="pill" href="#communications">Communications</a></li>
   
 </ul>
@@ -428,15 +429,20 @@
          <div class="tab-pane fade" id="trainings">   
          
         <!-- /.box-header -->
-        
+        <div class="row">
+            <div class='col-md-12'>
                     <?= $this->element('training_tab'); ?>
-          
-        
-      
-
+            </div>
         </div>
-        
-    </div>
+</div>
+        <div class="tab-pane fade" id="portal">   
+         
+        <!-- /.box-header -->
+        <div class="row">
+            <div class='col-md-12'>
+                    <?= $this->element('portal_tab'); ?>
+            </div>
+        </div>
 </div>
   <?php $this->start('jquery-scripts'); ?>
 	

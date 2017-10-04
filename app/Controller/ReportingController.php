@@ -169,7 +169,40 @@ App::uses('AppController', 'Controller');
             $this->JobAttendee->bindModel(array('belongsTo' => array(
                 'Contact', 'Job'
             )));
-                       $contactId = $this->_getContactTrainingContactEmail($id);
+                       $contactId = $this->_getContactPortalContactEmail($id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
+                       if($sendResult)
+                       {
+                           $counterSent++;
+                           
+                       }
+                       else
+                       {
+                           $counterUnsent++;
+                           $this->_changeEmailStatus($communicationId, 'error');
+                       }
+                   }
+                   else if($context === 'organization-portal')
+                   {
+                       $contactId = $this->_getPortalContactEmail($id);
+                       $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
+                       $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
+                       if($sendResult)
+                       {
+                           $counterSent++;
+                           
+                       }
+                       else
+                       {
+                           $counterUnsent++;
+                           $this->_changeEmailStatus($communicationId, 'error');
+                       }
+                   }
+                   else if($context === 'contact-portal')
+                   {
+                       
+                       $contactId = $this->_getPortalContactEmail($id);
                        $communicationId = $this->_logEmail($context, $templateId, $contactId, $id);
                        $sendResult = $this->_sendEmail($communicationId,$context, $templateId, $id);
                        if($sendResult)
@@ -288,6 +321,40 @@ App::uses('AppController', 'Controller');
                 return $customer['Contact'][0]['id'];
 
      // does not - have to use quickbooks information
+     return null;
+ 
+        }
+        private function _getPortalContactEmail($portalId)
+        {
+            $this->loadModel('Portal');
+            $portal = $this->Portal->findById($portalId);
+            
+            if($portal['Portal']['customer_id'] !== null ) {
+            $this->loadModel('Customer');
+            $customer = $this->Customer->findById($portal['Customer']['id']);
+            
+           
+            // has a contact list and a primary contact chosen.
+            if(!empty($customer['Contact']) && $customer['Customer']['primary_contact_id'] !== null)
+            {
+                foreach($customer['Contact'] as $contact)
+                {
+                    if($contact['id'] === $customer['Customer']['primary_contact_id'])
+                    {
+                        return $contact['id'];
+                    }
+                }
+            }
+            
+            // did not find primary contact - use first contact listed
+            if(!empty($customer['Contact']))
+                return $customer['Contact'][0]['id'];
+
+            }
+            else
+            {
+                return $portal['Portal']['contact_id'];
+            }
      return null;
  
         }
@@ -522,7 +589,19 @@ App::uses('AppController', 'Controller');
                 $contactId = $this->_getContactTrainingContactEmail($id);
                 $emailHtml = $this->_getHtml($template['EmailTemplate']['content'],$training);
                 break;
-            
+                case 'organization-portal':
+                    $this->loadModel('Portal');
+                    $portal = $this->Portal->findById($id);
+                    $contactId = $this->_getPortalContactEmail($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'], $portal);
+                    break;
+                case 'contact-portal':
+                    $this->loadModel('Portal');
+                    $portal = $this->Portal->findById($id);
+                    $contactId = $this->_getPortalContactEmail($id);
+                    $emailHtml = $this->_getHtml($template['EmailTemplate']['content'], $portal);
+                    break;
+                
                 default:
                     break;
             }
@@ -615,6 +694,14 @@ App::uses('AppController', 'Controller');
             if($context === 'ContactTraining')
             {
                 $category = array('Job','Contact');
+            }
+             if($context === 'OrganizationPortal')
+            {
+                $category = array('Portal','Organization');
+            }
+            if($context === 'ContactPortal')
+            {
+                $category = array('Portal','Contact');
             }
             if($context === 'Customer')
             {
@@ -1411,7 +1498,40 @@ App::uses('AppController', 'Controller');
                return $results;
            }
            
+           
+           
            private function _limitCertificationsByState($results = array(), $states = array())
+           {
+             //  pr($states);
+               foreach($results as $i => $result)
+               {
+                  // pr($result);
+                   
+                   $safe = false;
+                   // Contact addresses populated, ignore quickbooks
+                   if(!empty($result['Contact']['ContactAddress']))
+                   {
+                       foreach($result['Contact']['ContactAddress'] as $addy)
+                       {
+                          // pr($addy['state']);
+                           if(in_array($addy['state'], $states))
+                           {
+                               $safe = true;
+                           }
+                       }
+                   }
+                   
+                   if(!$safe)
+                   {
+                       unset($results[$i]);
+                   }
+               }
+             //  pr($results);
+              // exit();
+               return $results;
+           }
+           
+           private function _limitPortalByState($results = array(), $states = array())
            {
              //  pr($states);
                foreach($results as $i => $result)
@@ -1833,7 +1953,281 @@ App::uses('AppController', 'Controller');
                exit();
            }
            
-           public function admin_runCertificationReport($context,$criteria=null, $fields=null,$export=null)
+           public function admin_runContactPortalReport($context,$criteria=null, $fields=null,$export=null)
+        {
+            
+            $this->layout = 'ajax';
+           if($this->request->is('post')) {
+             
+              
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
+               
+            $this->loadModel('Portal');
+          //  $this->$context->unbindModel(array('hasMany' => array('Job')));
+            
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
+                 
+              // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            
+             if(!empty($this->request->data['conditions']))
+           {
+               $this->request->data['conditions'] .= " AND ";
+           }
+           $this->request->data['conditions'] .= "(Portal.customer_id is null)";
+ 
+ // pr($this->request->data['conditions']); exit();
+            $results = $this->Portal->find('all', array(
+                'recursive' => 2, 
+                'conditions' => $this->request->data['conditions']));
+//pr($results); exit();
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitPortalByState($results, $locationLimit['byState']);
+            }
+            
+           
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    
+                       $complexValue = $this->_fetchComplexFieldInfoContact($compactField['id'], $res['Contact']['id']);
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
+            $final = array();
+            $returnFields = array();
+            $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
+            foreach($getFields['all'] as $name => $field)
+               {
+                   
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
+                   $returnFields[] = array(
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
+                       'class' =>'show-on-export');
+                        
+               }
+              
+               $counter =0;
+            foreach($results as $result)
+            {
+                
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Portal']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
+               {
+                   
+                   $fieldArray = explode(".", $name);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$counter][str_replace(".", "-",$name)] = "";
+                       
+                   }
+               }
+               
+                $counter++;
+            }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
+          //  pr($final); exit();
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
+           
+           }
+           
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
+        }
+        
+        public function admin_runOrganizationPortalReport($context,$criteria=null, $fields=null,$export=null)
+        {
+            
+            $this->layout = 'ajax';
+           if($this->request->is('post')) {
+             
+              
+               // Limit location if available
+               $locationLimit = $this->request->data['locationLimit'];
+               
+            $this->loadModel('Portal');
+          //  $this->$context->unbindModel(array('hasMany' => array('Job')));
+            
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . ")";
+            if(trim(substr($this->request->data['conditions'],-4)) === "OR")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-4) . "";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND )")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . ")";
+            if(trim(substr($this->request->data['conditions'],-5)) === "AND")
+                    $this->request->data['conditions'] = substr($this->request->data['conditions'],0,-5) . "";
+                 
+              // search fields only - avoid compact fields
+            $getFields = $this->_getSearchFields($this->request->data['fields']);
+            
+             if(!empty($this->request->data['conditions']))
+           {
+               $this->request->data['conditions'] .= " AND ";
+           }
+           $this->request->data['conditions'] .= "(Portal.contact_id is null)";
+ 
+ // pr($this->request->data['conditions']); exit();
+            $results = $this->Portal->find('all', array(
+                'recursive' => 2, 
+                'conditions' => $this->request->data['conditions']));
+//pr($results); exit();
+            if(isset($locationLimit['byState']))
+            {
+                $results = $this->_limitAccreditationsByState($results, $locationLimit['byState']);
+            }
+            
+           
+            
+            // TODO: Limit Org by state
+            
+            if(!empty($getFields['compact']))
+            {
+                 foreach($results as $i => $res)
+                    {
+                foreach($getFields['compact'] as $compactField)
+                {
+                    if(!isset($results[$i][$compactField['model_name']]))
+                        $results[$i][$compactField['model_name']] = array();
+                    
+                    
+                       $complexValue = $this->_fetchComplexFieldInfoCustomer($compactField['id'], $res['Customer']['id']);
+                   
+                      $results[$i][$compactField['model_name']][$compactField['field_name']] = 
+                              $complexValue;
+                    }
+                }
+            }
+            
+            $final = array();
+            $returnFields = array();
+            $innerFieldArray = array();
+            $returnFields[] = array(
+                       'title' => "",
+                       'orderable' => false,
+                       'targets' => 0,
+                       
+                       'searchable' => false,
+                       'data' => 'select-box');
+            foreach($getFields['all'] as $name => $field)
+               {
+                   
+                   $innerFieldArray[str_replace(".", "-",$name)] = null;
+                   $returnFields[] = array(
+                       'title' => $field,
+                       'data' => str_replace(".", "-",$name),
+                       'class' =>'show-on-export');
+                        
+               }
+              
+               $counter =0;
+            foreach($results as $result)
+            {
+                
+               $final[$counter] = $innerFieldArray;
+              $final[$counter]['select-box'] = "<input type='checkbox' class='report-select' data-id='" . $result['Portal']['id'] . "' />";
+               foreach($getFields['all'] as  $name => $field)
+               {
+                   
+                   $fieldArray = explode(".", $name);
+                   // if not a multi-array
+                   if(isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (!isset($result[$fieldArray[0]][0] )||
+                           !is_array($result[$fieldArray[0]][0] ))) {
+                        $final[$counter][str_replace(".", "-",$name)] = $result[$fieldArray[0]][$fieldArray[1]];
+                   }
+                   // check if first element is another array - this means a multi-dimensional array
+                   elseif(!isset($result[$fieldArray[0]][$fieldArray[1]]) && 
+                           !empty($result[$fieldArray[0]]) && 
+                           (isset($result[$fieldArray[0]][0]) &&
+                           is_array($result[$fieldArray[0]][0])))
+                   {
+                       foreach($result[$fieldArray[0]] as $subresult) 
+                       {
+                           
+                           $final[$counter][str_replace(".", "-",$name)] .= $subresult[$fieldArray[1]] . "<br />";
+                           
+                       }
+                   }
+                   else
+                   {
+                       $final[$counter][str_replace(".", "-",$name)] = "";
+                       
+                   }
+               }
+               
+                $counter++;
+            }
+            $return = array('data' => array('data' => $final), 'columns' => $returnFields);
+          //  pr($final); exit();
+            $this->loadModel('JsonReport');
+            $this->JsonReport->create();
+            $this->JsonReport->save(array('json' => json_encode($return)));
+            echo $this->JsonReport->id;
+            exit();
+           
+           }
+           
+            $this->set('results', $final);
+            $this->set('fields', $this->request->data['fields']);
+        }
+        
+        public function admin_runCertificationReport($context,$criteria=null, $fields=null,$export=null)
         {
             
             $this->layout = 'ajax';
@@ -2124,6 +2518,38 @@ App::uses('AppController', 'Controller');
             ))));
             $this->set('fields', $this->_reportingFields('ContactTraining'));
             $this->set('defaultExportTitle', 'ContactTrainingQuery-' . date("mdY"));
+	}
+        
+        public function admin_contactPortal() {
+                
+            $this->loadModel('EmailTemplate');
+            $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
+                'context' => 'ContactPortal'
+            ))));
+           
+            $accessTypes = array();
+            foreach(explode("|", $this->config['portal.access_types']) as $type) {
+                $accessTypes[$type] = $type;
+            }
+           
+            $this->set('accessTypes', $accessTypes);
+            $this->set('fields', $this->_reportingFields('ContactPortal'));
+            $this->set('defaultExportTitle', 'ContactPortalQuery-' . date("mdY"));
+	}
+        
+        public function admin_organizationPortal() {
+                
+            $this->loadModel('EmailTemplate');
+            $this->set('templateOptions', $this->EmailTemplate->find('list', array('conditions' => array(
+                'context' => 'OrganizationPortal'
+            ))));
+            $accessTypes = array();
+            foreach(explode("|", $this->config['portal.access_types']) as $type) {
+                $accessTypes[$type] = $type;
+            }
+            $this->set('accessTypes', $accessTypes);
+            $this->set('fields', $this->_reportingFields('OrganizationPortal'));
+            $this->set('defaultExportTitle', 'OrganizationPortalQuery-' . date("mdY"));
 	}
 
         function admin_customer() {

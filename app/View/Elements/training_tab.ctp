@@ -1,5 +1,5 @@
 
-<div class="box box-success collapsed-box">
+<div class="box box-success">
             <div class="box-header ui-sortable-handle" style="cursor: move;">
               <i class="fa fa-graduation-cap"></i>
 <?php $count = 0;
@@ -10,7 +10,7 @@ if(!empty($trainings))
               <!-- tools box -->
               <div class="pull-right box-tools">
                   <span data-toggle="tooltip" title="" class="badge bg-green" data-original-title="<?= $count; ?> Trainings"><?= $count; ?></span>
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 
               </div>
               <!-- /. tools -->

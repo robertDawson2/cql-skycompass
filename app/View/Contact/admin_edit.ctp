@@ -72,6 +72,7 @@
   <li><a data-toggle="pill" href="#addresses">Addresses</a></li>
   <li><a data-toggle="pill" href="#phones">Phone Numbers</a></li>
   <li><a data-toggle="pill" href="#certifications">Certifications</a></li>
+  <li><a data-toggle="pill" href="#portal">Portal Subscriptions</a></li>
   <li><a data-toggle="pill" href="#files">Linked Docs</a></li>
   
 </ul>
@@ -129,12 +130,14 @@
             <?= $this->Form->hidden('Address.list'); ?> 
             <?= $this->Form->hidden('Cert.list'); ?>
             <?= $this->Form->hidden('Doc.list'); ?>
+            <?= $this->Form->hidden('Portal.list'); ?>
             <?= $this->Form->hidden('Phone.removed'); ?>
             <?= $this->Form->hidden('Customer.removed'); ?>
             <?= $this->Form->hidden('Group.removed'); ?>
             <?= $this->Form->hidden('Address.removed'); ?> 
             <?= $this->Form->hidden('Cert.removed'); ?>
             <?= $this->Form->hidden('Doc.removed'); ?>
+            <?= $this->Form->hidden('Portal.removed'); ?>
             
         </div>
         
@@ -496,6 +499,90 @@
  </div>
         </div>
         
+        <div class="tab-pane fade" id="portal">   
+         <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-globe"></i> Portal System
+            </h3>
+
+          
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id='portalList' 
+                           <?php if(count($current['Portal']) == 0) { ?> style='display: none;' <?php } ?> 
+                           class='table table-bordered table-responsive table-striped'>
+                        <thead>
+                        <th>Access Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Notes</th>
+                        <th></th>
+                        
+                        </thead>
+                    
+                    
+                    <?php
+                            $emptyCustomers = true;
+                        if(!empty($current['Portal'])) {
+                            $emptyCustomers = false;
+                            foreach($current['Portal'] as $cert):
+                                ?>
+                    
+                    <tr data-saved-id ="<?= $cert['id']; ?>"
+                        data-access_type ="<?= $cert['access_type']; ?>" 
+                        data-notes = "<?= $cert['notes']; ?>" 
+                        data-start_date ="<?= $cert['start_date']; ?>" 
+                        data-end_date ="<?= $cert['end_date']; ?>" 
+                        class="portal-row saved">
+                        <td><?=$cert['access_type']; ?></td>
+                        <td><?= date('m/d/Y', strtotime($cert['start_date'])); ?></td>
+                        <td><?= date('m/d/Y', strtotime($cert['end_date'])); ?></td>
+                        <td><?= $cert['notes']; ?></td>
+                        <td>
+                         <i onclick="removePortalRow(this);" class="fa fa-remove remove-row"></i> 
+                             <i onclick="editPortalRow(this);" class="fa fa-edit edit-row"></i>
+                        <i onclick="revertPortalRow(this);" class="fa fa-refresh revert-row" style='display: none;'></i>
+                        </td>
+                    </tr>
+
+                        <?php 
+                            endforeach;
+                        } ?>
+                    </table>
+                    <div class='empty-message' <?php if(!$emptyCustomers) { echo "style='display: none;'"; }?>>
+                    <strong><em>--- No portal subscriptions listed ---</em></strong>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <?= $this->Form->input('Portal.access_type', array('div'=>'col-md-4', 'class'=>'input form-control', 'options' => $accessTypes)); ?>
+                <?= $this->Form->input('Portal.start_date', array('type' => 'text','div'=>'col-md-4', 'class'=>'datepicker input form-control'
+                        )); ?>
+               <?= $this->Form->input('Portal.end_date', array('type'=>'text','div'=>'col-md-4', 'class'=>'datepicker input form-control'
+                        )); ?>
+            </div>
+            
+            <div class="row">
+                 
+                <?= $this->Form->input('Portal.notes', array('label' => 'Notes','div'=>'col-md-12', 'class'=>'input form-control', 'type' => 'textarea'
+                        )); ?>
+                 
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>
+                    <input style='margin-top: 25px;' id='portalSubmit' type="submit" class='btn btn-primary' value='Add New Portal Subscription' />
+                </div>
+            </div>
+        </div>
+        
+        
+ </div>
+        </div>
+        
                <div class="tab-pane fade" id="files">   
          <div class="box box-info">
         <div class="box-header with-border">
@@ -559,6 +646,29 @@
 function closeCustomRoxy2(){
 	$('#roxyCustomPanel2').dialog('close');
 }
+
+$("#portalSubmit").click(function(e) {
+    e.preventDefault();
+    console.log("here");
+    $html = "<tr data-access_type='";
+    $html += $("#PortalAccessType option:selected").text();
+    $html += "' data-start_date='" + $("#PortalStartDate").val();
+    $html += "' data-end_date='" + $("#PortalEndDate").val();
+    
+    $html += "' data-notes='" + $("#PortalNotes").val();
+    $html += "' class='portal-row'>";
+    $html += "<td>" + $("#PortalAccessType option:selected").text() + "</td>";
+    $html += "<td>" + $("#PortalStartDate").val() + "</td>";
+    $html += "<td>" + $("#PortalEndDate").val() + "</td>"; 
+    $html += "<td>" + $("#PortalNotes").val() + "</td>"; 
+    $html += "<td><i onclick='removePortalRow(this);' class='fa fa-remove remove-row'></i></td></tr>";
+    $("#portalList").append($html);
+    if($(".portal-row").size() > 0)
+    {
+        $("#portalList").parent().children(".empty-message").fadeOut();
+        $("#portalList").fadeIn();
+    }
+});
 
 $("#certSubmit").click(function(e) {
     e.preventDefault();
@@ -700,6 +810,34 @@ function editCertRow(me) {
     removeCertRow(me);
     $(me).parent().parent().fadeOut('fast');
 }
+function editPortalRow(me) {
+    $(me).parent().children('.remove-row').hide();
+    
+    $("#PortalAccessType").val($(me).parent().parent().data('access_type'));
+    $("#PortalStartDate").val($(me).parent().parent().data('start_date'));
+    $("#PortalEndDate").val($(me).parent().parent().data('end_date'));
+    $("#PortalNotes").val($(me).parent().parent().data('notes'));
+    removePortalRow(me);
+    $(me).parent().parent().fadeOut('fast');
+}
+
+function removePortalRow(me) {
+    if(!$(me).parent().parent().hasClass('saved'))
+    $(me).parent().parent().fadeOut().delay(500).remove();
+    else
+    {
+        $(me).parent().parent().addClass('deleted');
+        $(me).fadeOut('fast');
+        $(me).parent().children('.edit-row').fadeOut('fast');
+        $(me).parent().children('.revert-row').fadeIn('fast');
+    }
+ if($(".portal-row").size() === 0)
+    {
+        $("#portalList").parent().children(".empty-message").fadeIn();
+        $("#portalList").fadeOut();
+    }   
+}
+
 function removeCertRow(me) {
     if(!$(me).parent().parent().hasClass('saved'))
     $(me).parent().parent().fadeOut().delay(500).remove();
@@ -717,6 +855,12 @@ function removeCertRow(me) {
     }   
 }
 function revertCertRow(me) {
+    $(me).parent().parent().removeClass('deleted');
+    $(me).fadeOut('fast');
+    $(me).parent().children('.remove-row').fadeIn('fast');
+    $(me).parent().children('.edit-row').fadeIn('fast');
+}
+function revertPortalRow(me) {
     $(me).parent().parent().removeClass('deleted');
     $(me).fadeOut('fast');
     $(me).parent().children('.remove-row').fadeIn('fast');
@@ -861,6 +1005,33 @@ $("#submitAll").click(function(e) {
     $("#CertList").val(JSON.stringify($phone));
     $("#CertRemoved").val(JSON.stringify($deleted));
     }
+    
+    if($(".portal-row").size() > 0)
+    {
+        $phone = [];
+        $deleted = [];
+        $(".portal-row").each(function() {
+            $newPhone = {
+                'access_type' : $(this).data('access_type'),
+                'start_date' : $(this).data('start_date'),
+                'end_date' : $(this).data('end_date'),
+                'notes' : $(this).data('notes')
+                               
+        };
+         if(!$(this).hasClass('saved'))
+        $phone.push($newPhone);
+    
+    if($(this).hasClass('deleted'))
+        {
+            $deleted.push($(this).data('saved-id'));
+        }
+    });
+   
+    $("#PortalList").val(JSON.stringify($phone));
+    $("#PortalRemoved").val(JSON.stringify($deleted));
+    }
+    
+    
     if($(".doc-row").size() > 0)
     {
         $phone = [];

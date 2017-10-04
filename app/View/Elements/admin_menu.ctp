@@ -209,7 +209,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/admin/schedule/scheduleReport"><i class="fa fa-circle-o"></i> Approval/Denial Report</a></li>
-            <li><a href="/admin/reporting/quickReports"><i class="fa fa-circle-o"></i> Quick Reports</a></li>
+            <!--<li><a href="/admin/reporting/quickReports"><i class="fa fa-circle-o"></i> Quick Reports</a></li>-->
             <li class='<?= $section == 'crmreporting' ? 'active' : ''; ?> '>
               <a href="#"><i class="fa fa-plus-circle"></i> CRM Reports <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
@@ -219,6 +219,8 @@
                 <li><a href="/admin/reporting/certification"><i class="fa fa-circle-o"></i> Contact Certifications</a></li>
                 <li><a href="/admin/reporting/organizationTraining"><i class="fa fa-circle-o"></i> Org Trainings</a></li>
                 <li><a href="/admin/reporting/contactTraining"><i class="fa fa-circle-o"></i> Contact Trainings</a></li>
+                <li><a href="/admin/reporting/organizationPortal"><i class="fa fa-circle-o"></i> Org Portal Subs</a></li>
+                <li><a href="/admin/reporting/contactPortal"><i class="fa fa-circle-o"></i> Contact Portal Subs</a></li>
 <!--                <li><a href="/admin/reporting/user"><i class="fa fa-circle-o"></i> User Reports</a></li>-->
               </ul>
             </li>

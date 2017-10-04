@@ -6,7 +6,7 @@ class Customer extends AppModel {
     public $useTable = 'customers';
 	
 
-        public $hasMany = array('Job','CustomerPhone','CustomerAddress','CustomerGroup','CustomerFile',
+        public $hasMany = array('Portal','Job','CustomerPhone','CustomerAddress','CustomerGroup','CustomerFile',
             'CustomerAccreditation');
         public $hasAndBelongsToMany = array('Contact' => array(
             'className' => 'Contact',
